@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
+import 'package:project_d2d/utils/constants.dart';
 
 class JobCancelScreen extends StatefulWidget {
   const JobCancelScreen({super.key});
@@ -235,13 +236,13 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                           ),
                           Text("Cancel Job",
                               style:
-                                  TextStyle(fontSize: 18.0, color: Colors.red)),
+                                  TextStyle(fontSize: kFontSize_16, color: Colors.red)),
                         ],
                       ),
                       const SizedBox(height: 5),
                       Text(
                         "Provide a reason for cancellation",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: kFontSize_16),
                       ),
                       const SizedBox(height: 10),
                       TextField(
@@ -255,7 +256,7 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide:
-                                    BorderSide(color: Colors.grey.shade50))),
+                                    BorderSide(color: Colors.grey.shade50),),),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10),
@@ -272,7 +273,7 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                             child: Text(
                               'Cancel',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: kFontSize_16,
                               ),
                             ),
                             style: ButtonStyle(

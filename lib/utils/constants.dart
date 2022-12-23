@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+
+
+//FONT BOLD
+const dynamic kFontWeight_M =  FontWeight.w500;
+const dynamic kFontWeight_SB =  FontWeight.w700;
+const dynamic kFontWeight_B =  FontWeight.w900;
+
+
+//FONT SIZES
+const double kFontSize_16 = 16;
+const double kFontSize_14 = 14;
+
 //FONT FAMILY
 const String kFontFamily = "Poppins";
 
@@ -22,5 +34,3 @@ Map<int, Color> accentColor = {
 };
 
 MaterialColor kAccentMaterialColor = MaterialColor(0xffFD425B, accentColor);
-
-
