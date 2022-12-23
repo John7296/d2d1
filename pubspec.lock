@@ -64,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  cupertino_tabbar:
+    dependency: "direct main"
+    description:
+      name: cupertino_tabbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   dotted_border:
     dependency: "direct main"
     description:
@@ -172,6 +179,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  pin_code_fields:
+    dependency: "direct main"
+    description:
+      name: pin_code_fields
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.4.0"
   pointycastle:
     dependency: transitive
     description:
