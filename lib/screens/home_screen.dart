@@ -8,6 +8,7 @@ import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
+import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -42,7 +43,7 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
           children: <Widget>[
             HomeDetailScreen(),
             AvailableJobsScreen(),
-            JobDetailsScreen(),
+            ProfileScreen(),
             TimeSheetScreen(),
           ],
         ),

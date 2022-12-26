@@ -17,9 +17,10 @@ const double kFontSize_14 = 14;
 const String kFontFamily = "Poppins";
 
 // COLOUR
-const kPrimaryColor = Color(0xFFFFFFFF);
+const kPrimaryColor = Color(0xffFFFFFF);
 const kAccentColor = Color(0xffFD425B);
-const kBackgroundColor = Color(0xFFFFFFFF);
+const kBackgroundColor = Color(0xffFFFFFF);
+const kButtonColor_R = Color(0xffF41937); 
 const kGreenprogressColor = Color(0xff099B29);
 const kGreenColor = Color(0xff179F0B);
 const kgreyColor = Color(0xffD9D9D9);
