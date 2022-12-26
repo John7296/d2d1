@@ -30,7 +30,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.w900,
                             color: Color(0xffAFB0B6),
-                            fontSize: 18)))
+                            fontSize: 13)))
               ],
             ),
           ),
@@ -52,7 +52,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
-                  fontSize: 25),
+                  fontSize: 20),
             ),
           )),
           Center(
@@ -95,7 +95,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
             child: Row(
               children: [
                 Text("Payment History",
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20))
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16))
               ],
             ),
           ),
@@ -104,24 +104,27 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
             child: DataTable(
               headingRowColor: MaterialStateColor.resolveWith(
                   (states) => Color(0xffFF9AA8).withOpacity(0.5)),
-              horizontalMargin: 5,
+              horizontalMargin: 3,
               headingRowHeight: 40,
-              columnSpacing: 40,
+              columnSpacing: 30,
               dataRowHeight: 40,
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffCECCDD), width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
               columns: [
-                DataColumn(label: Text("Date", style: TextStyle(color: Color(0xff4A4646)),)),
-                DataColumn(label: Text("Mode of Payment", style: TextStyle(color: Color(0xff4A4646)),)),
-                DataColumn(label: Text("Status", style: TextStyle(color: Color(0xff4A4646)),))
+                DataColumn(label: Text("Date", style: TextStyle(color: Color(0xff4A4646), fontSize: 13),)),
+                DataColumn(label: Text("Mode of Payment", style: TextStyle(color: Color(0xff4A4646),fontSize: 13),)),
+                DataColumn(label: Padding(
+                  padding: const EdgeInsets.only(left:25),
+                  child: Text("Status", style: TextStyle(color: Color(0xff4A4646),fontSize: 13),),
+                ))
               ],
               rows: <DataRow>[
                 DataRow(cells: <DataCell>[
                   DataCell(Text(
                     '25-Aug-2022',
-                    style: TextStyle(fontSize: 13, color: Color(0xff666666)),
+                    style: TextStyle(fontSize: 12, color: Color(0xff666666)),
                   )),
                   DataCell(Text('Bank Transfer', style: TextStyle(fontSize: 13, color: Color(0xff666666)),),),
                   DataCell(Container(
@@ -137,7 +140,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                 DataRow(cells: <DataCell>[
                   DataCell(Text(
                     '28-Apr-2022',
-                    style: TextStyle(fontSize: 13, color: Color(0xff666666),),
+                    style: TextStyle(fontSize: 12, color: Color(0xff666666),),
                   )),
                   DataCell(Text('Bank Transfer', style: TextStyle(fontSize: 13, color: Color(0xff666666)),)),
                   DataCell(Container(
@@ -285,7 +288,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
             padding: const EdgeInsets.only(top: 20, bottom: 20),
             child: Container(
               height: 50,
-              width: 150,
+              width: 160,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xffFD425B),

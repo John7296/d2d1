@@ -15,14 +15,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0,
-        //   leading: IconButton(icon: Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //   },
-        //   ),
-        //  ),
         body: Column(children: [
           Padding(
             padding: const EdgeInsets.only(top: 50),
@@ -36,11 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             height: 80,
             width: 210,
-            
-            child:
-             Image(image: AssetImage("assets/images/logo-d2d.png"),
-             fit: BoxFit.fill,
-             ),
+            child: Image(
+              image: AssetImage("assets/images/logo-d2d.png"),
+              fit: BoxFit.fill,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 20),
@@ -48,17 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   "Welcome Back",
-                  style: TextStyle(
-                     
-                      fontSize: 27,
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                 ),
-               Container(
-                height: 40,
-                width:50,
-                child: Image(image: AssetImage("assets/images/handwave.jpg"),
-                fit: BoxFit.fill,)
-               )
+                Container(
+                    height: 40,
+                    width: 50,
+                    child: Image(
+                      image: AssetImage("assets/images/handwave.jpg"),
+                      fit: BoxFit.fill,
+                    ))
               ],
             ),
           ),
@@ -67,9 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Row(
               children: [
                 Text(
-                  "Lets Log in",
+                  "Lets Log in.",
                   style: TextStyle(
-                     
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: Color(0xffAFB0B6)),
@@ -89,12 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         //only(left:10, top:5, bottom:5),
                         symmetric(vertical: 20, horizontal: 10),
                     border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xffAFB0B6),
+                      ),
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
                     ),
-                    labelText: "   Email/Phone Number",
-                    labelStyle: TextStyle(
-                        color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+                    labelText: "   E-mail / Phone Number",
+                    labelStyle:
+                        TextStyle(color: Color(0xffAFB0B6), fontWeight:FontWeight.w500,fontSize: 15),
                   )),
                 ),
                 Padding(
@@ -106,11 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               symmetric(vertical: 20, horizontal: 10),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                            borderSide: BorderSide(color: Color(0xffAFB0B6)),
                           ),
                           labelText: "   Password",
-                          labelStyle: TextStyle(
-                             color: Color(0xffAFB0B6)),
+                          labelStyle:
+                              TextStyle(color: Color(0xffAFB0B6), fontWeight:FontWeight.w500,fontSize: 15),
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: Icon(
@@ -128,19 +118,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: Color(0xffFD425B),
                       ),
                       onPressed: () {
-
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfileScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen()));
                       },
                       child: Center(
                           child: Text(
                         "Log in",
                         style: TextStyle(
                             fontSize: 20,
-                     
                             fontWeight: FontWeight.w500,
                             color: Colors.white),
                       )),
@@ -149,25 +136,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top:30),
-                      child: TextButton(
-                          onPressed: () {
-                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ForgotPasswordScreen()));
-
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                               
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xffFD425B)),
-                          )),
-                    ))
+                  padding: const EdgeInsets.only(top: 30),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen()));
+                      },
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffFD425B)),
+                      )),
+                ))
               ],
             ),
           )

@@ -12,7 +12,7 @@ void main() {
         theme: ThemeData(
             primarySwatch: kAccentMaterialColor, fontFamily: kFontFamily),
         debugShowCheckedModeBanner: false,
-        home: HomeDetailScreen(),
+        home: LoginScreen(),
       );
     },
   ));

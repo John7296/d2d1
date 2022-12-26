@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 20),
               child: Row(
                 children: [
                   IconButton(
@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: 25),
+                    fontSize: 22),
               ),
             )),
             Center(
@@ -68,8 +68,8 @@ class ProfileScreen extends StatelessWidget {
                     "27",
                     style: TextStyle(
                         color: Colors.black,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 60),
@@ -77,8 +77,8 @@ class ProfileScreen extends StatelessWidget {
                       "89",
                       style: TextStyle(
                           color: Colors.black,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15),
                     ),
                   ),
                   Padding(
@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                           color: Color(0xffF41937),
                           fontWeight: FontWeight.w700,
-                          fontSize: 18),
+                          fontSize: 15),
                     ),
                   ),
                   Padding(
@@ -96,17 +96,16 @@ class ProfileScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfileSummaryScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileSummaryScreen()));
                       },
                       child: Text(
                         "\$3435.00",
                         style: TextStyle(
-                            color:kGreenColor,
+                            color: kGreenColor,
                             fontWeight: FontWeight.w700,
-                            fontSize: 18),
+                            fontSize: 15),
                       ),
                     ),
                   ),
@@ -124,37 +123,37 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                         color: Color(0xff95969D),
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 11),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 32,
                   ),
                   Text(
                     "Time sheets",
                     style: TextStyle(
                         color: Color(0xff95969D),
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 11),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 32,
                   ),
                   Text(
                     "Time sheets",
                     style: TextStyle(
                         color: Color(0xff95969D),
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 11),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 32,
                   ),
                   Text(
                     "Total Earnings",
                     style: TextStyle(
                         color: Color(0xff95969D),
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 11),
                   ),
                 ],
               ),
@@ -165,11 +164,11 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Text("Recent Job Request",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                   Spacer(),
                   Text("See all",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Color(0xffAFB0B6),
                       )),
                 ],
@@ -179,10 +178,10 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    //color: Colors.white70
-                    color: Colors.yellow,
-                  ),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white70
+                      // color: Colors.yellow,
+                      ),
                   height: 90,
                   child: Column(
                     children: [
@@ -215,7 +214,7 @@ class ProfileScreen extends StatelessWidget {
                                 Text("Dialysis Specialist",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 16,
+                                      fontSize: 15,
                                     )),
                                 Text("Agate House",
                                     style: TextStyle(
@@ -288,11 +287,11 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Text("Time Sheets",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                   Spacer(),
                   Text("See all",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Color(0xffAFB0B6),
                       )),
                 ],
@@ -303,10 +302,10 @@ class ProfileScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    height: 90,
-                    width: 190,
+                    height: 70,
+                    width: 180,
                     decoration: BoxDecoration(
-                       color: Colors.white70,
+                      color: Colors.white70,
                       //color: Colors.green,
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -317,7 +316,7 @@ class ProfileScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: 30,
+                                radius: 25,
                                 backgroundColor: Color(0xffFDD9DE),
                                 child: Container(
                                   width: 50,
@@ -336,35 +335,31 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 20),
+                          padding: const EdgeInsets.only(left: 10, top: 13),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("7 Pending",
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xffFD425B))),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text("Agate House",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Color(0xffAFB0B6))),
-                              ),
+                              Text("Agate House",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xffAFB0B6))),
                             ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  Spacer(),
+                  SizedBox(width: 10),
                   Container(
-                    height: 90,
-                    width: 190,
+                    height: 70,
+                    width: 180,
                     decoration: BoxDecoration(
                       color: Colors.white70,
-                     // color: Colors.green,
+                      // color: Colors.green,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(
@@ -374,7 +369,7 @@ class ProfileScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: 30,
+                                radius: 25,
                                 backgroundColor: Color(0xffFDD9DE),
                                 child: Container(
                                   width: 50,
@@ -392,24 +387,20 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        // SizedBox(width: 10),
                         Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 20),
+                          padding: const EdgeInsets.only(left: 10, top: 13),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("85 Approved",
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
                                       color: Color(0xffFD425B))),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 6.0),
-                                child: Text("Agate House",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xffAFB0B6))),
-                              ),
+                              Text("Agate House",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xffAFB0B6))),
                             ],
                           ),
                         )
@@ -425,7 +416,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Text("Training Status",
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.black)),
                 ],
@@ -439,134 +430,101 @@ class ProfileScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top:20),
+                        padding: const EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                         
                             Row(
                               children: [
                                 Text("Manual Handling",
-                                    style:
-                                        TextStyle(fontSize: 16, color: Colors.black)),
-
-
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.black)),
                               ],
                             ),
-
                             SizedBox(height: 10),
-
                             Text("Food Hygiene",
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.black)),
-
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black)),
                             SizedBox(height: 10),
-
                             Text("Fire Awareness",
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.black)),
-
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black)),
                             SizedBox(height: 10),
-
                             Text("Health and Safety",
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.black)),
-
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black)),
                             SizedBox(height: 10),
-
                             Text("Infection Control",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black)),
                           ],
                         ),
                       ),
-
                       Spacer(),
-
                       Column(
-                        
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left:150),
+                            padding: const EdgeInsets.only(left: 150),
                             child: Text("38%"),
                           ),
-
                           LinearPercentIndicator(
                             lineHeight: 12,
                             width: 200,
                             progressColor: kGreenprogressColor,
-                              backgroundColor: Color(0xffD9D9D9),
+                            backgroundColor: Color(0xffD9D9D9),
                             percent: 0.38,
-                           barRadius: Radius.circular(5),
-
-
+                            barRadius: Radius.circular(5),
                           ),
-
                           Padding(
-                            padding: const EdgeInsets.only(left:150),
+                            padding: const EdgeInsets.only(left: 150),
                             child: Text("93%"),
                           ),
-
                           LinearPercentIndicator(
                             lineHeight: 12,
                             width: 200,
                             progressColor: kGreenprogressColor,
                             backgroundColor: Color(0xffD9D9D9),
                             percent: 0.93,
-                           barRadius: Radius.circular(5),
-
-
+                            barRadius: Radius.circular(5),
                           ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:150),
-                              child: Text("68%"),
-                            ),
-
-                           LinearPercentIndicator(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 150),
+                            child: Text("68%"),
+                          ),
+                          LinearPercentIndicator(
                             lineHeight: 12,
                             width: 200,
                             progressColor: kGreenprogressColor,
-                              backgroundColor: Color(0xffD9D9D9),
+                            backgroundColor: Color(0xffD9D9D9),
                             percent: 0.68,
-                           barRadius: Radius.circular(5),
-
-
+                            barRadius: Radius.circular(5),
                           ),
-
-                            Padding(
-                              padding: const EdgeInsets.only(left:150),
-                              child: Text("24%"),
-                            ),
-
-                           LinearPercentIndicator(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 150),
+                            child: Text("24%"),
+                          ),
+                          LinearPercentIndicator(
                             lineHeight: 12,
                             width: 200,
                             progressColor: kGreenprogressColor,
-                              backgroundColor: Color(0xffD9D9D9),
+                            backgroundColor: Color(0xffD9D9D9),
                             percent: 0.24,
-                           barRadius: Radius.circular(5),
-
-
+                            barRadius: Radius.circular(5),
                           ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:150),
-                                child: Text("89%"),
-                              ),
-                           LinearPercentIndicator(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 150),
+                            child: Text("89%"),
+                          ),
+                          LinearPercentIndicator(
                             lineHeight: 12,
                             width: 200,
                             progressColor: kGreenprogressColor,
-                              backgroundColor: Color(0xffD9D9D9),
+                            backgroundColor: Color(0xffD9D9D9),
                             percent: 0.89,
-                           barRadius: Radius.circular(5),
-
-
+                            barRadius: Radius.circular(5),
                           ),
-
-                         
-
                         ],
                       )
                     ],
