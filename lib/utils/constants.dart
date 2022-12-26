@@ -16,9 +16,10 @@ const double kFontSize_14 = 14;
 const String kFontFamily = "Poppins";
 
 // COLOUR
-const kPrimaryColor = Color(0xFFFFFFFF);
+const kPrimaryColor = Color(0xffFFFFFF);
 const kAccentColor = Color(0xffFD425B);
-const kBackgroundColor = Color(0xFFFFFFFF);
+const kBackgroundColor = Color(0xffFFFFFF);
+const kButtonColor_R = Color(0xffF41937); 
 
 Map<int, Color> accentColor = {
   50: Color.fromRGBO(253, 66, 91, .1),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -37,9 +38,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                   padding: const EdgeInsets.only(top: 5, left: 90),
                   child: Text("All Jobs",
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: kFontSize_16, fontWeight: kFontWeight_SB),
                       textAlign: TextAlign.center),
                 ),
               ],
@@ -54,12 +53,48 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                     child: Text(
                       "All Available Jobs",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+                          fontSize: kFontSize_16, fontWeight: kFontWeight_SB),
                     ),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5, bottom: 10),
+              child: InkWell(
+                onTap: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => SearchScreen()));
+                },
+                child: Container(
+                  height: 50,
+                  width: 360,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFFE5E5E5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Icon(Icons.search_rounded,
+                              size: 25, color: Color(0xFF95969D)),
+                        ),
+                        SizedBox(
+                          child: Text(
+                            "Search available jobs",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFF95969D),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             Row(
@@ -67,7 +102,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 35,
+                    height: 40,
                     child: TabBar(
                       unselectedLabelColor: Colors.redAccent,
                       indicatorSize: TabBarIndicatorSize.label,
@@ -80,29 +115,35 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                       tabs: [
                         Tab(
                           child: Container(
-                            height: 35,
-                            width: 100,
+                            height: 40,
+                            width: 120,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
                                     color: Colors.redAccent, width: 1)),
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Requested"),
+                              child: Text(
+                                "Requested",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: kFontWeight_M),
+                              ),
                             ),
                           ),
                         ),
                         Tab(
                           child: Container(
-                            height: 35,
-                            width: 100,
+                            height: 40,
+                            width: 120,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
                                     color: Colors.redAccent, width: 1)),
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Available"),
+                              child: Text("Available",
+                                  style: TextStyle(
+                                      fontSize: 16, fontWeight: kFontWeight_M)),
                             ),
                           ),
                         ),
@@ -112,6 +153,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                 ),
               ],
             ),
+            SizedBox(height: 20),
             Expanded(
               child: TabBarView(
                 controller: tabController,
@@ -122,202 +164,256 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Container(
-                          width: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/green_bg.png"),
-                              fit: BoxFit.cover,
-                            ),
-                            // color: Colors.green.shade400,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey,
-                            //     offset: Offset(0.0, 1.0), //(x,y)
-                            //     blurRadius: 3.0,
-                            //   ),
-                            // ],
-                          ),
-                          // height: 200,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                        color: Colors.white,
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/care.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                    ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          fit: StackFit.loose,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            JobDetailsScreen()));
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 1.h),
-                                        child: Row(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/green_bg.png"),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                height: 150,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height,
+                                    width: MediaQuery.of(context).size.width,
+                                    // color: Colors.grey,
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           children: [
-                                            Text('Dialysis specialist',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                )),
-                                            SizedBox(width: 50),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.edit,
-                                                  color: Colors.white,
-                                                ))
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 2.h),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Agate House',
-                                              style: TextStyle(
+                                            Container(
+                                              height: 50,
+                                              width: 50,
+                                              // color: Colors.white,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10),
+                                                ),
                                                 color: Colors.white,
-                                                fontSize: 15,
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/images/care.png"),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                // boxShadow: [
+                                                //   BoxShadow(
+                                                //     color: Colors.grey,
+                                                //     offset: Offset(0.0, 1.0), //(x,y)
+                                                //     blurRadius: 3.0,
+                                                //   ),
+                                                // ],
                                               ),
                                             ),
-                                            SizedBox(width: 70),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Row(
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'Dialysis specialist',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  kFontWeight_SB,
+                                                              fontSize:
+                                                                  kFontSize_16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            'Agate House',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    kFontSize_14,
+                                                                fontWeight:
+                                                                    kFontWeight_M),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(width: 55),
+                                                  Column(
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: () {},
+                                                        icon: Icon(
+                                                          Icons
+                                                              .edit_note_outlined,
+                                                          color: Colors.white,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        // SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        Row(
+                                          children: [
+                                            Spacer(),
                                             Text(
-                                              '£ 25.00/hour',
+                                              '£ 25.00/hr',
                                               style: TextStyle(
+                                                fontWeight: kFontWeight_M,
+                                                fontSize: 13,
                                                 color: Colors.white,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 2.h),
-                                    child: Container(
-                                      height: 30,
-                                      width: 100,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(2.h),
-                                        ),
-                                        color: Colors.white.withOpacity(0.1),
-
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.alarm_add_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            'Full-Time',
-                                            style: TextStyle(
-                                              color: Colors.white,
+                                        Spacer(),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: 100,
+                                              // color: Colors.white,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(2.h),
+                                                ),
+                                                color: Colors.white
+                                                    .withOpacity(0.1),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.alarm_add_outlined,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
+                                                    Text(
+                                                      'Full-Time',
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        color: Colors.white,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(2),
-                                    child: Container(
-                                      height: 30,
-                                      width: 100,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15),
-                                        ),
-                                        color: Colors.white.withOpacity(0.1),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(0.2.h),
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.location_pin,
-                                            color: Colors.white,
-                                            size: 15,
-                                          ),
-                                          Text(
-                                            'Agate-East',
-                                            style: TextStyle(
-                                              color: Colors.white,
+                                            SizedBox(width: 10),
+                                            Container(
+                                              height: 30,
+                                              width: 100,
+                                              // color: Colors.white,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(15),
+                                                ),
+                                                color: Colors.white
+                                                    .withOpacity(0.1),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.location_pin,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
+                                                    Text(
+                                                      'Agate-East',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 11),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ]),
-                                      ),
+                                            Spacer(),
+                                            Text(
+                                              '🗓 15 Nov 2022',
+                                              style: TextStyle(
+                                                fontWeight: kFontWeight_M,
+                                                fontSize: 13,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    '🗓 15 NOV 2022',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Positioned(
+                              top: -1.5,
+                              left: 220,
+                              child: Container(
+                                height: 200,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/redlabel.png"),
+                                    // fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
                   ),
+
 // ==================================================================================================================================
                   ListView.builder(
                     // physics: NeverScrollableScrollPhysics(),
@@ -325,198 +421,239 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Container(
-                          width: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/red_bg.png"),
-                              fit: BoxFit.cover,
-                            ),
-                            // color: Colors.green.shade400,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey,
-                            //     offset: Offset(0.0, 1.0), //(x,y)
-                            //     blurRadius: 3.0,
-                            //   ),
-                            // ],
-                          ),
-                          // height: 200,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                        color: Colors.white,
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/care.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 1.h),
-                                        child: Row(
-                                          children: [
-                                            Text('Dialysis specialist',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                )),
-                                            SizedBox(width: 50),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.edit,
-                                                  color: Colors.white,
-                                                ))
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 2.h),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Agate House',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                            SizedBox(width: 70),
-                                            Text(
-                                              '£ 25.00/hour',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          fit: StackFit.loose,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/red_bg.png"),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 2.h),
-                                    child: Container(
-                                      height: 30,
-                                      width: 100,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(2.h),
-                                        ),
-                                        color: Colors.white.withOpacity(0.1),
-
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                      child: Row(
+                              height: 150,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
+                                  // color: Colors.grey,
+                                  child: Column(
+                                    children: [
+                                      Row(
                                         children: [
-                                          Icon(
-                                            Icons.alarm_add_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            'Full-Time',
-                                            style: TextStyle(
+                                          Container(
+                                            height: 50,
+                                            width: 50,
+                                            // color: Colors.white,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
                                               color: Colors.white,
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/images/care.png"),
+                                                fit: BoxFit.cover,
+                                              ),
+                                              // boxShadow: [
+                                              //   BoxShadow(
+                                              //     color: Colors.grey,
+                                              //     offset: Offset(0.0, 1.0), //(x,y)
+                                              //     blurRadius: 3.0,
+                                              //   ),
+                                              // ],
                                             ),
-                                          )
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'Dialysis specialist',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                kFontWeight_SB,
+                                                            fontSize:
+                                                                kFontSize_16,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'Agate House',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize:
+                                                                  kFontSize_14,
+                                                              fontWeight:
+                                                                  kFontWeight_M),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(width: 55),
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(
+                                                        Icons
+                                                            .edit_note_outlined,
+                                                        color: Colors.white,
+                                                        size: 20,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(2),
-                                    child: Container(
-                                      height: 30,
-                                      width: 100,
-                                      // color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15),
-                                        ),
-                                        color: Colors.white.withOpacity(0.1),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.grey,
-                                        //     offset: Offset(0.0, 1.0), //(x,y)
-                                        //     blurRadius: 3.0,
-                                        //   ),
-                                        // ],
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(0.2.h),
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.location_pin,
-                                            color: Colors.white,
-                                            size: 15,
-                                          ),
+                                      // SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      Row(
+                                        children: [
+                                          Spacer(),
                                           Text(
-                                            'Agate-East',
+                                            '£ 25.00/hr',
                                             style: TextStyle(
+                                              fontWeight: kFontWeight_M,
+                                              fontSize: 13,
                                               color: Colors.white,
                                             ),
                                           ),
-                                        ]),
+                                        ],
                                       ),
-                                    ),
+                                      Spacer(),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 100,
+                                            // color: Colors.white,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(2.h),
+                                              ),
+                                              color:
+                                                  Colors.white.withOpacity(0.1),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.alarm_add_outlined,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                  Text(
+                                                    'Full-Time',
+                                                    style: TextStyle(
+                                                      fontSize: 11,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Container(
+                                            height: 30,
+                                            width: 100,
+                                            // color: Colors.white,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(15),
+                                              ),
+                                              color:
+                                                  Colors.white.withOpacity(0.1),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_pin,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                  Text(
+                                                    'Agate-East',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 11),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Text(
+                                            '🗓 15 Nov 2022',
+                                            style: TextStyle(
+                                              fontWeight: kFontWeight_M,
+                                              fontSize: 13,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    '🗓 15 NOV 2022',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            // Positioned(
+                            //   top: -1.5,
+                            //   left: 220,
+                            //   child: Container(
+                            //     height: 200,
+                            //     width: 200,
+                            //     decoration: BoxDecoration(
+                            //       image: DecorationImage(
+                            //         image: AssetImage(
+                            //             "assets/images/redlabel.png"),
+                            //         // fit: BoxFit.cover,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
                       );
                     },

@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/screens/available_jobs_screen.dart';
+import 'package:project_d2d/screens/job_details_screen.dart';
+import 'package:project_d2d/screens/profile_screen.dart';
+import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -48,28 +52,38 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                           fontFamily: kFontFamily,
                                           fontWeight: kFontWeight_M,
                                           fontSize: kFontSize_14,
-                                          color: Colors.grey.shade600),
+                                          color: Color(0xFF95969D)),
                                     ),
                                     Text(
                                       'Mary James 👋 ',
                                       style: TextStyle(
-                                        fontFamily: kFontFamily,
-                                        fontSize: 22,
-                                        fontWeight: kFontWeight_M,
-                                        color: Colors.red,
-                                      ),
+                                          fontFamily: kFontFamily,
+                                          fontSize: 22,
+                                          fontWeight: kFontWeight_M,
+                                          color: Color(0xFFFD425B)),
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: 90),
+                                SizedBox(width: 125),
                                 Column(
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(right: 20),
-                                      child: CircleAvatar(
-                                        backgroundImage: AssetImage(
-                                            'assets/images/profile.png'),
-                                        radius: 25,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfileScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: CircleAvatar(
+                                          backgroundImage: AssetImage(
+                                              'assets/images/profile.png'),
+                                          radius: 25,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -79,32 +93,31 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                             SizedBox(height: 5),
                             InkWell(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => SearchScreen()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AvailableJobsScreen()));
                               },
                               child: Container(
                                 height: 50,
-                                width: 350,
+                                width: 360,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
+                                    color: Color(0xFFE5E5E5)),
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 20),
                                   child: Row(
                                     children: [
                                       Container(
                                         child: Icon(Icons.search_rounded,
-                                            size: 25,
-                                            color: Colors.grey.shade700),
+                                            size: 25, color: Color(0xFF95969D)),
                                       ),
                                       SizedBox(
                                         child: Text(
                                           "Search available jobs",
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: Colors.grey.shade700,
+                                            color: Color(0xFF95969D),
                                           ),
                                         ),
                                       ),
@@ -149,13 +162,16 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                             child: Text(
                               'See all ',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Color(0xFF95969D),
                                 fontSize: 13,
                               ),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     SizedBox(
                       height: 160,
@@ -169,220 +185,235 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               clipBehavior: Clip.none,
                               fit: StackFit.loose,
                               children: [
-                                Container(
-                                  width: 300,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                JobDetailsScreen()));
+                                  },
+                                  child: Container(
+                                    width: 300,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/green_bg.png"),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/green_bg.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  // height: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20),
-                                    child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      width: MediaQuery.of(context).size.width,
-                                      // color: Colors.grey,
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                height: 50,
-                                                width: 50,
-                                                // color: Colors.white,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(10),
+                                    // height: 200,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        // color: Colors.grey,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  // color: Colors.white,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(10),
+                                                    ),
+                                                    color: Colors.white,
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          "assets/images/care.png"),
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    // boxShadow: [
+                                                    //   BoxShadow(
+                                                    //     color: Colors.grey,
+                                                    //     offset: Offset(0.0, 1.0), //(x,y)
+                                                    //     blurRadius: 3.0,
+                                                    //   ),
+                                                    // ],
                                                   ),
-                                                  color: Colors.white,
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/care.png"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                  // boxShadow: [
-                                                  //   BoxShadow(
-                                                  //     color: Colors.grey,
-                                                  //     offset: Offset(0.0, 1.0), //(x,y)
-                                                  //     blurRadius: 3.0,
-                                                  //   ),
-                                                  // ],
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              'Dialysis specialist',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    kFontWeight_SB,
-                                                                fontSize:
-                                                                    kFontSize_16,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              'Agate House',
-                                                              style: TextStyle(
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  child: Row(
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Dialysis specialist',
+                                                                style:
+                                                                    TextStyle(
                                                                   color: Colors
                                                                       .white,
-                                                                  fontSize:
-                                                                      kFontSize_14,
                                                                   fontWeight:
-                                                                      kFontWeight_M),
+                                                                      kFontWeight_SB,
+                                                                  fontSize:
+                                                                      kFontSize_16,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'Agate House',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        kFontSize_14,
+                                                                    fontWeight:
+                                                                        kFontWeight_M),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          IconButton(
+                                                            onPressed: () {},
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .edit_note_outlined,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 20,
                                                             ),
-                                                          ],
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 30,
+                                                  width: 100,
+                                                  // color: Colors.white,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(2.h),
+                                                    ),
+                                                    color: Colors.white
+                                                        .withOpacity(0.1),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 15),
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .alarm_add_outlined,
+                                                          color: Colors.white,
+                                                          size: 15,
                                                         ),
+                                                        Text(
+                                                          'Full-Time',
+                                                          style: TextStyle(
+                                                            fontSize: 11,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
                                                       ],
                                                     ),
-                                                    Column(
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10),
+                                                Container(
+                                                  height: 30,
+                                                  width: 100,
+                                                  // color: Colors.white,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(15),
+                                                    ),
+                                                    color: Colors.white
+                                                        .withOpacity(0.1),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                    child: Row(
                                                       children: [
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(
-                                                            Icons
-                                                                .edit_note_outlined,
-                                                            color: Colors.white,
-                                                            size: 20,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                height: 30,
-                                                width: 100,
-                                                // color: Colors.white,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(2.h),
-                                                  ),
-                                                  color: Colors.white
-                                                      .withOpacity(0.1),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 15),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons
-                                                            .alarm_add_outlined,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      ),
-                                                      Text(
-                                                        'Full-Time',
-                                                        style: TextStyle(
-                                                          fontSize: 11,
+                                                        Icon(
+                                                          Icons.location_pin,
                                                           color: Colors.white,
+                                                          size: 15,
                                                         ),
-                                                      )
-                                                    ],
+                                                        Text(
+                                                          'Agate-East',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 11),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(width: 10),
-                                              Container(
-                                                height: 30,
-                                                width: 100,
-                                                // color: Colors.white,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(15),
-                                                  ),
-                                                  color: Colors.white
-                                                      .withOpacity(0.1),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.location_pin,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      ),
-                                                      Text(
-                                                        'Agate-East',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11),
-                                                      )
-                                                    ],
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '🗓 15 Nov 2022',
+                                                  style: TextStyle(
+                                                    fontWeight: kFontWeight_M,
+                                                    fontSize: 13,
+                                                    color: Colors.white,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Spacer(),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '🗓 15 Nov 2022',
-                                                style: TextStyle(
-                                                  fontWeight: kFontWeight_M,
-                                                  fontSize: 13,
-                                                  color: Colors.white,
+                                                Spacer(),
+                                                Text(
+                                                  '£ 25.00/hr',
+                                                  style: TextStyle(
+                                                    fontWeight: kFontWeight_M,
+                                                    fontSize: 13,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
-                                              ),
-                                              Spacer(),
-                                              Text(
-                                                '£ 25.00/hr',
-                                                style: TextStyle(
-                                                  fontWeight: kFontWeight_M,
-                                                  fontSize: 13,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -408,6 +439,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         },
                       ),
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Row(
@@ -423,17 +457,16 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Spacer(),
                           TextButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             FeaturedProductsScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TimeSheetScreen()));
                             },
                             child: Text(
                               'See all ',
                               style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
+                                color: Color(0xFF95969D),
+                                fontSize: 13,
                               ),
                             ),
                           ),
@@ -441,7 +474,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 5),
+                      padding: EdgeInsets.only(left: 5, top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -487,21 +520,22 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                     color: Colors.redAccent,
                                   ),
                                   child: Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 30,
+                                    width: 30,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(15),
+                                        Radius.circular(25),
                                       ),
                                       color: Colors.redAccent,
                                     ),
                                     child: Center(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(2),
+                                        padding: const EdgeInsets.all(3),
                                         child: Text(
                                           '78',
                                           style: TextStyle(
                                             color: Colors.white,
+                                            fontWeight: kFontWeight_SB,
                                             fontSize: 10,
                                           ),
                                         ),
@@ -512,8 +546,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                 Text(
                                   "Pending",
                                   style: TextStyle(
-                                    fontSize: 14,
-                                  ),
+                                      fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
                                   "current job",
@@ -571,16 +604,16 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                       child: Text(
                                         '78',
                                         style: TextStyle(
+                                          fontWeight: kFontWeight_SB,
                                           color: Colors.white,
                                           fontSize: 10,
                                         ),
                                       ),
                                     ))),
                                 Text(
-                                  "Pending",
+                                  "Approved",
                                   style: TextStyle(
-                                    fontSize: 14,
-                                  ),
+                                      fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
                                   "current job",
@@ -647,6 +680,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                         child: Text(
                                           '78',
                                           style: TextStyle(
+                                            fontWeight: kFontWeight_SB,
                                             color: Colors.white,
                                             fontSize: 10,
                                           ),
@@ -656,10 +690,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "Pending",
+                                  "Completed",
                                   style: TextStyle(
-                                    fontSize: 14,
-                                  ),
+                                      fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
                                   "current job",
@@ -674,7 +707,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 10, bottom: 10),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -720,9 +754,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               Card(
                                 child: ClipPath(
                                   child: Container(
-                                    height: 50,
+                                    height: 40,
                                     width: 350,
-                                    padding: EdgeInsets.all(16),
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
                                     decoration: BoxDecoration(
                                       border: Border(
                                         left: BorderSide(
@@ -734,15 +769,16 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                         Text(
                                           'Gen Nurse Certificate',
                                           style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12,
+                                            fontWeight: kFontWeight_M,
                                           ),
                                         ),
                                         Spacer(),
                                         Text(
                                           'Exp on:15 Jul 2023',
                                           style: TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 10,
+                                            fontWeight: kFontWeight_M,
                                             color: Colors.red,
                                           ),
                                         )
@@ -758,21 +794,35 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               Card(
                                 child: ClipPath(
                                   child: Container(
-                                    height: 50,
+                                    height: 40,
                                     width: 350,
-                                    padding: EdgeInsets.all(16),
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
                                     decoration: BoxDecoration(
                                       border: Border(
                                         left: BorderSide(
-                                            color: Colors.redAccent, width: 5),
+                                            color: Colors.greenAccent,
+                                            width: 5),
                                       ),
                                     ),
-                                    child: Text(
-                                      '13 jobs cancelled so far',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '13 jobs cancelled so far',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: kFontWeight_M,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Text(
+                                          '',
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 10,
+                                              fontWeight: kFontWeight_M),
+                                        )
+                                      ],
                                     ),
                                   ),
                                   clipper: ShapeBorderClipper(
@@ -784,9 +834,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               Card(
                                 child: ClipPath(
                                   child: Container(
-                                    height: 50,
+                                    height: 40,
                                     width: 350,
-                                    padding: EdgeInsets.all(16),
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
                                     decoration: BoxDecoration(
                                       border: Border(
                                         left: BorderSide(
@@ -799,8 +850,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                         Text(
                                           'You have got a 5 star rating',
                                           style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12,
+                                            fontWeight: kFontWeight_M,
                                           ),
                                         ),
                                         Spacer(),
@@ -808,7 +859,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                           'Agoda house',
                                           style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 12),
+                                              fontSize: 10,
+                                              fontWeight: kFontWeight_M),
                                         )
                                       ],
                                     ),
