@@ -20,6 +20,9 @@ const kPrimaryColor = Color(0xffFFFFFF);
 const kAccentColor = Color(0xffFD425B);
 const kBackgroundColor = Color(0xffFFFFFF);
 const kButtonColor_R = Color(0xffF41937); 
+const kGreenprogressColor = Color(0xff099B29);
+const kGreenColor = Color(0xff179F0B);
+const kgreyColor = Color(0xffD9D9D9);
 
 Map<int, Color> accentColor = {
   50: Color.fromRGBO(253, 66, 91, .1),
