@@ -1,9 +1,7 @@
-
 import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
 import 'package:project_d2d/screens/verify_otp_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -11,9 +9,28 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-
-int cupertinoTabBarIIValue = 1;
+  int cupertinoTabBarIIValue = 1;
   int cupertinoTabBarIIValueGetter() => cupertinoTabBarIIValue;
+
+  int index = 0;
+
+  static Widget textField(String text) {
+    return TextFormField(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.
+            //only(left:10, top:5, bottom:5),
+            symmetric(vertical: 20, horizontal: 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+        ),
+        labelText: "   $text",
+        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+      ),
+    );
+  }
+
+  List text = [textField("Email"), textField("Mobile Number")];
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +44,19 @@ int cupertinoTabBarIIValue = 1;
               children: [
                 IconButton(
                     onPressed: () {
-                        Navigator.pop(context);
-
-                    }, icon: Icon(Icons.arrow_back_ios_new)),
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios_new)),
               ],
             ),
           ),
           Container(
-           height: 80,
+            height: 80,
             width: 210,
-            
-            child:
-             Image(image: AssetImage("assets/images/logo-d2d.png"),
-             fit: BoxFit.fill,
-             ),
+            child: Image(
+              image: AssetImage("assets/images/logo-d2d.png"),
+              fit: BoxFit.fill,
+            ),
           ),
           Center(
             child: Padding(
@@ -48,7 +64,6 @@ int cupertinoTabBarIIValue = 1;
               child: Text("Forgot Password",
                   style: TextStyle(
                       color: Colors.black,
-                     
                       fontSize: 27,
                       fontWeight: FontWeight.w700)),
             ),
@@ -59,7 +74,6 @@ int cupertinoTabBarIIValue = 1;
               child: Text("Enter your email or phone number, we will ",
                   maxLines: 1,
                   style: TextStyle(
-                   
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: Color(0xffAFB0B6),
@@ -72,171 +86,58 @@ int cupertinoTabBarIIValue = 1;
               child: Text("send you a verification code ",
                   maxLines: 1,
                   style: TextStyle(
-                   
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: Color(0xffAFB0B6),
                   )),
             ),
           ),
-          
           Padding(
             padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
-            child: Container(
-              
-              //  width: 170,
-              //          height: 60,
-             // constraints: const BoxConstraints.expand(height:20, width: 50)
-              // ?expand(height: 60.0, width:170),
-              ),
+            
           ),
-            Container(
-                width: 350,
-                       height: 70,
-                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                       ),
-              child: CupertinoTabBar.CupertinoTabBar(
-                  Color(0xffF3B7BF),
-                  Colors.white,
-                  
-              //  const Color(0xffE5D9D),
-               // Color.fromARGB(255, 246, 206, 206),
-                [
-                  const Text(
-                    "E-mail",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.75,
-                      fontWeight: FontWeight.w400,
-                     
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const Text(
-                    "Mobile Number",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.75,
-                      fontWeight: FontWeight.w400,
-                     
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  // const Text(
-                  //   "Option C",
-                  //   style: const TextStyle(
-                  //     color: Colors.white,
-                  //     fontSize: 18.75,
-                  //     fontWeight: FontWeight.w400,
-                  //     fontFamily: "SFProRounded",
-                  //   ),
-                  //   textAlign: TextAlign.center,
-                  // ),
-                ],
-           
-                cupertinoTabBarIIValueGetter,
-                (int index) {
-                  setState(() {
-                    cupertinoTabBarIIValue = index;
-                  });
-                },
-                useSeparators: false,
-                
-              ),
+          Container(
+            height: 50,
+            width: 280,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xfff9d7de)
             ),
+            child: CupertinoSegmentedControl(
+              unselectedColor: Color(0xfff9d7de),
+              selectedColor: Color(0xfff9d7de),
+              borderColor: Color(0xfff9d7de),
+                children: {
+                  0: Container(
+                  margin: EdgeInsets.only(top:5, bottom:5, right:10),
+                   height: 40,
+                   width: 130,
+                  decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                    child: Center(child: Text("E-mail", style: TextStyle(color: Colors.black),))),
 
-          // Padding(
-          //   padding: EdgeInsets.only(top: 70, left: 30, right: 30),
-          //   child: Container(
-          //     height: 70,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(25),
-          //       border: Border.all(
-          //         color: Color(0xffE5D9D9),
-          //       ),
-          //       color: Color.fromARGB(255, 248, 207, 212),
-          //     ),
-          //     child: 
-              
-          //     Row(children: [
-          //       Padding(
-          //         padding: const EdgeInsets.only(left: 10),
-          //         child: Container(
-          //           width: 170,
-          //           height: 50,
-          //           child: ElevatedButton(
-          //             style: ButtonStyle(
-          //                 backgroundColor:
-          //                     MaterialStateProperty.all<Color>(Colors.white),
-          //                 shape:
-          //                     MaterialStateProperty.all<RoundedRectangleBorder>(
-          //                   RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(25),
-          //                   ),
-          //                 )),
-          //             onPressed: () {},
-          //             child: Center(
-          //                 child: Text(
-          //               "E-mail",
-          //               style: TextStyle(
-          //                   fontSize: 20,
-          //                   fontFamily: 'Poppins',
-          //                   fontWeight: FontWeight.w400,
-          //                   color: Colors.black),
-          //             )),
-          //           ),
-          //         ),
-          //       ),
-          //       Padding(
-          //         padding: const EdgeInsets.only(left: 8),
-          //         child: Container(
-          //           width: 170,
-          //           height: 50,
-          //           child: ElevatedButton(
-          //             style: ButtonStyle(
-          //               backgroundColor:
-          //                   MaterialStateProperty.all<Color>(Colors.white),
-          //               shape:
-          //                   MaterialStateProperty.all<RoundedRectangleBorder>(
-          //                 RoundedRectangleBorder(
-          //                   borderRadius: BorderRadius.circular(25),
-          //                 ),
-          //               ),
-          //             ),
-          //             onPressed: () {},
-          //             child: Center(
-          //                 child: Text(
-          //               "Mobile Number",
-          //               style: TextStyle(
-          //                   fontSize: 20,
-          //                   fontFamily: 'Poppins',
-          //                   fontWeight: FontWeight.w400,
-          //                   color: Colors.black),
-          //             )),
-          //           ),
-          //         ),
-          //       ),
-          //     ]),
-          //   ),
-          // ),
+                    
+                  1: Container(
+                      height: 40,
+                      width: 130,
+                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                     ),
+                       child: Center(child: Text("Mobile Number", style: TextStyle(color: Colors.black),))),
+                },
+                groupValue: index,
+                onValueChanged: (value) {
+                  setState(() {
+                    this.index = value;
+                  });
+                }),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
-            child: TextFormField(
-             
-                decoration: InputDecoration(
-              contentPadding: EdgeInsets.
-                  //only(left:10, top:5, bottom:5),
-                  symmetric(vertical: 20, horizontal: 10),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Color(0xffb0b0b0)),
-              ),
-              labelText: "   E-mail",
-              labelStyle:
-                  TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
-            ),
-            ),
+            child: text[index],
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
@@ -247,20 +148,16 @@ int cupertinoTabBarIIValue = 1;
                   backgroundColor: Color(0xffFD425B),
                 ),
                 onPressed: () {
-                    
-                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  VerifyOtpScreen()));
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VerifyOtpScreen()));
                 },
                 child: Center(
                     child: Text(
                   "Send OTP",
                   style: TextStyle(
                       fontSize: 20,
-                     
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 )),
