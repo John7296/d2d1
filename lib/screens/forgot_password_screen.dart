@@ -1,4 +1,5 @@
-import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
+import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:project_d2d/screens/forgot_password_screen.dart';
 import 'package:project_d2d/screens/verify_otp_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: Text("Forgot Password",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 27,
+                      fontSize: 25,
                       fontWeight: FontWeight.w700)),
             ),
           ),
@@ -75,7 +76,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w400,
                     color: Color(0xffAFB0B6),
                   )),
             ),
@@ -87,54 +87,57 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w400,
                     color: Color(0xffAFB0B6),
                   )),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
-            
           ),
-          Container(
-            height: 50,
-            width: 280,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xfff9d7de)
-            ),
-            child: CupertinoSegmentedControl(
-              unselectedColor: Color(0xfff9d7de),
-              selectedColor: Color(0xfff9d7de),
-              borderColor: Color(0xfff9d7de),
-                children: {
-                  0: Container(
-                  margin: EdgeInsets.only(top:5, bottom:5, right:10),
-                   height: 40,
-                   width: 130,
-                  decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                    child: Center(child: Text("E-mail", style: TextStyle(color: Colors.black),))),
-
-                    
-                  1: Container(
-                      height: 40,
-                      width: 130,
-                     decoration: BoxDecoration(
+          CustomSlidingSegmentedControl(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color(0xfff9d7de),
+              ),
+              thumbDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(17),
+                color: Colors.white,
+              ),
+              innerPadding:
+                  EdgeInsets.only(left: 7, top: 5, bottom: 5, right: 7),
+              children: {
+                0: Container(
+                    margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                    height: 30,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(17),
+                      //color: Colors.white,
+                    ),
+                    child: Center(
+                        child: Text(
+                      "E-mail",
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                    ))),
+                1: Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                     ),
-                       child: Center(child: Text("Mobile Number", style: TextStyle(color: Colors.black),))),
-                },
-                groupValue: index,
-                onValueChanged: (value) {
-                  setState(() {
-                    this.index = value;
-                  });
-                }),
-          ),
+                      //color: Colors.white,
+                    ),
+                    child: Center(
+                        child: Text(
+                      "Mobile Number",
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                    ))),
+              },
+              initialValue: index,
+              onValueChanged: (value) {
+                setState(() {
+                  index = value;
+                });
+              }),
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
             child: text[index],
