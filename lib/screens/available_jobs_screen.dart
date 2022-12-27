@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 
 class AvailableJobsScreen extends StatefulWidget {
   @override
@@ -118,9 +118,10 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             height: 40,
                             width: 120,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Colors.redAccent, width: 1)),
+                              borderRadius: BorderRadius.circular(50),
+                              border:
+                                  Border.all(color: Colors.redAccent, width: 1),
+                            ),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
@@ -317,7 +318,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                               // color: Colors.white,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
-                                                  Radius.circular(2.h),
+                                                  Radius.circular(20),
                                                 ),
                                                 color: Colors.white
                                                     .withOpacity(0.1),
@@ -563,7 +564,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                             // color: Colors.white,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
-                                                Radius.circular(2.h),
+                                                Radius.circular(20),
                                               ),
                                               color:
                                                   Colors.white.withOpacity(0.1),

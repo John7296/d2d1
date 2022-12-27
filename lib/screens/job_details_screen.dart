@@ -7,7 +7,7 @@ import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 
 class JobDetailsScreen extends StatefulWidget {
   @override
@@ -26,66 +26,64 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           children: [
             Row(
               children: [
-                TopBannerWidget(),
+             TopBannerWidget(),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: TabBar(
-                    unselectedLabelColor: Colors.grey,
-                    controller: tabController,
-                    isScrollable: true,
-                    indicatorColor: Colors.black,
-                    tabs: [
-                      Tab(
-                        child: Center(
-                          child: Text(
-                            "Description",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: kFontWeight_M),
-                          ),
+                TabBar(
+                  unselectedLabelColor: Colors.grey,
+                  controller: tabController,
+                  isScrollable: true,
+                  indicatorColor: Colors.black,
+                  tabs: [
+                    Tab(
+                      child: Center(
+                        child: Text(
+                          "Description",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: kFontWeight_M),
                         ),
                       ),
-                      Tab(
-                        child: Center(
-                          child: Text(
-                            "Location",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: kFontWeight_M),
-                          ),
+                    ),
+                    Tab(
+                      child: Center(
+                        child: Text(
+                          "Location",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: kFontWeight_M),
                         ),
                       ),
-                      Tab(
-                        child: Center(
-                          child: Text(
-                            "Rates",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: kFontWeight_M),
-                          ),
+                    ),
+                    Tab(
+                      child: Center(
+                        child: Text(
+                          "Rates",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: kFontWeight_M),
                         ),
                       ),
-                      Tab(
-                        child: Center(
-                          child: Text(
-                            "Info",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: kFontWeight_M),
-                          ),
+                    ),
+                    Tab(
+                      child: Center(
+                        child: Text(
+                          "Info",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: kFontWeight_M),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -93,14 +91,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  SingleChildScrollView(
-                      child: Column(
+                  Column(
                     children: [
-                      Container(
-                        color: Colors.white,
-                        child: Text(
-                          "The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.",
-                          style: TextStyle(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            "The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.The Dropdown widget in Flutter is one of the most used widgets. It allows users to select an item from the list of options—for example, gender selection. And the DropdownButtonFormField widget is a convenience widget that wraps the Dropdown widget and allows you to change the visual aesthetic and add validations on the dropdown button. So in this tutorial, we will see how to add and customize the Dropdown or DropdownButtonFormField border in Flutter.",
+                            style: TextStyle(),
+                          ),
                         ),
                       ),
                       Padding(
@@ -126,8 +124,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                                       fontWeight: kFontWeight_M),
                                 ),
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Color(0xff12831D)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(0xff12831D)),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -153,8 +151,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                                       fontWeight: kFontWeight_M),
                                 ),
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Color(0xffF41937)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(0xffF41937)),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -166,16 +164,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         ),
                       ),
                     ],
-                  )),
-// ==================================================================================================================================
+                  ),
+            // ==================================================================================================================================
                   Container(
                     color: Colors.yellow,
                   ),
-// ==================================================================================================================================
+            // ==================================================================================================================================
                   Container(
                     color: Colors.blue,
                   ),
-// ==================================================================================================================================
+            // ==================================================================================================================================
                   Container(
                     color: Colors.orange,
                   ),

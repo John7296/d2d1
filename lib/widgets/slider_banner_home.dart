@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 
 class SliderBannerHome extends StatefulWidget {
   const SliderBannerHome({super.key});
@@ -146,7 +146,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                   // color: Colors.white,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
-                                      Radius.circular(2.h),
+                                      Radius.circular(20),
                                     ),
                                     color: Colors.white.withOpacity(0.1),
                                   ),
