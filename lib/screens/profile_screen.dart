@@ -353,7 +353,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 11),
                   Container(
                     height: 70,
                     width: 180,

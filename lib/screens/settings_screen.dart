@@ -74,7 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               InkWell(
                 onTap: () {},
                 child: ListTile(
-                  leading: Icon(Icons.work_history_outlined),
+                  leading: Icon(Icons.work_outline),
                   title: Text(
                     "Jobs",
                     style: TextStyle(
@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               InkWell(
                 onTap: () {},
                 child: ListTile(
-                  leading: Icon(Icons.attach_money),
+                  leading: Icon(Icons.currency_pound_outlined),
                   title: Text(
                     "Earnings",
                     style: TextStyle(
@@ -100,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               InkWell(
                 onTap: () {},
                 child: ListTile(
-                  leading: Icon(Icons.notification_add_outlined),
+                  leading: Icon(Icons.notifications_active_outlined),
                   title: Text(
                     "Notifications",
                     style: TextStyle(
@@ -164,7 +164,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // color: Color(0xffE30000);
                       },
                       child: ListTile(
-                        leading: Icon(Icons.add),
+                        leading: Icon(Icons.note_add_outlined),
                         title: Text(
                           "Terms and Conditions",
                           style: TextStyle(
@@ -209,7 +209,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // color: Color(0xffE30000);
                       },
                       child: ListTile(
-                        leading: Icon(Icons.abc_outlined),
+                        leading: Icon(Icons.info_outline),
                         title: Text(
                           "About",
                           style: TextStyle(
