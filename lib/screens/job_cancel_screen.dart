@@ -15,6 +15,7 @@ class JobCancelScreen extends StatefulWidget {
 }
 
 class _JobCancelScreenState extends State<JobCancelScreen> {
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,9 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
       body: SafeArea(
         child: Column(
           children: [
-           TopBannerWidget(),
+           TopBannerWidget(
+            
+           ),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Card(
@@ -86,7 +89,7 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                             ),
                             style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStateProperty.all(kButtonColor_R),
+                                  MaterialStateProperty.all(kButtonColorR),
                               shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),

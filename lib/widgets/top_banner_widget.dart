@@ -3,17 +3,17 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/utils/constants.dart';
 
-
 class TopBannerWidget extends StatefulWidget {
-  const TopBannerWidget({super.key});
+   
+  
+   TopBannerWidget({super.key, });
 
   @override
   State<TopBannerWidget> createState() => _TopBannerWidgetState();
 }
 
 class _TopBannerWidgetState extends State<TopBannerWidget> {
-
-
+ 
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,8 +136,7 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
                           ),
                           Text(
                             'Full-Time',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 11),
+                            style: TextStyle(color: Colors.white, fontSize: 11),
                           ),
                         ],
                       ),
@@ -160,7 +159,7 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15),
                           bottomLeft: Radius.circular(15)),
-                      color: kButtonColor_R,
+                      color: kButtonColorR,
 
                       // boxShadow: [
                       //   BoxShadow(
@@ -172,9 +171,9 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
                     ),
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                          "Requested",
+                          'Requested',
                           style: TextStyle(color: Colors.white, fontSize: 11),
                         ),
                       ),
@@ -216,6 +215,5 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
         ],
       ),
     );
-  
   }
 }

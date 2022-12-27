@@ -292,6 +292,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               ],
                             ),
                           ),
+                          
                           Container(
                             height: 120,
                             width: 100,
@@ -441,6 +442,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         ],
                       ),
                     ),
+                    
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 10, bottom: 10),

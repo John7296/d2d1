@@ -16,6 +16,8 @@ class TimeSheetScreen extends StatefulWidget {
 }
 
 class _TimeSheetScreenState extends State<TimeSheetScreen> {
+  
+
   final SignatureController _controller = SignatureController(
     penStrokeWidth: 5,
     penColor: Colors.red,
@@ -27,9 +29,11 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
       body: SafeArea(
         child: Column(
           children: [
-          TopBannerWidget(),
+          TopBannerWidget(
+           
+          ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
+              padding: const EdgeInsets.only(left: 10, top: 10,bottom: 10),
               child: Row(
                 children: [
                   Text(
@@ -143,7 +147,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                         width: 70,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: kButtonColor_R,
+                          color: kButtonColorR,
                         ),
                         child: TextButton(
                           onPressed: () {
@@ -187,7 +191,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                         width: 70,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: kButtonColor_R,
+                          color: kButtonColorR,
                         ),
                         child: TextButton(
                           onPressed: () {
@@ -220,7 +224,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                             Row(
                                               children: [
                                                 Icon(Icons.cases_rounded,
-                                                    size: 20),
+                                                    size: 15),
                                                 Text(
                                                   "Theatre Practioner",
                                                   style: TextStyle(
@@ -229,7 +233,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                           kFontWeight_M),
                                                 ),
                                                 Icon(Icons.location_pin,
-                                                    size: 20),
+                                                    size: 15),
                                                 Text(
                                                   "Agate House",
                                                   style: TextStyle(
@@ -247,7 +251,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                 Icon(Icons.calendar_today,
                                                     size: 20),
                                                 Text(
-                                                  "Sunday",
+                                                  "Sunday 15 Oct 2022",
                                                   style: TextStyle(fontSize: 9),
                                                 )
                                               ],
@@ -256,25 +260,28 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                               height: 10,
                                             ),
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Icon(
                                                   Icons.alarm_add_outlined,
-                                                  size: 20,
+                                                  size: 15,
                                                 ),
                                                 Text(
                                                   "Start Time  7:30",
                                                   style: TextStyle(fontSize: 9),
                                                 ),
+                                                SizedBox(width: 10,),
                                                 Icon(Icons.alarm_add_outlined,
-                                                    size: 20),
+                                                    size: 15),
                                                 Text(
                                                   "Finish Time  7:30",
                                                   style: TextStyle(fontSize: 9),
                                                 ),
+                                                 SizedBox(width: 10,),
                                                 Icon(Icons.alarm_add_outlined,
-                                                    size: 20),
+                                                    size: 15),
                                                 Text(
                                                   "Break Time  7:30",
                                                   style: TextStyle(fontSize: 9),
@@ -288,12 +295,12 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                               children: [
                                                 Icon(
                                                   Icons.edit,
-                                                  size: 20,
+                                                  size: 15,
                                                 ),
                                                 Text(
                                                   "Sign Here",
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 9,
                                                   ),
                                                 )
                                               ],
@@ -308,7 +315,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
-                                                                15)),
+                                                                20)),
                                                   ),
                                                   child: Signature(
                                                       controller: _controller),
@@ -321,7 +328,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                 Text(
                                                   "Signed By",
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 9,
                                                   ),
                                                 )
                                               ],
@@ -374,15 +381,14 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                     child: Text(
                                                       'Approve',
                                                       style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontFamily:
-                                                              'Poppins'),
+                                                          fontSize: 16,
+                                                         ),
                                                     ),
                                                     style: ButtonStyle(
                                                       backgroundColor:
                                                           MaterialStateProperty
                                                               .all(
-                                                                  kButtonColor_R),
+                                                                  kButtonColorR),
                                                       shape: MaterialStateProperty
                                                           .all(
                                                               RoundedRectangleBorder(

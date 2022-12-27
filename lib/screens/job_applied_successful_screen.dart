@@ -16,13 +16,16 @@ class JobAppliedSuccessfulScreen extends StatefulWidget {
 
 class _JobAppliedSuccessfulScreenState
     extends State<JobAppliedSuccessfulScreen> {
+      String? requestedText;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            TopBannerWidget(),
+            TopBannerWidget(
+              
+            ),
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -80,7 +83,7 @@ class _JobAppliedSuccessfulScreenState
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(kButtonColor_R),
+                    backgroundColor: MaterialStateProperty.all(kButtonColorR),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
