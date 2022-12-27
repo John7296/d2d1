@@ -27,7 +27,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            TopBannerWidget(),
+          TopBannerWidget(),
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 10),
               child: Row(

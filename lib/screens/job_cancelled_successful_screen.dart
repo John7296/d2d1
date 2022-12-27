@@ -66,12 +66,11 @@ class _JobCancelledSuccessfulScreenState
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                    );
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return HomeScreen();
+                      },
+                    ), (route) => false);
                   },
                   child: Text(
                     'Back to Dashboard',

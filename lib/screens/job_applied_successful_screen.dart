@@ -23,7 +23,6 @@ class _JobAppliedSuccessfulScreenState
         child: Column(
           children: [
             TopBannerWidget(),
-            
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -68,12 +67,11 @@ class _JobAppliedSuccessfulScreenState
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                    );
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return HomeScreen();
+                      },
+                    ), (route) => false);
                   },
                   child: Text(
                     'Back to Dashboard',
