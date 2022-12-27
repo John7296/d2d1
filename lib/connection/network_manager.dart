@@ -1,5 +1,7 @@
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:dio/dio.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/login_customer.dart';
 
 class NetworkManager {
   static final NetworkManager _singleton = NetworkManager._internal();
@@ -14,18 +16,18 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
- 
+  // late String token;
+  // late String staffId;
+  // late int userId;
 
   init() {
     dio = Dio();
    networkConnection = NetworkConnection(dio!);
-
-  late String token;
-  late String staffId;
-  late int userId;
   }
 
-
+ Future<BaseResponse<LoginCustomer>> userLogin(Map<String, dynamic> map) {
+    return call(networkConnection.userLogin(map));
+  }
 
 
 
