@@ -30,109 +30,96 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              // color: Colors.grey.shade100,
-              height: 140,
-              width: MediaQuery.of(context).size.width,
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, top: 20),
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Welcome Back!',
-                                      style: TextStyle(
-                                          fontFamily: kFontFamily,
-                                          fontWeight: kFontWeight_M,
-                                          fontSize: kFontSize_14,
-                                          color: Color(0xFF95969D)),
-                                    ),
-                                    Text(
-                                      'Mary James 👋 ',
-                                      style: TextStyle(
-                                          fontFamily: kFontFamily,
-                                          fontSize: 22,
-                                          fontWeight: kFontWeight_M,
-                                          color: Color(0xFFFD425B)),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 125),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProfileScreen(),
-                                            ),
-                                          );
-                                        },
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              'assets/images/profile.png'),
-                                          radius: 25,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            Text(
+                              'Welcome Back!',
+                              style: TextStyle(
+                                  fontFamily: kFontFamily,
+                                  fontWeight: kFontWeight_M,
+                                  fontSize: kFontSize_14,
+                                  color: kGreyColorTxt),
                             ),
-                            SizedBox(height: 5),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AvailableJobsScreen()));
-                              },
-                              child: Container(
-                                height: 50,
-                                width: 360,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Color(0xFFE5E5E5)),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        child: Icon(Icons.search_rounded,
-                                            size: 25, color: Color(0xFF95969D)),
-                                      ),
-                                      SizedBox(
-                                        child: Text(
-                                          "Search available jobs",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xFF95969D),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            Text(
+                              'Mary James 👋 ',
+                              style: TextStyle(
+                                  fontFamily: kFontFamily,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: kAccentColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileScreen(),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  'assets/images/profile.png'),
+                              radius: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AvailableJobsScreen()));
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kSearchfieldColor),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20,right: 20),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: ImageIcon(
+                                AssetImage("assets/images/ic_search.png"),
+                                size: 20,
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            SizedBox(
+                              child: Text(
+                                "Search available jobs",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xFF95969D),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -141,21 +128,20 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             "Active Jobs",
                             style: TextStyle(
-                              fontSize: kFontSize_16,
-                              fontWeight: kFontWeight_SB,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Spacer(),
-                          TextButton(
-                            onPressed: () {
+                          InkWell(
+                            onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -165,7 +151,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                             child: Text(
                               'See all ',
                               style: TextStyle(
-                                color: Color(0xFF95969D),
+                                color: kGreyColorTxt,
                                 fontSize: 13,
                               ),
                             ),
@@ -174,7 +160,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 15,
                     ),
                     SliderBannerHomeWidget(),
                     SizedBox(
@@ -188,8 +174,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Text(
                             "Timesheets",
                             style: TextStyle(
-                              fontSize: kFontSize_16,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Spacer(),
@@ -454,8 +440,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Text(
                             "Alerts",
                             style: TextStyle(
-                              fontSize: kFontSize_16,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Spacer(),
@@ -489,9 +475,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
-                            height: 150,
-                            width: 350,
-                            child: AlertCardWidget()),
+                              height: 150,
+                              width: 350,
+                              child: AlertCardWidget()),
                         ),
                       ),
                     ),
