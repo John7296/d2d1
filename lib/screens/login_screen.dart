@@ -1,6 +1,8 @@
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/login_customer.dart';
+import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/screens/forgot_password_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -23,26 +25,31 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _obscureText = true;
 
+  var parser = EmojiParser();
+
+
+
   @override
   void initState() {
     super.initState();  
+   // onLoginButtonTapped();
   }
 
     void onLoginButtonTapped() {
-    if (!_form.currentState!.validate()) {
-      return;
-    }
+    // if (!_form.currentState?.validate()) {
+    //   return;
+    // }
 
-    String username = _usernameController.text;
-    String password = _passwordController.text;
-    print(username);
-    print(password);
+    // String username = _usernameController.text;
+    // String password = _passwordController.text;
+    // print(username);
+    // print(password);
 
     NetworkManager.shared.userLogin(<String, dynamic>{
     "sp": "getAuthenticationApp",
-    "logname":username,
-    "passwd": password
-    }).then((BaseResponse<LoginCustomer> response) {
+     "logname":"hari@gmail.com",
+    "passwd":"qwerty"
+    }).then((BaseResponse<User> response) {
      
      print(
       "/////////////////////"
@@ -56,8 +63,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: "Poppins"
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color(0xffFFFFFF),
         body: SingleChildScrollView(
           child: Column(children: [
             Padding(
@@ -65,7 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Row(
                 children: [
                   IconButton(
-                      onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new)),
+                      onPressed: () {
+
+                        //  Navigator.pop(context);
+                      }, icon: Icon(Icons.arrow_back_ios_new)),
                 ],
               ),
             ),
@@ -82,16 +96,18 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Row(
                 children: [
                   Text(
-                    "Welcome Back",
+                    "Welcome Back 👋",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                   ),
-                  Container(
-                      height: 40,
-                      width: 50,
-                      child: Image(
-                        image: AssetImage("assets/images/handwave.jpg"),
-                        fit: BoxFit.fill,
-                      ))
+
+                  
+                  // Container(
+                  //     height: 40,
+                  //     width: 50,
+                  //     child: Image(
+                  //       image: AssetImage("assets/images/handwave.jpg"),
+                  //       fit: BoxFit.fill,
+                  //     ))
                 ],
               ),
             ),
@@ -100,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Row(
                 children: [
                   Text(
-                    "Lets Log in.",
+                    "Let's Log in.",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -147,12 +163,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(color: Color(0xffAFB0B6)),
                             ),
-                            labelText: "   Password",
+                            labelText: "  Password",
                             labelStyle:
                                 TextStyle(color: Color(0xffAFB0B6), fontWeight:FontWeight.w500,fontSize: 15),
 
                                 suffixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 20),
+                              padding: const EdgeInsets.only(right: 5),
                               child: IconButton(
                                 icon: Icon(
                                   _obscureText
@@ -193,11 +209,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Color(0xffFD425B),
                         ),
                         onPressed: () {
-                          onLoginButtonTapped();
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ProfileScreen()));
+                        //  onLoginButtonTapped();
+                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return HomeScreen();
+      },),(route) => false);
                         },
                         child: Center(
                             child: Text(
@@ -215,10 +230,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 30),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordScreen()));
+                              
+                       Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>ForgotPasswordScreen()));
                         },
                         child: Text(
                           "Forgot Password?",

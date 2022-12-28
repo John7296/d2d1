@@ -1,5 +1,6 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:project_d2d/screens/forgot_password_screen.dart';
+import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/verify_otp_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  List text = [textField("Email"), textField("Mobile Number")];
+  List text = [textField("E-mail"), textField("Mobile Number")];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginScreen()));
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
               ],

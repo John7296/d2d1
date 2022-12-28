@@ -20,7 +20,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginScreen()));
                   },
                   icon: Icon(Icons.arrow_back_ios_new)),
             ],
