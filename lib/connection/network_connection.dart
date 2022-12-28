@@ -1,4 +1,6 @@
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/login_customer.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
@@ -20,8 +22,14 @@ abstract class NetworkConnection {
           compact: true,
           maxWidth: 90));
     }
-    return NetworkConnection(dio);
+    return _NetworkConnection(dio);
   }
+
+  
+  @FormUrlEncoded()
+  @POST("Default.aspx")
+  Future<BaseResponse<LoginCustomer>> userLogin(
+      @Body() Map<String, dynamic> map);
   
 }
 
