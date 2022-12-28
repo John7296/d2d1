@@ -26,6 +26,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [

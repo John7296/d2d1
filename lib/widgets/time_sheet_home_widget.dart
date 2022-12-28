@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/utils/constants.dart';
 
-class TimeSheetHome extends StatefulWidget {
-  const TimeSheetHome({super.key});
+class TimeSheetHomeWidget extends StatefulWidget {
+  const TimeSheetHomeWidget({super.key});
 
   @override
-  State<TimeSheetHome> createState() => _TimeSheetHomeState();
+  State<TimeSheetHomeWidget> createState() => _TimeSheetHomeWidgetState();
 }
 
-class _TimeSheetHomeState extends State<TimeSheetHome> {
+class _TimeSheetHomeWidgetState extends BaseStatefulState<TimeSheetHomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -235,5 +236,11 @@ class _TimeSheetHomeState extends State<TimeSheetHome> {
         ],
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

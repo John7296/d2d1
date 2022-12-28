@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_d2d/model/active_job_model.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
@@ -12,7 +13,7 @@ class AvailableJobWidget extends StatefulWidget {
   State<AvailableJobWidget> createState() => _AvailableJobWidgetState();
 }
 
-class _AvailableJobWidgetState extends State<AvailableJobWidget> {
+class _AvailableJobWidgetState extends BaseStatefulState<AvailableJobWidget> {
   List<StaffDetails> staffDetails = [
     StaffDetails(
         staffName: 'Catherine',
@@ -145,7 +146,7 @@ class _AvailableJobWidgetState extends State<AvailableJobWidget> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(width: 55),
+                                  SizedBox(width: 20),
                                   Column(
                                     children: [
                                       IconButton(
@@ -170,7 +171,7 @@ class _AvailableJobWidgetState extends State<AvailableJobWidget> {
                           children: [
                             Spacer(),
                             Text(
-                              '£ ${staffDetails[index].hourlyRate}/hr',
+                              '£ ${staffDetails[index].hourlyRate??''}/hour',
                               style: TextStyle(
                                 fontWeight: kFontWeight_M,
                                 fontSize: 13,
@@ -243,13 +244,19 @@ class _AvailableJobWidgetState extends State<AvailableJobWidget> {
                               ),
                             ),
                             Spacer(),
-                            Text(
-                              '🗓 ${staffDetails[index].startDate}',
-                              style: TextStyle(
-                                fontWeight: kFontWeight_M,
-                                fontSize: 13,
-                                color: Colors.white,
-                              ),
+                            Row(
+                              children: [
+                                Icon( Icons.calendar_today_outlined,color: Colors.white,size: 14,),
+                                SizedBox(width:2),
+                                Text(
+                                  staffDetails[index].startDate??'',
+                                  style: TextStyle(
+                                    fontWeight: kFontWeight_M,
+                                    fontSize: 13,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -287,5 +294,11 @@ class _AvailableJobWidgetState extends State<AvailableJobWidget> {
         );
       },
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

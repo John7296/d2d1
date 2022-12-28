@@ -19,6 +19,7 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(

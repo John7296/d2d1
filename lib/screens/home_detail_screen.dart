@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_d2d/model/active_job_model.dart';
+import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
-import 'package:project_d2d/widgets/alerts_card_widget.dart';
-import 'package:project_d2d/widgets/slider_banner_home_green.dart';
+import 'package:project_d2d/widgets/alert_card_widget.dart';
+import 'package:project_d2d/widgets/slider_banner.dart';
 
 class HomeDetailScreen extends StatefulWidget {
   const HomeDetailScreen({super.key});
@@ -176,7 +176,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                     SizedBox(
                       height: 5,
                     ),
-                    SliderBannerHome(),
+                    SliderBannerHomeWidget(),
                     SizedBox(
                       height: 5,
                     ),
@@ -491,7 +491,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           child: SizedBox(
                             height: 150,
                             width: 350,
-                            child: AlertCard()),
+                            child: AlertCardWidget()),
                         ),
                       ),
                     ),

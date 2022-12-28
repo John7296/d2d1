@@ -22,6 +22,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     TabController tabController = TabController(length: 4, vsync: this);
 
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
