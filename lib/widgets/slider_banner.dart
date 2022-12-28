@@ -14,7 +14,8 @@ class SliderBannerHomeWidget extends StatefulWidget {
   State<SliderBannerHomeWidget> createState() => _SliderBannerHomeWidgetState();
 }
 
-class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerHomeWidget> {
+class _SliderBannerHomeWidgetState
+    extends BaseWidgetStatefulState<SliderBannerHomeWidget> {
   List<StaffDetails> staffDetails = [
     StaffDetails(
         staffName: 'Catherine',
@@ -101,8 +102,7 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                                   ),
                                   color: Colors.white,
                                   image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/care.png"),
+                                    image: AssetImage("assets/images/care.png"),
                                     fit: BoxFit.cover,
                                   ),
                                   // boxShadow: [
@@ -119,48 +119,57 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                staffDetails[index].jobName ??
-                                                    '',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: kFontWeight_SB,
-                                                  fontSize: kFontSize_16,
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    staffDetails[index]
+                                                            .jobName ??
+                                                        '',
+                                                        maxLines: 2,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          kFontWeight_SB,
+                                                      fontSize: kFontSize_16,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                               InkWell(
-                                        onTap: () {},
-                                        child: Icon(
-                                          Icons.edit_note_outlined,
-                                          color: Colors.white,
-                                          size: 20,
+                                                InkWell(
+                                                    onTap: () {},
+                                                    child: ImageIcon(
+                                                      AssetImage(
+                                                          "assets/images/ic_edit_task.png"),
+                                                      size: 25,
+                                                      color: Colors.white,
+                                                    ),),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  staffDetails[index]
+                                                          .staffName ??
+                                                      '',
+                                                      maxLines: 1,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: kFontSize_14,
+                                                      fontWeight:
+                                                          kFontWeight_M),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      )
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                staffDetails[index].staffName ??
-                                                    '',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: kFontSize_14,
-                                                    fontWeight: kFontWeight_M),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
                                       ),
-                                     
                                     ],
                                   ),
                                 ),
@@ -168,14 +177,13 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                             ],
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           Row(
                             children: [
                               Container(
                                 height: 30,
-                                width: 100,
-                                // color: Colors.white,
+                               
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(20),
@@ -194,7 +202,7 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                                       ),
                                       Text(
                                         staffDetails[index].shiftType ?? "",
-                                        maxLines: 2,
+                                        maxLines: 1,
                                         style: TextStyle(
                                           fontSize: 11,
                                           color: Colors.white,
@@ -207,8 +215,6 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                               SizedBox(width: 10),
                               Container(
                                 height: 30,
-                                width: 100,
-                                // color: Colors.white,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15),
@@ -216,8 +222,7 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                                   color: Colors.white.withOpacity(0.1),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                   child: Row(
                                     children: [
                                       Icon(
@@ -228,8 +233,7 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                                       Text(
                                         staffDetails[index].jobLocation ?? "",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 11),
+                                            color: Colors.white, fontSize: 11),
                                       )
                                     ],
                                   ),
@@ -271,29 +275,29 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
                   ),
                 ),
                 if (staffDetails[index].requested ?? false)
-                    Positioned(
-                      top: 55,
-                      right: -getWidthByPercentage(3.5),
-                      child: Container(
-                        padding: EdgeInsets.only(left: 20,right: 20,bottom: 10,top: 10),
-                        // height: 200,
-                        // width: 200,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/redlabel.png"),
-                            // fit: BoxFit.cover,
-                          ),
-                        ),
-                        child: Text(
-                          "Requested",
-                          style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.white,
-                          fontWeight: kFontWeight_M),
+                  Positioned(
+                    top: 55,
+                    right: -getWidthByPercentage(3.5),
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: 20, right: 20, bottom: 10, top: 10),
+                      // height: 200,
+                      // width: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/redlabel.png"),
+                          // fit: BoxFit.cover,
                         ),
                       ),
+                      child: Text(
+                        "Requested",
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: kFontWeight_M),
+                      ),
                     ),
-             
+                  ),
               ],
             ),
           );
@@ -301,7 +305,7 @@ class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerH
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

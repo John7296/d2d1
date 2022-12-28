@@ -100,11 +100,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         padding: EdgeInsets.only(left: 20,right: 20),
                         child: Row(
                           children: [
-                            Container(
-                              child: ImageIcon(
-                                AssetImage("assets/images/ic_search.png"),
-                                size: 20,
-                              ),
+                            ImageIcon(
+                              AssetImage("assets/images/ic_search.png"),
+                              size: 20,
                             ),
                             SizedBox(width: 10,),
                             SizedBox(
@@ -164,10 +162,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                     ),
                     SliderBannerHomeWidget(),
                     SizedBox(
-                      height: 5,
+                      height:20,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -179,8 +177,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                             ),
                           ),
                           Spacer(),
-                          TextButton(
-                            onPressed: () {
+                          InkWell(
+                            onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -431,9 +429,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 10),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         children: [

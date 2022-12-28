@@ -11,7 +11,6 @@ import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -56,17 +55,27 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
         onTap: selectedPage,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded,size: 35,),
+              icon: ImageIcon(
+                AssetImage("assets/images/ic_home.png"),
+                size: 25,
+              ),
               label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.cases_rounded, size: 30),
+              icon: ImageIcon(
+                AssetImage("assets/images/ic_briefcase.png"),
+                size: 25,
+              ),
               label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outlined,size: 35),
-              label: ""),
+              icon:ImageIcon(
+                AssetImage("assets/images/ic_user.png"),
+                size: 25,
+              ), label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.logout_rounded,size: 35),
-              label: ""),
+              icon: ImageIcon(
+                AssetImage("assets/images/ic_log-out.png"),
+                size: 25,
+              ), label: ""),
         ],
         selectedLabelStyle: TextStyle(fontFamily: 'Intro'),
         selectedFontSize: 0,
@@ -83,7 +92,7 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
           duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired
