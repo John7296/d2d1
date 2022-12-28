@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/base/base_widget_stateful_state.dart';
 import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
@@ -13,7 +14,7 @@ class SliderBannerHomeWidget extends StatefulWidget {
   State<SliderBannerHomeWidget> createState() => _SliderBannerHomeWidgetState();
 }
 
-class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWidget> {
+class _SliderBannerHomeWidgetState extends BaseWidgetStatefulState<SliderBannerHomeWidget> {
   List<StaffDetails> staffDetails = [
     StaffDetails(
         staffName: 'Catherine',
@@ -71,7 +72,7 @@ class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWid
                             builder: (context) => JobDetailsScreen()));
                   },
                   child: Container(
-                    width: 305,
+                    width: getWidthByPercentage(80),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -86,38 +87,35 @@ class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWid
                     // height: 200,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        // color: Colors.grey,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  // color: Colors.white,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    color: Colors.white,
-                                    image: DecorationImage(
-                                      image:
-                                          AssetImage("assets/images/care.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    // boxShadow: [
-                                    //   BoxShadow(
-                                    //     color: Colors.grey,
-                                    //     offset: Offset(0.0, 1.0), //(x,y)
-                                    //     blurRadius: 3.0,
-                                    //   ),
-                                    // ],
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                // color: Colors.white,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
                                   ),
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/images/care.png"),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //     color: Colors.grey,
+                                  //     offset: Offset(0.0, 1.0), //(x,y)
+                                  //     blurRadius: 3.0,
+                                  //   ),
+                                  // ],
                                 ),
-                                Padding(
+                              ),
+                              Expanded(
+                                child: Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
@@ -128,10 +126,6 @@ class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWid
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 staffDetails[index].jobName ??
@@ -142,6 +136,14 @@ class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWid
                                                   fontSize: kFontSize_16,
                                                 ),
                                               ),
+                                               InkWell(
+                                        onTap: () {},
+                                        child: Icon(
+                                          Icons.edit_note_outlined,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      )
                                             ],
                                           ),
                                           Row(
@@ -158,147 +160,140 @@ class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWid
                                           ),
                                         ],
                                       ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.edit_note_outlined,
+                                     
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 100,
+                                // color: Colors.white,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  color: Colors.white.withOpacity(0.1),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.alarm_add_outlined,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        staffDetails[index].shiftType ?? "",
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          fontSize: 11,
                                           color: Colors.white,
-                                          size: 20,
                                         ),
                                       )
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 100,
-                                  // color: Colors.white,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
-                                    color: Colors.white.withOpacity(0.1),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                height: 30,
+                                width: 100,
+                                // color: Colors.white,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.alarm_add_outlined,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                        Text(
-                                          staffDetails[index].shiftType ?? "",
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                            fontSize: 11,
+                                  color: Colors.white.withOpacity(0.1),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_pin,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        staffDetails[index].jobLocation ?? "",
+                                        style: TextStyle(
                                             color: Colors.white,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                            fontSize: 11),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                SizedBox(width: 10),
-                                Container(
-                                  height: 30,
-                                  width: 100,
-                                  // color: Colors.white,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    color: Colors.white.withOpacity(0.1),
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.location_pin,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                        Text(
-                                          staffDetails[index].jobLocation ?? "",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 11),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_outlined,
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_today_outlined,
+                                color: Colors.white,
+                                size: 14,
+                              ),
+                              SizedBox(width: 2),
+                              Text(
+                                staffDetails[index].startDate ?? "",
+                                style: TextStyle(
+                                  fontWeight: kFontWeight_M,
+                                  fontSize: 13,
                                   color: Colors.white,
-                                  size: 14,
                                 ),
-                                SizedBox(width: 2),
-                                Text(
-                                  staffDetails[index].startDate ?? "",
-                                  style: TextStyle(
-                                    fontWeight: kFontWeight_M,
-                                    fontSize: 13,
-                                    color: Colors.white,
-                                  ),
+                              ),
+                              Spacer(),
+                              Text(
+                                '£ ${staffDetails[index].hourlyRate ?? ""}/hour',
+                                style: TextStyle(
+                                  fontWeight: kFontWeight_M,
+                                  fontSize: 13,
+                                  color: Colors.white,
                                 ),
-                                Spacer(),
-                                Text(
-                                  '£ ${staffDetails[index].hourlyRate ?? ""}/hour',
-                                  style: TextStyle(
-                                    fontWeight: kFontWeight_M,
-                                    fontSize: 13,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                (staffDetails[index].requested!)
-                    ? Positioned(
-                        top: -25,
-                        left: 172,
-                        child: Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/redlabel.png"),
-                              // fit: BoxFit.cover,
-                            ),
+                if (staffDetails[index].requested ?? false)
+                    Positioned(
+                      top: 55,
+                      right: -getWidthByPercentage(3.5),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20,right: 20,bottom: 10,top: 10),
+                        // height: 200,
+                        // width: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/redlabel.png"),
+                            // fit: BoxFit.cover,
                           ),
-                          child: Align(
-                              child: Text(
-                            "Requested",
-                            style: TextStyle(
-                                fontSize: 8,
-                                color: Colors.white,
-                                fontWeight: kFontWeight_M),
-                          )),
                         ),
-                      )
-                    : SizedBox(),
+                        child: Text(
+                          "Requested",
+                          style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                          fontWeight: kFontWeight_M),
+                        ),
+                      ),
+                    ),
+             
               ],
             ),
           );

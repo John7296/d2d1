@@ -23,7 +23,11 @@ const kBackgroundColor = Color(0xffFFFFFF);
 const kButtonColorR = Color(0xffF41937); 
 const kGreenprogressColor = Color(0xff099B29);
 const kGreenColor = Color(0xff179F0B);
-const kgreyColor = Color(0xffD9D9D9);
+const kGreyColor = Color(0xffD9D9D9);
+const kGreyColorTxt = Color(0xff95969D);
+const kSearchfieldColor = Color(0xffF2F2F3);
+
+
 
 Map<int, Color> accentColor = {
   50: Color.fromRGBO(253, 66, 91, .1),
