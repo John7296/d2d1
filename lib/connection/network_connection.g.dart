@@ -36,7 +36,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              'Default.aspx',
+              'Default',
               queryParameters: queryParameters,
               data: _data,
             )
