@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/model/active_job_model.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
-
 
 class SliderBannerHome extends StatefulWidget {
   const SliderBannerHome({super.key});
@@ -13,13 +13,48 @@ class SliderBannerHome extends StatefulWidget {
 }
 
 class _SliderBannerHomeState extends State<SliderBannerHome> {
+  List<StaffDetails> staffDetails = [
+    StaffDetails(
+        staffName: 'Catherine',
+        jobName: 'Dialysis Specialyst',
+        jobLocation: 'London',
+        shiftType: 'Sunday',
+        startDate: '10-Nov-2022',
+        requested: true,
+        hourlyRate: 30),
+    StaffDetails(
+        staffName: 'Mary',
+        jobName: 'General Nurse',
+        jobLocation: 'Agate East',
+        shiftType: 'Full-Time',
+        startDate: '15-DEC-2022',
+        requested: false,
+        hourlyRate: 30),
+    StaffDetails(
+        staffName: 'Sara',
+        jobName: 'Dialysis Specialyst',
+        jobLocation: 'Coventry',
+        shiftType: 'Saturday',
+        requested: true,
+        startDate: '12-Jan-2023',
+        hourlyRate: 30),
+    StaffDetails(
+        staffName: 'Sandra',
+        jobName: 'General Nurse',
+        jobLocation: 'Agate East',
+        shiftType: 'Full-Time',
+        startDate: '15-DEC-2022',
+        requested: false,
+        hourlyRate: 30),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 160,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: staffDetails.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(left: 20),
@@ -41,7 +76,9 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                         Radius.circular(30),
                       ),
                       image: DecorationImage(
-                        image: AssetImage("assets/images/green_bg.png"),
+                        image: (staffDetails[index].requested!)
+                            ? AssetImage("assets/images/green_bg.png")
+                            : AssetImage("assets/images/red_bg.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -96,7 +133,8 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Dialysis specialist',
+                                                staffDetails[index].jobName ??
+                                                    '',
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: kFontWeight_SB,
@@ -108,7 +146,8 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           Row(
                                             children: [
                                               Text(
-                                                'Agate House',
+                                                staffDetails[index].staffName ??
+                                                    '',
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: kFontSize_14,
@@ -161,7 +200,8 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           size: 15,
                                         ),
                                         Text(
-                                          'Full-Time',
+                                          staffDetails[index].shiftType ?? '',
+                                          maxLines: 2,
                                           style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.white,
@@ -193,7 +233,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           size: 15,
                                         ),
                                         Text(
-                                          'Agate-East',
+                                          staffDetails[index].jobLocation ?? '',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 11),
@@ -208,7 +248,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                             Row(
                               children: [
                                 Text(
-                                  '🗓 15 Nov 2022',
+                                  '🗓 ${staffDetails[index].startDate ?? ""}',
                                   style: TextStyle(
                                     fontWeight: kFontWeight_M,
                                     fontSize: 13,
@@ -217,7 +257,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '£ 25.00/hr',
+                                  '£ ${staffDetails[index].hourlyRate}/hour',
                                   style: TextStyle(
                                     fontWeight: kFontWeight_M,
                                     fontSize: 13,
@@ -232,20 +272,30 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: -25,
-                  left: 167,
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/redlabel.png"),
-                        // fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                (staffDetails[index].requested!)
+                    ? Positioned(
+                        top: -25,
+                        left: 167,
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/redlabel.png"),
+                              // fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Align(
+                              child: Text(
+                            "Requested",
+                            style: TextStyle(
+                                fontSize: 8,
+                                color: Colors.white,
+                                fontWeight: kFontWeight_M),
+                          )),
+                        ),
+                      )
+                    : SizedBox(),
               ],
             ),
           );

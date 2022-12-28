@@ -5,12 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/model/active_job_model.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
-import 'package:project_d2d/widgets/slider_banner_home.dart';
+import 'package:project_d2d/widgets/alerts_card_widget.dart';
+import 'package:project_d2d/widgets/slider_banner_home_green.dart';
 
 class HomeDetailScreen extends StatefulWidget {
   const HomeDetailScreen({super.key});
@@ -153,10 +155,12 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           ),
                           Spacer(),
                           TextButton(
-                            onPressed: () {Navigator.push(
+                            onPressed: () {
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AvailableJobsScreen()));
+                                      builder: (context) =>
+                                          AvailableJobsScreen()));
                             },
                             child: Text(
                               'See all ',
@@ -484,131 +488,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         strokeWidth: 2,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Card(
-                                child: ClipPath(
-                                  child: Container(
-                                    height: 40,
-                                    width: 350,
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        left: BorderSide(
-                                            color: Colors.redAccent, width: 5),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Gen Nurse Certificate',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: kFontWeight_M,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          'Exp on:15 Jul 2023',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: kFontWeight_M,
-                                            color: Colors.red,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  clipper: ShapeBorderClipper(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(3),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Card(
-                                child: ClipPath(
-                                  child: Container(
-                                    height: 40,
-                                    width: 350,
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        left: BorderSide(
-                                            color: Colors.greenAccent,
-                                            width: 5),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          '13 jobs cancelled so far',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: kFontWeight_M,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          '',
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 10,
-                                              fontWeight: kFontWeight_M),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  clipper: ShapeBorderClipper(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(3))),
-                                ),
-                              ),
-                              Card(
-                                child: ClipPath(
-                                  child: Container(
-                                    height: 40,
-                                    width: 350,
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        left: BorderSide(
-                                            color: Colors.greenAccent,
-                                            width: 5),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'You have got a 5 star rating',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: kFontWeight_M,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          'Agoda house',
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 10,
-                                              fontWeight: kFontWeight_M),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  clipper: ShapeBorderClipper(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(3))),
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: SizedBox(
+                            height: 150,
+                            width: 350,
+                            child: AlertCard()),
                         ),
                       ),
                     ),

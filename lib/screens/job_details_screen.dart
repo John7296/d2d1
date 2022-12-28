@@ -8,7 +8,6 @@ import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
-
 class JobDetailsScreen extends StatefulWidget {
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
@@ -16,6 +15,8 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen>
     with TickerProviderStateMixin {
+
+
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 4, vsync: this);
@@ -26,7 +27,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           children: [
             Row(
               children: [
-             TopBannerWidget(),
+                TopBannerWidget(
+                 
+                ),
               ],
             ),
             Row(
@@ -165,15 +168,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                       ),
                     ],
                   ),
-            // ==================================================================================================================================
+                  // ==================================================================================================================================
                   Container(
                     color: Colors.yellow,
                   ),
-            // ==================================================================================================================================
+                  // ==================================================================================================================================
                   Container(
                     color: Colors.blue,
                   ),
-            // ==================================================================================================================================
+                  // ==================================================================================================================================
                   Container(
                     color: Colors.orange,
                   ),
