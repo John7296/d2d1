@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/model/active_job_model.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class TopBannerWidget extends StatefulWidget {
@@ -13,6 +14,8 @@ class TopBannerWidget extends StatefulWidget {
 }
 
 class _TopBannerWidgetState extends State<TopBannerWidget> {
+
+  
  
   @override
   Widget build(BuildContext context) {

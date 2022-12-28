@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/model/active_job_model.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/available_job_widget.dart';
@@ -13,6 +14,8 @@ class AvailableJobsScreen extends StatefulWidget {
 
 class _AvailableJobsScreenState extends State<AvailableJobsScreen>
     with TickerProviderStateMixin {
+
+
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
@@ -160,25 +163,13 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  ListView.builder(
-                    // physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        child: AvailableJobWidgetGreen(),
-                        
-                      );
-                    },
-                  ),
+                  AvailableJobWidget(),
 
 // ==================================================================================================================================
                   ListView.builder(
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: 8,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding:
@@ -194,7 +185,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                   Radius.circular(15),
                                 ),
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/red_bg.png"),
+                                  image:AssetImage("assets/images/green_bg.png"),
                                   fit: BoxFit.cover,
                                 ),
                               ),
