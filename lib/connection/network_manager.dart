@@ -2,10 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/login_customer.dart';
-
-
-
+import 'package:project_d2d/model/user.dart';
 
 class NetworkManager {
   static final NetworkManager _singleton = NetworkManager._internal();
@@ -28,11 +25,10 @@ class NetworkManager {
   }
 
 
- Future<BaseResponse<LoginCustomer>> userLogin(Map<String, dynamic> map) {
+ Future<BaseResponse<User>> userLogin(Map<String, dynamic> map) {
     return call(networkConnection.userLogin(map));
   }
 
-  
 
   Future<T> call<T>(Future<T> call) async {
     T response;

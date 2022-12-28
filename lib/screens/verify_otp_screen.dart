@@ -1,3 +1,4 @@
+import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/reset_password_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginScreen()));
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
               ],

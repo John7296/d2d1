@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_customer.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginCustomer _$LoginCustomerFromJson(Map<String, dynamic> json) =>
-    LoginCustomer(
+User _$UserFromJson(Map<String, dynamic> json) => User(
       userId: json['userId'] as int?,
       fullName: json['fullName'] as String?,
       email: json['Email'] as String?,
@@ -20,8 +19,7 @@ LoginCustomer _$LoginCustomerFromJson(Map<String, dynamic> json) =>
       token: json['Token'] as String?,
     );
 
-Map<String, dynamic> _$LoginCustomerToJson(LoginCustomer instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'userId': instance.userId,
       'fullName': instance.fullName,
       'Email': instance.email,

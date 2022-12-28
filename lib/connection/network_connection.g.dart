@@ -21,14 +21,14 @@ class _NetworkConnection implements NetworkConnection {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<LoginCustomer>> userLogin(map) async {
+  Future<BaseResponse<User>> userLogin(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<LoginCustomer>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -41,9 +41,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<LoginCustomer>.fromJson(
+    final value = BaseResponse<User>.fromJson(
       _result.data!,
-      (json) => LoginCustomer.fromJson(json as Map<String, dynamic>),
+      (json) => User.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
