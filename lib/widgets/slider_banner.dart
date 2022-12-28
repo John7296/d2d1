@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_d2d/model/active_job_model.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
-class SliderBannerHome extends StatefulWidget {
-  const SliderBannerHome({super.key});
+class SliderBannerHomeWidget extends StatefulWidget {
+  const SliderBannerHomeWidget({super.key});
 
   @override
-  State<SliderBannerHome> createState() => _SliderBannerHomeState();
+  State<SliderBannerHomeWidget> createState() => _SliderBannerHomeWidgetState();
 }
 
-class _SliderBannerHomeState extends State<SliderBannerHome> {
+class _SliderBannerHomeWidgetState extends BaseStatefulState<SliderBannerHomeWidget> {
   List<StaffDetails> staffDetails = [
     StaffDetails(
         staffName: 'Catherine',
         jobName: 'Dialysis Specialyst',
         jobLocation: 'London',
         shiftType: 'Sunday',
-        startDate: '10-Nov-2022',
+        startDate: '10 Nov 2022',
         requested: true,
         hourlyRate: 30),
     StaffDetails(
@@ -27,7 +28,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
         jobName: 'General Nurse',
         jobLocation: 'Agate East',
         shiftType: 'Full-Time',
-        startDate: '15-DEC-2022',
+        startDate: '15 DEC 2022',
         requested: false,
         hourlyRate: 30),
     StaffDetails(
@@ -36,14 +37,14 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
         jobLocation: 'Coventry',
         shiftType: 'Saturday',
         requested: true,
-        startDate: '12-Jan-2023',
+        startDate: '12 Jan 2023',
         hourlyRate: 30),
     StaffDetails(
         staffName: 'Sandra',
         jobName: 'General Nurse',
         jobLocation: 'Agate East',
         shiftType: 'Full-Time',
-        startDate: '15-DEC-2022',
+        startDate: '15 DEC 2022',
         requested: false,
         hourlyRate: 30),
   ];
@@ -70,7 +71,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                             builder: (context) => JobDetailsScreen()));
                   },
                   child: Container(
-                    width: 300,
+                    width: 305,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -157,17 +158,13 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           ),
                                         ],
                                       ),
-                                      Column(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.edit_note_outlined,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ),
-                                        ],
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.edit_note_outlined,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -200,7 +197,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           size: 15,
                                         ),
                                         Text(
-                                          staffDetails[index].shiftType ?? '',
+                                          staffDetails[index].shiftType ?? "",
                                           maxLines: 2,
                                           style: TextStyle(
                                             fontSize: 11,
@@ -233,7 +230,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                           size: 15,
                                         ),
                                         Text(
-                                          staffDetails[index].jobLocation ?? '',
+                                          staffDetails[index].jobLocation ?? "",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 11),
@@ -247,8 +244,14 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                             Spacer(),
                             Row(
                               children: [
+                                Icon(
+                                  Icons.calendar_today_outlined,
+                                  color: Colors.white,
+                                  size: 14,
+                                ),
+                                SizedBox(width: 2),
                                 Text(
-                                  '🗓 ${staffDetails[index].startDate ?? ""}',
+                                  staffDetails[index].startDate ?? "",
                                   style: TextStyle(
                                     fontWeight: kFontWeight_M,
                                     fontSize: 13,
@@ -257,7 +260,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '£ ${staffDetails[index].hourlyRate}/hour',
+                                  '£ ${staffDetails[index].hourlyRate ?? ""}/hour',
                                   style: TextStyle(
                                     fontWeight: kFontWeight_M,
                                     fontSize: 13,
@@ -275,7 +278,7 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
                 (staffDetails[index].requested!)
                     ? Positioned(
                         top: -25,
-                        left: 167,
+                        left: 172,
                         child: Container(
                           height: 200,
                           width: 200,
@@ -302,5 +305,11 @@ class _SliderBannerHomeState extends State<SliderBannerHome> {
         },
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

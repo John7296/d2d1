@@ -20,6 +20,7 @@ class _JobAppliedSuccessfulScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [

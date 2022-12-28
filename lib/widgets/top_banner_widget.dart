@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_d2d/model/active_job_model.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class TopBannerWidget extends StatefulWidget {
-   
-  
-   TopBannerWidget({super.key, });
+  TopBannerWidget({
+    super.key,
+  });
 
   @override
   State<TopBannerWidget> createState() => _TopBannerWidgetState();
 }
 
-class _TopBannerWidgetState extends State<TopBannerWidget> {
-
-  
- 
+class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,7 +52,9 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
                       padding: const EdgeInsets.only(left: 10),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     height: 40,
@@ -196,20 +196,33 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
                 Text(
                   '£ 25.00/hour',
                   style: TextStyle(
-                    color: Colors.white,
-                  ),
+                      color: Colors.white,
+                      fontWeight: kFontWeight_SB,
+                      fontSize: kFontSize_14),
                 ),
-                Text(
-                  '🗓 15 NOV 2022',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                    SizedBox(width: 2),
+                    Text(
+                      "15 Nov 2022",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: kFontWeight_SB,
+                          fontSize: kFontSize_14),
+                    ),
+                  ],
                 ),
                 Text(
                   'Agate House',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontWeight: kFontWeight_SB,
+                    fontSize: kFontSize_14,
                   ),
                 ),
               ],
@@ -218,5 +231,11 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
         ],
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

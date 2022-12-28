@@ -1,11 +1,11 @@
-class Alerts {
+class JobAlerts {
   String? dialougue;
   String? info;
   bool? highPriority;
 
-  Alerts({this.dialougue, this.info, this.highPriority});
+  JobAlerts({this.dialougue, this.info, this.highPriority});
 
-  Alerts.fromJson(Map<String, dynamic> json) {
+  JobAlerts.fromJson(Map<String, dynamic> json) {
     dialougue = json['dialougue'];
     info = json['info'];
     highPriority = json['high_priority'];
