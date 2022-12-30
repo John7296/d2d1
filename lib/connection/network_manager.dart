@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job_details.dart';
 import 'package:project_d2d/model/user.dart';
 
 class NetworkManager {
@@ -18,17 +19,24 @@ class NetworkManager {
   Dio? dio;
   late NetworkConnection networkConnection;
 
-
   init() {
     dio = Dio();
     networkConnection = NetworkConnection(dio!);
   }
 
-
- Future<BaseResponse<User>> userLogin(Map<String, dynamic> map) {
+  Future<BaseResponse<User>> userLogin(Map<String, dynamic> map) {
     return call(networkConnection.userLogin(map));
   }
 
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,
+      String searchKeyword, String jobStatus, String token) {
+    return call(networkConnection.getJobDetails(
+        sp, staffId, searchKeyword, jobStatus, token));
+  }
+
+//  Future<BaseResponse<List<JobDetails>>> getJobDetails(Map<String, dynamic> map) {
+//     return call(networkConnection.getJobDetails(map["sp"], map["staffId"],map["searchKeyword"],map["jobStatus"]));
+//   }
 
   Future<T> call<T>(Future<T> call) async {
     T response;
@@ -57,48 +65,12 @@ class NetworkManager {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
-            // if (error.response?.statusCode == 401) {
-            //   _errorMessage = "Session timeout";
-            //   // DataManager.shared.onTokenExpired!();
-            //   throw (_errorMessage);
-            // }
-
-            if (error.response?.statusCode == 401 ||
-                error.response?.statusCode == 400) {
-              if (error.response!.data["Data"] is Iterable) {
-                for (Map m in error.response!.data["Data"]) {
-                  _errorMessage = _errorMessage + m["Message"] + "\n";
-                }
-              } else {
-                _errorMessage = "${error.response!.data["Message"] ?? ""}";
-              }
-              _errorMessage = _errorMessage.trim() == ""
-                  ? "Unknown error"
-                  : _errorMessage.trim();
-              throw (_errorMessage);
+            _errorMessage = error.response?.data;
+            print("error_msg${error.response?.data}");
+            if (error.response?.statusCode == 400) {
+              print(error.response?.data);
             }
 
-            if (error.response?.statusCode == 500) {
-              try {
-                if (error.response!.data["data"] != null) {
-                  if (error.response!.data["data"]["go_to_cart"] != null) {
-                    if (error.response!.data["data"]["go_to_cart"]) {
-                      // DataManager.shared.onGotoCartFired!();
-                    }
-                  }
-                }
-              } catch (e) {}
-            }
-
-            _errorMessage = "${error.response!.data["message"] ?? ""}";
-
-            error.response!.data["errors"]?.forEach((k, v) {
-              _errorMessage = _errorMessage + "${v[0] ?? ""}\n";
-            });
-
-            _errorMessage = _errorMessage.trim() == ""
-                ? "Unknown error"
-                : _errorMessage.trim();
             break;
           case DioErrorType.sendTimeout:
             _errorMessage = "Receive timeout in send request";

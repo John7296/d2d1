@@ -5,7 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job_details.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -22,6 +25,34 @@ class HomeDetailScreen extends StatefulWidget {
 }
 
 class _HomeDetailScreenState extends State<HomeDetailScreen> {
+  List<JobDetails> jobList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // getJobDetails();
+  }
+
+  void getJobDetails() {
+    NetworkManager.shared
+        .getJobDetails(
+      "TKN3561228453",
+      13,
+      "getJobsByStaffId",
+      "searchKeyword",
+      "Active",
+    )
+        .then((BaseResponse<List<JobDetails>> response) {
+      setState(() {
+        jobList.clear();
+        jobList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +90,6 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           ],
                         ),
                       ),
-                      
                       Column(
                         children: [
                           InkWell(
@@ -67,14 +97,13 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfileScreen(),
+                                  builder: (context) => ProfileScreen(),
                                 ),
                               );
                             },
                             child: CircleAvatar(
-                              backgroundImage: AssetImage(
-                                  'assets/images/profile.png'),
+                              backgroundImage:
+                                  AssetImage('assets/images/profile.png'),
                               radius: 25,
                             ),
                           ),
@@ -88,8 +117,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  AvailableJobsScreen()));
+                              builder: (context) => AvailableJobsScreen()));
                     },
                     child: Container(
                       height: 50,
@@ -97,14 +125,16 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           borderRadius: BorderRadius.circular(10),
                           color: kSearchfieldColor),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20,right: 20),
+                        padding: EdgeInsets.only(left: 20, right: 20),
                         child: Row(
                           children: [
                             ImageIcon(
                               AssetImage("assets/images/ic_search.png"),
                               size: 20,
                             ),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             SizedBox(
                               child: Text(
                                 "Search available jobs",
@@ -140,11 +170,12 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Spacer(),
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          AvailableJobsScreen()));
+                              getJobDetails();
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             AvailableJobsScreen()));
                             },
                             child: Text(
                               'See all ',
@@ -162,7 +193,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                     ),
                     SliderBannerHomeWidget(),
                     SizedBox(
-                      height:20,
+                      height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -463,7 +494,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 25, right: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: DottedBorder(
                         borderType: BorderType.RRect,
                         radius: Radius.circular(20),
@@ -471,7 +502,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                         color: Colors.blueGrey,
                         strokeWidth: 2,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5),
                           child: SizedBox(
                               height: 150,
                               width: 350,

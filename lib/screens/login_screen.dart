@@ -14,28 +14,23 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
-
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
-   final _usernameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
 
   bool _obscureText = true;
 
   var parser = EmojiParser();
 
-
-
   @override
   void initState() {
-    super.initState();  
-   // onLoginButtonTapped();
+    super.initState();
+    // onLoginButtonTapped();
   }
 
-    void onLoginButtonTapped() {
+  void onLoginButtonTapped() {
     // if (!_form.currentState?.validate()) {
     //   return;
     // }
@@ -46,26 +41,20 @@ class _LoginScreenState extends State<LoginScreen> {
     // print(password);
 
     NetworkManager.shared.userLogin(<String, dynamic>{
-    "sp": "getAuthenticationApp",
-     "logname":"hari@gmail.com",
-    "passwd":"qwerty"
+      "sp": "getAuthenticationApp",
+      "logname": "hari@gmail.com",
+      "passwd": "qwerty"
     }).then((BaseResponse<User> response) {
-     
-     print(
-      "/////////////////////"
-     );
+      print("/////////////////////");
     }).catchError((e) {
-   
-       print(e);
-    
+      // print(e.toString());
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: "Poppins"
-      ),
+      theme: ThemeData(fontFamily: "Poppins"),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xffFFFFFF),
@@ -77,9 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   IconButton(
                       onPressed: () {
-
                         //  Navigator.pop(context);
-                      }, icon: Icon(Icons.arrow_back_ios_new)),
+                      },
+                      icon: Icon(Icons.arrow_back_ios_new)),
                 ],
               ),
             ),
@@ -100,7 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                   ),
 
-                  
                   // Container(
                   //     height: 40,
                   //     width: 50,
@@ -130,78 +118,84 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 50, right: 20),
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 50, right: 20),
                     child: TextFormField(
-                       controller: _usernameController,
-                          validator: (val) {
-                            if (val!.isEmpty) return "Enter E-mail or Phone Number";
-                            return null;
-                          },
+                        controller: _usernameController,
+                        validator: (val) {
+                          if (val!.isEmpty)
+                            return "Enter E-mail or Phone Number";
+                          return null;
+                        },
                         decoration: InputDecoration(
-                      contentPadding: EdgeInsets.
-                          //only(left:10, top:5, bottom:5),
-                          symmetric(vertical: 20, horizontal: 10),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xffAFB0B6),
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      labelText: "   E-mail / Phone Number",
-                      labelStyle:
-                          TextStyle(color: Color(0xffAFB0B6), fontWeight:FontWeight.w500,fontSize: 15),
-                    )),
+                          contentPadding: EdgeInsets.
+                              //only(left:10, top:5, bottom:5),
+                              symmetric(vertical: 20, horizontal: 10),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xffAFB0B6),
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          labelText: "   E-mail / Phone Number",
+                          labelStyle: TextStyle(
+                              color: Color(0xffAFB0B6),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 20, right: 20),
                     child: TextFormField(
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.
-                                //only(left:10, top:5, bottom:5),
-                                symmetric(vertical: 20, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Color(0xffAFB0B6)),
-                            ),
-                            labelText: "  Password",
-                            labelStyle:
-                                TextStyle(color: Color(0xffAFB0B6), fontWeight:FontWeight.w500,fontSize: 15),
+                          contentPadding: EdgeInsets.
+                              //only(left:10, top:5, bottom:5),
+                              symmetric(vertical: 20, horizontal: 10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xffAFB0B6)),
+                          ),
+                          labelText: "  Password",
+                          labelStyle: TextStyle(
+                              color: Color(0xffAFB0B6),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
 
-                                suffixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: IconButton(
-                                icon: Icon(
-                                  _obscureText
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Color(0xffCACBCE),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscureText = !_obscureText;
-                                  });
-                                },
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Color(0xffCACBCE),
                               ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
                             ),
-                            // suffixIcon: Padding(
-                            //   padding: const EdgeInsets.only(right: 20),
-                            //   child: Icon(
-                            //     Icons.visibility,
-                            //     color: Color(0xffCACBCE),
-                            //   ),
-                            // )
-                            
-                            ),
-                            obscureText: _obscureText,
-                          controller: _passwordController,
-                          validator: (val) {
-                            if (val!.isEmpty) return "Enter your password";
-                            return null;
-                          }
-                            ),
+                          ),
+                          // suffixIcon: Padding(
+                          //   padding: const EdgeInsets.only(right: 20),
+                          //   child: Icon(
+                          //     Icons.visibility,
+                          //     color: Color(0xffCACBCE),
+                          //   ),
+                          // )
+                        ),
+                        obscureText: _obscureText,
+                        controller: _passwordController,
+                        validator: (val) {
+                          if (val!.isEmpty) return "Enter your password";
+                          return null;
+                        }),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 30),
                     child: Container(
                       height: 60,
                       child: ElevatedButton(
@@ -209,10 +203,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Color(0xffFD425B),
                         ),
                         onPressed: () {
-                        //  onLoginButtonTapped();
-                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-        return HomeScreen();
-      },),(route) => false);
+                          // onLoginButtonTapped();
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return HomeScreen();
+                            },
+                          ), (route) => false);
                         },
                         child: Center(
                             child: Text(
@@ -230,11 +227,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 30),
                     child: TextButton(
                         onPressed: () {
-                              
-                       Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>ForgotPasswordScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ForgotPasswordScreen()));
                         },
                         child: Text(
                           "Forgot Password?",
