@@ -1,5 +1,6 @@
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job_details.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:retrofit/retrofit.dart';
@@ -23,9 +24,17 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
 
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @POST("Default")
-  Future<BaseResponse<User>> userLogin(
-      @Body() Map<String, dynamic> map);
+  Future<BaseResponse<User>> userLogin(@Body() Map<String, dynamic> map);
 
+  @FormUrlEncoded()
+  @GET('sp=getJobsByStaffId&staffId=13&searchKeyword=&jobStatus=Active')
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(
+    @Header("token") String? token,
+    @Query("staffId") int? staffId,
+    @Query("sp") String? sp,
+    @Query("searchKeyword") String? searchKeyword,
+    @Query("jobStatus") String? jobStatus,
+  );
 }

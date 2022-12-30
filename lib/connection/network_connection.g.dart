@@ -48,6 +48,49 @@ class _NetworkConnection implements NetworkConnection {
     return value;
   }
 
+  @override
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(
+    token,
+    staffId,
+    sp,
+    searchKeyword,
+    jobStatus,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'staffId': staffId,
+      r'sp': sp,
+      r'searchKeyword': searchKeyword,
+      r'jobStatus': jobStatus,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<JobDetails>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'sp=getJobsByStaffId&staffId=13&searchKeyword=&jobStatus=Active',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<JobDetails>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<JobDetails>(
+              (i) => JobDetails.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
