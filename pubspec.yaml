@@ -41,6 +41,7 @@ dependencies:
   pretty_dio_logger: ^1.2.0-beta-1
   proste_bezier_curve: ^2.0.2
   flutter_emoji: ^2.4.0
+  shared_preferences: ^2.0.7
 
 
 

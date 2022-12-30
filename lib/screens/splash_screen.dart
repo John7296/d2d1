@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:project_d2d/screens/login_screen.dart';
+import 'package:project_d2d/screens/onboarding_screens.dart';
 import 'package:proste_bezier_curve/proste_bezier_curve.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => {
       
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()))
+            context, MaterialPageRoute(builder: (context) => OnboardingScreens()))
       },
     );
     super.initState();
