@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 part 'network_connection.g.dart';
 
-@RestApi(baseUrl: 'https://wpr.intertoons.net/d2dApi/')
+@RestApi(baseUrl: 'https://wpr.intertoons.net/')
 abstract class NetworkConnection {
   factory NetworkConnection(Dio dio, {String? baseUrl}) {
     if (kDedebug) {
@@ -25,8 +25,10 @@ abstract class NetworkConnection {
   }
 
   @FormUrlEncoded()
-  @POST("Default")
-  Future<BaseResponse<User>> userLogin(@Body() Map<String, dynamic> map);
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse<List<User>>> userLogin(
+   @Body() Map<String, dynamic> map);
+
 
   @FormUrlEncoded()
   @GET('sp=getJobsByStaffId&staffId=13&searchKeyword=&jobStatus=Active')

@@ -13,7 +13,7 @@ class _NetworkConnection implements NetworkConnection {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://wpr.intertoons.net/d2dApi/';
+    baseUrl ??= 'https://wpr.intertoons.net/';
   }
 
   final Dio _dio;
@@ -21,14 +21,14 @@ class _NetworkConnection implements NetworkConnection {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<User>> userLogin(map) async {
+  Future<BaseResponse<List<User>>> userLogin(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map);
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<User>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -36,14 +36,16 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              'Default',
+              'd2dApi/Default.aspx',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<User>.fromJson(
+    final value = BaseResponse<List<User>>.fromJson(
       _result.data!,
-      (json) => User.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<User>((i) => User.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

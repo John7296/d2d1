@@ -24,7 +24,8 @@ class NetworkManager {
     networkConnection = NetworkConnection(dio!);
   }
 
-  Future<BaseResponse<User>> userLogin(Map<String, dynamic> map) {
+  Future<BaseResponse<List<User>>> userLogin(Map<String, dynamic> map) {
+    print("error_response1${map}");
     return call(networkConnection.userLogin(map));
   }
 

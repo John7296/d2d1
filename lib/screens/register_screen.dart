@@ -10,6 +10,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
    final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
       final _usernameController = TextEditingController();
+         final _emailController = TextEditingController();
+            final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
 
@@ -83,11 +85,11 @@ return MaterialApp(
                 Padding(
                       padding: const EdgeInsets.only(left: 20, top: 40, right: 20),
                       child: TextFormField(
-                        //  controller: _usernameController,
-                        //     validator: (val) {
-                        //       if (val!.isEmpty) return "Enter E-mail or Phone Number";
-                        //       return null;
-                        //     },
+                         controller: _usernameController,
+                            validator: (val) {
+                              if (val!.isEmpty) return "Enter E-mail or Phone Number";
+                              return null;
+                            },
                           decoration: InputDecoration(
                         contentPadding: EdgeInsets.
                             //only(left:10, top:5, bottom:5),
@@ -107,11 +109,11 @@ return MaterialApp(
                      Padding(
                       padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
-                        //  controller: _usernameController,
-                        //     validator: (val) {
-                        //       if (val!.isEmpty) return "Enter E-mail or Phone Number";
-                        //       return null;
-                        //     },
+                         controller: _emailController,
+                            validator: (val) {
+                              if (val!.isEmpty) return "Enter E-mail or Phone Number";
+                              return null;
+                            },
                           decoration: InputDecoration(
                         contentPadding: EdgeInsets.
                             //only(left:10, top:5, bottom:5),
@@ -131,11 +133,11 @@ return MaterialApp(
                      Padding(
                       padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
-                        //  controller: _usernameController,
-                        //     validator: (val) {
-                        //       if (val!.isEmpty) return "Enter E-mail or Phone Number";
-                        //       return null;
-                        //     },
+                         controller: _phoneController,
+                            validator: (val) {
+                              if (val!.isEmpty) return "Enter E-mail or Phone Number";
+                              return null;
+                            },
                           decoration: InputDecoration(
                         contentPadding: EdgeInsets.
                             //only(left:10, top:5, bottom:5),
@@ -244,12 +246,12 @@ return MaterialApp(
                             // )
                             
                             ),
-                            obscureText: _obscureText,
-                          controller: _passwordController,
-                          validator: (val) {
-                            if (val!.isEmpty) return "Enter your password";
-                            return null;
-                          }
+                          //   obscureText: _obscureText,
+                          // controller: _passwordController,
+                          // validator: (val) {
+                          //   if (val!.isEmpty) return "Enter your password";
+                          //   return null;
+                          // }
                             ),
                   ),
 
@@ -296,7 +298,14 @@ return MaterialApp(
                         ),
 
                         TextButton(onPressed: 
-                        (){}, child: 
+                        (){
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      LoginScreen()));
+                        }, child: 
                         Text("Login", style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w500,

@@ -15,14 +15,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  BaseResponse? response;
+
   bool _obscureText = true;
 
-  var parser = EmojiParser();
+  // var parser = EmojiParser();
 
   @override
   void initState() {
@@ -31,25 +34,33 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onLoginButtonTapped() {
-    // if (!_form.currentState?.validate()) {
-    //   return;
-    // }
+  if (!_form.currentState!.validate()) {
+      return;
+    }
 
-    // String username = _usernameController.text;
-    // String password = _passwordController.text;
+    String username = _usernameController.text;
+    String password = _passwordController.text;
     // print(username);
     // print(password);
+    // print("...........................");
 
-    NetworkManager.shared.userLogin(<String, dynamic>{
-      "sp": "getAuthenticationApp",
-      "logname": "hari@gmail.com",
-      "passwd": "qwerty"
-    }).then((BaseResponse<User> response) {
-      print("/////////////////////");
-    }).catchError((e) {
-      // print(e.toString());
+    NetworkManager.shared.userLogin(
+      <String, dynamic>{
+    
+    "sp":"getAuthenticationApp",
+    "logname":"hari@gmail.com",
+    "passwd":"qwerty",
+    }
+    ).then((BaseResponse<List<User>> response) {
+   
+
+    }).catchError((obj) {
+      print(obj.toString());
     });
   }
+
+  
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +133,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         const EdgeInsets.only(left: 20, top: 50, right: 20),
                     child: TextFormField(
                         controller: _usernameController,
-                        validator: (val) {
-                          if (val!.isEmpty)
-                            return "Enter E-mail or Phone Number";
-                          return null;
-                        },
+                        // validator: (val) {
+                        //   if (val!.isEmpty)
+                        //     return "Enter E-mail or Phone Number";
+                        //   return null;
+                        // },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.
                               //only(left:10, top:5, bottom:5),
@@ -188,10 +199,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         obscureText: _obscureText,
                         controller: _passwordController,
-                        validator: (val) {
-                          if (val!.isEmpty) return "Enter your password";
-                          return null;
-                        }),
+                        // validator: (val) {
+                        //   if (val!.isEmpty) return "Enter your password";
+                        //   return null;
+                        // },
+                        ),
                   ),
                   Padding(
                     padding:
@@ -203,13 +215,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Color(0xffFD425B),
                         ),
                         onPressed: () {
-                          // onLoginButtonTapped();
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return HomeScreen();
-                            },
-                          ), (route) => false);
+                           onLoginButtonTapped();
+                          // Navigator.pushAndRemoveUntil(context,
+                          //     MaterialPageRoute(
+                          //   builder: (BuildContext context) {
+                          //     return HomeScreen();
+                          //   },
+                          // ), (route) => false);
                         },
                         child: Center(
                             child: Text(
