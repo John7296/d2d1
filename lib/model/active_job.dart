@@ -2,7 +2,7 @@ class StaffDetails {
   String? staffName;
   String? jobName;
   String? jobLocation;
-  int? hourlyRate;
+  double? hourlyRate;
   String? shiftType;
   String? startDate;
   bool? requested;

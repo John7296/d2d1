@@ -18,13 +18,13 @@ class _SliderBannerHomeWidgetState
     extends BaseWidgetStatefulState<SliderBannerHomeWidget> {
   List<StaffDetails> staffDetails = [
     StaffDetails(
-        staffName: 'Agota House',
+        staffName: 'Agate House',
         jobName: 'Dialysis Specialyst',
         jobLocation: 'London',
         shiftType: 'Sunday',
         startDate: '10 Nov 2022',
         requested: true,
-        hourlyRate: 30),
+        hourlyRate: 30.00),
     StaffDetails(
         staffName: 'Care House',
         jobName: 'General Nurse',
@@ -32,7 +32,7 @@ class _SliderBannerHomeWidgetState
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 20.00),
     StaffDetails(
         staffName: 'Agota House',
         jobName: 'Dialysis Specialyst',
@@ -40,7 +40,7 @@ class _SliderBannerHomeWidgetState
         shiftType: 'Saturday',
         requested: true,
         startDate: '12 Jan 2023',
-        hourlyRate: 30),
+        hourlyRate: 25.00),
     StaffDetails(
         staffName: 'Care House',
         jobName: 'General Nurse',
@@ -48,7 +48,7 @@ class _SliderBannerHomeWidgetState
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 35.00),
   ];
 
   @override
@@ -163,7 +163,8 @@ class _SliderBannerHomeWidgetState
                                                           '',
                                                       maxLines: 1,
                                                       style: TextStyle(
-                                                          color: Colors.white,
+                                                          color: Colors.white
+                                                              .withOpacity(0.8),
                                                           fontSize:
                                                               kFontSize_14,
                                                           fontWeight:
@@ -191,17 +192,22 @@ class _SliderBannerHomeWidgetState
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(20),
                                       ),
-                                      color: Colors.white.withOpacity(0.1),
+                                      color: Colors.white.withOpacity(0.15),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15),
                                       child: Row(
                                         children: [
-                                          Icon(
-                                            Icons.alarm_add_outlined,
-                                            color: Colors.white,
-                                            size: 15,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 2),
+                                            child: ImageIcon(
+                                              AssetImage(
+                                                  "assets/images/ic_alarm.png"),
+                                              size: 15,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           Text(
                                             staffDetails[index].shiftType ?? "",
@@ -222,17 +228,21 @@ class _SliderBannerHomeWidgetState
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(15),
                                       ),
-                                      color: Colors.white.withOpacity(0.1),
+                                      color: Colors.white.withOpacity(0.15),
                                     ),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 10),
                                       child: Row(
                                         children: [
-                                          Icon(
-                                            Icons.location_pin,
-                                            color: Colors.white,
-                                            size: 15,
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 2),
+                                            child: ImageIcon(
+                                              AssetImage(
+                                                  "assets/images/ic_location.png"),
+                                              size: 15,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           Text(
                                             staffDetails[index].jobLocation ??
@@ -291,30 +301,28 @@ class _SliderBannerHomeWidgetState
                     right: 0,
                     child: Stack(
                       children: [
-                        Image(
-                              image: AssetImage("assets/images/redlabel.png")),
-                              Positioned(
-                                right: 0,
-                                left: 0,
-                                bottom: 0,
-                                top: 0,
-                                child: Container(
-                                                             
-                                  // color: Colors.yellow,
-                                  child: Center(
-                                    child: Text(
-                                                          "Requested",
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              color: Colors.white,
-                                                              fontWeight: kFontWeight_M),
-                                                        ),
-                                  ),
-                                ),
+                        Image(image: AssetImage("assets/images/redlabel.png")),
+                        Positioned(
+                          right: 0,
+                          left: 0,
+                          bottom: 0,
+                          top: 0,
+                          child: Container(
+                            // color: Colors.yellow,
+                            child: Center(
+                              child: Text(
+                                "Requested",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: kFontWeight_M),
                               ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    
+
                     //  Container(
                     //   padding: EdgeInsets.only(
                     //       left: 20, right: 20, bottom: 10, top: 10),
@@ -326,7 +334,7 @@ class _SliderBannerHomeWidgetState
                     //       // fit: BoxFit.cover,
                     //     ),
                     //   ),
-                    //   child: 
+                    //   child:
                     // ),
                   ),
               ],

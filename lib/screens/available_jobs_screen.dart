@@ -23,7 +23,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         shiftType: 'Sunday',
         startDate: '10 Nov 2022',
         requested: true,
-        hourlyRate: 30),
+        hourlyRate: 25.00),
     StaffDetails(
         staffName: 'Mary',
         jobName: 'General Nurse',
@@ -31,7 +31,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 30.00),
     StaffDetails(
         staffName: 'Sara',
         jobName: 'Mental Health Nurse',
@@ -39,7 +39,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         shiftType: 'Saturday',
         requested: true,
         startDate: '12 Jan 2023',
-        hourlyRate: 30),
+        hourlyRate: 20.00),
     StaffDetails(
         staffName: 'Sandra',
         jobName: 'Laundry Assistant',
@@ -47,7 +47,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 20.00),
   ];
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                   child: SizedBox(
                     height: 40,
                     child: TabBar(
-                      unselectedLabelColor: Colors.redAccent,
+                      unselectedLabelColor: Colors.grey,
                       indicatorSize: TabBarIndicatorSize.label,
                       controller: tabController,
                       indicator: BoxDecoration(
@@ -162,7 +162,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               border:
-                                  Border.all(color: Colors.redAccent, width: 1),
+                                  Border.all(color: Colors.grey, width: 1),
                             ),
                             child: Align(
                               alignment: Alignment.center,
@@ -181,7 +181,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
-                                    color: Colors.redAccent, width: 1)),
+                                    color: Colors.grey, width: 1)),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text("Available",

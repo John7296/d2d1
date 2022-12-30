@@ -15,7 +15,6 @@ class JobCancelScreen extends StatefulWidget {
 }
 
 class _JobCancelScreenState extends State<JobCancelScreen> {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,16 +23,14 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
       body: SafeArea(
         child: Column(
           children: [
-           TopBannerWidget(
-            
-           ),
+            TopBannerWidget(),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Card(
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20)),
-                elevation: 0,
+                elevation: 0.5,
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -42,13 +39,18 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.delete_outline,
+                          ImageIcon(
+                            AssetImage("assets/images/ic_delete.png"),
+                            size: 20,
                             color: Colors.red,
                           ),
-                          Text("Cancel Job",
-                              style:
-                                  TextStyle(fontSize: kFontSize_16, color: Colors.red)),
+                          
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text("Cancel Job",
+                                style: TextStyle(
+                                    fontSize: kFontSize_16, color: Colors.red)),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -61,26 +63,30 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                         textAlign: TextAlign.left,
                         enabled: true,
                         maxLines: 5,
+                        
                         // controller: _instructionController,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide:
-                                    BorderSide(color: Colors.grey.shade50),),),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 15),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.grey.shade50),
+                          ),
+                          hintText: "Enter Reason",hintStyle: TextStyle(color: Colors.grey)
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
-                          width: 150,
+                          // width: 150,
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => JobCancelledSuccessfulScreen()));
+                                      builder: (context) =>
+                                          JobCancelledSuccessfulScreen()));
                             },
                             child: Text(
                               'Cancel',

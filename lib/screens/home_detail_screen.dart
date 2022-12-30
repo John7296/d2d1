@@ -38,9 +38,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
     NetworkManager.shared
         .getJobDetails(
       "TKN3561228453",
-      13,
       "getJobsByStaffId",
-      "searchKeyword",
+      13,
+      
+      "",
       "Active",
     )
         .then((BaseResponse<List<JobDetails>> response) {
@@ -254,9 +255,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
+                                          EdgeInsets.symmetric(horizontal: 25,vertical: 5),
                                       child: Image.asset(
-                                        'assets/images/time.png',
+                                        'assets/images/ic_time_1.png',
                                         width: 50,
                                         height: 50,
                                         fit: BoxFit.cover,
@@ -331,10 +332,10 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
+                                          EdgeInsets.symmetric(horizontal:15,vertical: 5),
                                       child: Image.asset(
-                                        'assets/images/time.png',
-                                        width: 50,
+                                        'assets/images/ic_time_2.png',
+                                        // width: 50,
                                         height: 50,
                                         fit: BoxFit.cover,
                                       ),
@@ -400,9 +401,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
+                                          EdgeInsets.symmetric(horizontal: 25,vertical: 5),
                                       child: Image.asset(
-                                        'assets/images/time.png',
+                                        'assets/images/ic_time_3.png',
                                         width: 50,
                                         height: 50,
                                         fit: BoxFit.cover,

@@ -86,7 +86,7 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                           color: Colors.white,
                           image: DecorationImage(
                             image: AssetImage("assets/images/care.png"),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                           // color: Colors.green.shade400,
                           // boxShadow: [
@@ -184,13 +184,22 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                         ),
                       ],
                     ),
-                    Text(
-                      'Agate House',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: kFontWeight_SB,
-                        fontSize: kFontSize_14,
-                      ),
+                    Row(
+                      children: [
+                        ImageIcon(
+                          AssetImage("assets/images/ic_location.png"),
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Agate House',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: kFontWeight_SB,
+                            fontSize: kFontSize_14,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

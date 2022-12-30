@@ -60,7 +60,7 @@ class _JobCancelledSuccessfulScreenState
                 children: [
                   Text(
                     "Your Job Application has been cancelled",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -70,7 +70,7 @@ class _JobCancelledSuccessfulScreenState
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: Container(
-                width: 250,
+                // width: 250,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {

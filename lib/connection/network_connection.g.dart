@@ -13,7 +13,7 @@ class _NetworkConnection implements NetworkConnection {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://wpr.intertoons.net/d2dApi/';
+    baseUrl ??= 'https://wpr.intertoons.net/d2dApi';
   }
 
   final Dio _dio;
@@ -76,7 +76,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              'sp=getJobsByStaffId&staffId=13&searchKeyword=&jobStatus=Active',
+              'd2dApi',
               queryParameters: queryParameters,
               data: _data,
             )

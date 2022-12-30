@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 part 'network_connection.g.dart';
 
-@RestApi(baseUrl: 'https://wpr.intertoons.net/d2dApi/')
+@RestApi(baseUrl: 'https://wpr.intertoons.net/d2dApi')
 abstract class NetworkConnection {
   factory NetworkConnection(Dio dio, {String? baseUrl}) {
     if (kDedebug) {
@@ -29,7 +29,7 @@ abstract class NetworkConnection {
   Future<BaseResponse<User>> userLogin(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET('sp=getJobsByStaffId&staffId=13&searchKeyword=&jobStatus=Active')
+  @GET('d2dApi')
   Future<BaseResponse<List<JobDetails>>> getJobDetails(
     @Header("token") String? token,
     @Query("staffId") int? staffId,

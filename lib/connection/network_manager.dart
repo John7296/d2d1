@@ -28,10 +28,10 @@ class NetworkManager {
     return call(networkConnection.userLogin(map));
   }
 
-  Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,
-      String searchKeyword, String jobStatus, String token) {
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(String token, String sp, int staffId,
+      String searchKeyword, String jobStatus) {
     return call(networkConnection.getJobDetails(
-        sp, staffId, searchKeyword, jobStatus, token));
+        token, staffId,sp, searchKeyword, jobStatus ));
   }
 
 //  Future<BaseResponse<List<JobDetails>>> getJobDetails(Map<String, dynamic> map) {

@@ -29,7 +29,7 @@ class _AvailableJobWidgetState
         shiftType: 'Sunday',
         startDate: '10 Nov 2022',
         requested: true,
-        hourlyRate: 30),
+        hourlyRate: 25.00),
     StaffDetails(
         staffName: 'Care House',
         jobName: 'General Nurse',
@@ -37,7 +37,7 @@ class _AvailableJobWidgetState
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 20.00),
     StaffDetails(
         staffName: 'Agota House',
         jobName: 'Dialysis Specialyst',
@@ -45,7 +45,7 @@ class _AvailableJobWidgetState
         shiftType: 'Saturday',
         requested: true,
         startDate: '12 Jan 2023',
-        hourlyRate: 30),
+        hourlyRate: 56.00),
     StaffDetails(
         staffName: 'Care House',
         jobName: 'General Nurse',
@@ -53,15 +53,16 @@ class _AvailableJobWidgetState
         shiftType: 'Full-Time',
         startDate: '15 DEC 2022',
         requested: false,
-        hourlyRate: 30),
+        hourlyRate: 24.12),
   ];
 
   void getJobDetails() {
     NetworkManager.shared
         .getJobDetails(
       "TKN3561228453",
+       "getJobsByStaffId",
          13,
-      "getJobsByStaffId",
+     
    
       "searchKeyword",
       "Active",

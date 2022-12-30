@@ -57,43 +57,41 @@ class _JobAppliedSuccessfulScreenState
                 children: [
                   Text(
                     "Your Job Application has been submitted successfully",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25,),
                     textAlign: TextAlign.center,
                   ),
                 ],
               ),
             ),
             Spacer(),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Container(
-                width: 250,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return HomeScreen();
-                      },
-                    ), (route) => false);
-                  },
-                  child: Text(
-                    'Back to Dashboard',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+            Container(
+              // width: 250,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return HomeScreen();
+                    },
+                  ), (route) => false);
+                },
+                child: Text(
+                  'Back to Dashboard',
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(kButtonColorR),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(kButtonColorR),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
                 ),
               ),
             ),
+            SizedBox(height: 10)
           ],
         ),
       ),

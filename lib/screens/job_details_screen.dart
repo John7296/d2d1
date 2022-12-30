@@ -15,8 +15,6 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen>
     with TickerProviderStateMixin {
-
-
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 4, vsync: this);
@@ -28,9 +26,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           children: [
             Row(
               children: [
-                TopBannerWidget(
-                 
-                ),
+                TopBannerWidget(),
               ],
             ),
             Row(
@@ -38,17 +34,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TabBar(
+                  labelColor: Colors.black,
                   unselectedLabelColor: Colors.grey,
                   controller: tabController,
                   isScrollable: true,
-                  indicatorColor: Colors.black,
+                  indicatorColor: Colors.transparent,
                   tabs: [
                     Tab(
                       child: Center(
                         child: Text(
                           "Description",
                           style: TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontSize: 14,
                               fontWeight: kFontWeight_M),
                         ),
@@ -59,7 +56,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         child: Text(
                           "Location",
                           style: TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontSize: 14,
                               fontWeight: kFontWeight_M),
                         ),
@@ -70,7 +67,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         child: Text(
                           "Rates",
                           style: TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontSize: 14,
                               fontWeight: kFontWeight_M),
                         ),
@@ -81,7 +78,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         child: Text(
                           "Info",
                           style: TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontSize: 14,
                               fontWeight: kFontWeight_M),
                         ),
