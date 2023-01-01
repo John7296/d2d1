@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class TopBannerWidget extends StatefulWidget {
@@ -15,6 +18,32 @@ class TopBannerWidget extends StatefulWidget {
 }
 
 class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
+
+   List<JobDetails> jobDetailsList = [];
+
+    void getJobDetails() {
+      // showLoader();
+      NetworkManager.shared
+          .getJobDetails(
+        "TKN3533328453",
+        "getJobDetailsByJobIdStaff",
+        13,
+        2,
+      )
+          .then((BaseResponse<List<JobDetails>> response) {
+        // hideLoader();
+        setState(() {
+          jobDetailsList.clear();
+          jobDetailsList.addAll(response.data!);
+        });
+      }).catchError((e) {
+        // hideLoader();
+        print(e.toString());
+      });
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -242,6 +271,7 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
         ),
       ],
     );
+  
   }
 
   @override

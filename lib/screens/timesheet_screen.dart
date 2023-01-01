@@ -318,8 +318,13 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
                                                             Radius.circular(
                                                                 20)),
                                                   ),
-                                                  child: Signature(
-                                                      controller: _controller),
+                                                  child: Container(
+                                                    height: 150,
+                                                    width: 150,
+                                                    color: Colors.green,
+                                                    child: Signature(
+                                                        controller: _controller),
+                                                  ),
                                                 ),
                                               ],
                                             ),

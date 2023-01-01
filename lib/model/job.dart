@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'job_details.g.dart';
+part 'job.g.dart';
 
 @JsonSerializable()
-class JobDetails {
+class Job {
   @JsonKey(name: 'jobNumber')
   String? jobNumber;
 
@@ -28,13 +28,17 @@ class JobDetails {
   @JsonKey(name: 'endDateTime')
   String? endDateTime;
 
+  @JsonKey(name: 'isRequsted')
+  String? isRequsted;
+  
 
-  JobDetails({
-  this.clientName,
+
+  Job({
+  this.clientName,this.isRequsted,
   this.endDateTime,this.hourlyRate,this.jobCatName,this.jobLocation,this.jobNumber,this.shiftName,this.startDateTime
   });
 
-  factory JobDetails.fromJson(Map<String, dynamic> json) =>
-      _$JobDetailsFromJson(json);
-  Map<String, dynamic> toJson() => _$JobDetailsToJson(this);
+  factory Job.fromJson(Map<String, dynamic> json) =>
+      _$JobFromJson(json);
+  Map<String, dynamic> toJson() => _$JobToJson(this);
 }

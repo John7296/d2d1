@@ -5,10 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/alert.dart';
+import 'package:project_d2d/model/alert_messages.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/job.dart';
+import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -24,30 +28,58 @@ class HomeDetailScreen extends StatefulWidget {
   State<HomeDetailScreen> createState() => _HomeDetailScreenState();
 }
 
-class _HomeDetailScreenState extends State<HomeDetailScreen> {
-  List<JobDetails> jobList = [];
+class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
+  List<Job> jobList = [];
+  List<TimeSheet> timeSheetList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getJobDetails();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getJob();
+      
+
+      // _updateDeviceToken();
+    });
+    getTimeSheet();
   }
 
-  void getJobDetails() {
+  void getJob() {
+    showLoader();
     NetworkManager.shared
-        .getJobDetails(
-      "TKN3561228453",
+        .getJob(
+      "TKN3533328453",
       "getJobsByStaffId",
       13,
-      
       "",
       "Active",
     )
-        .then((BaseResponse<List<JobDetails>> response) {
+        .then((BaseResponse<List<Job>> response) {
+      // hideLoader();
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
+  void getTimeSheet() {
+    // showLoader();
+    NetworkManager.shared
+        .timeSheet(
+      "TKN3533328453",
+      "getStaffTimesheetBannerById",
+      13,
+    )
+        .then((BaseResponse<List<TimeSheet>> response) {
+      hideLoader();
+      setState(() {
+        timeSheetList.clear();
+        timeSheetList.addAll(response.data!);
       });
     }).catchError((e) {
       print(e.toString());
@@ -171,7 +203,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Spacer(),
                           InkWell(
                             onTap: () {
-                              getJobDetails();
+                              getJob();
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -241,13 +273,12 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               ),
                               // color: Colors.redAccent,
                               gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.pink.shade300,
-                                  Colors.pink.shade100
-                                ],
-                              ),
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.pink.shade300,
+                                    Colors.pink.shade100
+                                  ]),
                             ),
                             child: Column(
                               children: [
@@ -255,7 +286,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
                                       child: Image.asset(
                                         'assets/images/ic_time_1.png',
                                         width: 50,
@@ -275,22 +306,23 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                     color: Colors.redAccent,
                                   ),
                                   child: Container(
-                                    height: 30,
-                                    width: 30,
+                                    height: 20,
+                                    width: 20,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(25),
+                                        Radius.circular(15),
                                       ),
                                       color: Colors.redAccent,
                                     ),
                                     child: Center(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(3),
+                                        padding: const EdgeInsets.all(2),
                                         child: Text(
-                                          '78',
+                                          timeSheetList.first.jobPending
+                                              .toString(),
                                           style: TextStyle(
-                                            color: Colors.white,
                                             fontWeight: kFontWeight_SB,
+                                            color: Colors.white,
                                             fontSize: 10,
                                           ),
                                         ),
@@ -332,7 +364,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal:15,vertical: 5),
+                                          EdgeInsets.symmetric(horizontal: 15),
                                       child: Image.asset(
                                         'assets/images/ic_time_2.png',
                                         // width: 50,
@@ -355,7 +387,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(2),
                                       child: Text(
-                                        '78',
+                                        timeSheetList.first.jobApproved
+                                            .toString(),
                                         style: TextStyle(
                                           fontWeight: kFontWeight_SB,
                                           color: Colors.white,
@@ -401,7 +434,7 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
                                       child: Image.asset(
                                         'assets/images/ic_time_3.png',
                                         width: 50,
@@ -433,7 +466,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
                                         child: Text(
-                                          '78',
+                                          timeSheetList.first.jobCompleted
+                                              .toString(),
                                           style: TextStyle(
                                             fontWeight: kFontWeight_SB,
                                             color: Colors.white,
@@ -463,7 +497,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                     ),
                     SizedBox(height: 10),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -474,23 +509,24 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Spacer(),
-                          TextButton(
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             FeaturedProductsScreen()));
-                            },
-                            child: Text(
-                              '',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
+                          // Spacer(),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     // getAlertDetails();
+                          //     // Navigator.push(
+                          //     //     context,
+                          //     //     MaterialPageRoute(
+                          //     //         builder: (context) =>
+                          //     //             FeaturedProductsScreen()));
+                          //   },
+                          //   child: Text(
+                          //     '',
+                          //     style: TextStyle(
+                          //       color: Colors.grey,
+                          //       fontSize: 15,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -520,5 +556,11 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

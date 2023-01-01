@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
@@ -13,8 +17,43 @@ class AvailableJobsScreen extends StatefulWidget {
   _AvailableJobsScreenState createState() => _AvailableJobsScreenState();
 }
 
-class _AvailableJobsScreenState extends State<AvailableJobsScreen>
+class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     with TickerProviderStateMixin {
+  List<Job> jobList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getJobDetails();
+
+      // _updateDeviceToken();
+    });
+  }
+
+  void getJobDetails() {
+    showLoader();
+    NetworkManager.shared
+        .getJob(
+      "TKN3533328453",
+      "getJobsByStaffId",
+      13,
+      "",
+      "Active",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      hideLoader();
+      setState(() {
+        jobList.clear();
+        jobList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
   List<StaffDetails> staffDetails = [
     StaffDetails(
         staffName: 'Catherine',
@@ -161,8 +200,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             width: 120,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              border:
-                                  Border.all(color: Colors.grey, width: 1),
+                              border: Border.all(color: Colors.grey, width: 1),
                             ),
                             child: Align(
                               alignment: Alignment.center,
@@ -180,8 +218,8 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             width: 120,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Colors.grey, width: 1)),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text("Available",
@@ -220,8 +258,14 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            JobDetailsScreen()));
+                                        builder: (context) => JobDetailsScreen(
+                                            jobList[index].jobCatName ?? '',
+                                            // jobList[index].hourlyRate ?? '',
+                                            jobList[index].clientName ?? '',
+                                            jobList[index].jobLocation ?? '',
+                                            jobList[index].startDateTime ?? '',
+                                            jobList[index].shiftName ?? '',
+                                            context)));
                               }),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -478,5 +522,11 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

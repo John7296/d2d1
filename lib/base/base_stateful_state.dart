@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'dart:io' show Platform;
 
+import 'package:project_d2d/utils/helper.dart';
+
 abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   OverlayEntry? loader;
 
@@ -32,14 +34,14 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
-  // void showLoader() {
-  //   loader ??= Helper.overlayLoader(context);
-  //   Overlay.of(context)!.insert(loader!);
-  // }
+  void showLoader() {
+    loader ??= Helper.overlayLoader(context);
+    Overlay.of(context)!.insert(loader!);
+  }
 
-  // void hideLoader() {
-  //   Helper.hideLoader(loader!);
-  // }
+  void hideLoader() {
+    Helper.hideLoader(loader!);
+  }
 
   // void replaceScreen(String route) {
   //   // Navigator.pushReplacementNamed(context, route);

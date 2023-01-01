@@ -6,7 +6,7 @@ import 'package:project_d2d/base/base_widget_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
@@ -19,58 +19,28 @@ class AvailableJobWidget extends StatefulWidget {
 
 class _AvailableJobWidgetState
     extends BaseWidgetStatefulState<AvailableJobWidget> {
-  List<JobDetails> jobDetailsList = [];
+  List<Job> jobList = [];
 
-  List<StaffDetails> staffDetails = [
-    StaffDetails(
-        staffName: 'Agota House',
-        jobName: 'Dialysis Specialyst',
-        jobLocation: 'London',
-        shiftType: 'Sunday',
-        startDate: '10 Nov 2022',
-        requested: true,
-        hourlyRate: 25.00),
-    StaffDetails(
-        staffName: 'Care House',
-        jobName: 'General Nurse',
-        jobLocation: 'Agate East',
-        shiftType: 'Full-Time',
-        startDate: '15 DEC 2022',
-        requested: false,
-        hourlyRate: 20.00),
-    StaffDetails(
-        staffName: 'Agota House',
-        jobName: 'Dialysis Specialyst',
-        jobLocation: 'Coventry',
-        shiftType: 'Saturday',
-        requested: true,
-        startDate: '12 Jan 2023',
-        hourlyRate: 56.00),
-    StaffDetails(
-        staffName: 'Care House',
-        jobName: 'General Nurse',
-        jobLocation: 'Agate East',
-        shiftType: 'Full-Time',
-        startDate: '15 DEC 2022',
-        requested: false,
-        hourlyRate: 24.12),
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getJob();
+  }
 
-  void getJobDetails() {
+  void getJob() {
     NetworkManager.shared
-        .getJobDetails(
-      "TKN3561228453",
-       "getJobsByStaffId",
-         13,
-     
-   
-      "searchKeyword",
+        .getJob(
+      "TKN3533328453",
+      "getJobsByStaffId",
+      13,
+      "",
       "Active",
     )
-        .then((BaseResponse<List<JobDetails>> response) {
+        .then((BaseResponse<List<Job>> response) {
       setState(() {
-        jobDetailsList.clear();
-        jobDetailsList.addAll(response.data!);
+        jobList.clear();
+        jobList.addAll(response.data!);
       });
     }).catchError((e) {
       print(e.toString());
@@ -82,7 +52,7 @@ class _AvailableJobWidgetState
     return ListView.builder(
       // physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: staffDetails.length,
+      itemCount: jobList.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -95,7 +65,15 @@ class _AvailableJobWidgetState
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => JobDetailsScreen()));
+                          builder: (context) => JobDetailsScreen(
+                                   jobList[index].jobCatName ?? '',
+                                    // jobList[index].hourlyRate ?? '',
+                                    jobList[index].clientName ?? '',
+                                    jobList[index].jobLocation ?? '',
+                                    jobList[index].startDateTime ?? '',
+                                    jobList[index].shiftName ?? '',
+                                    context
+                          )));
                 }),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -104,9 +82,11 @@ class _AvailableJobWidgetState
                       Radius.circular(15),
                     ),
                     image: DecorationImage(
-                      image: (staffDetails[index].requested!)
-                          ? AssetImage("assets/images/green_bg.png")
-                          : AssetImage("assets/images/red_bg.png"),
+                      image:
+                          // (staffDetails[index].requested!)
+                          // ?
+                          AssetImage("assets/images/green_bg.png"),
+                      // : AssetImage("assets/images/red_bg.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -153,7 +133,7 @@ class _AvailableJobWidgetState
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  staffDetails[index].jobName ??
+                                                  jobList[index].jobCatName ??
                                                       '',
                                                   style: TextStyle(
                                                     color: Colors.white,
@@ -174,7 +154,7 @@ class _AvailableJobWidgetState
                                             ],
                                           ),
                                           Text(
-                                            staffDetails[index].staffName ?? '',
+                                            jobList[index].clientName ?? '',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: kFontSize_14,
@@ -193,7 +173,7 @@ class _AvailableJobWidgetState
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              '£ ${staffDetails[index].hourlyRate ?? ''}/hour',
+                              '£ ${jobList[index].hourlyRate ?? ''}/hour',
                               style: TextStyle(
                                 fontWeight: kFontWeight_M,
                                 fontSize: 13,
@@ -225,7 +205,7 @@ class _AvailableJobWidgetState
                                       size: 15,
                                     ),
                                     Text(
-                                      staffDetails[index].shiftType ?? '',
+                                      jobList[index].shiftName ?? '',
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: Colors.white,
@@ -253,7 +233,7 @@ class _AvailableJobWidgetState
                                       size: 15,
                                     ),
                                     Text(
-                                      staffDetails[index].jobLocation ?? '',
+                                      jobList[index].jobLocation ?? '',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 11),
                                     ),
@@ -270,7 +250,7 @@ class _AvailableJobWidgetState
                                 ),
                                 SizedBox(width: 2),
                                 Text(
-                                  staffDetails[index].startDate ?? '',
+                                  jobList[index].startDateTime ?? '',
                                   style: TextStyle(
                                     fontWeight: kFontWeight_M,
                                     fontSize: 13,
@@ -286,30 +266,31 @@ class _AvailableJobWidgetState
                   ),
                 ),
               ),
-              (staffDetails[index].requested!)
-                  ? Positioned(
-                      top: -1.5,
-                      left: 220,
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/redlabel.png"),
-                            // fit: BoxFit.cover,
-                          ),
-                        ),
-                        child: Align(
-                            child: Text(
-                          "Requested",
-                          style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                              fontWeight: kFontWeight_M),
-                        )),
-                      ),
-                    )
-                  : SizedBox(),
+              // (staffDetails[index].requested!)
+              // ?
+              Positioned(
+                top: -1.5,
+                left: 220,
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/redlabel.png"),
+                      // fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Align(
+                      child: Text(
+                    "Requested",
+                    style: TextStyle(
+                        fontSize: 8,
+                        color: Colors.white,
+                        fontWeight: kFontWeight_M),
+                  )),
+                ),
+              )
+              // : SizedBox(),
             ],
           ),
         );
