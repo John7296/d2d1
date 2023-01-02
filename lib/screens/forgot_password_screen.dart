@@ -1,4 +1,6 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/forgot_password_screen.dart';
 import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/verify_otp_screen.dart';
@@ -6,33 +8,82 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
+  BaseResponse? response;
+  ForgotPasswordScreen(this.response);
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+
+    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   int cupertinoTabBarIIValue = 1;
   int cupertinoTabBarIIValueGetter() => cupertinoTabBarIIValue;
 
   int index = 0;
 
-  static Widget textField(String text) {
-    return TextFormField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.
-            //only(left:10, top:5, bottom:5),
-            symmetric(vertical: 20, horizontal: 10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-        ),
-        labelText: "   $text",
-        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
-      ),
-    );
+  final _emailController = TextEditingController();
+  final _mobileController = TextEditingController();
+
+  bool emailSent = false;
+
+
+  void forgotPasswordOTPSend() {
+
+    //   if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    // showLoader();
+    NetworkManager.shared.forgotPasswordOTPSend(<String, dynamic>{
+   
+    "sp":"forgotPasswordsendOTP",
+    "username":_emailController.text
+ 
+    }).then((BaseResponse response) {
+
+      //  hideLoader();
+      print(_emailController.text);
+      setState(() {
+        emailSent = true;
+      });
+       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      VerifyOtpScreen()));
+     
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
   }
 
-  List text = [textField("E-mail"), textField("Mobile Number")];
+
+
+
+  // static Widget textField(String text) {
+  //   return 
+  // TextFormField(
+  //     decoration: InputDecoration(
+  //       contentPadding: EdgeInsets.
+  //           //only(left:10, top:5, bottom:5),
+  //           symmetric(vertical: 20, horizontal: 10),
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(12),
+  //         borderSide: BorderSide(color: Color(0xffb0b0b0)),
+  //       ),
+  //       labelText: "   $text",
+  //       labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+  //     ),
+  //    // controller: _emailController,
+  //   );
+  // }
+
+  // List text = [textField("E-mail"), textField("Mobile Number")];
 
   @override
   Widget build(BuildContext context) {
@@ -142,9 +193,55 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   index = value;
                 });
               }),
+           if(index==0)
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
-            child: text[index],
+            child: 
+          
+            TextFormField(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.
+            //only(left:10, top:5, bottom:5),
+            symmetric(vertical: 20, horizontal: 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+        ),
+        labelText: "   Email",
+        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+      ),
+     controller: _emailController,
+                        validator: (val) {
+                          if (val!.isEmpty)
+                            return "Enter E-mail";
+                          return null;
+                        },
+    ),
+            // child: text[index],
+          ),
+          if(index==1)
+          Padding(
+            padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
+            child: TextFormField(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.
+            //only(left:10, top:5, bottom:5),
+            symmetric(vertical: 20, horizontal: 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+        ),
+        labelText: "   Mobile Number",
+        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+      ),
+    controller: _mobileController,
+                        validator: (val) {
+                          if (val!.isEmpty)
+                            return "Enter Mobile Number";
+                          return null;
+                        },
+    ),
+            // child: text[index],
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
@@ -155,10 +252,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   backgroundColor: Color(0xffFD425B),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VerifyOtpScreen()));
+                  forgotPasswordOTPSend();
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => VerifyOtpScreen()));
                 },
                 child: Center(
                     child: Text(

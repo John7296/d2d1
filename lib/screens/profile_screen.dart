@@ -1,10 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/staff_profile.dart';
+
 import 'package:project_d2d/screens/profile_summary_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+     
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+    @override
+  void initState() {
+    super.initState();
+    staffProfile();
+  }
+
+
+    void staffProfile() {
+
+    NetworkManager.shared.staffProfile("TKN3533328453", "getStaffProfilebyid",13 ).then((BaseResponse<List<StaffProfile>> response) {
+
+      //  hideLoader();
+      // print(_emailController.text);
+      // setState(() {
+      //   emailSent = true;
+      // });
+      //  Navigator.pushReplacement(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                 builder: (context) =>
+      //                 VerifyOtpScreen()));
+     
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

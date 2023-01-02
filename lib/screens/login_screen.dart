@@ -8,6 +8,7 @@ import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -44,16 +45,35 @@ class _LoginScreenState extends State<LoginScreen> {
     // print(password);
     // print("...........................");
 
-    NetworkManager.shared.userLogin(
+    NetworkManager.shared.userLogin( 
+      //  "", "",
       <String, dynamic>{
-    
+   
     "sp":"getAuthenticationApp",
-    "logname":"hari@gmail.com",
-    "passwd":"qwerty",
+    "logname":username,
+    "passwd":password,
     }
     ).then((BaseResponse<List<User>> response) {
-   
 
+      SessionsManager.saveUserToken(response.data?.first.token ?? '');
+      SessionsManager.saveUserId(response.data?.first.userId ?? 0);
+      SessionsManager.saveStaffId(response.data?.first.staffId ?? 0);
+
+      NetworkManager.shared.userToken = response.data?.first.token ?? "";
+      NetworkManager.shared.userId = response.data?.first.userId ?? 0;
+          NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
+
+          print(response.data?.first.staffId);
+          print("///////////////////");
+
+      NetworkManager.shared.refreshTokens();
+   
+   Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomeScreen()));
+ 
     }).catchError((obj) {
       print(obj.toString());
     });
@@ -133,11 +153,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         const EdgeInsets.only(left: 20, top: 50, right: 20),
                     child: TextFormField(
                         controller: _usernameController,
-                        // validator: (val) {
-                        //   if (val!.isEmpty)
-                        //     return "Enter E-mail or Phone Number";
-                        //   return null;
-                        // },
+                        validator: (val) {
+                          if (val!.isEmpty)
+                            return "Enter E-mail or Phone Number";
+                          return null;
+                        },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.
                               //only(left:10, top:5, bottom:5),
@@ -199,10 +219,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         obscureText: _obscureText,
                         controller: _passwordController,
-                        // validator: (val) {
-                        //   if (val!.isEmpty) return "Enter your password";
-                        //   return null;
-                        // },
+                        validator: (val) {
+                          if (val!.isEmpty) return "Enter your password";
+                          return null;
+                        },
                         ),
                   ),
                   Padding(
@@ -243,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      ForgotPasswordScreen()));
+                                      ForgotPasswordScreen(response?.data)));
                         },
                         child: Text(
                           "Forgot Password?",

@@ -1,6 +1,7 @@
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:retrofit/retrofit.dart';
@@ -24,10 +25,41 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
 
-  @FormUrlEncoded()
+  
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse<List<User>>> userLogin(
+    //  @Header("Content-Length") String? length,
+    //     @Header("Host") String? host,
    @Body() Map<String, dynamic> map);
+
+ 
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> newRegister(
+      @Body() Map<String, dynamic> map);
+
+@POST("d2dApi/Default.aspx")
+  Future<BaseResponse> forgotPasswordOTPSend(
+   @Body() Map<String, dynamic> map
+  );
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> verifyOTP(
+   @Body() Map<String, dynamic> map
+  );
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> resetPassword(
+   @Body() Map<String, dynamic> map
+  );
+   
+     @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<StaffProfile>>> staffProfile( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
 
 
   @FormUrlEncoded()

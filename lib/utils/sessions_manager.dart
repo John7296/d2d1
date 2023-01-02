@@ -4,6 +4,43 @@ class SessionsManager{
 
     static const String onBoardKey = "onBoardKey";
 
+    static const String userToken = "userToken";
+  static const String userId = "userId";
+   static const String staffId = "staffId";
+
+  static Future<String?> getUserToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userToken);
+  }
+
+  static void saveUserToken(String data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(userToken, data);
+  }
+
+  static void saveUserId(int data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(userId, data);
+    
+  }
+
+  static Future<int?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(userId);
+  }
+
+  static void saveStaffId(int data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(staffId, data);
+    
+  }
+
+  static Future<int?> getStaffId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(staffId);
+  }
+
      static void saveOnBoarded(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(onBoardKey, data);

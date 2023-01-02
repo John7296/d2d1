@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/user.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class NetworkManager {
   static final NetworkManager _singleton = NetworkManager._internal();
@@ -18,15 +20,55 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
+  late int? userId;
+  late int? staffId;
+  late String? userToken;
 
   init() {
     dio = Dio();
     networkConnection = NetworkConnection(dio!);
   }
 
+  void refreshTokens() {
+    SessionsManager.getUserToken().then((token) {
+      token = (token ?? "");
+      userToken = token.isEmpty ? "" : token;
+    });
+
+    SessionsManager.getUserId().then((value) {
+      userId = value ?? 0;
+      print("UserIdNM${userId}");
+    });
+
+     SessionsManager.getStaffId().then((value) {
+      staffId = value ?? 0;
+      
+    });
+  }
+
   Future<BaseResponse<List<User>>> userLogin(Map<String, dynamic> map) {
     print("error_response1${map}");
     return call(networkConnection.userLogin(map));
+  }
+
+  Future<BaseResponse> newRegister(Map<String, dynamic> map) {
+    return call(networkConnection.newRegister(map));
+  }
+
+  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+    return call(networkConnection.forgotPasswordOTPSend(map));
+  }
+
+  Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
+    return call(networkConnection.verifyOTP(map));
+  }
+
+   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
+    return call(networkConnection.resetPassword(map));
+  }
+
+   Future<BaseResponse<List<StaffProfile>>> staffProfile( String userToken, String sp, int staffId) {
+    return call(networkConnection.staffProfile(userToken, sp, staffId ));
   }
 
   Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,
