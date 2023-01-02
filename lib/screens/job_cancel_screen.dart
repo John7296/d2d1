@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/canceljob.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
@@ -15,6 +18,25 @@ class JobCancelScreen extends StatefulWidget {
 }
 
 class _JobCancelScreenState extends State<JobCancelScreen> {
+  final formKey = GlobalKey<FormState>();
+  final _reasonController = TextEditingController();
+
+  void onCancelButtonTapped() {
+    NetworkManager.shared.cancelJob("TKN3533328453", <String, dynamic>{
+      "sp": "cancelJob",
+      "clientId": 13,
+      "jobId": 17,
+      "reason": _reasonController.text
+    }).then((BaseResponse<CancelJob> response) {
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => JobCancelledSuccessfulScreen()));
+    }).catchError((e) {
+      // print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +66,6 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                             size: 20,
                             color: Colors.red,
                           ),
-                          
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text("Cancel Job",
@@ -59,21 +80,50 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                         style: TextStyle(fontSize: kFontSize_16),
                       ),
                       const SizedBox(height: 10),
-                      TextField(
-                        textAlign: TextAlign.left,
-                        enabled: true,
-                        maxLines: 5,
-                        
-                        // controller: _instructionController,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 15),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(color: Colors.grey.shade50),
+                      Form(
+                        key: formKey,
+                        child: Container(
+                          height: 150,
+                          child: TextFormField(
+                            // decoration: InputDecoration(
+                            //     border: OutlineInputBorder(),
+                            //     contentPadding: EdgeInsets.all(5)
+                            //     // labelText: 'Mobile'
+                            //     ),
+                            decoration: InputDecoration(
+                              hintText: 'Enter Reason',
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 25.0, horizontal: 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                            controller: _reasonController,
+                            validator: (value) {
+                              if (value!.isEmpty) return "Enter Valid Reason";
+                              return null;
+                            },
                           ),
-                          hintText: "Enter Reason",hintStyle: TextStyle(color: Colors.grey)
                         ),
+
+                        // TextField(
+                        //   textAlign: TextAlign.left,
+                        //   enabled: true,
+                        //   maxLines: 5,
+                        //   controller: _reasonController,
+
+                        //   decoration: InputDecoration(
+                        //     contentPadding: const EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 15),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(15),
+                        //       borderSide:
+                        //           BorderSide(color: Colors.grey.shade50),
+                        //     ),
+
+                        //     hintText: "Enter Reason",
+                        //     hintStyle: TextStyle(color: Colors.grey),
+                        //   ),
+                        // ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10),
@@ -82,11 +132,16 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          JobCancelledSuccessfulScreen()));
+                              if (formKey.currentState!.validate()) {
+                                onCancelButtonTapped();
+
+                                Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return JobCancelledSuccessfulScreen();
+                                  },
+                                ), (route) => false);
+                              }
                             },
                             child: Text(
                               'Cancel',

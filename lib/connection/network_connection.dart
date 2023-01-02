@@ -1,10 +1,14 @@
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:project_d2d/model/alert.dart';
 import 'package:project_d2d/model/alert_messages.dart';
+import 'package:project_d2d/model/applyjob.dart';
+import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/canceljob.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/timesheet.dart';
+import 'package:project_d2d/model/timesheetdetails.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:retrofit/retrofit.dart';
@@ -41,14 +45,12 @@ abstract class NetworkConnection {
     @Query("jobStatus") String jobStatus,
   );
 
-
-    @GET("d2dApi")
+  @GET("d2dApi")
   Future<BaseResponse<Alert>> alertMessages(
     @Header("token") String? token,
     @Query("sp") String sp,
     @Query("staffId") int staffId,
     @Query("outputMode") String outputMode,
-
   );
 
   @GET("d2dApi")
@@ -57,16 +59,32 @@ abstract class NetworkConnection {
     @Query("sp") String sp,
     @Query("staffId") int staffId,
     @Query("jobid") int jobid,
-
   );
 
-      @GET("d2dApi")
+  @GET("d2dApi")
   Future<BaseResponse<List<TimeSheet>>> timeSheet(
     @Header("token") String? token,
     @Query("sp") String sp,
     @Query("staffId") int staffId,
-
-
   );
 
+  // @FormUrlEncoded()
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse<ApplyJob>> applyJob(
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse<CancelJob>> cancelJob(
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
+
+        @GET("d2dApi")
+  Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
+    @Header("token") String? token,
+    @Query("sp") String sp,
+    @Query("staffId") int staffId,
+  );
+
+    @POST("d2dApi/Default.aspx")
+  Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
 }

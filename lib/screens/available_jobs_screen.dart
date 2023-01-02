@@ -19,6 +19,7 @@ class AvailableJobsScreen extends StatefulWidget {
 
 class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     with TickerProviderStateMixin {
+      String _searchString = "";
   List<Job> jobList = [];
 
   @override
@@ -39,7 +40,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
       "TKN3533328453",
       "getJobsByStaffId",
       13,
-      "",
+      _searchString,
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
@@ -163,15 +164,25 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                           child: Icon(Icons.search_rounded,
                               size: 25, color: Color(0xFF95969D)),
                         ),
-                        SizedBox(
-                          child: Text(
-                            "Search available jobs",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFF95969D),
-                            ),
-                          ),
-                        ),
+                        Expanded(
+                    child: TextField(
+                      autofocus: false,
+                      textInputAction: TextInputAction.search,
+                      onChanged: (value) {
+                        _searchString = value;
+                      },
+                      onSubmitted: (value) {
+                        getJobDetails();
+                      },
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search Available Jobs",
+                          hintStyle: TextStyle(
+                              fontFamily: "Intro",
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey)),
+                    ),
+                  ),
                       ],
                     ),
                   ),

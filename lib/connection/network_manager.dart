@@ -3,10 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/alert.dart';
 import 'package:project_d2d/model/alert_messages.dart';
+import 'package:project_d2d/model/applyjob.dart';
+import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/canceljob.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/timesheet.dart';
+import 'package:project_d2d/model/timesheetdetails.dart';
 import 'package:project_d2d/model/user.dart';
 
 class NetworkManager {
@@ -32,8 +36,8 @@ class NetworkManager {
     return call(networkConnection.userLogin(map));
   }
 
-  Future<BaseResponse<List<Job>>> getJob(String token, String sp,
-      int staffId, String searchKeyword, String jobStatus) {
+  Future<BaseResponse<List<Job>>> getJob(String token, String sp, int staffId,
+      String searchKeyword, String jobStatus) {
     return call(networkConnection.getJob(
       token,
       sp,
@@ -43,18 +47,14 @@ class NetworkManager {
     ));
   }
 
-  Future<BaseResponse<Alert>> alerMessages(String token, String sp,
-      int staffId, String outputMode) {
-    return call(networkConnection.alertMessages(
-      token,
-      sp,
-      staffId,
-      outputMode
-    ));
+  Future<BaseResponse<Alert>> alerMessages(
+      String token, String sp, int staffId, String outputMode) {
+    return call(
+        networkConnection.alertMessages(token, sp, staffId, outputMode));
   }
 
-  Future<BaseResponse<List<JobDetails>>> getJobDetails(String token, String sp,
-      int staffId, int jobid) {
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(
+      String token, String sp, int staffId, int jobid) {
     return call(networkConnection.getJobDetails(
       token,
       sp,
@@ -63,8 +63,8 @@ class NetworkManager {
     ));
   }
 
-    Future<BaseResponse<List<TimeSheet>>> timeSheet(String token, String sp,
-      int staffId) {
+  Future<BaseResponse<List<TimeSheet>>> timeSheet(
+      String token, String sp, int staffId) {
     return call(networkConnection.timeSheet(
       token,
       sp,
@@ -72,6 +72,29 @@ class NetworkManager {
     ));
   }
 
+  Future<BaseResponse<ApplyJob>> applyJob(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.applyJob(token, map));
+  }
+
+  Future<BaseResponse<CancelJob>> cancelJob(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.cancelJob(token, map));
+  }
+
+    Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
+      String token, String sp, int staffId) {
+    return call(networkConnection.gettimeSheetDetails(
+      token,
+      sp,
+      staffId,
+    ));
+  }
+
+    Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.approveTimeSheet(token, map));
+  }
 
 //  Future<BaseResponse<List<JobDetails>>> getJobDetails(Map<String, dynamic> map) {
 //     return call(networkConnection.getJobDetails(map["sp"], map["staffId"],map["searchKeyword"],map["jobStatus"]));

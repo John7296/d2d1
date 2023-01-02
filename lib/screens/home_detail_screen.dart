@@ -31,6 +31,9 @@ class HomeDetailScreen extends StatefulWidget {
 class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
   List<Job> jobList = [];
   List<TimeSheet> timeSheetList = [];
+  int? jobApproved;
+  int? jobPending;
+  int? jobCompleted;
 
   @override
   void initState() {
@@ -38,7 +41,6 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-      
 
       // _updateDeviceToken();
     });
@@ -203,12 +205,12 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                           Spacer(),
                           InkWell(
                             onTap: () {
-                              getJob();
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             AvailableJobsScreen()));
+                              // getJob();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AvailableJobsScreen()));
                             },
                             child: Text(
                               'See all ',
@@ -336,7 +338,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                       fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
-                                  "current job",
+                                  timeSheetList.first.currentJob ?? '',
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),
@@ -404,7 +406,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                       fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
-                                  "current job",
+                                  timeSheetList.first.currentJob ?? '',
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),
@@ -484,7 +486,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                       fontSize: 12, fontWeight: kFontWeight_M),
                                 ),
                                 Text(
-                                  "current job",
+                                  timeSheetList.first.currentJob ?? '',
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),

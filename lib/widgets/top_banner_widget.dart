@@ -6,6 +6,7 @@ import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/jobdetails.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class TopBannerWidget extends StatefulWidget {
@@ -18,31 +19,28 @@ class TopBannerWidget extends StatefulWidget {
 }
 
 class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
+  List<JobDetails> jobDetailsList = [];
 
-   List<JobDetails> jobDetailsList = [];
-
-    void getJobDetails() {
-      // showLoader();
-      NetworkManager.shared
-          .getJobDetails(
-        "TKN3533328453",
-        "getJobDetailsByJobIdStaff",
-        13,
-        2,
-      )
-          .then((BaseResponse<List<JobDetails>> response) {
-        // hideLoader();
-        setState(() {
-          jobDetailsList.clear();
-          jobDetailsList.addAll(response.data!);
-        });
-      }).catchError((e) {
-        // hideLoader();
-        print(e.toString());
+  void getJobDetails() {
+    // showLoader();
+    NetworkManager.shared
+        .getJobDetails(
+      "TKN3533328453",
+      "getJobDetailsByJobIdStaff",
+      13,
+      2,
+    )
+        .then((BaseResponse<List<JobDetails>> response) {
+      // hideLoader();
+      setState(() {
+        jobDetailsList.clear();
+        jobDetailsList.addAll(response.data!);
       });
-    }
-
-
+    }).catchError((e) {
+      // hideLoader();
+      print(e.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,10 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                             icon:
                                 Icon(Icons.arrow_back_ios, color: Colors.white),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             },
                           ),
                         ),
@@ -271,7 +272,6 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
         ),
       ],
     );
-  
   }
 
   @override

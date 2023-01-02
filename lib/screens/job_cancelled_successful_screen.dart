@@ -15,21 +15,14 @@ class JobCancelledSuccessfulScreen extends StatefulWidget {
 
 class _JobCancelledSuccessfulScreenState
     extends State<JobCancelledSuccessfulScreen> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-        
         child: Column(
           children: [
-            TopBannerWidget(
-               
-            ),
+            TopBannerWidget(),
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -74,11 +67,13 @@ class _JobCancelledSuccessfulScreenState
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return HomeScreen();
-                      },
-                    ), (route) => false);
+                    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    //   builder: (BuildContext context) {
+                    //     return HomeScreen();
+                    //   },
+                    // ), (route) => false);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   child: Text(
                     'Back to Dashboard',
