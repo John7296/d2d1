@@ -12,6 +12,7 @@ import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheetdetails.dart';
 import 'package:project_d2d/model/user.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class NetworkManager {
   static final NetworkManager _singleton = NetworkManager._internal();
@@ -26,13 +27,34 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
+  late int? userId;
+  late int? staffId;
+  late String? userToken;
 
   init() {
     dio = Dio();
     networkConnection = NetworkConnection(dio!);
   }
 
-  Future<BaseResponse<User>> userLogin(Map<String, dynamic> map) {
+  void refreshTokens() {
+    SessionsManager.getUserToken().then((token) {
+      token = (token ?? "");
+      userToken = token.isEmpty ? "" : token;
+    });
+
+    SessionsManager.getUserId().then((value) {
+      userId = value ?? 0;
+      print("UserIdNM${userId}");
+    });
+
+     SessionsManager.getStaffId().then((value) {
+      staffId = value ?? 0;
+      
+    });
+  }
+
+  Future<BaseResponse<List<User>>> userLogin(Map<String, dynamic> map) {
+    print("error_response1${map}");
     return call(networkConnection.userLogin(map));
   }
 
@@ -53,8 +75,11 @@ class NetworkManager {
         networkConnection.alertMessages(token, sp, staffId, outputMode));
   }
 
-  Future<BaseResponse<List<JobDetails>>> getJobDetails(
-      String token, String sp, int staffId, int jobid) {
+ 
+    
+     Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,
+      int jobid, String token) {
+    
     return call(networkConnection.getJobDetails(
       token,
       sp,

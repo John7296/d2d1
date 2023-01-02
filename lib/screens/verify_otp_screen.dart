@@ -1,3 +1,5 @@
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/reset_password_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,11 +7,56 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
+// BaseResponse? response;
+// VerifyOtpScreen(this.response);
+  
   @override
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
+
+  
+    final _otpController = TextEditingController();
+     bool emailSent = false;
+
+   void verifyOTP() {
+
+    //   if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    // showLoader();
+
+     print(NetworkManager.shared.userId);
+     print("..................");
+    NetworkManager.shared.verifyOTP(<String, dynamic>{
+
+   "sp":"verifyOTP",
+    "userId":NetworkManager.shared.userId,
+    "OTP":"555555"
+
+    }).then((BaseResponse response) {
+
+      //  hideLoader();
+      // print(_emailController.text);
+      // setState(() {
+      //   emailSent = true;
+      // });
+       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      ResetPasswordScreen()));
+     
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +138,14 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 fieldWidth: 45,
                 activeFillColor: Colors.white,
               ),
+              controller: _otpController,
+                    validator: (val) {
+                      if (!emailSent) return null;
+                      if (val!.isEmpty) {
+                        return "Enter the OTP";
+                      }
+                      return null;
+                    }
             ),
           ),
           Padding(
@@ -102,10 +157,12 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   backgroundColor: Color(0xffFD425B),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ResetPasswordScreen()));
+
+                  verifyOTP();
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ResetPasswordScreen()));
                 },
                 child: Center(
                     child: Text(

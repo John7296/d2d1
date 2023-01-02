@@ -8,6 +8,7 @@ import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,14 +16,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  BaseResponse? response;
+
   bool _obscureText = true;
 
-  var parser = EmojiParser();
+  // var parser = EmojiParser();
 
   @override
   void initState() {
@@ -31,25 +35,52 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onLoginButtonTapped() {
-    // if (!_form.currentState?.validate()) {
-    //   return;
-    // }
+  if (!_form.currentState!.validate()) {
+      return;
+    }
 
-    // String username = _usernameController.text;
-    // String password = _passwordController.text;
+    String username = _usernameController.text;
+    String password = _passwordController.text;
     // print(username);
     // print(password);
+    // print("...........................");
 
-    NetworkManager.shared.userLogin(<String, dynamic>{
-      "sp": "getAuthenticationApp",
-      "logname": "hari@gmail.com",
-      "passwd": "qwerty"
-    }).then((BaseResponse<User> response) {
-      print("/////////////////////");
-    }).catchError((e) {
-      // print(e.toString());
+    NetworkManager.shared.userLogin( 
+      //  "", "",
+      <String, dynamic>{
+   
+    "sp":"getAuthenticationApp",
+    "logname":username,
+    "passwd":password,
+    }
+    ).then((BaseResponse<List<User>> response) {
+
+      SessionsManager.saveUserToken(response.data?.first.token ?? '');
+      SessionsManager.saveUserId(response.data?.first.userId ?? 0);
+      SessionsManager.saveStaffId(response.data?.first.staffId ?? 0);
+
+      NetworkManager.shared.userToken = response.data?.first.token ?? "";
+      NetworkManager.shared.userId = response.data?.first.userId ?? 0;
+          NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
+
+          print(response.data?.first.staffId);
+          print("///////////////////");
+
+      NetworkManager.shared.refreshTokens();
+   
+   Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomeScreen()));
+ 
+    }).catchError((obj) {
+      print(obj.toString());
     });
   }
+
+  
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +222,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (val) {
                           if (val!.isEmpty) return "Enter your password";
                           return null;
-                        }),
+                        },
+                        ),
                   ),
                   Padding(
                     padding:
@@ -203,13 +235,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Color(0xffFD425B),
                         ),
                         onPressed: () {
-                          // onLoginButtonTapped();
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return HomeScreen();
-                            },
-                          ), (route) => false);
+                           onLoginButtonTapped();
+                          // Navigator.pushAndRemoveUntil(context,
+                          //     MaterialPageRoute(
+                          //   builder: (BuildContext context) {
+                          //     return HomeScreen();
+                          //   },
+                          // ), (route) => false);
                         },
                         child: Center(
                             child: Text(
@@ -231,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      ForgotPasswordScreen()));
+                                      ForgotPasswordScreen(response?.data)));
                         },
                         child: Text(
                           "Forgot Password?",

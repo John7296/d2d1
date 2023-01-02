@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_d2d/screens/available_jobs_screen.dart';
+import 'package:project_d2d/screens/profile_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -46,7 +48,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileScreen()));
+                },
                 child: ListTile(
                   leading: Icon(Icons.person_outline),
                   title: Text(
@@ -72,7 +79,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+
+                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AvailableJobsScreen()));
+                },
                 child: ListTile(
                   leading: Icon(Icons.work_outline),
                   title: Text(
@@ -85,7 +98,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+
+                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileScreen()));
+                },
                 child: ListTile(
                   leading: Icon(Icons.currency_pound_outlined),
                   title: Text(

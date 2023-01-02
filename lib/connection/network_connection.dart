@@ -6,9 +6,14 @@ import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
 import 'package:project_d2d/model/job.dart';
+import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
+import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
+import 'package:project_d2d/model/timesheet_banner.dart';
 import 'package:project_d2d/model/timesheetdetails.dart';
+import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:retrofit/retrofit.dart';
@@ -32,9 +37,80 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
 
+  
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse<List<User>>> userLogin(
+    //  @Header("Content-Length") String? length,
+    //     @Header("Host") String? host,
+   @Body() Map<String, dynamic> map);
+
+ 
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> newRegister(
+      @Body() Map<String, dynamic> map);
+
+@POST("d2dApi/Default.aspx")
+  Future<BaseResponse> forgotPasswordOTPSend(
+   @Body() Map<String, dynamic> map
+  );
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> verifyOTP(
+     
+   @Body() Map<String, dynamic> map
+  );
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> resetPassword(
+    @Header("token") String? useroken, 
+   @Body() Map<String, dynamic> map
+  );
+   
+     @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<StaffProfile>>> staffProfile( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
+
   @FormUrlEncoded()
-  @POST("Default.aspx")
-  Future<BaseResponse<User>> userLogin(@Body() Map<String, dynamic> map);
+   @GET("d2dApi")
+  Future<BaseResponse<List<TrainingStatus>>> trainingStatus( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
+
+  @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
+
+   @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<JobRequest>>> recentJobRequest( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
+
+  @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<Payment>>> paymentHistory( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+     
+  );
+
 
   @GET("d2dApi")
   Future<BaseResponse<List<Job>>> getJob(

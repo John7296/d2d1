@@ -1,10 +1,133 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job_request.dart';
+import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/model/timesheet_banner.dart';
+import 'package:project_d2d/model/training_status.dart';
+
 import 'package:project_d2d/screens/profile_summary_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  List<StaffProfile> profile = [];
+   List<TrainingStatus> training = [];
+     List<JobRequest> jobs = [];
+     List<TimesheetBanner> banner= [];
+  @override
+  void initState() {
+    super.initState();
+    staffProfile();
+    trainingStatus();
+    recentJobRequest();
+    timeSheetBanner();
+  }
+
+  void staffProfile() {
+    NetworkManager.shared
+        .staffProfile(NetworkManager.shared.userToken??'', "getStaffProfilebyid", NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<StaffProfile>> response) {
+      //  hideLoader();
+      // var profile = response.data!;
+      //   print(profile.first.staffName);
+      //   print("...................");
+      // print(_emailController.text);
+      print(response.data?.first.staffName);
+      print("...................");
+      setState(() {
+      profile.clear();
+      profile.addAll(response.data!);
+     
+      //   emailSent = true;
+      });
+      //  Navigator.pushReplacement(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                 builder: (context) =>
+      //                 VerifyOtpScreen()));
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
+  void trainingStatus() {
+    NetworkManager.shared
+        .trainingStatus(NetworkManager.shared.userToken??'', "getTrainingStatus",NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<TrainingStatus>> response) {
+      //  hideLoader();
+      setState(() {
+      training.clear();
+      training.addAll(response.data!);
+     
+      //   emailSent = true;
+      });
+      //  Navigator.pushReplacement(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                 builder: (context) =>
+      //                 VerifyOtpScreen()));
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
+  void recentJobRequest() {
+    NetworkManager.shared
+        .recentJobRequest(NetworkManager.shared.userToken??'', "getRecentRequstedJobs",NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<JobRequest>> response) {
+      //  hideLoader();
+      setState(() {
+      jobs.clear();
+      jobs.addAll(response.data!);
+
+       print(response.data?.first.allocatedOn);
+      print("...................");
+     
+      //   emailSent = true;
+      });
+     
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
+   void timeSheetBanner() {
+    NetworkManager.shared
+        .timeSheetBanner(NetworkManager.shared.userToken??'', "getStaffTimesheetBannerById", NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<TimesheetBanner>> response) {
+      //  hideLoader();
+      setState(() {
+      banner.clear();
+      banner.addAll(response.data!);
+     
+      //   emailSent = true;
+      });
+     
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +146,8 @@ class ProfileScreen extends StatelessWidget {
                 TextButton(
                     onPressed: () {},
                     child: Text("Edit",
-                        style: TextStyle(
-                            color: Color(0xffAFB0B6), fontSize: 15)))
+                        style:
+                            TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
               ],
             ),
           ),
@@ -41,8 +164,9 @@ class ProfileScreen extends StatelessWidget {
           Center(
               child: Padding(
             padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              "Mary James",
+             child: Text(
+            //    "Mary James",
+               profile.first.staffName.toString(),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -53,7 +177,8 @@ class ProfileScreen extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
-              "Theatre practitioner",
+              // "Theatre practitioner",
+              profile.first.address.toString(),
               style: TextStyle(color: Color(0xff95969D), fontSize: 13),
             ),
           )),
@@ -63,30 +188,34 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "27",
+                  // "27",
+                  profile.first.jobsCount.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
-                      fontSize: 15),
+                      fontSize: 13),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 60),
                   child: Text(
-                    "89",
+                    // "89",
+                    profile.first.timeSheetCount.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 15),
+                        fontSize: 13),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Text(
-                    "13 Nov 2024",
+                    // "13 Nov 2024",
+                    profile.first.timeSheetDate.toString(),
+                    maxLines: 2,
                     style: TextStyle(
                         color: Color(0xffF41937),
                         fontWeight: FontWeight.w700,
-                        fontSize: 15),
+                        fontSize: 13),
                   ),
                 ),
                 Padding(
@@ -99,11 +228,12 @@ class ProfileScreen extends StatelessWidget {
                               builder: (context) => ProfileSummaryScreen()));
                     },
                     child: Text(
-                      "\$3435.00",
+                      // "\$3435.00",
+                      "\$ ${profile.first.totalEarnings.toString()}",
                       style: TextStyle(
                           color: kGreenColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                   ),
                 ),
@@ -209,12 +339,16 @@ class ProfileScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Dialysis Specialist",
+                              Text(
+                                  // "Dialysis Specialist",
+                                  jobs.first.profession.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
-                              Text("Agate House",
+                              Text(
+                                // "Agate House",
+                                jobs.first.clientName.toString(),
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
@@ -233,7 +367,9 @@ class ProfileScreen extends StatelessWidget {
                                     Icons.add_location_outlined,
                                     color: Color(0xff413E3E),
                                   ),
-                                  Text("Agate East",
+                                  Text(
+                                    // "Agate East",
+                                    jobs.first.staffLocation.toString(),
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500)),
@@ -245,7 +381,9 @@ class ProfileScreen extends StatelessWidget {
                                     Icons.calendar_month_outlined,
                                     color: Color(0xffAFB0B6),
                                   ),
-                                  Text("11 Nov 2022",
+                                  Text(
+                                    // "11 Nov 2022",
+                                    jobs.first.allocatedOn.toString(),
                                       style: TextStyle(
                                           color: Color(0xff0D0D26),
                                           fontSize: 13,
@@ -337,12 +475,16 @@ class ProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("7 Pending",
+                            Text(
+                              // "7 Pending",
+                             " ${banner.first.jobPending.toString()} Pending",
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xffFD425B))),
-                            Text("Agate House",
+                            Text(
+                              // "Agate House",
+                              banner.first.clientName.toString(),
                                 style: TextStyle(
                                     fontSize: 12, color: Color(0xffAFB0B6))),
                           ],
@@ -391,7 +533,9 @@ class ProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("85 Approved",
+                            Text(
+                              // "85 Approved",
+                               " ${banner.first.jobApproved.toString()} Approved",
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
@@ -441,16 +585,16 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Text("Food Hygiene",
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.black)),
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
                           SizedBox(height: 10),
                           Text("Fire Awareness",
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.black)),
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
                           SizedBox(height: 10),
                           Text("Health and Safety",
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.black)),
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
                           SizedBox(height: 10),
                           Text("Infection Control",
                               style: TextStyle(
@@ -477,14 +621,18 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 150),
-                          child: Text("93%"),
+                          child: Text(
+                            // "93%"
+                            "${training.first.completionRate.toString()}%",
+                            
+                            ),
                         ),
                         LinearPercentIndicator(
                           lineHeight: 12,
                           width: 200,
                           progressColor: kGreenprogressColor,
                           backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.93,
+                          percent: 0.30,
                           barRadius: Radius.circular(5),
                         ),
                         Padding(

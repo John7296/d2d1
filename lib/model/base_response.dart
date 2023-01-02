@@ -11,7 +11,10 @@ class BaseResponse<T> {
   @JsonKey(name: 'Data')
   final T? data;
 
-  BaseResponse({this.message, this.data});
+    @JsonKey(name: 'Errors')
+  final String? errors;
+
+  BaseResponse({this.message, this.data, this.errors});
 
   factory BaseResponse.fromJson(
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>

@@ -3,7 +3,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/login_screen.dart';
+import 'package:project_d2d/screens/onboarding.dart';
+import 'package:project_d2d/screens/onboarding_screens.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:proste_bezier_curve/proste_bezier_curve.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -16,16 +21,38 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+     NetworkManager.shared.refreshTokens();
    
     Timer(
       Duration(seconds: 3),
       () => {
-      
+      // _checkTokenAndNavigate(),
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()))
+            context, MaterialPageRoute(builder: (context) => Onboarding()))
       },
     );
     super.initState();
+  }
+
+
+   void _checkTokenAndNavigate() {
+    
+
+    SessionsManager.getUserToken().then((value) {
+      // print("///////");
+      print(value);
+
+      if ((value ?? "").isNotEmpty) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+      else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
+    });
+
+  
   }
   @override
   
