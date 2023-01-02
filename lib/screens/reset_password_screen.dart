@@ -27,6 +27,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     // showLoader();
     NetworkManager.shared.resetPassword(<String, dynamic>{
 
+    "token": NetworkManager.shared.userToken,
   "sp":"resetPassword",
     "userId":NetworkManager.shared.userId,
     "password":_passwordController.text

@@ -139,6 +139,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                             ),
                             onPressed: () {
                               SessionsManager.saveOnBoarded("");
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -191,7 +192,10 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                                 InkWell(
                                   onTap: () {
                                     SessionsManager.saveOnBoarded("");
-                                    //replaceScreen(Routes.locationLead);
+                                   Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterScreen()));
                                   },
                                   child: const Text(
                                     'Skip',

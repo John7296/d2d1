@@ -3,7 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/job_request.dart';
+import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/model/timesheet_banner.dart';
+import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
 
@@ -60,15 +64,31 @@ class NetworkManager {
   }
 
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
-    return call(networkConnection.verifyOTP(map));
+    return call(networkConnection.verifyOTP( map));
   }
 
    Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(map));
+    return call(networkConnection.resetPassword(userToken,map));
   }
 
    Future<BaseResponse<List<StaffProfile>>> staffProfile( String userToken, String sp, int staffId) {
     return call(networkConnection.staffProfile(userToken, sp, staffId ));
+  }
+
+  Future<BaseResponse<List<TrainingStatus>>> trainingStatus( String userToken, String sp, int staffId) {
+    return call(networkConnection.trainingStatus(userToken, sp, staffId ));
+  }
+
+   Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner( String userToken, String sp, int staffId) {
+    return call(networkConnection.timeSheetBanner(userToken, sp, staffId ));
+  }
+
+  Future<BaseResponse<List<JobRequest>>> recentJobRequest( String userToken, String sp, int staffId) {
+    return call(networkConnection.recentJobRequest(userToken, sp, staffId ));
+  }
+
+    Future<BaseResponse<List<Payment>>> paymentHistory( String userToken, String sp, int staffId) {
+    return call(networkConnection.paymentHistory(userToken, sp, staffId ));
   }
 
   Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,

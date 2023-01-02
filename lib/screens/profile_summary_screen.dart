@@ -1,14 +1,83 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class ProfileSummaryScreen extends StatefulWidget {
+  // StaffProfile? profile;
+  // ProfileSummaryScreen(this.profile);
+
   @override
   State<ProfileSummaryScreen> createState() => _ProfileSummaryScreenState();
 }
 
 class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
+
+  List<StaffProfile> profile = [];
+    List<Payment> payment = [];
+
+  @override
+  void initState() {
+    super.initState();
+    staffProfile();
+    paymentHistory();
+ 
+  }
+
+    void staffProfile() {
+    NetworkManager.shared
+        .staffProfile(NetworkManager.shared.userToken??'', "getStaffProfilebyid", NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<StaffProfile>> response) {
+      //  hideLoader();
+      // var profile = response.data!;
+      //   print(profile.first.staffName);
+      //   print("...................");
+      // print(_emailController.text);
+      print(response.data?.first.staffName);
+      print("...................");
+      setState(() {
+      profile.clear();
+      profile.addAll(response.data!);
+     
+      //   emailSent = true;
+      });
+      //  Navigator.pushReplacement(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                 builder: (context) =>
+      //                 VerifyOtpScreen()));
+    }).catchError((e) {
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
+
+   void paymentHistory() {
+    NetworkManager.shared
+        .paymentHistory(NetworkManager.shared.userToken??'', "getCareHomePaymentHistory", NetworkManager.shared.staffId??0)
+        .then((BaseResponse<List<Payment>> response) {
+      //  hideLoader();
+      setState(() {
+     payment.clear();
+     payment.addAll(response.data!);
+     
+      //   emailSent = true;
+      });
+      
+      //  hideLoader();
+      // showFlashMsg(e.toString());
+      // print(e);
+      // showFlashMsg(e.Message!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +117,8 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
               child: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              "Mary James",
+              // "Mary James",
+              profile.first.staffName.toString(),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -59,7 +129,8 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
               child: Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
-              "Theatre practitioner",
+              // "Theatre practitioner",
+              profile.first.address.toString(),
               style: TextStyle(color: Color(0xff95969D), fontSize: 14),
             ),
           )),
@@ -80,7 +151,8 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    "\$ 3425.00",
+                    // "\$ 3425.00",
+                     "\$ ${profile.first.totalEarnings.toString()}",
                     style: TextStyle(
                         color: Color(0xff07701E),
                         fontSize: 25,
@@ -172,14 +244,17 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                     Text(
-                          "25-Aug-2022",
+                          // "25-Aug-2022",
+                           payment.first.paidOn.toString(),
                           style: TextStyle(
                               fontSize: 13, color: Color(0xff666666)),
                         ),
                       
 
                       Expanded(
-                        child: Text("Bank Transfer",
+                        child: Text(
+                          // "Bank Transfer",
+                          payment.first.paymentMode.toString(),
                        textAlign: TextAlign.center,
                        
                                 style: TextStyle(
@@ -196,7 +271,8 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                             ),
                             child: Center(
                                 child: Text(
-                              "Credited",
+                              // "Credited",
+                               payment.first.paymentStatus.toString(),
                               style: TextStyle(
                                   fontSize: 13, color: Color(0xff666666)),
                             )),

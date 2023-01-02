@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/login_screen.dart';
+import 'package:project_d2d/screens/onboarding.dart';
 import 'package:project_d2d/screens/onboarding_screens.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:proste_bezier_curve/proste_bezier_curve.dart';
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => {
       // _checkTokenAndNavigate(),
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => OnboardingScreens()))
+            context, MaterialPageRoute(builder: (context) => Onboarding()))
       },
     );
     super.initState();
