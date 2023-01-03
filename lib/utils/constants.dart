@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
   
-   const bool kDedebug = true;
+   const bool kDedebug = false;
 
 
 //FONT BOLD

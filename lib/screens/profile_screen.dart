@@ -360,8 +360,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 10, top: 15),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.add_location_outlined,
@@ -384,6 +386,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Text(
                                     // "11 Nov 2022",
                                     jobs.first.allocatedOn.toString(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           color: Color(0xff0D0D26),
                                           fontSize: 13,
@@ -482,11 +486,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xffFD425B))),
-                            Text(
-                              // "Agate House",
-                              banner.first.clientName.toString(),
-                                style: TextStyle(
-                                    fontSize: 12, color: Color(0xffAFB0B6))),
+                            Padding(
+                              padding: const EdgeInsets.only(left:3),
+                              child: Text(
+                                // "Agate House",
+                                banner.first.clientName.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xffAFB0B6))),
+                            ),
                           ],
                         ),
                       )
@@ -540,9 +547,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xffFD425B))),
-                            Text("Agate House",
-                                style: TextStyle(
-                                    fontSize: 12, color: Color(0xffAFB0B6))),
+                            Padding(
+                              padding: const EdgeInsets.only(left:3),
+                              child: Text(
+                                // "Agate House",
+                                banner.first.clientName.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xffAFB0B6))),
+                            ),
                           ],
                         ),
                       )
@@ -578,6 +590,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Row(
                             children: [
+
+                              // if(training.isEmpty)
                               Text("Manual Handling",
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.black)),
