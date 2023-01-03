@@ -1,12 +1,20 @@
 import 'package:dio/dio.dart';
 
 import 'package:project_d2d/connection/network_connection.dart';
+import 'package:project_d2d/model/alert.dart';
+import 'package:project_d2d/model/alert_messages.dart';
+import 'package:project_d2d/model/applyjob.dart';
+import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
+import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
+import 'package:project_d2d/model/timesheetdetails.dart';
 import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
@@ -37,64 +45,124 @@ class NetworkManager {
     SessionsManager.getUserToken().then((token) {
       token = (token ?? "");
       userToken = token.isEmpty ? "" : token;
+
+      print("Token ${token}");
     });
 
     SessionsManager.getUserId().then((value) {
       userId = value ?? 0;
-      print("UserIdNM${userId}");
+      print("userId ${userId}");
     });
 
-     SessionsManager.getStaffId().then((value) {
+    SessionsManager.getStaffId().then((value) {
       staffId = value ?? 0;
-      
+      print("staffId ${staffId}");
     });
   }
 
   Future<BaseResponse<List<User>>> userLogin(Map<String, dynamic> map) {
-    print("error_response1${map}");
     return call(networkConnection.userLogin(map));
-  }
-
-  Future<BaseResponse> newRegister(Map<String, dynamic> map) {
-    return call(networkConnection.newRegister(map));
   }
 
   Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
     return call(networkConnection.forgotPasswordOTPSend(map));
   }
 
+  Future<BaseResponse<List<StaffProfile>>> staffProfile(
+      String userToken, String sp, int staffId) {
+    return call(networkConnection.staffProfile(userToken, sp, staffId));
+  }
+
+  Future<BaseResponse<List<TrainingStatus>>> trainingStatus(
+      String userToken, String sp, int staffId) {
+    return call(networkConnection.trainingStatus(userToken, sp, staffId));
+  }
+
+  Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner(
+      String userToken, String sp, int staffId) {
+    return call(networkConnection.timeSheetBanner(userToken, sp, staffId));
+  }
+
+  Future<BaseResponse<List<JobRequest>>> recentJobRequest(
+      String userToken, String sp, int staffId) {
+    return call(networkConnection.recentJobRequest(userToken, sp, staffId));
+  }
+
+  Future<BaseResponse<List<Payment>>> paymentHistory(
+      String userToken, String sp, int staffId) {
+    return call(networkConnection.paymentHistory(userToken, sp, staffId));
+  }
+
+  Future<BaseResponse> newRegister(Map<String, dynamic> map) {
+    return call(networkConnection.newRegister(map));
+  }
+
+  Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
+    return call(networkConnection.resetPassword(userToken, map));
+  }
+
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
-    return call(networkConnection.verifyOTP( map));
+    return call(networkConnection.verifyOTP(map));
   }
 
-   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(userToken,map));
+  Future<BaseResponse<List<Job>>> getJob(String token, String sp,
+      int staffId, String searchKeyword, String jobStatus) {
+    return call(networkConnection.getJob(
+      token,
+      sp,
+      staffId,
+      searchKeyword,
+      jobStatus,
+    ));
   }
 
-   Future<BaseResponse<List<StaffProfile>>> staffProfile( String userToken, String sp, int staffId) {
-    return call(networkConnection.staffProfile(userToken, sp, staffId ));
+  Future<BaseResponse<Alert>> alerMessages(
+      String token, String sp, String staffId, String outputMode) {
+    return call(
+        networkConnection.alertMessages(token, sp, staffId, outputMode));
   }
 
-  Future<BaseResponse<List<TrainingStatus>>> trainingStatus( String userToken, String sp, int staffId) {
-    return call(networkConnection.trainingStatus(userToken, sp, staffId ));
-  }
-
-   Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner( String userToken, String sp, int staffId) {
-    return call(networkConnection.timeSheetBanner(userToken, sp, staffId ));
-  }
-
-  Future<BaseResponse<List<JobRequest>>> recentJobRequest( String userToken, String sp, int staffId) {
-    return call(networkConnection.recentJobRequest(userToken, sp, staffId ));
-  }
-
-    Future<BaseResponse<List<Payment>>> paymentHistory( String userToken, String sp, int staffId) {
-    return call(networkConnection.paymentHistory(userToken, sp, staffId ));
-  }
-
-  Future<BaseResponse<List<JobDetails>>> getJobDetails(String sp, int staffId,
-      String searchKeyword, String jobStatus, String token) {
+  Future<BaseResponse<List<JobDetails>>> getJobDetails(
+      String token, String sp, int staffId, int jobid) {
     return call(networkConnection.getJobDetails(
-        sp, staffId, searchKeyword, jobStatus, token));
+      token,
+      sp,
+      staffId,
+      jobid,
+    ));
+  }
+
+  Future<BaseResponse<List<TimeSheet>>> timeSheet(
+      String token, String sp, int staffId) {
+    return call(networkConnection.timeSheet(
+      token,
+      sp,
+      staffId,
+    ));
+  }
+
+  Future<BaseResponse<ApplyJob>> applyJob(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.applyJob(token, map));
+  }
+
+  Future<BaseResponse<CancelJob>> cancelJob(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.cancelJob(token, map));
+  }
+
+  Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
+      String token, String sp, int staffId) {
+    return call(networkConnection.gettimeSheetDetails(
+      token,
+      sp,
+      staffId,
+    ));
+  }
+
+  Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
+      String token, Map<String, dynamic> map) {
+    return call(networkConnection.approveTimeSheet(token, map));
   }
 
 //  Future<BaseResponse<List<JobDetails>>> getJobDetails(Map<String, dynamic> map) {
@@ -129,9 +197,10 @@ class NetworkManager {
             break;
           case DioErrorType.response:
             _errorMessage = error.response?.data;
-            print("error_msg${error.response?.data}");
+
             if (error.response?.statusCode == 400) {
-              print(error.response?.data);
+              // print(error.response?.data);
+              print("error_msg${error.response?.data}");
             }
 
             break;

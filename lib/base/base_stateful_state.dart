@@ -1,7 +1,10 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'dart:io' show Platform;
+
+import 'package:project_d2d/utils/helper.dart';
 
 abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   OverlayEntry? loader;
@@ -32,14 +35,14 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
-  // void showLoader() {
-  //   loader ??= Helper.overlayLoader(context);
-  //   Overlay.of(context)!.insert(loader!);
-  // }
+  void showLoader() {
+    loader ??= Helper.overlayLoader(context);
+    Overlay.of(context)!.insert(loader!);
+  }
 
-  // void hideLoader() {
-  //   Helper.hideLoader(loader!);
-  // }
+  void hideLoader() {
+    Helper.hideLoader(loader!);
+  }
 
   // void replaceScreen(String route) {
   //   // Navigator.pushReplacementNamed(context, route);
@@ -85,32 +88,34 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   //   FocusScope.of(context).unfocus();
   // }
 
-  // void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
-  //   showFlash(
-  //     context: context,
-  //     duration: const Duration(seconds: 4),
-  //     builder: (context, controller) {
-  //       return Flash(
-  //         controller: controller,
-  //         behavior: FlashBehavior.floating,
-  //         position: FlashPosition.top,
-  //         boxShadows: kElevationToShadow[2],
-  //         backgroundColor: color,
-  //         reverseAnimationCurve: Curves.easeInCirc,
-  //         forwardAnimationCurve: Curves.easeInOutBack,
-  //         margin: const EdgeInsets.all(8.0),
-  //         borderRadius: BorderRadius.circular(6.0),
-  //         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-  //         child: FlashBar(
-  //           content: Text(
-  //             msg,
-  //             style: const TextStyle(fontSize: 15.0, color: Colors.white),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.top,
+          boxShadows: kElevationToShadow[2],
+          backgroundColor: color,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
 
   Size getScreenSize() {
     return MediaQuery.of(context).size;

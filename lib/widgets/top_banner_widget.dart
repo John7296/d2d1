@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/jobdetails.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class TopBannerWidget extends StatefulWidget {
   TopBannerWidget({
@@ -15,6 +20,30 @@ class TopBannerWidget extends StatefulWidget {
 }
 
 class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
+  List<JobDetails> jobDetailsList = [];
+
+  void getJobDetails() {
+    // showLoader();
+    NetworkManager.shared
+        .getJobDetails(
+      NetworkManager.shared.userToken!,
+      "getJobDetailsByJobIdClient",
+      NetworkManager.shared.staffId!,
+      2,
+      
+    )
+        .then((BaseResponse<List<JobDetails>> response) {
+      // hideLoader();
+      setState(() {
+        jobDetailsList.clear();
+        jobDetailsList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      // hideLoader();
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,7 +85,10 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                             icon:
                                 Icon(Icons.arrow_back_ios, color: Colors.white),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             },
                           ),
                         ),
@@ -86,7 +118,7 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                           color: Colors.white,
                           image: DecorationImage(
                             image: AssetImage("assets/images/care.png"),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                           // color: Colors.green.shade400,
                           // boxShadow: [
@@ -184,13 +216,22 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                         ),
                       ],
                     ),
-                    Text(
-                      'Agate House',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: kFontWeight_SB,
-                        fontSize: kFontSize_14,
-                      ),
+                    Row(
+                      children: [
+                        ImageIcon(
+                          AssetImage("assets/images/ic_location.png"),
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Agate House',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: kFontWeight_SB,
+                            fontSize: kFontSize_14,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

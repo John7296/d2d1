@@ -5,15 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/alert.dart';
+import 'package:project_d2d/model/alert_messages.dart';
 import 'package:project_d2d/model/base_response.dart';
-import 'package:project_d2d/model/job_details.dart';
+import 'package:project_d2d/model/job.dart';
+import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/alert_card_widget.dart';
 import 'package:project_d2d/widgets/slider_banner.dart';
 
@@ -24,29 +29,63 @@ class HomeDetailScreen extends StatefulWidget {
   State<HomeDetailScreen> createState() => _HomeDetailScreenState();
 }
 
-class _HomeDetailScreenState extends State<HomeDetailScreen> {
-  List<JobDetails> jobList = [];
+class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
+  List<Job> jobList = [];
+  List<TimeSheet> timeSheetList = [];
+  int? jobApproved;
+  int? jobPending;
+  int? jobCompleted;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getJobDetails();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getJob();
+
+      // _updateDeviceToken();
+    });
+    getTimeSheet();
+
+    print("StaffId ${SessionsManager.staffId}");
+    print("TokenId ${SessionsManager.userToken}");
   }
 
-  void getJobDetails() {
+  void getJob() {
+    showLoader();
     NetworkManager.shared
-        .getJobDetails(
-      "TKN3561228453",
-      13,
+        .getJob(
+      NetworkManager.shared.userToken!,
       "getJobsByStaffId",
-      "searchKeyword",
+      NetworkManager.shared.staffId!,
+      "",
       "Active",
     )
-        .then((BaseResponse<List<JobDetails>> response) {
+        .then((BaseResponse<List<Job>> response) {
+      hideLoader();
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
+  void getTimeSheet() {
+    // showLoader();
+    NetworkManager.shared
+        .timeSheet(
+      NetworkManager.shared.userToken!,
+      "getStaffTimesheetBannerById",
+      NetworkManager.shared.staffId!,
+    )
+        .then((BaseResponse<List<TimeSheet>> response) {
+      // hideLoader();
+      setState(() {
+        timeSheetList.clear();
+        timeSheetList.addAll(response.data!);
       });
     }).catchError((e) {
       print(e.toString());
@@ -170,12 +209,12 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                           Spacer(),
                           InkWell(
                             onTap: () {
-                              getJobDetails();
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             AvailableJobsScreen()));
+                              // getJob();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AvailableJobsScreen()));
                             },
                             child: Text(
                               'See all ',
@@ -227,199 +266,45 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 5, top: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            height: 120,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              // color: Colors.redAccent,
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.pink.shade300,
-                                  Colors.pink.shade100
-                                ],
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
-                                      child: Image.asset(
-                                        'assets/images/time.png',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
+                          Expanded(
+                            child: Container(
+                              height: 120,
+                              // width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
                                 ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    color: Colors.redAccent,
-                                  ),
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(25),
-                                      ),
-                                      color: Colors.redAccent,
-                                    ),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3),
-                                        child: Text(
-                                          '78',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: kFontWeight_SB,
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Pending",
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: kFontWeight_M),
-                                ),
-                                Text(
-                                  "current job",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 120,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              // color: Colors.redAccent,
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [Colors.green, Colors.green.shade100],
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
-                                      child: Image.asset(
-                                        'assets/images/time.png',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    color: Colors.redAccent,
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2),
-                                      child: Text(
-                                        '78',
-                                        style: TextStyle(
-                                          fontWeight: kFontWeight_SB,
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Approved",
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: kFontWeight_M),
-                                ),
-                                Text(
-                                  "current job",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 120,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              // color: Colors.redAccent,
-                              gradient: LinearGradient(
+                                // color: Colors.redAccent,
+                                gradient: LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   colors: [
-                                    Colors.yellow,
-                                    Colors.yellow.shade100
-                                  ]),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(25, 5, 15, 5),
-                                      child: Image.asset(
-                                        'assets/images/time.png',
-                                        width: 50,
+                                    Colors.pink.shade200,
+                                    Colors.pink.shade50
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/ic_time_1.png',
+                                        // width: 50,
                                         height: 50,
                                         fit: BoxFit.cover,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    color: Colors.redAccent,
+                                    ],
                                   ),
-                                  child: Container(
+                                  Container(
                                     height: 20,
                                     width: 20,
                                     decoration: BoxDecoration(
@@ -432,7 +317,9 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
                                         child: Text(
-                                          '78',
+                                          timeSheetList.first.jobPending
+                                              .toString(),
+                                          // "",
                                           style: TextStyle(
                                             fontWeight: kFontWeight_SB,
                                             color: Colors.white,
@@ -442,19 +329,170 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  "Completed",
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: kFontWeight_M),
-                                ),
-                                Text(
-                                  "current job",
-                                  style: TextStyle(
-                                    fontSize: 10,
+                                  Text(
+                                    "Pending",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: kFontWeight_M),
                                   ),
+                                  Text(
+                                    timeSheetList.first.currentJob ?? '',
+                                    // "",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Container(
+                              height: 120,
+                              // width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
                                 ),
-                              ],
+                                // color: Colors.redAccent,
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [Colors.green, Colors.green.shade50],
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/ic_time_2.png',
+                                        // width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(15),
+                                      ),
+                                      color: Colors.redAccent,
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child: Text(
+                                          timeSheetList.first.jobApproved
+                                              .toString(),
+                                          // "",
+                                          style: TextStyle(
+                                            fontWeight: kFontWeight_SB,
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Approved",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: kFontWeight_M),
+                                  ),
+                                  Text(
+                                    timeSheetList.first.currentJob ?? '',
+                                    // "",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Container(
+                              height: 120,
+                              // width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                // color: Colors.redAccent,
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.yellow,
+                                    Colors.yellow.shade100
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/ic_time_3.png',
+                                        // width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(15),
+                                      ),
+                                      color: Colors.redAccent,
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child: Text(
+                                          timeSheetList.first.jobApproved
+                                              .toString(),
+                                          // "",
+                                          style: TextStyle(
+                                            fontWeight: kFontWeight_SB,
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Completed",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: kFontWeight_M),
+                                  ),
+                                  Text(
+                                    timeSheetList.first.currentJob ?? '',
+                                    // "",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -462,7 +500,8 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                     ),
                     SizedBox(height: 10),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -473,23 +512,24 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Spacer(),
-                          TextButton(
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             FeaturedProductsScreen()));
-                            },
-                            child: Text(
-                              '',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
+                          // Spacer(),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     // getAlertDetails();
+                          //     // Navigator.push(
+                          //     //     context,
+                          //     //     MaterialPageRoute(
+                          //     //         builder: (context) =>
+                          //     //             FeaturedProductsScreen()));
+                          //   },
+                          //   child: Text(
+                          //     '',
+                          //     style: TextStyle(
+                          //       color: Colors.grey,
+                          //       fontSize: 15,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -519,5 +559,11 @@ class _HomeDetailScreenState extends State<HomeDetailScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

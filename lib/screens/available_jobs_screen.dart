@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/active_job.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/available_job_widget.dart';
 
 class AvailableJobsScreen extends StatefulWidget {
@@ -13,42 +18,44 @@ class AvailableJobsScreen extends StatefulWidget {
   _AvailableJobsScreenState createState() => _AvailableJobsScreenState();
 }
 
-class _AvailableJobsScreenState extends State<AvailableJobsScreen>
+class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     with TickerProviderStateMixin {
-  List<StaffDetails> staffDetails = [
-    StaffDetails(
-        staffName: 'Catherine',
-        jobName: 'Dialysis Specialyst',
-        jobLocation: 'London',
-        shiftType: 'Sunday',
-        startDate: '10 Nov 2022',
-        requested: true,
-        hourlyRate: 30),
-    StaffDetails(
-        staffName: 'Mary',
-        jobName: 'General Nurse',
-        jobLocation: 'Agate East',
-        shiftType: 'Full-Time',
-        startDate: '15 DEC 2022',
-        requested: false,
-        hourlyRate: 30),
-    StaffDetails(
-        staffName: 'Sara',
-        jobName: 'Mental Health Nurse',
-        jobLocation: 'Coventry',
-        shiftType: 'Saturday',
-        requested: true,
-        startDate: '12 Jan 2023',
-        hourlyRate: 30),
-    StaffDetails(
-        staffName: 'Sandra',
-        jobName: 'Laundry Assistant',
-        jobLocation: 'Agate East',
-        shiftType: 'Full-Time',
-        startDate: '15 DEC 2022',
-        requested: false,
-        hourlyRate: 30),
-  ];
+  String _searchString = "";
+  List<Job> jobList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getJobDetails();
+
+      // _updateDeviceToken();
+    });
+  }
+
+  void getJobDetails() {
+    showLoader();
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      _searchString,
+      "Active",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      hideLoader();
+      setState(() {
+        jobList.clear();
+        jobList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
@@ -66,10 +73,11 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => HomeScreen()));
+                        getJobDetails();
                       },
                     ),
                   ),
@@ -124,13 +132,23 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                           child: Icon(Icons.search_rounded,
                               size: 25, color: Color(0xFF95969D)),
                         ),
-                        SizedBox(
-                          child: Text(
-                            "Search available jobs",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFF95969D),
-                            ),
+                        Expanded(
+                          child: TextField(
+                            autofocus: false,
+                            textInputAction: TextInputAction.search,
+                            onChanged: (value) {
+                              _searchString = value;
+                            },
+                            onSubmitted: (value) {
+                              getJobDetails();
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Search Available Jobs",
+                                hintStyle: TextStyle(
+                                    fontFamily: "Intro",
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey)),
                           ),
                         ),
                       ],
@@ -146,7 +164,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                   child: SizedBox(
                     height: 40,
                     child: TabBar(
-                      unselectedLabelColor: Colors.redAccent,
+                      unselectedLabelColor: Colors.grey,
                       indicatorSize: TabBarIndicatorSize.label,
                       controller: tabController,
                       indicator: BoxDecoration(
@@ -161,8 +179,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             width: 120,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              border:
-                                  Border.all(color: Colors.redAccent, width: 1),
+                              border: Border.all(color: Colors.grey, width: 1),
                             ),
                             child: Align(
                               alignment: Alignment.center,
@@ -180,8 +197,8 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                             width: 120,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Colors.redAccent, width: 1)),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text("Available",
@@ -206,7 +223,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                   ListView.builder(
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: staffDetails.length,
+                    itemCount: jobList.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding:
@@ -220,8 +237,14 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            JobDetailsScreen()));
+                                        builder: (context) => JobDetailsScreen(
+                                            jobList[index].jobCatName ?? '',
+                                            // jobList[index].hourlyRate ?? '',
+                                            jobList[index].clientName ?? '',
+                                            jobList[index].jobLocation ?? '',
+                                            jobList[index].startDateTime ?? '',
+                                            jobList[index].shiftName ?? '',
+                                            context)));
                               }),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -230,7 +253,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                     Radius.circular(15),
                                   ),
                                   image: DecorationImage(
-                                    image: (staffDetails[index].requested!)
+                                    image: (jobList[index].isRequsted == "1")
                                         ? AssetImage(
                                             "assets/images/green_bg.png")
                                         : AssetImage(
@@ -284,9 +307,8 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                staffDetails[
-                                                                            index]
-                                                                        .jobName ??
+                                                                jobList[index]
+                                                                        .jobCatName ??
                                                                     '',
                                                                 style:
                                                                     TextStyle(
@@ -312,8 +334,8 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                                           ],
                                                         ),
                                                         Text(
-                                                          staffDetails[index]
-                                                                  .staffName ??
+                                                          jobList[index]
+                                                                  .clientName ??
                                                               '',
                                                           style: TextStyle(
                                                               color:
@@ -337,7 +359,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            '£ ${staffDetails[index].hourlyRate ?? ''}/hour',
+                                            '£ ${jobList[index].hourlyRate ?? ''}/hour',
                                             style: TextStyle(
                                               fontWeight: kFontWeight_M,
                                               fontSize: 13,
@@ -349,7 +371,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                       Spacer(),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Container(
                                             height: 30,
@@ -372,8 +394,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                                     size: 15,
                                                   ),
                                                   Text(
-                                                    staffDetails[index]
-                                                            .shiftType ??
+                                                    jobList[index].shiftName ??
                                                         '',
                                                     style: TextStyle(
                                                       fontSize: 11,
@@ -404,7 +425,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                                     size: 15,
                                                   ),
                                                   Text(
-                                                    staffDetails[index]
+                                                    jobList[index]
                                                             .jobLocation ??
                                                         '',
                                                     style: TextStyle(
@@ -424,7 +445,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                               ),
                                               SizedBox(width: 2),
                                               Text(
-                                                staffDetails[index].startDate ??
+                                                jobList[index].startDateTime ??
                                                     '',
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_M,
@@ -441,7 +462,7 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
                                 ),
                               ),
                             ),
-                            (staffDetails[index].requested!)
+                            (jobList[index].isRequsted == "1")
                                 ? Positioned(
                                     top: -1.5,
                                     left: 220,
@@ -478,5 +499,11 @@ class _AvailableJobsScreenState extends State<AvailableJobsScreen>
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

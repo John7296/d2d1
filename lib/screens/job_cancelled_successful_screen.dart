@@ -15,21 +15,14 @@ class JobCancelledSuccessfulScreen extends StatefulWidget {
 
 class _JobCancelledSuccessfulScreenState
     extends State<JobCancelledSuccessfulScreen> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-        
         child: Column(
           children: [
-            TopBannerWidget(
-               
-            ),
+            TopBannerWidget(),
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -60,7 +53,7 @@ class _JobCancelledSuccessfulScreenState
                 children: [
                   Text(
                     "Your Job Application has been cancelled",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -70,15 +63,17 @@ class _JobCancelledSuccessfulScreenState
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: Container(
-                width: 250,
+                // width: 250,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return HomeScreen();
-                      },
-                    ), (route) => false);
+                    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    //   builder: (BuildContext context) {
+                    //     return HomeScreen();
+                    //   },
+                    // ), (route) => false);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   child: Text(
                     'Back to Dashboard',

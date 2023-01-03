@@ -40,12 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     String username = _usernameController.text;
     String password = _passwordController.text;
-    // print(username);
-    // print(password);
-    // print("...........................");
 
     NetworkManager.shared.userLogin(
-        //  "", "",
         <String, dynamic>{
           "sp": "getAuthenticationApp",
           "logname": username,
@@ -59,15 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
       NetworkManager.shared.userId = response.data?.first.userId ?? 0;
       NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
 
-      print(response.data?.first.staffId);
-      print("///////////////////");
-
-         print(response.data?.first.userId);
-      print("///////////////////");
-
-          print(response.data?.first.token);
-      print("///////////////////");
-
+      print("Token ${NetworkManager.shared.userToken}");
 
       NetworkManager.shared.refreshTokens();
 
