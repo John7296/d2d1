@@ -25,13 +25,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    staffProfile();
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+       staffProfile();
     trainingStatus();
     recentJobRequest();
     timeSheetBanner();
+
+      // _updateDeviceToken();
+    });
+  
   }
 
   void staffProfile() {
+    
     NetworkManager.shared
         .staffProfile(NetworkManager.shared.userToken??'', "getStaffProfilebyid", NetworkManager.shared.staffId??0)
         .then((BaseResponse<List<StaffProfile>> response) {
@@ -63,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void trainingStatus() {
     NetworkManager.shared
-        .trainingStatus(NetworkManager.shared.userToken??'', "getTrainingStatus",NetworkManager.shared.staffId??0)
+        .trainingStatus(NetworkManager.shared.userToken!, "getTrainingStatus",NetworkManager.shared.staffId!)
         .then((BaseResponse<List<TrainingStatus>> response) {
       //  hideLoader();
       setState(() {
@@ -188,8 +195,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  // "27",
-                  profile.first.jobsCount.toString(),
+                  "27",
+                  // profile.first.jobsCount.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
@@ -198,8 +205,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 60),
                   child: Text(
-                    // "89",
-                    profile.first.timeSheetCount.toString(),
+                    "89",
+                    // profile.first.timeSheetCount.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -228,8 +235,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (context) => ProfileSummaryScreen()));
                     },
                     child: Text(
-                      // "\$3435.00",
-                      "\$ ${profile.first.totalEarnings.toString()}",
+                      "\$3435.00",
+                      // "\$ ${profile.first.totalEarnings.toString()}",
                       style: TextStyle(
                           color: kGreenColor,
                           fontWeight: FontWeight.w700,
@@ -340,15 +347,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  // "Dialysis Specialist",
-                                  jobs.first.profession.toString(),
+                                  "Dialysis Specialist",
+                                  // jobs.first.profession.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
                               Text(
-                                // "Agate House",
-                                jobs.first.clientName.toString(),
+                                "Agate House",
+                                // jobs.first.clientName.toString(),
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
@@ -368,8 +375,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     color: Color(0xff413E3E),
                                   ),
                                   Text(
-                                    // "Agate East",
-                                    jobs.first.staffLocation.toString(),
+                                    "Agate East",
+                                    // jobs.first.staffLocation.toString(),
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500)),
@@ -382,8 +389,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     color: Color(0xffAFB0B6),
                                   ),
                                   Text(
-                                    // "11 Nov 2022",
-                                    jobs.first.allocatedOn.toString(),
+                                    "11 Nov 2022",
+                                    // jobs.first.allocatedOn.toString(),
                                       style: TextStyle(
                                           color: Color(0xff0D0D26),
                                           fontSize: 13,

@@ -8,6 +8,7 @@ import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobCancelScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
   final _reasonController = TextEditingController();
 
   void onCancelButtonTapped() {
-    NetworkManager.shared.cancelJob("TKN3533328453", <String, dynamic>{
+    NetworkManager.shared.cancelJob(NetworkManager.shared.userToken!, <String, dynamic>{
       "sp": "cancelJob",
       "clientId": 13,
       "jobId": 17,

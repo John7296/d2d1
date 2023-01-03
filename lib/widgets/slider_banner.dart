@@ -9,6 +9,7 @@ import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class SliderBannerHomeWidget extends StatefulWidget {
   const SliderBannerHomeWidget({super.key});
@@ -31,9 +32,9 @@ class _SliderBannerHomeWidgetState
   void getJobDetails() {
     NetworkManager.shared
         .getJob(
-      "TKN3533328453",
+      NetworkManager.shared.userToken!,
       "getJobsByStaffId",
-      13,
+      NetworkManager.shared.staffId!,
       "",
       "Active",
     )
@@ -295,11 +296,11 @@ class _SliderBannerHomeWidgetState
                         ),
                       ),
                     ),
-                    // if (staffDetails[index].requested ?? false)
+                    if (jobList[index].isRequsted == "1")
                     Image(image: AssetImage("assets/images/redlabel_tail.png")),
                   ],
                 ),
-                // if (staffDetails[index].requested ?? false)
+                if (jobList[index].isRequsted == "1")
                 Positioned(
                   top: 65,
                   right: 0,
@@ -326,20 +327,6 @@ class _SliderBannerHomeWidgetState
                       ),
                     ],
                   ),
-
-                  //  Container(
-                  //   padding: EdgeInsets.only(
-                  //       left: 20, right: 20, bottom: 10, top: 10),
-                  //   // height: 200,
-                  //   // width: 200,
-                  //   decoration: BoxDecoration(
-                  //     image: DecorationImage(
-                  //       image: AssetImage("assets/images/redlabel.png"),
-                  //       // fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  //   child:
-                  // ),
                 ),
               ],
             ),

@@ -9,6 +9,7 @@ import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class AvailableJobWidget extends StatefulWidget {
   const AvailableJobWidget({super.key});
@@ -31,9 +32,9 @@ class _AvailableJobWidgetState
   void getJob() {
     NetworkManager.shared
         .getJob(
-      "TKN3533328453",
+      NetworkManager.shared.userToken!,
       "getJobsByStaffId",
-      13,
+      NetworkManager.shared.staffId!,
       "",
       "Active",
     )

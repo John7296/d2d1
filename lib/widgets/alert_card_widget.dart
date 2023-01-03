@@ -7,6 +7,7 @@ import 'package:project_d2d/model/alert.dart';
 import 'package:project_d2d/model/alert_messages.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class AlertCardWidget extends StatefulWidget {
   const AlertCardWidget({super.key});
@@ -29,9 +30,9 @@ class _AlertCardWidgetState extends BaseStatefulState<AlertCardWidget> {
   void getAlertDetails() {
     NetworkManager.shared
         .alerMessages(
-      "TKN3533328453",
+      NetworkManager.shared.userToken!,
       "getStaffAlertbyid",
-      13,
+      NetworkManager.shared.staffId.toString(),
       "multiple",
     )
         .then((BaseResponse<Alert> response) {

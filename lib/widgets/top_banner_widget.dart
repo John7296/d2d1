@@ -8,6 +8,7 @@ import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class TopBannerWidget extends StatefulWidget {
   TopBannerWidget({
@@ -25,10 +26,11 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
     // showLoader();
     NetworkManager.shared
         .getJobDetails(
-      "TKN3533328453",
-      "getJobDetailsByJobIdStaff",
-      13,
+      NetworkManager.shared.userToken!,
+      "getJobDetailsByJobIdClient",
+      NetworkManager.shared.staffId!,
       2,
+      
     )
         .then((BaseResponse<List<JobDetails>> response) {
       // hideLoader();

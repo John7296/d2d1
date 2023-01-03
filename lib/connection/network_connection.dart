@@ -125,7 +125,7 @@ abstract class NetworkConnection {
   Future<BaseResponse<Alert>> alertMessages(
     @Header("token") String? token,
     @Query("sp") String sp,
-    @Query("staffId") int staffId,
+    @Query("staffId") String staffId,
     @Query("outputMode") String outputMode,
   );
 

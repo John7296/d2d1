@@ -42,6 +42,7 @@ dependencies:
   proste_bezier_curve: ^2.0.2
   flutter_emoji: ^2.4.0
   shared_preferences: ^2.0.7
+  flash: ^2.0.3
 
 
 

@@ -16,7 +16,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -35,52 +34,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onLoginButtonTapped() {
-  if (!_form.currentState!.validate()) {
+    if (!_form.currentState!.validate()) {
       return;
     }
 
     String username = _usernameController.text;
     String password = _passwordController.text;
-    // print(username);
-    // print(password);
-    // print("...........................");
 
-    NetworkManager.shared.userLogin( 
-      //  "", "",
-      <String, dynamic>{
-   
-    "sp":"getAuthenticationApp",
-    "logname":username,
-    "passwd":password,
-    }
-    ).then((BaseResponse<List<User>> response) {
-
+    NetworkManager.shared.userLogin(
+        <String, dynamic>{
+          "sp": "getAuthenticationApp",
+          "logname": username,
+          "passwd": password,
+        }).then((BaseResponse<List<User>> response) {
       SessionsManager.saveUserToken(response.data?.first.token ?? '');
       SessionsManager.saveUserId(response.data?.first.userId ?? 0);
       SessionsManager.saveStaffId(response.data?.first.staffId ?? 0);
 
       NetworkManager.shared.userToken = response.data?.first.token ?? "";
       NetworkManager.shared.userId = response.data?.first.userId ?? 0;
-          NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
+      NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
 
-          print(response.data?.first.staffId);
-          print("///////////////////");
+      print("Token ${NetworkManager.shared.userToken}");
 
       NetworkManager.shared.refreshTokens();
-   
-   Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomeScreen()));
- 
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((obj) {
       print(obj.toString());
     });
   }
-
-  
- 
 
   @override
   Widget build(BuildContext context) {
@@ -179,51 +163,51 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding:
                         const EdgeInsets.only(left: 20, top: 20, right: 20),
                     child: TextFormField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.
-                              //only(left:10, top:5, bottom:5),
-                              symmetric(vertical: 20, horizontal: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xffAFB0B6)),
-                          ),
-                          labelText: "  Password",
-                          labelStyle: TextStyle(
-                              color: Color(0xffAFB0B6),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.
+                            //only(left:10, top:5, bottom:5),
+                            symmetric(vertical: 20, horizontal: 10),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Color(0xffAFB0B6)),
+                        ),
+                        labelText: "  Password",
+                        labelStyle: TextStyle(
+                            color: Color(0xffAFB0B6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
 
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: IconButton(
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Color(0xffCACBCE),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: IconButton(
+                            icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Color(0xffCACBCE),
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
                           ),
-                          // suffixIcon: Padding(
-                          //   padding: const EdgeInsets.only(right: 20),
-                          //   child: Icon(
-                          //     Icons.visibility,
-                          //     color: Color(0xffCACBCE),
-                          //   ),
-                          // )
                         ),
-                        obscureText: _obscureText,
-                        controller: _passwordController,
-                        validator: (val) {
-                          if (val!.isEmpty) return "Enter your password";
-                          return null;
-                        },
-                        ),
+                        // suffixIcon: Padding(
+                        //   padding: const EdgeInsets.only(right: 20),
+                        //   child: Icon(
+                        //     Icons.visibility,
+                        //     color: Color(0xffCACBCE),
+                        //   ),
+                        // )
+                      ),
+                      obscureText: _obscureText,
+                      controller: _passwordController,
+                      validator: (val) {
+                        if (val!.isEmpty) return "Enter your password";
+                        return null;
+                      },
+                    ),
                   ),
                   Padding(
                     padding:
@@ -235,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Color(0xffFD425B),
                         ),
                         onPressed: () {
-                           onLoginButtonTapped();
+                          onLoginButtonTapped();
                           // Navigator.pushAndRemoveUntil(context,
                           //     MaterialPageRoute(
                           //   builder: (BuildContext context) {

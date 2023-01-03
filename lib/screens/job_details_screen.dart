@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/base_response.dart';
@@ -10,6 +11,7 @@ import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -30,48 +32,65 @@ class JobDetailsScreen extends StatefulWidget {
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen> {
+class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
   List<JobDetails> jobDetailsList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getJobDetails();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getJobDetails();
+
+      // _updateDeviceToken();
+    });
   }
 
   void getJobDetails() {
     // showLoader();
     NetworkManager.shared
         .getJobDetails(
-      "TKN3533328453",
-      "getJobDetailsByJobIdStaff",
-      13,
+      NetworkManager.shared.userToken!,
+      "getJobDetailsByJobIdClient",
+      NetworkManager.shared.userId!,
       2,
     )
         .then((BaseResponse<List<JobDetails>> response) {
-      // hideLoader();
+      hideLoader();
       setState(() {
         jobDetailsList.clear();
         jobDetailsList.addAll(response.data!);
       });
     }).catchError((e) {
-      // hideLoader();
+      hideLoader();
       print(e.toString());
     });
   }
 
   void onApplyButtonTapped() {
-    NetworkManager.shared.applyJob("TKN3533328453", <String, dynamic>{
+    showLoader();
+    NetworkManager.shared.applyJob(
+        NetworkManager.shared.userToken!, <String, dynamic>{
       "sp": "insApplyJob",
-      "staffId": "13",
+      "staffId": NetworkManager.shared.staffId,
       "jobId": "1"
     }).then((BaseResponse<ApplyJob> response) {
+      hideLoader();
+      
       // Navigator.push(
       //     context,
       //     MaterialPageRoute(
-      //         builder: (context) => JobAppliedSuccessfulScreen()));
+      //         builder: (context) => JobAppliedSuccessfulScreen(
+      //             widget.jobCatName,
+      //             // jobList[index].hourlyRate,
+      //             widget.clientName,
+      //             widget.jobLocation,
+      //             widget.startDateTime,
+      //             widget.shiftName,
+      //             context)));
     }).catchError((e) {
+      hideLoader();
+      // showFlashMsg("Job Applied Successful..!");
       // print(e.toString());
     });
   }
@@ -309,14 +328,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 // ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Text(
-                  "Details",
-                  style: TextStyle(fontSize: 18, fontWeight: kFontWeight_M),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Text(
+                      "Details",
+                      style: TextStyle(fontSize: 18, fontWeight: kFontWeight_M),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             Container(
               // color: Colors.white,
@@ -356,16 +379,17 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             onApplyButtonTapped();
+                            showFlashMsg("Job Applied Successful..!");
                             Navigator.pushAndRemoveUntil(context,
                                 MaterialPageRoute(
                               builder: (BuildContext context) {
                                 return JobAppliedSuccessfulScreen(
-                                    widget.jobCatName ?? '',
-                                    // jobList[index].hourlyRate ?? '',
-                                    widget.clientName ?? '',
-                                    widget.jobLocation ?? '',
-                                    widget.startDateTime ?? '',
-                                    widget.shiftName ?? '',
+                                    widget.jobCatName,
+                                    // jobList[index].hourlyRate ,
+                                    widget.clientName,
+                                    widget.jobLocation,
+                                    widget.startDateTime,
+                                    widget.shiftName,
                                     context);
                               },
                             ), (route) => false);
@@ -461,5 +485,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
