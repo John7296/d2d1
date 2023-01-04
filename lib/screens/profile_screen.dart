@@ -195,22 +195,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "27",
-                  // profile.first.jobsCount.toString(),
+                  // "27",
+                   profile.first.jobsCount.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
-                      fontSize: 13),
+                      fontSize: 15),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 60),
                   child: Text(
-                    "89",
-                    // profile.first.timeSheetCount.toString(),
+                    // "89",
+                    profile.first.timeSheetCount.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 13),
+                        fontSize: 15),
                   ),
                 ),
                 Padding(
@@ -218,11 +218,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Text(
                     // "13 Nov 2024",
                     profile.first.timeSheetDate.toString(),
-                    maxLines: 2,
+                    // maxLines: 2,
                     style: TextStyle(
                         color: Color(0xffF41937),
                         fontWeight: FontWeight.w700,
-                        fontSize: 13),
+                        fontSize: 15),
                   ),
                 ),
                 Padding(
@@ -235,12 +235,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (context) => ProfileSummaryScreen()));
                     },
                     child: Text(
-                      "\$3435.00",
-                      // "\$ ${profile.first.totalEarnings.toString()}",
+                      // "\$3435.00",
+                       "\$ ${profile.first.totalEarnings.toString()}",
                       style: TextStyle(
                           color: kGreenColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 13),
+                          fontSize: 15),
                     ),
                   ),
                 ),
@@ -251,44 +251,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   "Jobs",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 30,
                 ),
                 Text(
                   "Time sheets",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 30,
                 ),
-                Text(
-                  "Time sheets",
-                  style: TextStyle(
-                      color: Color(0xff95969D),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                Expanded(
+                  child: Text(
+                    "Time sheets",
+                    style: TextStyle(
+                        color: Color(0xff95969D),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13),
+                  ),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 30,
                 ),
                 Text(
                   "Total Earnings",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
               ],
             ),
@@ -347,15 +349,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  "Dialysis Specialist",
-                                  // jobs.first.profession.toString(),
+                                  // "Dialysis Specialist",
+                                   jobs.first.profession.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
                               Text(
-                                "Agate House",
-                                // jobs.first.clientName.toString(),
+                                // "Agate House",
+                                jobs.first.clientName.toString(),
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
@@ -377,8 +379,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     color: Color(0xff413E3E),
                                   ),
                                   Text(
-                                    "Agate East",
-                                    // jobs.first.staffLocation.toString(),
+                                    // "Agate East",
+                                     jobs.first.staffLocation.toString(),
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500)),
@@ -463,14 +465,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 25,
+                              radius: 30,
                               backgroundColor: Color(0xffFDD9DE),
                               child: Container(
                                 width: 50,
                                 height: 40,
                                 child: Image(
                                   image: AssetImage(
-                                    "assets/images/time.png",
+                                    "assets/images/ic_time_1.png",
                                   ),
                                   fit: BoxFit.fill,
                                   //    width:50,
@@ -507,7 +509,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                SizedBox(width: 11),
+                Expanded(child: SizedBox(width: 5)),
                 Container(
                   height: 70,
                   width: 180,
@@ -523,14 +525,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 25,
+                              radius: 30,
                               backgroundColor: Color(0xffFDD9DE),
                               child: Container(
                                 width: 50,
                                 height: 40,
                                 child: Image(
                                   image: AssetImage(
-                                    "assets/images/time.png",
+                                    "assets/images/ic_time_1.png",
                                   ),
                                   fit: BoxFit.fill,
                                   //    width:50,

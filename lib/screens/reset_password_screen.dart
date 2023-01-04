@@ -25,10 +25,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     // }
 
     // showLoader();
-    NetworkManager.shared.resetPassword(<String, dynamic>{
+    NetworkManager.shared.resetPassword(NetworkManager.shared.userToken??'', <String, dynamic>{
 
-    "token": NetworkManager.shared.userToken,
-  "sp":"resetPassword",
+    // "token": NetworkManager.shared.userToken,
+    "sp":"resetPassword",
     "userId":NetworkManager.shared.userId,
     "password":_passwordController.text
 
@@ -39,11 +39,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       // setState(() {
       //   emailSent = true;
       // });
-      //  Navigator.pushReplacement(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 VerifyOtpScreen()));
+       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      PasswordConfirmationScreen()));
      
     }).catchError((e) {
       //  hideLoader();

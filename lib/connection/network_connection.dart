@@ -5,6 +5,7 @@ import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
@@ -51,6 +52,9 @@ abstract class NetworkConnection {
 
 @POST("d2dApi/Default.aspx")
   Future<BaseResponse> forgotPasswordOTPSend(
+      // @Header("Content-Type") String? contenttype, 
+      //    @Header("Content-Length") String? contentlength,
+      //       @Header("Host") String? host,
    @Body() Map<String, dynamic> map
   );
 
@@ -62,8 +66,8 @@ abstract class NetworkConnection {
 
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse> resetPassword(
-    @Header("token") String? useroken, 
-   @Body() Map<String, dynamic> map
+    @Header("token") String? token, 
+    @Body() Map<String, dynamic> map
   );
    
      @FormUrlEncoded()

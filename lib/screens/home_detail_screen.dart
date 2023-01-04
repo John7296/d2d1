@@ -317,9 +317,9 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
                                         child: Text(
-                                          // timeSheetList.first.jobPending
-                                          //     .toString(),
-                                          "",
+                                          timeSheetList.first.jobPending
+                                              .toString(),
+                                          // "",
                                           style: TextStyle(
                                             fontWeight: kFontWeight_SB,
                                             color: Colors.white,
@@ -336,7 +336,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         fontWeight: kFontWeight_M),
                                   ),
                                   Text(
-                                    timeSheetList.first.currentJob ?? '',
+                                    timeSheetList.first.currentJob.toString(),
                                     // "",
                                     style: TextStyle(
                                       fontSize: 10,

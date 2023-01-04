@@ -132,13 +132,13 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<dynamic>> resetPassword(
-    useroken,
+    token,
     map,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{r'token': useroken};
+    final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(map);

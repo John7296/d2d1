@@ -7,6 +7,7 @@ import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
@@ -64,7 +65,7 @@ class NetworkManager {
     return call(networkConnection.userLogin(map));
   }
 
-  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+  Future<BaseResponse> forgotPasswordOTPSend( Map<String, dynamic> map) {
     return call(networkConnection.forgotPasswordOTPSend(map));
   }
 
@@ -97,8 +98,8 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
-  Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(userToken, map));
+  Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
+    return call(networkConnection.resetPassword(token, map));
   }
 
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
