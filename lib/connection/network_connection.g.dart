@@ -322,12 +322,12 @@ class _NetworkConnection implements NetworkConnection {
   Future<BaseResponse<List<Payment>>> paymentHistory(
     token,
     sp,
-    staffId,
+    userId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'sp': sp,
-      r'staffId': staffId,
+      r'userId': userId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'token': token};
@@ -351,6 +351,75 @@ class _NetworkConnection implements NetworkConnection {
       _result.data!,
       (json) => (json as List<dynamic>)
           .map<Payment>((i) => Payment.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<List<Settings>>> settings(sp) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'sp': sp};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<Settings>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'd2dApi',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<Settings>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<Settings>((i) => Settings.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<List<AlertMessages>>> notifications(
+    token,
+    sp,
+    staffId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'sp': sp,
+      r'staffId': staffId,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<AlertMessages>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'd2dApi',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<AlertMessages>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<AlertMessages>(
+              (i) => AlertMessages.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;

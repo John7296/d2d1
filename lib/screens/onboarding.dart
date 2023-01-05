@@ -26,11 +26,11 @@ class _OnboardingState extends State<Onboarding> {
             Padding(
               padding: EdgeInsets.only(left: 70, right: 20, top:200),
               child: Container(
-                height: 150,
-                width: 250,
+                height: 140,
+                width: 305,
                  decoration: BoxDecoration(
                       image: DecorationImage(
-                     image: AssetImage("assets/images/logo-d2d.png"),
+                     image: AssetImage("assets/images/logo.png"),
                 fit: BoxFit.fill,
                     ),
                     ),
@@ -47,19 +47,21 @@ class _OnboardingState extends State<Onboarding> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom:130),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                     backgroundColor: Color(0xffFD425B),
-                    radius: 30,
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
                     child: CircleAvatar(
-                      backgroundColor: Color(0xffFD425B),
-                      child: Icon(
-                      Icons.arrow_forward, color: Colors.white,
-                      ),
+                    radius: 40,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                       backgroundColor: Color(0xffFD425B),
+                      radius: 30,
+                      child: CircleAvatar(
+                        backgroundColor: Color(0xffFD425B),
+                        child: Icon(
+                        Icons.arrow_forward, color: Colors.white,
+                        ),
+                        ),
                       ),
                     ),
                   ),

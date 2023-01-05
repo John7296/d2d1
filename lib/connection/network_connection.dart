@@ -10,6 +10,7 @@ import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/settings.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
@@ -111,8 +112,22 @@ abstract class NetworkConnection {
   Future<BaseResponse<List<Payment>>> paymentHistory( 
     @Header("token") String? token,   
    @Query("sp") String? sp,
-    @Query("staffId") int? staffId,
+    @Query("userId") int? userId,
      
+  );
+
+   @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<Settings>>> settings(   
+   @Query("sp") String? sp,    
+  );
+
+   @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<AlertMessages>>> notifications(   
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,   
   );
 
 

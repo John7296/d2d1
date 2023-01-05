@@ -4,14 +4,12 @@ part 'alert_messages.g.dart';
 
 @JsonSerializable()
 class AlertMessages {
+
   @JsonKey(name: 'alert')
   String? alert;
 
   @JsonKey(name: 'subAlert')
   String? subAlert;
-
- 
-
 
   AlertMessages({
 this.alert,this.subAlert

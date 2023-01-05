@@ -1,4 +1,5 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/forgot_password_screen.dart';
@@ -14,7 +15,7 @@ class ForgotPasswordScreen extends StatefulWidget {
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen> {
 
     final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
@@ -31,11 +32,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   void forgotPasswordOTPSend() {
 
-    //   if (!_form.currentState!.validate()) {
-    //   return;
-    // }
+      if (!_form.currentState!.validate()) {
+      return;
+    }
 
-    // showLoader();
+    showLoader();
     NetworkManager.shared.forgotPasswordOTPSend(<String, dynamic>{
    
     "sp":"forgotPasswordsendOTP",
@@ -43,7 +44,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
  
     }).then((BaseResponse response) {
 
-      //  hideLoader();
+       hideLoader();
+        showFlashMsg("OTP has sent");
       print(_emailController.text);
       setState(() {
         emailSent = true;
@@ -55,10 +57,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       VerifyOtpScreen()));
      
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg("Enter valid Email or PhoneNumber");
     });
   }
 
@@ -107,10 +109,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
           ),
           Container(
-            height: 80,
-            width: 210,
+           height: 70,
+          width: 180,
             child: Image(
-              image: AssetImage("assets/images/logo-d2d.png"),
+              image: AssetImage("assets/images/logo.png"),
               fit: BoxFit.fill,
             ),
           ),
@@ -147,7 +149,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 120, left: 30, right: 30),
           ),
           CustomSlidingSegmentedControl(
               decoration: BoxDecoration(
@@ -164,7 +166,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 0: Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
                     height: 30,
-                    width: 120,
+                    width: 130,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(17),
                       //color: Colors.white,
@@ -176,7 +178,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ))),
                 1: Container(
                     height: 40,
-                    width: 120,
+                    width: 130,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       //color: Colors.white,
@@ -194,57 +196,65 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 });
               }),
            if(index==0)
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
+          Form(
+            key: _form,
             child: 
-          
-            TextFormField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.
-            //only(left:10, top:5, bottom:5),
-            symmetric(vertical: 20, horizontal: 10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-        ),
-        labelText: "   Email",
-        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
-      ),
-     controller: _emailController,
-                        validator: (val) {
-                          if (val!.isEmpty)
-                            return "Enter E-mail";
-                          return null;
-                        },
-    ),
-            // child: text[index],
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 50, right: 20),
+                  child: 
+                
+                  TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.
+                  //only(left:10, top:5, bottom:5),
+                  symmetric(vertical: 20, horizontal: 10),
+                      border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                      ),
+                      labelText: "   E-mail",
+                      labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+                    ),
+                   controller: _emailController,
+                              validator: (val) {
+                                if (val!.isEmpty)
+                                  return "Enter E-mail";
+                                return null;
+                              },
+                  ),
+                  // child: text[index],
+                ),
           ),
           if(index==1)
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 60, right: 20),
-            child: TextFormField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.
-            //only(left:10, top:5, bottom:5),
-            symmetric(vertical: 20, horizontal: 10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-        ),
-        labelText: "   Mobile Number",
-        labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
-      ),
-    controller: _mobileController,
-                        validator: (val) {
-                          if (val!.isEmpty)
-                            return "Enter Mobile Number";
-                          return null;
-                        },
-    ),
-            // child: text[index],
+          Form(
+            key: _form,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, top: 50, right: 20),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.
+              //only(left:10, top:5, bottom:5),
+              symmetric(vertical: 20, horizontal: 10),
+                  border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                  ),
+                  labelText: "   Mobile Number",
+                  labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+                ),
+              controller: _mobileController,
+                          validator: (val) {
+                            if (val!.isEmpty)
+                              return "Enter Mobile Number";
+                            return null;
+                          },
+              ),
+              // child: text[index],
+            ),
           ),
+              
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
             child: Container(
               height: 60,
               child: ElevatedButton(
@@ -271,6 +281,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
         ],
       ),
-    ));
+        ),
+    );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

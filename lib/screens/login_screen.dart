@@ -1,4 +1,5 @@
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/connection/network_connection.dart';
 import 'package:project_d2d/model/base_response.dart';
@@ -15,7 +16,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends BaseStatefulState<LoginScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -61,8 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    }).catchError((obj) {
-      print(obj.toString());
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg("Invalid username or password");
     });
   }
 
@@ -88,10 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Container(
-              height: 80,
-              width: 210,
+              height: 70,
+          width: 180,
               child: Image(
-                image: AssetImage("assets/images/logo-d2d.png"),
+                image: AssetImage("assets/images/logo.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -264,5 +267,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

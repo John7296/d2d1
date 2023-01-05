@@ -12,6 +12,7 @@ import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/settings.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
@@ -90,8 +91,8 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Payment>>> paymentHistory(
-      String userToken, String sp, int staffId) {
-    return call(networkConnection.paymentHistory(userToken, sp, staffId));
+      String userToken, String sp, int userId) {
+    return call(networkConnection.paymentHistory(userToken, sp, userId));
   }
 
   Future<BaseResponse> newRegister(Map<String, dynamic> map) {
@@ -104,6 +105,15 @@ class NetworkManager {
 
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
     return call(networkConnection.verifyOTP(map));
+  }
+
+   Future<BaseResponse<List<Settings>>> settings(String sp) {
+    return call(networkConnection.settings(sp));
+  }
+
+   Future<BaseResponse<List<AlertMessages>>> notifications(
+      String token, String sp, int staffId) {
+    return call(networkConnection.notifications(token, sp, staffId));
   }
 
   Future<BaseResponse<List<Job>>> getJob(String token, String sp,

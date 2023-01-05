@@ -31,10 +31,10 @@ class _PasswordConfirmationScreenState
           ),
         ),
         Container(
-          height: 80,
-          width: 210,
+          height: 70,
+          width: 180,
           child: Image(
-            image: AssetImage("assets/images/logo-d2d.png"),
+            image: AssetImage("assets/images/logo.png"),
             fit: BoxFit.fill,
           ),
         ),
@@ -60,9 +60,9 @@ class _PasswordConfirmationScreenState
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
+          padding: const EdgeInsets.only(top: 20),
           child: Center(
-            child: Text("Your password has been change. Please ",
+            child: Text("Your password has been changed. Please ",
                 maxLines: 1,
                 style: TextStyle(
                   fontSize: 15,
@@ -70,19 +70,16 @@ class _PasswordConfirmationScreenState
                 )),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
-          child: Center(
-            child: Text("login with your new password",
-                maxLines: 1,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color(0xffAFB0B6),
-                )),
-          ),
+        Center(
+          child: Text("log in with your new password",
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 15,
+                color: Color(0xffAFB0B6),
+              )),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
           child: Container(
             height: 60,
             child: ElevatedButton(

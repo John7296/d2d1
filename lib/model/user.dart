@@ -16,7 +16,7 @@ class User{
   String? email;
 
   @JsonKey(name: 'PhoneNo')
-  int? phoneNo;
+  String? phoneNo;
 
 @JsonKey(name: 'RoleId')
   int? roleId;
