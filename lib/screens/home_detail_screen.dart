@@ -32,23 +32,14 @@ class HomeDetailScreen extends StatefulWidget {
 class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
   List<Job> jobList = [];
   List<TimeSheet> timeSheetList = [];
-  int? jobApproved;
-  int? jobPending;
-  int? jobCompleted;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-
-      // _updateDeviceToken();
     });
     getTimeSheet();
-
-    print("StaffId ${SessionsManager.staffId}");
-    print("TokenId ${SessionsManager.userToken}");
   }
 
   void getJob() {
@@ -62,7 +53,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
-      hideLoader();
+      hideLoader(); 
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);

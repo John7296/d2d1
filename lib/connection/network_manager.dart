@@ -14,7 +14,7 @@ import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
-import 'package:project_d2d/model/timesheetdetails.dart';
+import 'package:project_d2d/model/timesheetresponse.dart';
 import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
@@ -105,8 +105,8 @@ class NetworkManager {
     return call(networkConnection.verifyOTP(map));
   }
 
-  Future<BaseResponse<List<Job>>> getJob(String token, String sp,
-      int staffId, String searchKeyword, String jobStatus) {
+  Future<BaseResponse<List<Job>>> getJob(String token, String sp, int staffId,
+      String searchKeyword, String jobStatus) {
     return call(networkConnection.getJob(
       token,
       sp,
@@ -151,12 +151,15 @@ class NetworkManager {
     return call(networkConnection.cancelJob(token, map));
   }
 
-  Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
-      String token, String sp, int staffId) {
+  Future<BaseResponse<TimeSheetResponse>> gettimeSheetDetails(
+      String token, String sp, int staffId, int jobId, String outputMode) {
     return call(networkConnection.gettimeSheetDetails(
       token,
       sp,
       staffId,
+      jobId,
+      outputMode,
+      
     ));
   }
 

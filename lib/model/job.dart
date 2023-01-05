@@ -30,12 +30,18 @@ class Job {
 
   @JsonKey(name: 'isRequsted')
   String? isRequsted;
+
+    @JsonKey(name: 'jobId')
+  int? jobId;
+
+    @JsonKey(name: 'allocatedStaff')
+  String? allocatedStaff;
   
 
 
   Job({
   this.clientName,this.isRequsted,
-  this.endDateTime,this.hourlyRate,this.jobCatName,this.jobLocation,this.jobNumber,this.shiftName,this.startDateTime
+  this.endDateTime,this.hourlyRate,this.jobCatName,this.jobLocation,this.jobNumber,this.shiftName,this.startDateTime,this.allocatedStaff,this.jobId
   });
 
   factory Job.fromJson(Map<String, dynamic> json) =>

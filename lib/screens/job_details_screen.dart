@@ -17,13 +17,13 @@ import 'package:project_d2d/widgets/top_banner_widget.dart';
 class JobDetailsScreen extends StatefulWidget {
   // final JobDetails _jobDetails;
 
-  JobDetailsScreen(this.jobCatName, this.clientName, this.shiftName,
-      this.startDateTime, this.jobLocation, this.context);
+  JobDetailsScreen(this.jobCatName, this.hourlyRate, this.clientName,
+      this.shiftName, this.startDateTime, this.jobLocation, this.context);
   String jobCatName;
+  double hourlyRate;
   String clientName;
   String jobLocation;
 
-  // double hourlyRate;
   String startDateTime;
   String shiftName;
   BuildContext context;
@@ -47,12 +47,12 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
   }
 
   void getJobDetails() {
-    // showLoader();
+    showLoader();
     NetworkManager.shared
         .getJobDetails(
       NetworkManager.shared.userToken!,
-      "getJobDetailsByJobIdClient",
-      NetworkManager.shared.userId!,
+      "getJobDetailsByJobIdStaffId",
+      NetworkManager.shared.staffId!,
       2,
     )
         .then((BaseResponse<List<JobDetails>> response) {
@@ -76,7 +76,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       "jobId": "1"
     }).then((BaseResponse<ApplyJob> response) {
       hideLoader();
-      
+
       // Navigator.push(
       //     context,
       //     MaterialPageRoute(
@@ -106,7 +106,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 250,
+                  height: getHeightByPercentage(35),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(0),
@@ -115,219 +115,169 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                       image: AssetImage("assets/images/red_bg.png"),
                       fit: BoxFit.cover,
                     ),
-                    // color: Colors.green.shade400,
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.grey,
-                    //     offset: Offset(0.0, 1.0), //(x,y)
-                    //     blurRadius: 3.0,
-                    //   ),
-                    // ],
                   ),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        //  mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_back_ios,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                                height: 40,
-                                width: 40,
-                              ),
-                              SizedBox(
-                                height: 150,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(40),
-                                  ),
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/care.png"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                  // color: Colors.green.shade400,
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //     color: Colors.grey,
-                                  //     offset: Offset(0.0, 1.0), //(x,y)
-                                  //     blurRadius: 3.0,
-                                  //   ),
-                                  // ],
-                                ),
-                              ),
-                              Text(
-                                widget.jobCatName,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: kFontWeight_M,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                widget.clientName,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Container(
-                                height: 30,
-                                // width: 100,
-                                // color: Colors.white,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                  color: Colors.white.withOpacity(0.1),
-
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //     color: Colors.grey,
-                                  //     offset: Offset(0.0, 1.0), //(x,y)
-                                  //     blurRadius: 3.0,
-                                  //   ),
-                                  // ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.alarm_add_outlined,
-                                        color: Colors.white,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        widget.jobLocation,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 11),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
+                      Container(
+                        // color: Colors.green,
+                        height: getHeightByPercentage(25),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          // crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(40),
+                                ),
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/care.png"),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
                             Text(
-                              '£ 25.00/hour',
+                              widget.jobCatName,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: kFontWeight_SB,
-                                  fontSize: kFontSize_14),
+                                fontSize: 20,
+                                fontWeight: kFontWeight_M,
+                                color: Colors.white,
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                  size: 14,
+                            Text(
+                              widget.clientName,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              height: 30,
+                              width: 120,
+                              // color: Colors.white,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
                                 ),
-                                SizedBox(width: 2),
-                                Text(
-                                  widget.startDateTime,
-                                  style: TextStyle(
+                                color: Colors.white.withOpacity(0.1),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.alarm_add_outlined,
                                       color: Colors.white,
-                                      fontWeight: kFontWeight_SB,
-                                      fontSize: kFontSize_14),
+                                      size: 15,
+                                    ),
+                                    Text(
+                                      widget.jobLocation,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 11),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                ImageIcon(
-                                  AssetImage("assets/images/ic_location.png"),
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  widget.shiftName,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: kFontWeight_SB,
-                                    fontSize: kFontSize_14,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          // color: Colors.green,
+                          height: getHeightByPercentage(5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "${widget.hourlyRate.toString()}/hour",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: kFontWeight_SB,
+                                    fontSize: kFontSize_14),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.calendar_today_outlined,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
+                                  SizedBox(width: 2),
+                                  Text(
+                                    widget.startDateTime,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: kFontWeight_SB,
+                                        fontSize: kFontSize_14),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  ImageIcon(
+                                    AssetImage("assets/images/ic_location.png"),
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    widget.shiftName,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: kFontWeight_SB,
+                                      fontSize: kFontSize_14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 150),
-                //   child: Align(
-                //     alignment: Alignment.centerRight,
-                //     child: Container(
-                //       height: 30,
-                //       width: 72,
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.only(
-                //             topLeft: Radius.circular(15),
-                //             bottomLeft: Radius.circular(15)),
-                //         color: kButtonColorR,
-
-                //         // boxShadow: [
-                //         //   BoxShadow(
-                //         //     color: Colors.grey,
-                //         //     offset: Offset(0.0, 1.0), //(x,y)
-                //         //     blurRadius: 3.0,
-                //         //   ),
-                //         // ],
-                //       ),
-                //       child: Center(
-                //         child: Padding(
-                //           padding: const EdgeInsets.only(left: 10),
-                //           child: Text(
-                //             'Requested',
-                //             style: TextStyle(color: Colors.white, fontSize: 11),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Positioned(
+                  top: 150,
+                  right: 0,
+                  child: Container(
+                    height: 30,
+                    width: 72,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                      color: kButtonColorR,
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Requested',
+                          style: TextStyle(color: Colors.white, fontSize: 11),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
               ],
             ),
+
             Row(
               children: [
                 Padding(
@@ -341,107 +291,126 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
               ],
             ),
-            Container(
-              // color: Colors.white,
-
-              height: 350,
+            Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: jobDetailsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Hourly Rate ${jobDetailsList[index].hourlyRate}",
-                        style: TextStyle(
-                          fontSize: 12,
+                      //          Text(
+                      //   "Job Name: ${jobDetailsList[index].jobCatName}",
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+                      // Text(
+                      //   "Shift Type: ${jobDetailsList[index].shiftName}",
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+                      //   Text(
+                      //   "Job Location: ${jobDetailsList[index].jobLocation}",
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+            
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          child: Text(
+                            "Shift Type: ${jobDetailsList[index].jobDescription}",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ],
                   );
                 },
               ),
             ),
-            Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                // width: 250,
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        // width: 150,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            onApplyButtonTapped();
-                            showFlashMsg("Job Applied Successful..!");
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return JobAppliedSuccessfulScreen(
-                                    widget.jobCatName,
-                                    // jobList[index].hourlyRate ,
-                                    widget.clientName,
-                                    widget.jobLocation,
-                                    widget.startDateTime,
-                                    widget.shiftName,
-                                    context);
-                              },
-                            ), (route) => false);
-                          },
-                          child: Text(
-                            'Apply',
-                            style: TextStyle(
-                                fontSize: kFontSize_16,
-                                fontWeight: kFontWeight_M),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Color(0xff12831D)),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            )),
-                          ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Container(
+                      // width: 150,
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // getJobDetails();
+                          onApplyButtonTapped();
+                          showFlashMsg("Job Applied Successful..!");
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return JobAppliedSuccessfulScreen(
+                                  widget.jobCatName,
+                                  // jobList[index].hourlyRate ,
+                                  widget.clientName,
+                                  widget.jobLocation,
+                                  widget.startDateTime,
+                                  widget.shiftName,
+                                  context);
+                            },
+                          ), (route) => false);
+                        },
+                        child: Text(
+                          'Apply',
+                          style: TextStyle(
+                              fontSize: kFontSize_16,
+                              fontWeight: kFontWeight_M),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xff12831D)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          )),
                         ),
                       ),
                     ),
-                    // Container(
-                    //   // width: 150,
-                    //   height: 50,
-                    //   child: ElevatedButton(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) =>
-                    //                   JobCancelScreen()));
-                    //     },
-                    //     child: Text(
-                    //       'Cancel',
-                    //       style: TextStyle(
-                    //           fontSize: kFontSize_16,
-                    //           fontWeight: kFontWeight_M),
-                    //     ),
-                    //     style: ButtonStyle(
-                    //       backgroundColor: MaterialStateProperty.all(
-                    //           Color(0xffF41937)),
-                    //       shape: MaterialStateProperty.all(
-                    //           RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(5),
-                    //       )),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                  // Container(
+                  //   // width: 150,
+                  //   height: 50,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   JobCancelScreen()));
+                  //     },
+                  //     child: Text(
+                  //       'Cancel',
+                  //       style: TextStyle(
+                  //           fontSize: kFontSize_16,
+                  //           fontWeight: kFontWeight_M),
+                  //     ),
+                  //     style: ButtonStyle(
+                  //       backgroundColor: MaterialStateProperty.all(
+                  //           Color(0xffF41937)),
+                  //       shape: MaterialStateProperty.all(
+                  //           RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(5),
+                  //       )),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
               ),
             ),
+            // Spacer(),
+
             SizedBox(height: 10)
 
             // Padding(

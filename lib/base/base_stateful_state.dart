@@ -41,7 +41,7 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   }
 
   void hideLoader() {
-    Helper.hideLoader(loader!);
+    Helper.hideLoader(loader);
   }
 
   // void replaceScreen(String route) {
@@ -116,7 +116,12 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   }
 
 
-
+  double getHeightByPercentage(double percentage) {
+    return getScreenSize().height * percentage / 100;
+  }
+    double getWidthByPercentage(double percentage) {
+    return getScreenSize().width * percentage / 100;
+  }
   Size getScreenSize() {
     return MediaQuery.of(context).size;
   }

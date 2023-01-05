@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'timesheetdetails.g.dart';
+part 'timesheetresult2.g.dart';
 
 @JsonSerializable()
-class TimeSheetDetails {
+class TimeSheetResult2 {
   @JsonKey(name: 'clientId')
   int? clientId;
 
@@ -28,7 +28,7 @@ class TimeSheetDetails {
   @JsonKey(name: 'status')
   String? status;
 
-  TimeSheetDetails(
+  TimeSheetResult2(
       {this.breakTime,
       this.clientId,
       this.clientName,
@@ -38,7 +38,7 @@ class TimeSheetDetails {
       this.status,
       this.timesheetId});
 
-  factory TimeSheetDetails.fromJson(Map<String, dynamic> json) =>
-      _$TimeSheetDetailsFromJson(json);
-  Map<String, dynamic> toJson() => _$TimeSheetDetailsToJson(this);
+  factory TimeSheetResult2.fromJson(Map<String, dynamic> json) =>
+      _$TimeSheetResult2FromJson(json);
+  Map<String, dynamic> toJson() => _$TimeSheetResult2ToJson(this);
 }

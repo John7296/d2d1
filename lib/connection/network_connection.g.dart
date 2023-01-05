@@ -576,22 +576,26 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
+  Future<BaseResponse<TimeSheetResponse>> gettimeSheetDetails(
     token,
     sp,
     staffId,
+    jobId,
+    outputMode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'sp': sp,
       r'staffId': staffId,
+      r'jobId': jobId,
+      r'outputMode': outputMode,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<TimeSheetDetails>>>(Options(
+        _setStreamType<BaseResponse<TimeSheetResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -603,12 +607,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<TimeSheetDetails>>.fromJson(
+    final value = BaseResponse<TimeSheetResponse>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<TimeSheetDetails>(
-              (i) => TimeSheetDetails.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => TimeSheetResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

@@ -41,12 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    NetworkManager.shared.userLogin(
-        <String, dynamic>{
-          "sp": "getAuthenticationApp",
-          "logname": username,
-          "passwd": password,
-        }).then((BaseResponse<List<User>> response) {
+    NetworkManager.shared.userLogin(<String, dynamic>{
+      "sp": "getAuthenticationApp",
+      "logname": username,
+      "passwd": password,
+    }).then((BaseResponse<List<User>> response) {
       SessionsManager.saveUserToken(response.data?.first.token ?? '');
       SessionsManager.saveUserId(response.data?.first.userId ?? 0);
       SessionsManager.saveStaffId(response.data?.first.staffId ?? 0);
@@ -59,8 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
       NetworkManager.shared.refreshTokens();
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return HomeScreen();
+        },
+      ), (route) => false);
     }).catchError((obj) {
       print(obj.toString());
     });
@@ -220,12 +222,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () {
                           onLoginButtonTapped();
-                          // Navigator.pushAndRemoveUntil(context,
-                          //     MaterialPageRoute(
-                          //   builder: (BuildContext context) {
-                          //     return HomeScreen();
-                          //   },
-                          // ), (route) => false);
                         },
                         child: Center(
                             child: Text(

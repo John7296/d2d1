@@ -12,7 +12,7 @@ import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
-import 'package:project_d2d/model/timesheetdetails.dart';
+import 'package:project_d2d/model/timesheetresponse.dart';
 import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/model/user.dart';
 import 'package:project_d2d/utils/constants.dart';
@@ -37,80 +37,64 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
 
-  
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse<List<User>>> userLogin(
-    //  @Header("Content-Length") String? length,
-    //     @Header("Host") String? host,
-   @Body() Map<String, dynamic> map);
-
- 
-  @POST("d2dApi/Default.aspx")
-  Future<BaseResponse> newRegister(
+      //  @Header("Content-Length") String? length,
+      //     @Header("Host") String? host,
       @Body() Map<String, dynamic> map);
 
-@POST("d2dApi/Default.aspx")
-  Future<BaseResponse> forgotPasswordOTPSend(
-   @Body() Map<String, dynamic> map
-  );
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> newRegister(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse> verifyOTP(
-     
-   @Body() Map<String, dynamic> map
-  );
+  Future<BaseResponse> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
+
+  @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> verifyOTP(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse> resetPassword(
-    @Header("token") String? useroken, 
-   @Body() Map<String, dynamic> map
-  );
-   
-     @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<StaffProfile>>> staffProfile( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
+      @Header("token") String? useroken, @Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("d2dApi")
+  Future<BaseResponse<List<StaffProfile>>> staffProfile(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
     @Query("staffId") int? staffId,
-     
   );
 
   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<TrainingStatus>>> trainingStatus( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
+  @GET("d2dApi")
+  Future<BaseResponse<List<TrainingStatus>>> trainingStatus(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
     @Query("staffId") int? staffId,
-     
   );
 
   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
+  @GET("d2dApi")
+  Future<BaseResponse<List<TimesheetBanner>>> timeSheetBanner(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
     @Query("staffId") int? staffId,
-     
-  );
-
-   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<JobRequest>>> recentJobRequest( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
-    @Query("staffId") int? staffId,
-     
   );
 
   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<Payment>>> paymentHistory( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
+  @GET("d2dApi")
+  Future<BaseResponse<List<JobRequest>>> recentJobRequest(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
     @Query("staffId") int? staffId,
-     
   );
 
+  @FormUrlEncoded()
+  @GET("d2dApi")
+  Future<BaseResponse<List<Payment>>> paymentHistory(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
+  );
 
   @GET("d2dApi")
   Future<BaseResponse<List<Job>>> getJob(
@@ -153,14 +137,16 @@ abstract class NetworkConnection {
   Future<BaseResponse<CancelJob>> cancelJob(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
 
-        @GET("d2dApi")
-  Future<BaseResponse<List<TimeSheetDetails>>> gettimeSheetDetails(
+  @GET("d2dApi")
+  Future<BaseResponse<TimeSheetResponse>> gettimeSheetDetails(
     @Header("token") String? token,
     @Query("sp") String sp,
     @Query("staffId") int staffId,
+    @Query("jobId") int jobId,
+    @Query("outputMode") String outputMode,
   );
 
-    @POST("d2dApi/Default.aspx")
+  @POST("d2dApi/Default.aspx")
   Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
 }
