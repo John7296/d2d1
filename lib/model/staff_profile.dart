@@ -9,7 +9,7 @@ class StaffProfile{
 
 
   @JsonKey(name: 'staffId')
-  int?    staffId;
+  int?  staffId;
 
   @JsonKey(name: 'staffName')
   String? staffName;
@@ -24,13 +24,17 @@ class StaffProfile{
   String? actDate;
 
   @JsonKey(name: 'phoneHome')
-  int? phoneHome;
+  String? phoneHome;
 
-  @JsonKey(name: 'dob')
-  String? dob;
+  @JsonKey(name: 'Column1')
+  String? column1;
 
   @JsonKey(name: 'staffLocation')
   String? staffLocation;
+
+  
+  @JsonKey(name: 'Email')
+  String? email;
 
    @JsonKey(name: 'jobsCount')
   int? jobsCount;
@@ -38,11 +42,14 @@ class StaffProfile{
    @JsonKey(name: 'timeSheetCount')
   int? timeSheetCount;
 
-   @JsonKey(name: 'timeSheetDate')
-  String? timeSheetDate;
+   @JsonKey(name: 'passportExpy')
+  String? passportExpy;
 
    @JsonKey(name: 'totalEarnings')
   double? totalEarnings;
+
+     @JsonKey(name: 'catName')
+  String? catName;
 
   StaffProfile({
    
@@ -52,12 +59,13 @@ class StaffProfile{
    this.gender,
    this.actDate,
    this.phoneHome,
-   this.dob,
+   this.column1,
    this.staffLocation,
    this.jobsCount,
    this.timeSheetCount,
-   this.timeSheetDate,
-   this.totalEarnings
+   this.passportExpy,
+   this.totalEarnings,
+   this.catName
   });
 
 

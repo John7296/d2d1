@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/settings.dart';
@@ -9,7 +10,7 @@ class AboutScreen extends StatefulWidget{
   State<AboutScreen> createState() => _AboutScreenState();
 }
 
-class _AboutScreenState extends State<AboutScreen> {
+class _AboutScreenState extends BaseStatefulState<AboutScreen> {
   List<Settings> about=[];
   
 
@@ -26,10 +27,11 @@ class _AboutScreenState extends State<AboutScreen> {
 
 
     void aboutPage() {
+      showLoader();
     NetworkManager.shared
         .settings( "getSettings")
         .then((BaseResponse<List<Settings>> response) {
-      //  hideLoader();
+        hideLoader();
       setState(() {
       about.clear();
       about.addAll(response.data!);
@@ -124,5 +126,11 @@ class _AboutScreenState extends State<AboutScreen> {
         
        ]),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

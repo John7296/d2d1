@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/settings.dart';
@@ -8,7 +9,7 @@ class TermsAndConditionScreen extends StatefulWidget{
   State<TermsAndConditionScreen> createState() => _TermsAndConditionScreenState();
 }
 
-class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
+class _TermsAndConditionScreenState extends BaseStatefulState<TermsAndConditionScreen> {
 
   List<Settings> terms=[];
   
@@ -26,10 +27,11 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
 
 
     void termsCondition() {
+       showLoader();
     NetworkManager.shared
         .settings( "getSettings")
         .then((BaseResponse<List<Settings>> response) {
-      //  hideLoader();
+       hideLoader();
       setState(() {
       terms.clear();
       terms.addAll(response.data!);
@@ -124,5 +126,11 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
         
        ]),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

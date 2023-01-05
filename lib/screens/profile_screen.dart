@@ -143,7 +143,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       body: SingleChildScrollView(
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 40),
             child: Row(
               children: [
                 IconButton(
@@ -193,8 +193,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             padding: const EdgeInsets.only(top: 5),
             child: Text(
               // "Theatre practitioner",
-              profile.first.address.toString(),
-              style: TextStyle(color: Color(0xff95969D), fontSize: 13),
+              profile.first.catName.toString(),
+              style: TextStyle(color: Color(0xff95969D), fontSize: 14),
             ),
           )),
           Padding(
@@ -225,7 +225,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                   padding: const EdgeInsets.only(left: 50),
                   child: Text(
                     // "13 Nov 2024",
-                    profile.first.timeSheetDate.toString(),
+                    profile.first.passportExpy.toString(),
                     // maxLines: 2,
                     style: TextStyle(
                         color: Color(0xffF41937),
@@ -259,44 +259,44 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.start,
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Jobs",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 13),
+                      fontSize: 14),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+                // SizedBox(
+                //   width: 15,
+                // ),
                 Text(
                   "Time sheets",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 13),
+                      fontSize: 14),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+                // SizedBox(
+                //   width: 15,
+                // ),
                 Text(
-                  "Time sheets",
+                  "Passport expiry",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 13),
+                      fontSize: 14),
                 ),
-                SizedBox(
-                  width:15,
-                ),
+                // SizedBox(
+                //   width:15,
+                // ),
                 Text(
                   "Total Earnings",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 13),
+                      fontSize: 14),
                 ),
               ],
             ),
@@ -584,7 +584,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
+            padding: const EdgeInsets.only(left: 20, top: 40),
             child: Row(
               children: [
                 Text("Training Status",
@@ -595,121 +595,136 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
 
-                              // if(training.isEmpty)
-                              Text("Manual Handling",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.black)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Text("Food Hygiene",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
-                          SizedBox(height: 10),
-                          Text("Fire Awareness",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
-                          SizedBox(height: 10),
-                          Text("Health and Safety",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
-                          SizedBox(height: 10),
-                          Text("Infection Control",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                        ],
-                      ),
-                    ),
-                    Spacer(),
-                    Column(
+
+          Padding(
+            padding: const EdgeInsets.only(left:20, right: 20),
+            child: Container(
+              // color: Colors.grey,
+               height: 200,
+              child: ListView.builder(
+                itemCount: training.length,
+                itemBuilder: (BuildContext context, int index){
+            
+              
+               return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: Text("38%"),
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                             
+                              // Row(
+                              //   children: [
+              
+                                  // if(training.isEmpty)
+                              //     Text("Manual Handling",
+                              //         style: TextStyle(
+                              //             fontSize: 16, color: Colors.black)),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 10),
+                              Text("Food Hygiene",
+                                  style:
+                                      TextStyle(fontSize: 15, color: Colors.black)),
+                              SizedBox(height: 10),
+                              // Text("Fire Awareness",
+                              //     style:
+                              //         TextStyle(fontSize: 15, color: Colors.black)),
+                              // SizedBox(height: 10),
+                              // Text("Health and Safety",
+                              //     style:
+                              //         TextStyle(fontSize: 15, color: Colors.black)),
+                              // SizedBox(height: 10),
+                              // Text("Infection Control",
+                              //     style: TextStyle(
+                              //         fontSize: 15,
+                              //         fontWeight: FontWeight.w400,
+                              //         color: Colors.black)),
+                            ],
+                          ),
                         ),
-                        LinearPercentIndicator(
-                          lineHeight: 12,
-                          width: 200,
-                          progressColor: kGreenprogressColor,
-                          backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.38,
-                          barRadius: Radius.circular(5),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: Text(
-                            // "93%"
-                            "${training.first.completionRate.toString()}%",
-                            
+                         Spacer(),
+                        Column(
+                          children: [
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 150),
+                            //   child: Text("38%"),
+                            // ),
+                            // LinearPercentIndicator(
+                            //   lineHeight: 12,
+                            //   width: 200,
+                            //   progressColor: kGreenprogressColor,
+                            //   backgroundColor: Color(0xffD9D9D9),
+                            //   percent: 0.38,
+                            //   barRadius: Radius.circular(5),
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 150),
+                              child: Text(
+                                // "93%"
+                                "${training.first.completionRate.toString()}%",
+                                
+                                ),
                             ),
-                        ),
-                        LinearPercentIndicator(
-                          lineHeight: 12,
-                          width: 200,
-                          progressColor: kGreenprogressColor,
-                          backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.30,
-                          barRadius: Radius.circular(5),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: Text("68%"),
-                        ),
-                        LinearPercentIndicator(
-                          lineHeight: 12,
-                          width: 200,
-                          progressColor: kGreenprogressColor,
-                          backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.68,
-                          barRadius: Radius.circular(5),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: Text("24%"),
-                        ),
-                        LinearPercentIndicator(
-                          lineHeight: 12,
-                          width: 200,
-                          progressColor: kGreenprogressColor,
-                          backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.24,
-                          barRadius: Radius.circular(5),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: Text("89%"),
-                        ),
-                        LinearPercentIndicator(
-                          lineHeight: 12,
-                          width: 200,
-                          progressColor: kGreenprogressColor,
-                          backgroundColor: Color(0xffD9D9D9),
-                          percent: 0.89,
-                          barRadius: Radius.circular(5),
-                        ),
+                            LinearPercentIndicator(
+                              lineHeight: 12,
+                              width: 200,
+                              progressColor: kGreenprogressColor,
+                              backgroundColor: Color(0xffD9D9D9),
+                              percent: 0.30,
+                              barRadius: Radius.circular(5),
+                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 150),
+                            //   child: Text("68%"),
+                            // ),
+                            // LinearPercentIndicator(
+                            //   lineHeight: 12,
+                            //   width: 200,
+                            //   progressColor: kGreenprogressColor,
+                            //   backgroundColor: Color(0xffD9D9D9),
+                            //   percent: 0.68,
+                            //   barRadius: Radius.circular(5),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 150),
+                            //   child: Text("24%"),
+                            // ),
+                            // LinearPercentIndicator(
+                            //   lineHeight: 12,
+                            //   width: 200,
+                            //   progressColor: kGreenprogressColor,
+                            //   backgroundColor: Color(0xffD9D9D9),
+                            //   percent: 0.24,
+                            //   barRadius: Radius.circular(5),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 150),
+                            //   child: Text("89%"),
+                            // ),
+                            // LinearPercentIndicator(
+                            //   lineHeight: 12,
+                            //   width: 200,
+                            //   progressColor: kGreenprogressColor,
+                            //   backgroundColor: Color(0xffD9D9D9),
+                            //   percent: 0.89,
+                            //   barRadius: Radius.circular(5),
+                            // ),
+                          ],
+                        )
                       ],
-                    )
+                    ),
                   ],
-                ),
+                );
+                }
               ),
-            ],
+            ),
           )
         ]),
       ),

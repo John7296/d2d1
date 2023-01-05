@@ -103,6 +103,15 @@ class NetworkManager {
     return call(networkConnection.resetPassword(token, map));
   }
 
+   Future<BaseResponse> changePassword(String token, Map<String, dynamic> map) {
+    return call(networkConnection.changePassword(token, map));
+  }
+
+   Future<BaseResponse> updateProfile(String token, Map<String, dynamic> map) {
+    return call(networkConnection.updateProfile(token, map));
+  }
+
+
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
     return call(networkConnection.verifyOTP(map));
   }
@@ -174,6 +183,10 @@ class NetworkManager {
   Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
       String token, Map<String, dynamic> map) {
     return call(networkConnection.approveTimeSheet(token, map));
+  }
+
+   Future<BaseResponse> deleteUser(String token, Map<String, dynamic> map) {
+    return call(networkConnection.deleteUser(token, map));
   }
 
 //  Future<BaseResponse<List<JobDetails>>> getJobDetails(Map<String, dynamic> map) {

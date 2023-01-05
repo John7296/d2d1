@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/connection/network_manager.dart';
+import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/screens/password_confirmation_screen.dart';
 import 'package:project_d2d/screens/settings_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget{
@@ -19,6 +22,44 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
   bool _obscureText= true;
   bool  _obscureText1= true;
    bool  _obscureText2= true;
+
+   void changePassword() {
+
+      if (!_form.currentState!.validate()) {
+      return;
+    }
+
+    showLoader();
+    NetworkManager.shared.resetPassword(NetworkManager.shared.userToken??'', <String, dynamic>{
+
+    // "token": NetworkManager.shared.userToken,
+    "sp":"changePassword",
+    "userId":NetworkManager.shared.userId,
+     "currentPassword":_passwordController.text,
+    "newPassword":_newpasswordController.text
+
+    }).then((BaseResponse response) {
+
+       hideLoader();
+        showFlashMsg("Password changed successfully");
+      // print(_emailController.text);
+      // setState(() {
+      //   emailSent = true;
+      // });
+       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      PasswordConfirmationScreen()));
+     
+    }).catchError((e) {
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
+    });
+  }
+
 
 
   @override
@@ -137,7 +178,7 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                             ),
                           )),
                           obscureText:_obscureText1,
-                            controller: _passwordController,
+                            controller: _newpasswordController,
                             validator: (val) {
                               if (val!.isEmpty) {
                                 return "Please enter new password";
@@ -178,7 +219,7 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                         ),
                       )),
                       
-                      obscureText:_obscureText1,
+                      obscureText:_obscureText2,
                         controller: _confirmpwdController,
                         validator: (val) {
                          if (val!.isEmpty) {
@@ -207,7 +248,7 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                   backgroundColor: Color(0xffFD425B),
                 ),
                 onPressed: () {
-        
+                   changePassword();
                   
                   // Navigator.push(
                   //     context,
