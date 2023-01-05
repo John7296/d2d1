@@ -17,8 +17,15 @@ import 'package:project_d2d/widgets/top_banner_widget.dart';
 class JobDetailsScreen extends StatefulWidget {
   // final JobDetails _jobDetails;
 
-  JobDetailsScreen(this.jobCatName, this.hourlyRate, this.clientName,
-      this.shiftName, this.startDateTime, this.jobLocation, this.context);
+  JobDetailsScreen(
+      this.jobCatName,
+      this.hourlyRate,
+      this.clientName,
+      this.shiftName,
+      this.startDateTime,
+      this.jobLocation,
+      this.isRequested,
+      this.context);
   String jobCatName;
   double hourlyRate;
   String clientName;
@@ -26,6 +33,7 @@ class JobDetailsScreen extends StatefulWidget {
 
   String startDateTime;
   String shiftName;
+  String isRequested;
   BuildContext context;
 
   @override
@@ -196,7 +204,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "${widget.hourlyRate.toString()}/hour",
+                                "£${widget.hourlyRate.toString()}/hour",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: kFontWeight_SB,
@@ -243,29 +251,30 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 150,
-                  right: 0,
-                  child: Container(
-                    height: 30,
-                    width: 72,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          bottomLeft: Radius.circular(15)),
-                      color: kButtonColorR,
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Requested',
-                          style: TextStyle(color: Colors.white, fontSize: 11),
+                if (widget.isRequested == "1")
+                  Positioned(
+                    top: 150,
+                    right: 0,
+                    child: Container(
+                      height: 30,
+                      width: 72,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomLeft: Radius.circular(15)),
+                        color: kButtonColorR,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Requested',
+                            style: TextStyle(color: Colors.white, fontSize: 11),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
@@ -277,7 +286,6 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 Padding(
@@ -316,7 +324,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                       //     fontSize: 12,
                       //   ),
                       // ),
-            
+
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Container(
@@ -353,11 +361,12 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             builder: (BuildContext context) {
                               return JobAppliedSuccessfulScreen(
                                   widget.jobCatName,
-                                  // jobList[index].hourlyRate ,
+                                  widget.hourlyRate.toDouble(),
                                   widget.clientName,
                                   widget.jobLocation,
                                   widget.startDateTime,
                                   widget.shiftName,
+                                  widget.isRequested,
                                   context);
                             },
                           ), (route) => false);
@@ -371,8 +380,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Color(0xff12831D)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           )),
                         ),

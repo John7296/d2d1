@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionsManager {
   static const String onBoardKey = "onBoardKey";
-
   static const String userToken = "userToken";
   static const String userId = "userId";
   static const String staffId = "staffId";
@@ -14,7 +13,6 @@ class SessionsManager {
 
   static void saveUserToken(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("error_response1${userToken }");
     prefs.setString(userToken, data);
   }
 

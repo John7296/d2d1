@@ -125,12 +125,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: timeSheetDetailsList.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return Stack(
+           Stack(
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -169,11 +164,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                         icon: Icon(Icons.arrow_back_ios,
                                             color: Colors.white),
                                         onPressed: () {
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             HomeScreen()));
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen()));
                                           // getJob();
                                         },
                                       ),
@@ -268,9 +263,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   ),
                                   
                                   Text(
-                                    timeSheetDetailsList[index]
-                                            .result1![index]
-                                            .catName ??
+                                    // timeSheetDetailsList.first
+                                    //         .result1!.first
+                                    //         .catName ??
                                         '',
                                     style: TextStyle(
                                       fontSize: 20,
@@ -279,9 +274,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     ),
                                   ),
                                   Text(
-                                    timeSheetDetailsList[index]
-                                            .result1![index]
-                                            .clientName ??
+                                    // timeSheetDetailsList.first
+                                    //         .result1!.first
+                                    //         .clientName ??
                                         '',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -315,10 +310,10 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     ),
                                     SizedBox(width: 2),
                                     Text(
-                                      timeSheetDetailsList[index]
-                                              .result1![index]
-                                              .jobPostDate ??
-                                          '',
+                                    //  timeSheetDetailsList.first
+                                    //         .result1!.first
+                                    //         .jobPostDate ??
+                                        '',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: kFontWeight_SB,
@@ -335,7 +330,10 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      timeSheetDetailsList[index].result1![index].jobLocation??'',
+                                      // timeSheetDetailsList.first
+                                      //       .result1!.first
+                                      //       .jobLocation ??
+                                        '',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: kFontWeight_SB,
@@ -351,9 +349,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                       ),
                     ),
                   ],
-                );
-              },
-            ),
+                ),
+              
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Row(
@@ -427,6 +424,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return Row(
                             children: [
+                              (timeSheetDetailsList[index].result2!.isNotEmpty)?
                               Expanded(
                                 child: Container(
                                   // color: Colors.pink.shade100,
@@ -816,6 +814,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     ],
                                   ),
                                 ),
+                              ):Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text("No Jobs Available"),
                               ),
                             ],
                           );

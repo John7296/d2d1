@@ -132,13 +132,13 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<dynamic>> resetPassword(
-    token,
+    useroken,
     map,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{r'token': token};
+    final _headers = <String, dynamic>{r'token': useroken};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(map);
@@ -322,12 +322,12 @@ class _NetworkConnection implements NetworkConnection {
   Future<BaseResponse<List<Payment>>> paymentHistory(
     token,
     sp,
-    userId,
+    staffId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'sp': sp,
-      r'userId': userId,
+      r'staffId': staffId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'token': token};

@@ -74,6 +74,7 @@ class _AvailableJobWidgetState
                                         jobList[index].jobLocation ?? '',
                                         jobList[index].startDateTime ?? '',
                                         jobList[index].shiftName ?? '',
+                                        jobList[index].isRequsted??'',
                                         context)));
                           },
                           child: Container(
@@ -152,15 +153,15 @@ class _AvailableJobWidgetState
                                                             ),
                                                           ),
                                                         ),
-                                                        InkWell(
-                                                          onTap: () {},
-                                                          child: ImageIcon(
-                                                            AssetImage(
-                                                                "assets/images/ic_edit_task.png"),
-                                                            size: 25,
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
+                                                        // InkWell(
+                                                        //   onTap: () {},
+                                                        //   child: ImageIcon(
+                                                        //     AssetImage(
+                                                        //         "assets/images/ic_edit_task.png"),
+                                                        //     size: 25,
+                                                        //     color: Colors.white,
+                                                        //   ),
+                                                        // ),
                                                       ],
                                                     ),
                                                     Row(

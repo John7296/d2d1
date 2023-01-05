@@ -67,17 +67,19 @@ class _SliderBannerHomeWidgetState
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => JobDetailsScreen(
-                                      jobList[index].jobCatName ?? '',
-                                      jobList[index].hourlyRate?? 0,
-                                      jobList[index].clientName ?? '',
-                                      jobList[index].jobLocation ?? '',
-                                      jobList[index].startDateTime ?? '',
-                                      jobList[index].shiftName ?? '',
-                                      
-                                      context)));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JobDetailsScreen(
+                                  jobList[index].jobCatName ?? '',
+                                  jobList[index].hourlyRate ?? 0,
+                                  jobList[index].clientName ?? '',
+                                  jobList[index].jobLocation ?? '',
+                                  jobList[index].startDateTime ?? '',
+                                  jobList[index].shiftName ?? '',
+                                  jobList[index].isRequsted??'',
+                                  context),
+                            ),
+                          );
                         },
                         child: Container(
                           width: getWidthByPercentage(80),
@@ -86,11 +88,9 @@ class _SliderBannerHomeWidgetState
                               Radius.circular(30),
                             ),
                             image: DecorationImage(
-                              image:
-                                  (jobList[index].isRequsted == "1")
-                                  ?
-                                  AssetImage("assets/images/green_bg.png")
-                              : AssetImage("assets/images/red_bg.png"),
+                              image: (jobList[index].isRequsted == "1")
+                                  ? AssetImage("assets/images/green_bg.png")
+                                  : AssetImage("assets/images/red_bg.png"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -126,7 +126,8 @@ class _SliderBannerHomeWidgetState
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Row(
                                           children: [
                                             Expanded(
@@ -153,15 +154,15 @@ class _SliderBannerHomeWidgetState
                                                           ),
                                                         ),
                                                       ),
-                                                      InkWell(
-                                                        onTap: () {},
-                                                        child: ImageIcon(
-                                                          AssetImage(
-                                                              "assets/images/ic_edit_task.png"),
-                                                          size: 25,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
+                                                      // InkWell(
+                                                      //   onTap: () {},
+                                                      //   child: ImageIcon(
+                                                      //     AssetImage(
+                                                      //         "assets/images/ic_edit_task.png"),
+                                                      //     size: 25,
+                                                      //     color: Colors.white,
+                                                      //   ),
+                                                      // ),
                                                     ],
                                                   ),
                                                   Row(
@@ -173,7 +174,8 @@ class _SliderBannerHomeWidgetState
                                                         maxLines: 1,
                                                         style: TextStyle(
                                                             color: Colors.white
-                                                                .withOpacity(0.8),
+                                                                .withOpacity(
+                                                                    0.8),
                                                             fontSize:
                                                                 kFontSize_14,
                                                             fontWeight:
@@ -209,8 +211,8 @@ class _SliderBannerHomeWidgetState
                                         child: Row(
                                           children: [
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(right: 2),
+                                              padding: const EdgeInsets.only(
+                                                  right: 2),
                                               child: ImageIcon(
                                                 AssetImage(
                                                     "assets/images/ic_alarm.png"),
@@ -240,13 +242,13 @@ class _SliderBannerHomeWidgetState
                                         color: Colors.white.withOpacity(0.15),
                                       ),
                                       child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: Row(
                                           children: [
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(right: 2),
+                                              padding: const EdgeInsets.only(
+                                                  right: 2),
                                               child: ImageIcon(
                                                 AssetImage(
                                                     "assets/images/ic_location.png"),
@@ -300,37 +302,40 @@ class _SliderBannerHomeWidgetState
                         ),
                       ),
                       if (jobList[index].isRequsted == "1")
-                      Image(image: AssetImage("assets/images/redlabel_tail.png")),
+                        Image(
+                            image:
+                                AssetImage("assets/images/redlabel_tail.png")),
                     ],
                   ),
                   if (jobList[index].isRequsted == "1")
-                  Positioned(
-                    top: 65,
-                    right: 0,
-                    child: Stack(
-                      children: [
-                        Image(image: AssetImage("assets/images/redlabel.png")),
-                        Positioned(
-                          right: 0,
-                          left: 0,
-                          bottom: 0,
-                          top: 0,
-                          child: Container(
-                            // color: Colors.yellow,
-                            child: Center(
-                              child: Text(
-                                "Requested",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    fontWeight: kFontWeight_M),
+                    Positioned(
+                      top: 65,
+                      right: 0,
+                      child: Stack(
+                        children: [
+                          Image(
+                              image: AssetImage("assets/images/redlabel.png")),
+                          Positioned(
+                            right: 0,
+                            left: 0,
+                            bottom: 0,
+                            top: 0,
+                            child: Container(
+                              // color: Colors.yellow,
+                              child: Center(
+                                child: Text(
+                                  "Requested",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontWeight: kFontWeight_M),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             );

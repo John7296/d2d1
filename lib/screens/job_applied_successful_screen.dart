@@ -8,15 +8,15 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobAppliedSuccessfulScreen extends StatefulWidget {
-  JobAppliedSuccessfulScreen(this.jobCatName, this.clientName, this.shiftName,
-      this.startDateTime, this.jobLocation, this.context);
+  JobAppliedSuccessfulScreen(this.jobCatName, this.hourlyRate, this.clientName,
+      this.shiftName, this.startDateTime, this.jobLocation, this.isRequested,this.context);
   String jobCatName;
+  double hourlyRate;
   String clientName;
   String jobLocation;
-
-  // double hourlyRate;
   String startDateTime;
   String shiftName;
+  String isRequested;
   BuildContext context;
 
   @override
@@ -127,7 +127,7 @@ class _JobAppliedSuccessfulScreenState
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                '£ 25.00/hour',
+                                "£${widget.hourlyRate.toString()}/hour",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: kFontWeight_SB,
@@ -174,29 +174,30 @@ class _JobAppliedSuccessfulScreenState
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 150,
-                  right: 0,
-                  child: Container(
-                    height: 30,
-                    width: 72,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          bottomLeft: Radius.circular(15)),
-                      color: kButtonColorR,
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Requested',
-                          style: TextStyle(color: Colors.white, fontSize: 11),
+                if (widget.isRequested == "1")
+                  Positioned(
+                    top: 150,
+                    right: 0,
+                    child: Container(
+                      height: 30,
+                      width: 72,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomLeft: Radius.circular(15)),
+                        color: kButtonColorR,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Requested',
+                            style: TextStyle(color: Colors.white, fontSize: 11),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(

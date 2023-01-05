@@ -94,7 +94,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
+              padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -118,40 +118,43 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                   //     MaterialPageRoute(
                   //         builder: (context) => SearchScreen()));
                 },
-                child: Container(
-                  height: 50,
-                  width: 360,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xFFE5E5E5)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Icon(Icons.search_rounded,
-                              size: 25, color: Color(0xFF95969D)),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            autofocus: false,
-                            textInputAction: TextInputAction.search,
-                            onChanged: (value) {
-                              _searchString = value;
-                            },
-                            onSubmitted: (value) {
-                              getJobDetails();
-                            },
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search Available Jobs",
-                                hintStyle: TextStyle(
-                                    fontFamily: "Intro",
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    height: 50,
+                    // width: 360,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFE5E5E5)),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Container(
+                            child: Icon(Icons.search_rounded,
+                                size: 25, color: Color(0xFF95969D)),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: TextField(
+                              autofocus: false,
+                              textInputAction: TextInputAction.search,
+                              onChanged: (value) {
+                                _searchString = value;
+                              },
+                              onSubmitted: (value) {
+                                getJobDetails();
+                              },
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Search Available Jobs",
+                                  hintStyle: TextStyle(
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -235,27 +238,21 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                 InkWell(
                                   onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                JobDetailsScreen(
-                                                    jobList[index].jobCatName ??
-                                                        '',
-                                                    jobList[index]
-                                                        .hourlyRate!
-                                                        .toDouble(),
-                                                    jobList[index]
-                                                            .clientName ??
-                                                        '',
-                                                    jobList[index]
-                                                            .jobLocation ??
-                                                        '',
-                                                    jobList[index]
-                                                            .startDateTime ??
-                                                        '',
-                                                    jobList[index].shiftName ??
-                                                        '',
-                                                    context)));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => JobDetailsScreen(
+                                            jobList[index].jobCatName ?? '',
+                                            jobList[index]
+                                                .hourlyRate!
+                                                .toDouble(),
+                                            jobList[index].clientName ?? '',
+                                            jobList[index].jobLocation ?? '',
+                                            jobList[index].startDateTime ?? '',
+                                            jobList[index].shiftName ?? '',
+                                            jobList[index].isRequsted??'',
+                                            context),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     width: getWidthByPercentage(92),
@@ -339,17 +336,17 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                InkWell(
-                                                                  onTap: () {},
-                                                                  child:
-                                                                      ImageIcon(
-                                                                    AssetImage(
-                                                                        "assets/images/ic_edit_task.png"),
-                                                                    size: 25,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                ),
+                                                                // InkWell(
+                                                                //   onTap: () {},
+                                                                //   child:
+                                                                //       ImageIcon(
+                                                                //     AssetImage(
+                                                                //         "assets/images/ic_edit_task.png"),
+                                                                //     size: 25,
+                                                                //     color: Colors
+                                                                //         .white,
+                                                                //   ),
+                                                                // ),
                                                               ],
                                                             ),
                                                             Row(
