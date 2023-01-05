@@ -327,7 +327,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         fontWeight: kFontWeight_M),
                                   ),
                                   Text(
-                                    timeSheetList.first.currentJob ?? '',
+                                    timeSheetList.first.currentJob.toString(),
                                     // "",
                                     style: TextStyle(
                                       fontSize: 10,

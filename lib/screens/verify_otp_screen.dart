@@ -1,3 +1,4 @@
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/login_screen.dart';
@@ -14,7 +15,8 @@ class VerifyOtpScreen extends StatefulWidget {
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
-class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
+class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
+
 
   
     final _otpController = TextEditingController();
@@ -22,11 +24,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
 
    void verifyOTP() {
 
-    //   if (!_form.currentState!.validate()) {
-    //   return;
-    // }
-
-    // showLoader();
+    showLoader();
 
      print(NetworkManager.shared.userId);
      print("..................");
@@ -38,7 +36,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
 
     }).then((BaseResponse response) {
 
-      //  hideLoader();
+       showFlashMsg("OTP has verified successfully");
+
+        hideLoader();
       // print(_emailController.text);
       // setState(() {
       //   emailSent = true;
@@ -50,10 +50,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                       ResetPasswordScreen()));
      
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg("Invalid OTP");
     });
   }
 
@@ -79,10 +79,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
             ),
           ),
           Container(
-            height: 80,
-            width: 210,
+           height: 70,
+          width: 180,
             child: Image(
-              image: AssetImage("assets/images/logo-d2d.png"),
+              image: AssetImage("assets/images/logo.png"),
               fit: BoxFit.fill,
             ),
           ),
@@ -178,5 +178,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         ],
       ),
     ));
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

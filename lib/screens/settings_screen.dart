@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project_d2d/screens/about_screen.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
+import 'package:project_d2d/screens/change_password_screen.dart';
+import 'package:project_d2d/screens/help_center_screen.dart';
+import 'package:project_d2d/screens/notification_screen.dart';
+import 'package:project_d2d/screens/privacy_policy_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
+import 'package:project_d2d/screens/profile_summary_screen.dart';
+import 'package:project_d2d/screens/support_screen.dart';
+import 'package:project_d2d/screens/terms_and_condition_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -66,7 +74,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+
+                   Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChangePasswordScreen()));
+                },
                 child: ListTile(
                   leading: Icon(Icons.password_outlined),
                   title: Text(
@@ -103,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProfileScreen()));
+                                      builder: (context) => ProfileSummaryScreen()));
                 },
                 child: ListTile(
                   leading: Icon(Icons.currency_pound_outlined),
@@ -117,7 +131,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  
+                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>NotificationScreen()));
+
+                },
                 child: ListTile(
                   leading: Icon(Icons.notifications_active_outlined),
                   title: Text(
@@ -165,7 +186,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        // color: Color(0xffE30000);
+                         Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>PrivacyPolicyScreen()));
                       },
                       child: ListTile(
                         leading: Icon(Icons.privacy_tip_outlined),
@@ -180,7 +204,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        // color: Color(0xffE30000);
+                        Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>TermsAndConditionScreen()));
                       },
                       child: ListTile(
                         leading: Icon(Icons.note_add_outlined),
@@ -195,7 +222,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        // color: Color(0xffE30000);
+                         Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>HelpCenterScreen()));
                       },
                       child: ListTile(
                         leading: Icon(Icons.help_center_outlined),
@@ -210,7 +240,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        // color: Color(0xffE30000);
+                         Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>SupportScreen()));
                       },
                       child: ListTile(
                         leading: Icon(Icons.support_outlined),
@@ -225,7 +258,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        // color: Color(0xffE30000);
+                        Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>AboutScreen()));
                       },
                       child: ListTile(
                         leading: Icon(Icons.info_outline),

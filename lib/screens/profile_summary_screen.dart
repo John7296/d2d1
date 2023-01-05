@@ -1,9 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/screens/edit_profile.dart';
 import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
@@ -15,7 +17,7 @@ class ProfileSummaryScreen extends StatefulWidget {
   State<ProfileSummaryScreen> createState() => _ProfileSummaryScreenState();
 }
 
-class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
+class _ProfileSummaryScreenState extends BaseStatefulState<ProfileSummaryScreen> {
 
   List<StaffProfile> profile = [];
     List<Payment> payment = [];
@@ -23,16 +25,22 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
   @override
   void initState() {
     super.initState();
-    staffProfile();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      staffProfile();
     paymentHistory();
+
+      // _updateDeviceToken();
+    });
+   
  
   }
 
     void staffProfile() {
+      showLoader();
     NetworkManager.shared
         .staffProfile(NetworkManager.shared.userToken??'', "getStaffProfilebyid", NetworkManager.shared.staffId??0)
         .then((BaseResponse<List<StaffProfile>> response) {
-      //  hideLoader();
+      hideLoader();
       // var profile = response.data!;
       //   print(profile.first.staffName);
       //   print("...................");
@@ -51,17 +59,17 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
       //                 builder: (context) =>
       //                 VerifyOtpScreen()));
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
 
    void paymentHistory() {
     NetworkManager.shared
-        .paymentHistory(NetworkManager.shared.userToken??'', "getCareHomePaymentHistory", NetworkManager.shared.staffId??0)
+        .paymentHistory(NetworkManager.shared.userToken??'', "getPaymentHistory", NetworkManager.shared.userId??0)
         .then((BaseResponse<List<Payment>> response) {
       //  hideLoader();
       setState(() {
@@ -71,10 +79,11 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
       //   emailSent = true;
       });
       
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+    }).catchError((e) {
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -94,7 +103,13 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                     icon: Icon(Icons.arrow_back_ios_new)),
                 Spacer(),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfile()));
+
+                    },
                     child: Text("Edit",
                         style: TextStyle(
                             fontWeight: FontWeight.w900,
@@ -292,7 +307,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "28-Apr-2022",
                           style: TextStyle(
@@ -337,7 +354,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "09-Mar-2022",
                           style: TextStyle(
@@ -384,14 +403,16 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "05-Jan-2022",
                           style: TextStyle(
                               fontSize: 13, color: Color(0xff666666)),
                         ),
 
-                         SizedBox(width: 60),
+                         SizedBox(width: 40),
 
                       Expanded(
                         child: Text("Online",
@@ -430,7 +451,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "28-Apr-2022",
                           style: TextStyle(
@@ -438,7 +461,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                         ),
 
                         SizedBox(
-                          width: 62,
+                          width: 42,
                         ),
 
                       Expanded(
@@ -479,7 +502,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "09-Mar-2022",
                           style: TextStyle(
@@ -525,7 +550,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "05-Jun-2022",
                           style: TextStyle(
@@ -533,7 +560,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                         ),
 
                         SizedBox(
-                          width: 60,
+                          width: 40,
                         ),
 
                       Expanded(
@@ -574,7 +601,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "28-Apr-2022",
                           style: TextStyle(
@@ -582,7 +611,7 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                         ),
 
                         SizedBox(
-                          width: 62,
+                          width: 42,
                         ),
 
                       Expanded(
@@ -621,7 +650,9 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
                   // ),
                    child: Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Row(children: [
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                 Text(
                           "09-Mar-2022",
                           style: TextStyle(
@@ -1192,5 +1223,11 @@ class _ProfileSummaryScreenState extends State<ProfileSummaryScreen> {
         ]),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

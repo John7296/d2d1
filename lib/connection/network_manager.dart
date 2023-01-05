@@ -7,10 +7,12 @@ import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/settings.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
@@ -64,7 +66,7 @@ class NetworkManager {
     return call(networkConnection.userLogin(map));
   }
 
-  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+  Future<BaseResponse> forgotPasswordOTPSend( Map<String, dynamic> map) {
     return call(networkConnection.forgotPasswordOTPSend(map));
   }
 
@@ -89,24 +91,35 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Payment>>> paymentHistory(
-      String userToken, String sp, int staffId) {
-    return call(networkConnection.paymentHistory(userToken, sp, staffId));
+      String userToken, String sp, int userId) {
+    return call(networkConnection.paymentHistory(userToken, sp, userId));
   }
 
   Future<BaseResponse> newRegister(Map<String, dynamic> map) {
     return call(networkConnection.newRegister(map));
   }
 
-  Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(userToken, map));
+  Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
+    return call(networkConnection.resetPassword(token, map));
   }
 
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
     return call(networkConnection.verifyOTP(map));
   }
 
-  Future<BaseResponse<List<Job>>> getJob(String token, String sp, int staffId,
-      String searchKeyword, String jobStatus) {
+  // Future<BaseResponse<List<Job>>> getJob(String token, String sp, int staffId,
+  //     String searchKeyword, String jobStatus) {
+  //  Future<BaseResponse<List<Settings>>> settings(String sp) {
+  //   return call(networkConnection.settings(sp));
+  // }
+
+   Future<BaseResponse<List<AlertMessages>>> notifications(
+      String token, String sp, int staffId) {
+    return call(networkConnection.notifications(token, sp, staffId));
+  }
+
+  Future<BaseResponse<List<Job>>> getJob(String token, String sp,
+      int staffId, String searchKeyword, String jobStatus) {
     return call(networkConnection.getJob(
       token,
       sp,
@@ -172,6 +185,57 @@ class NetworkManager {
 //     return call(networkConnection.getJobDetails(map["sp"], map["staffId"],map["searchKeyword"],map["jobStatus"]));
 //   }
 
+  // Future<T> call<T>(Future<T> call) async {
+  //   T response;
+
+  //   try {
+  //     response = await call;
+  //   } catch (error) {
+  //     if (error is DioError) {
+  //       String _errorMessage = "";
+
+  //       switch (error.type) {
+  //         case DioErrorType.cancel:
+  //           _errorMessage = "Request was cancelled";
+  //           break;
+  //         case DioErrorType.connectTimeout:
+  //           _errorMessage = "Connection timeout";
+  //           break;
+  //         case DioErrorType.other:
+  //           if (error.message.contains('Failed host lookup')) {
+  //             _errorMessage = "Please check your internet connection";
+  //           } else {
+  //             _errorMessage = "Something went wrong ${error.message}";
+  //           }
+  //           break;
+  //         case DioErrorType.receiveTimeout:
+  //           _errorMessage = "Receive timeout in connection";
+  //           break;
+  //         case DioErrorType.response:
+  //           _errorMessage = error.response?.data;
+
+  //           if (error.response?.statusCode == 400) {
+  //             // print(error.response?.data);
+  //             print("error_msg${error.response?.data}");
+  //           }
+
+  //           break;
+  //         case DioErrorType.sendTimeout:
+  //           _errorMessage = "Receive timeout in send request";
+  //           break;
+  //       }
+
+  //       throw (_errorMessage);
+  //     }
+
+  //     throw ("$error");
+  //   }
+
+  //   return response;
+  // }
+
+
+
   Future<T> call<T>(Future<T> call) async {
     T response;
 
@@ -199,13 +263,48 @@ class NetworkManager {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
-            _errorMessage = error.response?.data;
+            // if (error.response?.statusCode == 401) {
+            //   _errorMessage = "Session timeout";
+            //   // DataManager.shared.onTokenExpired!();
+            //   throw (_errorMessage);
+            // }
 
-            if (error.response?.statusCode == 400) {
-              // print(error.response?.data);
-              print("error_msg${error.response?.data}");
+            if (error.response?.statusCode == 401 ||
+                error.response?.statusCode == 400) {
+              if (error.response!.data["Data"] is Iterable) {
+                for (Map m in error.response!.data["Data"]) {
+                  _errorMessage = _errorMessage + m["Message"] + "\n";
+                }
+              } else {
+                _errorMessage = "${error.response!.data["Message"] ?? ""}";
+              }
+              _errorMessage = _errorMessage.trim() == ""
+                  ? "Unknown error"
+                  : _errorMessage.trim();
+              throw (_errorMessage);
             }
 
+            if (error.response?.statusCode == 500) {
+              try {
+                if (error.response!.data["data"] != null) {
+                  if (error.response!.data["data"]["go_to_cart"] != null) {
+                    if (error.response!.data["data"]["go_to_cart"]) {
+                      // DataManager.shared.onGotoCartFired!();
+                    }
+                  }
+                }
+              } catch (e) {}
+            }
+
+            _errorMessage = "${error.response!.data["message"] ?? ""}";
+
+            error.response!.data["errors"]?.forEach((k, v) {
+              _errorMessage = _errorMessage + "${v[0] ?? ""}\n";
+            });
+
+            _errorMessage = _errorMessage.trim() == ""
+                ? "Unknown error"
+                : _errorMessage.trim();
             break;
           case DioErrorType.sendTimeout:
             _errorMessage = "Receive timeout in send request";

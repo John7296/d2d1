@@ -5,10 +5,12 @@ import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/approve_timesheet.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/model/payment.dart';
+import 'package:project_d2d/model/settings.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
@@ -56,11 +58,13 @@ abstract class NetworkConnection {
   Future<BaseResponse> resetPassword(
       @Header("token") String? useroken, @Body() Map<String, dynamic> map);
 
-  @FormUrlEncoded()
-  @GET("d2dApi")
-  Future<BaseResponse<List<StaffProfile>>> staffProfile(
-    @Header("token") String? token,
-    @Query("sp") String? sp,
+
+   
+     @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<StaffProfile>>> staffProfile( 
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
     @Query("staffId") int? staffId,
   );
 
@@ -95,6 +99,22 @@ abstract class NetworkConnection {
     @Query("sp") String? sp,
     @Query("staffId") int? staffId,
   );
+
+
+   @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<Settings>>> settings(   
+   @Query("sp") String? sp,    
+  );
+
+   @FormUrlEncoded()
+   @GET("d2dApi")
+  Future<BaseResponse<List<AlertMessages>>> notifications(   
+    @Header("token") String? token,   
+   @Query("sp") String? sp,
+    @Query("staffId") int? staffId,   
+  );
+
 
   @GET("d2dApi")
   Future<BaseResponse<List<Job>>> getJob(

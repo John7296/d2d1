@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
 import 'package:project_d2d/model/training_status.dart';
+import 'package:project_d2d/screens/edit_profile.dart';
 
 import 'package:project_d2d/screens/profile_summary_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
@@ -16,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
   List<StaffProfile> profile = [];
    List<TrainingStatus> training = [];
@@ -61,10 +63,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       //                 builder: (context) =>
       //                 VerifyOtpScreen()));
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -85,10 +87,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       //                 builder: (context) =>
       //                 VerifyOtpScreen()));
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+       hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -151,7 +153,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: Icon(Icons.arrow_back_ios_new)),
                 Spacer(),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                           Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfile()));
+
+                    },
                     child: Text("Edit",
                         style:
                             TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
@@ -195,22 +203,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "27",
-                  // profile.first.jobsCount.toString(),
+                  // "27",
+                   profile.first.jobsCount.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
-                      fontSize: 13),
+                      fontSize: 15),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 60),
                   child: Text(
-                    "89",
-                    // profile.first.timeSheetCount.toString(),
+                    // "89",
+                    profile.first.timeSheetCount.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 13),
+                        fontSize: 15),
                   ),
                 ),
                 Padding(
@@ -218,11 +226,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Text(
                     // "13 Nov 2024",
                     profile.first.timeSheetDate.toString(),
-                    maxLines: 2,
+                    // maxLines: 2,
                     style: TextStyle(
                         color: Color(0xffF41937),
                         fontWeight: FontWeight.w700,
-                        fontSize: 13),
+                        fontSize: 15),
                   ),
                 ),
                 Padding(
@@ -235,12 +243,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (context) => ProfileSummaryScreen()));
                     },
                     child: Text(
-                      "\$3435.00",
-                      // "\$ ${profile.first.totalEarnings.toString()}",
+                      // "\$3435.00",
+                       "\$ ${profile.first.totalEarnings.toString()}",
                       style: TextStyle(
                           color: kGreenColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 13),
+                          fontSize: 15),
                     ),
                   ),
                 ),
@@ -251,44 +259,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   "Jobs",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 15,
                 ),
                 Text(
                   "Time sheets",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 15,
                 ),
                 Text(
                   "Time sheets",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
                 SizedBox(
-                  width: 32,
+                  width:15,
                 ),
                 Text(
                   "Total Earnings",
                   style: TextStyle(
                       color: Color(0xff95969D),
                       fontWeight: FontWeight.w500,
-                      fontSize: 11),
+                      fontSize: 13),
                 ),
               ],
             ),
@@ -300,12 +308,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text("Recent Job Request",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                Spacer(),
-                Text("See all",
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xffAFB0B6),
-                    )),
+                // Spacer(),
+                // Text("See all",
+                //     style: TextStyle(
+                //       fontSize: 13,
+                //       color: Color(0xffAFB0B6),
+                //     )),
               ],
             ),
           ),
@@ -347,15 +355,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  "Dialysis Specialist",
-                                  // jobs.first.profession.toString(),
+                                  // "Dialysis Specialist",
+                                   jobs.first.profession.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
                               Text(
-                                "Agate House",
-                                // jobs.first.clientName.toString(),
+                                // "Agate House",
+                                jobs.first.clientName.toString(),
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
@@ -367,16 +375,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 10, top: 15),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.add_location_outlined,
                                     color: Color(0xff413E3E),
                                   ),
                                   Text(
-                                    "Agate East",
-                                    // jobs.first.staffLocation.toString(),
+                                    // "Agate East",
+                                     jobs.first.staffLocation.toString(),
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500)),
@@ -389,8 +399,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     color: Color(0xffAFB0B6),
                                   ),
                                   Text(
-                                    "11 Nov 2022",
-                                    // jobs.first.allocatedOn.toString(),
+                                    // "11 Nov 2022",
+                                    jobs.first.allocatedOn.toString(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           color: Color(0xff0D0D26),
                                           fontSize: 13,
@@ -416,7 +428,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Text(
                         "Requested",
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: FontWeight.w500,
                             color: Colors.white),
                       )),
@@ -425,7 +437,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
             child: Row(
               children: [
                 Text("Time Sheets",
@@ -459,14 +471,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 25,
+                              radius: 30,
                               backgroundColor: Color(0xffFDD9DE),
                               child: Container(
                                 width: 50,
                                 height: 40,
                                 child: Image(
                                   image: AssetImage(
-                                    "assets/images/time.png",
+                                    "assets/images/ic_time_1.png",
                                   ),
                                   fit: BoxFit.fill,
                                   //    width:50,
@@ -478,7 +490,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 13),
+                        padding: const EdgeInsets.only(left: 5, top: 13),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -489,71 +501,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xffFD425B))),
-                            Text(
-                              // "Agate House",
-                              banner.first.clientName.toString(),
-                                style: TextStyle(
-                                    fontSize: 12, color: Color(0xffAFB0B6))),
+                            Padding(
+                              padding: const EdgeInsets.only(left:3),
+                              child: Text(
+                                // "Agate House",
+                                banner.first.clientName.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xffAFB0B6))),
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
                 ),
-                SizedBox(width: 11),
-                Container(
-                  height: 70,
-                  width: 180,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    // color: Colors.green,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Color(0xffFDD9DE),
-                              child: Container(
-                                width: 50,
-                                height: 40,
-                                child: Image(
-                                  image: AssetImage(
-                                    "assets/images/time.png",
+                 SizedBox(width: 5),
+                // Spacer(),
+                Expanded(
+                  child: Container(
+                    height: 70,
+                    width: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white70,
+                      // color: Colors.green,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 10),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Color(0xffFDD9DE),
+                                child: Container(
+                                  width: 50,
+                                  height: 40,
+                                  child: Image(
+                                    image: AssetImage(
+                                      "assets/images/ic_time_1.png",
+                                    ),
+                                    fit: BoxFit.fill,
+                                    //    width:50,
+                                    // height:50
                                   ),
-                                  fit: BoxFit.fill,
-                                  //    width:50,
-                                  // height:50
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      // SizedBox(width: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 13),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // "85 Approved",
-                               " ${banner.first.jobApproved.toString()} Approved",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xffFD425B))),
-                            Text("Agate House",
-                                style: TextStyle(
-                                    fontSize: 12, color: Color(0xffAFB0B6))),
-                          ],
-                        ),
-                      )
-                    ],
+                        // SizedBox(width: 10),
+                  
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, top: 13),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                // "85 Approved",
+                                 " ${banner.first.jobApproved.toString()} Approved",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: kGreenprogressColor)),
+                              Padding(
+                                padding: const EdgeInsets.only(left:3),
+                                child: Text(
+                                  // "Agate House",
+                                  banner.first.clientName.toString(),
+                                    style: TextStyle(
+                                        fontSize: 12, color: Color(0xffAFB0B6))),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -585,6 +609,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Row(
                             children: [
+
+                              // if(training.isEmpty)
                               Text("Manual Handling",
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.black)),
@@ -688,5 +714,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ]),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

@@ -10,7 +10,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       userId: json['userId'] as int?,
       fullName: json['fullName'] as String?,
       email: json['Email'] as String?,
-      phoneNo: json['PhoneNo'] as int?,
+      phoneNo: json['PhoneNo'] as String?,
       roleId: json['RoleId'] as int?,
       roleName: json['RoleName'] as String?,
       staffId: json['staffId'] as int?,

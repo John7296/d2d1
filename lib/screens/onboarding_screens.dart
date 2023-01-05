@@ -16,6 +16,7 @@ class OnboardingScreens extends StatefulWidget {
 class _OnboardingScreensState extends State<OnboardingScreens> {
   var _currentIndex = 0;
   List<OnBoard> _onBoardList = [];
+  
   final _controller = PageController();
   Size stackSizeSize = Size(0.0, 0.0);
 
@@ -23,19 +24,19 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
   void initState() {
     super.initState();
 
-    _onBoardList.add(OnBoard("Be a Part Among Us",
+    _onBoardList.add(OnBoard("Be A Part Among Us",
         "Choose a brighter career with Day2Day\n Care Homes", "onboard1.png"));
     _onBoardList.add(OnBoard(
         "Skills Development",
         "Learn professional Home Care Skills from \n our expert panels of trainers ",
-        "onboardi2.png"));
+        "onboard2.png"));
     _onBoardList.add(OnBoard(
         "Make a Difference",
-        "Get all set to work for your dream job and be happy when your client are",
+        "Get all set to work for your dream job and\n be happy when your client are",
         "onboard3.png"));
     _onBoardList.add(OnBoard(
         "Get Rewarded",
-        "We want you to be recognised and rewarded for the work you do",
+        "We want you to be recognised and\n rewarded for the work you do",
         "onboard4.png"));
   }
 
@@ -78,19 +79,31 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                             //   child: Text('Curved View'),
                             //   alignment: Alignment.center,
                             // ),
-                            ClipPath(
-                              clipper: CurvedBottomClipper(),
-                              child: Container(
+                            Container(
+                              height:210,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(600),
+                                  bottomRight: Radius.circular(600),
+                                
+                                ),
                                 color: Color(0xfff9d7de),
-                                height: 200,
                               ),
                             ),
+                            // ClipPath(
+                            //   clipper: CurvedBottomClipper(),
+                            //   child: Container(
+                            //     color: Color(0xfff9d7de),
+                            //     height: 200,
+                            //   ),
+                            // ),
 
-                            SizedBox(height: 50),
-
+                            SizedBox(height: 40),
+                           
                             Center(
                               child: Image(
-                                image: AssetImage("assets/images/onboard1.png"),
+                                image: AssetImage("assets/images/${_onBoardList[position].image}"),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -129,7 +142,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 40.0, vertical: 40),
-                  child: _currentIndex == 2
+                  child: _currentIndex == 3
                       ? SizedBox(
                           width: double.infinity,
                           height:60,
@@ -274,7 +287,7 @@ class CurvedBottomClipper extends CustomClipper<Path> {
         Rect.fromLTRB(0, 0, size.width, size.height - roundingHeight);
 
     final roundingRectangle = Rect.fromLTRB(
-        -5, size.height - roundingHeight * 2, size.width + 5, size.height);
+        -6, size.height - roundingHeight * 2, size.width + 5, size.height);
 
     final path = Path();
     path.addRect(filledRectangle);

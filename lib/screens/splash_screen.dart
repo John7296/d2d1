@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       Duration(seconds: 3),
       () => {
-      _checkTokenAndNavigate(),
+     //  _checkTokenAndNavigate(),
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Onboarding()))
       },
@@ -139,8 +139,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     padding: const EdgeInsets.only(left:35, top:170),
                     child: Container(
                       height: 450,
-                      width: 280,
-                      child: Image(image: AssetImage("assets/images/logo-d2d.png"),
+                      width: 290,
+                      child: Image(image: AssetImage("assets/images/logo.png"),
                       fit: BoxFit.contain,
                        ),
                       ),

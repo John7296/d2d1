@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/home_screen.dart';
@@ -10,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -34,13 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     "Password":_passwordController.text,
     "roleId":8,
     "Status":1
-    //     "sp":"insertusers",
-    //      "Fullname":_usernameController.text,
-    // "Email":_emailController.text,
-    // "PhoneNo":_phoneController.text,
-    // "Password":_passwordController.text,
-    // "roleId": "",
-    // "Status":""
+  
     };
 
     print(_usernameController);
@@ -48,27 +43,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse response) {
-      // hideLoader();
-      // showFlashMsg('Successfully Registered');
+      hideLoader();
+      showFlashMsg('Successfully Registered');
       // SessionsManager.saveUserId(response.data?. ?? 0);
 
       print(response.data);
       print("////////////////////////////");
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => LoginScreen(),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      );
     }).catchError((e) {
-      // hideLoader();
-      // showFlashMsg(e.toString());
+      hideLoader();
+      showFlashMsg(e.toString());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: "Poppins"),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
@@ -90,10 +86,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               Container(
-                height: 80,
-                width: 190,
+                height: 70,
+          width: 180,
                 child: Image(
-                  image: AssetImage("assets/images/logo-d2d.png"),
+                  image: AssetImage("assets/images/logo.png"),
                   fit: BoxFit.contain,
                 ),
               ),
@@ -374,5 +370,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
