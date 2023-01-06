@@ -153,7 +153,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 250,
+                  height: getHeightByPercentage(30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(0),
@@ -188,11 +188,12 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     icon: Icon(Icons.arrow_back_ios,
                                         color: Colors.white),
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HomeScreen()));
+                                      Navigator.pop(context);
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             HomeScreen()));
                                       // getJob();
                                     },
                                   ),
@@ -249,7 +250,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   child: DropdownButton<Job>(
                                     hint: Text(
                                       "Select a Job",
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
                                     ),
                                     isExpanded: true,
                                     dropdownColor:
@@ -283,8 +285,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20),
-
+                              SizedBox(height: 10),
                               Text(
                                 (timeSheetDetailsList.isNotEmpty)
                                     ? timeSheetDetailsList[0]

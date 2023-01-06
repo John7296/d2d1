@@ -142,7 +142,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                 _searchString = value;
                               },
                               onSubmitted: (value) {
-                                getJobDetails();
+                            getJobDetails();
+                                
                               },
                               decoration: const InputDecoration(
                                   border: InputBorder.none,
