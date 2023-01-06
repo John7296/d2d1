@@ -73,28 +73,28 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => HomeScreen()));
-                        getJobDetails();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                        // getJobDetails();
                       },
                     ),
                   ),
                   height: 45,
                   width: 45,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 90),
-                  child: Text("All Jobs",
-                      style: TextStyle(
-                          fontSize: kFontSize_16, fontWeight: kFontWeight_SB),
-                      textAlign: TextAlign.center),
+                SizedBox(
+                  width: getWidthByPercentage(25),
                 ),
+                Text("All Jobs",
+                    style: TextStyle(
+                        fontSize: kFontSize_16, fontWeight: kFontWeight_SB),
+                    textAlign: TextAlign.center),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
+              padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -118,40 +118,43 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                   //     MaterialPageRoute(
                   //         builder: (context) => SearchScreen()));
                 },
-                child: Container(
-                  height: 50,
-                  width: 360,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xFFE5E5E5)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Icon(Icons.search_rounded,
-                              size: 25, color: Color(0xFF95969D)),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            autofocus: false,
-                            textInputAction: TextInputAction.search,
-                            onChanged: (value) {
-                              _searchString = value;
-                            },
-                            onSubmitted: (value) {
-                              getJobDetails();
-                            },
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search Available Jobs",
-                                hintStyle: TextStyle(
-                                    fontFamily: "Intro",
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    height: 50,
+                    // width: 360,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFE5E5E5)),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Container(
+                            child: Icon(Icons.search_rounded,
+                                size: 25, color: Color(0xFF95969D)),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: TextField(
+                              autofocus: false,
+                              textInputAction: TextInputAction.search,
+                              onChanged: (value) {
+                                _searchString = value;
+                              },
+                              onSubmitted: (value) {
+                                getJobDetails();
+                              },
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Search Available Jobs",
+                                  hintStyle: TextStyle(
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -227,226 +230,175 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                     itemBuilder: (context, index) {
                       return Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Stack(
-                          clipBehavior: Clip.none,
-                          fit: StackFit.loose,
                           children: [
-                            InkWell(
-                              onTap: (() {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                         builder: (context) => JobDetailsScreen(
                                             jobList[index].jobCatName ?? '',
-                                            // jobList[index].hourlyRate ?? '',
+                                            jobList[index]
+                                                .hourlyRate!
+                                                .toDouble(),
                                             jobList[index].clientName ?? '',
                                             jobList[index].jobLocation ?? '',
                                             jobList[index].startDateTime ?? '',
                                             jobList[index].shiftName ?? '',
-                                            context)));
-                              }),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
-                                  image: DecorationImage(
-                                    image: (jobList[index].isRequsted == "1")
-                                        ? AssetImage(
-                                            "assets/images/green_bg.png")
-                                        : AssetImage(
-                                            "assets/images/red_bg.png"),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                height: 150,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Column(
-                                    children: [
-                                      Row(
+                                            jobList[index].isRequsted??'',
+                                            context),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: getWidthByPercentage(92),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(15),
+                                      ),
+                                      image: DecorationImage(
+                                        image: (jobList[index].isRequsted ==
+                                                "1")
+                                            ? AssetImage(
+                                                "assets/images/green_bg.png")
+                                            : AssetImage(
+                                                "assets/images/red_bg.png"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    height: 150,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Column(
                                         children: [
-                                          Container(
-                                            height: 50,
-                                            width: 50,
-                                            // color: Colors.white,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height: 50,
+                                                width: 50,
+                                                // color: Colors.white,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(10),
+                                                  ),
+                                                  color: Colors.white,
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/images/care.png"),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  // boxShadow: [
+                                                  //   BoxShadow(
+                                                  //     color: Colors.grey,
+                                                  //     offset: Offset(0.0, 1.0), //(x,y)
+                                                  //     blurRadius: 3.0,
+                                                  //   ),
+                                                  // ],
+                                                ),
                                               ),
-                                              color: Colors.white,
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/care.png"),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.grey,
-                                              //     offset: Offset(0.0, 1.0), //(x,y)
-                                              //     blurRadius: 3.0,
-                                              //   ),
-                                              // ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
-                                                            Expanded(
-                                                              child: Text(
-                                                                jobList[index]
-                                                                        .jobCatName ??
-                                                                    '',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      kFontWeight_SB,
-                                                                  fontSize:
-                                                                      kFontSize_16,
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    jobList[index]
+                                                                            .jobCatName ??
+                                                                        '',
+                                                                    maxLines: 2,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          kFontWeight_SB,
+                                                                      fontSize:
+                                                                          kFontSize_16,
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
+                                                                // InkWell(
+                                                                //   onTap: () {},
+                                                                //   child:
+                                                                //       ImageIcon(
+                                                                //     AssetImage(
+                                                                //         "assets/images/ic_edit_task.png"),
+                                                                //     size: 25,
+                                                                //     color: Colors
+                                                                //         .white,
+                                                                //   ),
+                                                                // ),
+                                                              ],
                                                             ),
-                                                            InkWell(
-                                                              onTap: () {},
-                                                              child: ImageIcon(
-                                                                AssetImage(
-                                                                    "assets/images/ic_edit_task.png"),
-                                                                size: 25,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  jobList[index]
+                                                                          .clientName ??
+                                                                      '',
+                                                                  maxLines: 1,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0.8),
+                                                                      fontSize:
+                                                                          kFontSize_14,
+                                                                      fontWeight:
+                                                                          kFontWeight_M),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ],
                                                         ),
-                                                        Text(
-                                                          jobList[index]
-                                                                  .clientName ??
-                                                              '',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  kFontSize_14,
-                                                              fontWeight:
-                                                                  kFontWeight_M),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            '£ ${jobList[index].hourlyRate ?? ''}/hour',
-                                            style: TextStyle(
-                                              fontWeight: kFontWeight_M,
-                                              fontSize: 13,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(20),
-                                              ),
-                                              color:
-                                                  Colors.white.withOpacity(0.1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 15),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.alarm_add_outlined,
-                                                    color: Colors.white,
-                                                    size: 15,
-                                                  ),
-                                                  Text(
-                                                    jobList[index].shiftName ??
-                                                        '',
-                                                    style: TextStyle(
-                                                      fontSize: 11,
-                                                      color: Colors.white,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(15),
-                                              ),
-                                              color:
-                                                  Colors.white.withOpacity(0.1),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.location_pin,
-                                                    color: Colors.white,
-                                                    size: 15,
-                                                  ),
-                                                  Text(
-                                                    jobList[index]
-                                                            .jobLocation ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 11),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           Row(
                                             children: [
-                                              Icon(
-                                                Icons.calendar_today_outlined,
-                                                color: Colors.white,
-                                                size: 14,
-                                              ),
-                                              SizedBox(width: 2),
+                                              // Icon(
+                                              //   Icons.calendar_today_outlined,
+                                              //   color: Colors.white,
+                                              //   size: 14,
+                                              // ),
+                                              // SizedBox(width: 2),
+                                              // Text(
+                                              //   jobList[index].startDateTime ?? "",
+                                              //   style: TextStyle(
+                                              //     fontWeight: kFontWeight_M,
+                                              //     fontSize: 13,
+                                              //     color: Colors.white,
+                                              //   ),
+                                              // ),
+                                              Spacer(),
                                               Text(
-                                                jobList[index].startDateTime ??
-                                                    '',
+                                                '£ ${jobList[index].hourlyRate ?? ""}/hour',
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_M,
                                                   fontSize: 13,
@@ -455,38 +407,154 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                               ),
                                             ],
                                           ),
+                                          Spacer(),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Container(
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(20),
+                                                  ),
+                                                  color: Colors.white
+                                                      .withOpacity(0.15),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 15),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(right: 2),
+                                                        child: ImageIcon(
+                                                          AssetImage(
+                                                              "assets/images/ic_alarm.png"),
+                                                          size: 15,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        jobList[index]
+                                                                .shiftName ??
+                                                            "",
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          fontSize: 11,
+                                                          color: Colors.white,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                  color: Colors.white
+                                                      .withOpacity(0.15),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(right: 2),
+                                                        child: ImageIcon(
+                                                          AssetImage(
+                                                              "assets/images/ic_location.png"),
+                                                          size: 15,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        jobList[index]
+                                                                .jobLocation ??
+                                                            "",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .calendar_today_outlined,
+                                                    color: Colors.white,
+                                                    size: 14,
+                                                  ),
+                                                  SizedBox(width: 2),
+                                                  Text(
+                                                    jobList[index]
+                                                            .startDateTime ??
+                                                        "",
+                                                    style: TextStyle(
+                                                      fontWeight: kFontWeight_M,
+                                                      fontSize: 13,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                                if (jobList[index].isRequsted == "1")
+                                  Image(
+                                      image: AssetImage(
+                                          "assets/images/redlabel_tail.png")),
+                              ],
                             ),
-                            (jobList[index].isRequsted == "1")
-                                ? Positioned(
-                                    top: -1.5,
-                                    left: 220,
-                                    child: Container(
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/redlabel.png"),
-                                          // fit: BoxFit.cover,
+                            if (jobList[index].isRequsted == "1")
+                              Positioned(
+                                top: 58,
+                                right: 3,
+                                child: Stack(
+                                  children: [
+                                    Image(
+                                        image: AssetImage(
+                                            "assets/images/redlabel.png")),
+                                    Positioned(
+                                      right: 0,
+                                      left: 0,
+                                      bottom: 0,
+                                      top: 0,
+                                      child: Container(
+                                        // color: Colors.yellow,
+                                        child: Center(
+                                          child: Text(
+                                            "Requested",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: kFontWeight_M),
+                                          ),
                                         ),
                                       ),
-                                      child: Align(
-                                          child: Text(
-                                        "Requested",
-                                        style: TextStyle(
-                                            fontSize: 8,
-                                            color: Colors.white,
-                                            fontWeight: kFontWeight_M),
-                                      )),
                                     ),
-                                  )
-                                : SizedBox(),
+                                  ],
+                                ),
+                              ),
                           ],
                         ),
                       );

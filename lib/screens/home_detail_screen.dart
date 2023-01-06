@@ -34,23 +34,14 @@ class HomeDetailScreen extends StatefulWidget {
 class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
   List<Job> jobList = [];
   List<TimeSheet> timeSheetList = [];
-  int? jobApproved;
-  int? jobPending;
-  int? jobCompleted;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-
-      // _updateDeviceToken();
     });
     getTimeSheet();
-
-    print("StaffId ${SessionsManager.staffId}");
-    print("TokenId ${SessionsManager.userToken}");
   }
 
   void getJob() {
@@ -64,6 +55,8 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
+   
+
       hideLoader();
       setState(() {
         jobList.clear();
@@ -120,8 +113,8 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                   fontSize: kFontSize_14,
                                   color: kGreyColorTxt),
                             ),
-                            Text(
-                              'Mary James 👋 ',
+                            Text((jobList.isNotEmpty)?
+                              '${jobList.first.allocatedStaff}👋 ':'',
                               style: TextStyle(
                                   fontFamily: kFontFamily,
                                   fontSize: 22,
@@ -318,16 +311,25 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                     child: Center(
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: Text(
-                                          timeSheetList.first.jobPending
-                                              .toString(),
-                                          // "",
-                                          style: TextStyle(
-                                            fontWeight: kFontWeight_SB,
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                          ),
-                                        ),
+                                        child: (timeSheetList.isNotEmpty)
+                                            ? Text(
+                                                timeSheetList.first.jobPending
+                                                    .toString(),
+                                                // "",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              )
+                                            : Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -338,8 +340,10 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         fontWeight: kFontWeight_M),
                                   ),
                                   Text(
-                                    timeSheetList.first.currentJob.toString(),
-                                    // "",
+                                    (timeSheetList.isNotEmpty)
+                                        ? timeSheetList.first.currentJob
+                                            .toString()
+                                        : "",
                                     style: TextStyle(
                                       fontSize: 10,
                                     ),
@@ -391,16 +395,25 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                     child: Center(
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: Text(
-                                          timeSheetList.first.jobApproved
-                                              .toString(),
-                                          // "",
-                                          style: TextStyle(
-                                            fontWeight: kFontWeight_SB,
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                          ),
-                                        ),
+                                        child: (timeSheetList.isNotEmpty)
+                                            ? Text(
+                                                timeSheetList.first.jobApproved
+                                                    .toString(),
+                                                // "",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              )
+                                            : Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -411,8 +424,9 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         fontWeight: kFontWeight_M),
                                   ),
                                   Text(
-                                    timeSheetList.first.currentJob ?? '',
-                                    // "",
+                                    (timeSheetList.isNotEmpty)
+                                        ? timeSheetList.first.currentJob ?? ''
+                                        : "",
                                     style: TextStyle(
                                       fontSize: 10,
                                     ),
@@ -467,16 +481,25 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                     child: Center(
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: Text(
-                                          timeSheetList.first.jobApproved
-                                              .toString(),
-                                          // "",
-                                          style: TextStyle(
-                                            fontWeight: kFontWeight_SB,
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                          ),
-                                        ),
+                                        child: (timeSheetList.isNotEmpty)
+                                            ? Text(
+                                                timeSheetList.first.jobCompleted
+                                                    .toString(),
+                                                // "",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              )
+                                            : Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontWeight: kFontWeight_SB,
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -487,8 +510,9 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         fontWeight: kFontWeight_M),
                                   ),
                                   Text(
-                                    timeSheetList.first.currentJob ?? '',
-                                    // "",
+                                    (timeSheetList.isNotEmpty)
+                                        ? timeSheetList.first.currentJob ?? ''
+                                        : "",
                                     style: TextStyle(
                                       fontSize: 10,
                                     ),

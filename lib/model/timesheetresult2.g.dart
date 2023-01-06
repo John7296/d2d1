@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'timesheetdetails.dart';
+part of 'timesheetresult2.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TimeSheetDetails _$TimeSheetDetailsFromJson(Map<String, dynamic> json) =>
-    TimeSheetDetails(
+TimeSheetResult2 _$TimeSheetResult2FromJson(Map<String, dynamic> json) =>
+    TimeSheetResult2(
       breakTime: json['breakTime'] as String?,
       clientId: json['clientId'] as int?,
       clientName: json['clientName'] as String?,
@@ -18,7 +18,7 @@ TimeSheetDetails _$TimeSheetDetailsFromJson(Map<String, dynamic> json) =>
       timesheetId: json['timesheetId'] as int?,
     );
 
-Map<String, dynamic> _$TimeSheetDetailsToJson(TimeSheetDetails instance) =>
+Map<String, dynamic> _$TimeSheetResult2ToJson(TimeSheetResult2 instance) =>
     <String, dynamic>{
       'clientId': instance.clientId,
       'clientName': instance.clientName,

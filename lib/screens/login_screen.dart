@@ -60,7 +60,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       NetworkManager.shared.userId = response.data?.first.userId ?? 0;
       NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
 
-      print("Token ${NetworkManager.shared.userToken}");
 
       NetworkManager.shared.refreshTokens();
        showFlashMsg("Succesfully Logged In");
@@ -97,7 +96,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
             ),
             Container(
               height: 70,
-          width: 180,
+              width: 180,
               child: Image(
                 image: AssetImage("assets/images/logo.png"),
                 fit: BoxFit.fill,
@@ -228,12 +227,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         ),
                         onPressed: () {
                           onLoginButtonTapped();
-                          // Navigator.pushAndRemoveUntil(context,
-                          //     MaterialPageRoute(
-                          //   builder: (BuildContext context) {
-                          //     return HomeScreen();
-                          //   },
-                          // ), (route) => false);
                         },
                         child: Center(
                             child: Text(
@@ -273,7 +266,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

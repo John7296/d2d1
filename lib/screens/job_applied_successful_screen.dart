@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobAppliedSuccessfulScreen extends StatefulWidget {
-   JobAppliedSuccessfulScreen(this.jobCatName, this.clientName, this.shiftName,
-      this.startDateTime, this.jobLocation, this.context);
-     String jobCatName;
+  JobAppliedSuccessfulScreen(
+      this.jobCatName,
+      this.hourlyRate,
+      this.clientName,
+      this.shiftName,
+      this.startDateTime,
+      this.jobLocation,
+      this.isRequested,
+      this.context);
+  String jobCatName;
+  double hourlyRate;
   String clientName;
   String jobLocation;
-
-  // double hourlyRate;
   String startDateTime;
   String shiftName;
+  String isRequested;
   BuildContext context;
-
 
   @override
   State<JobAppliedSuccessfulScreen> createState() =>
@@ -25,8 +32,7 @@ class JobAppliedSuccessfulScreen extends StatefulWidget {
 }
 
 class _JobAppliedSuccessfulScreenState
-    extends State<JobAppliedSuccessfulScreen> {
-
+    extends BaseStatefulState<JobAppliedSuccessfulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +44,7 @@ class _JobAppliedSuccessfulScreenState
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 250,
+                  height: getHeightByPercentage(35),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(0),
@@ -47,192 +53,138 @@ class _JobAppliedSuccessfulScreenState
                       image: AssetImage("assets/images/red_bg.png"),
                       fit: BoxFit.cover,
                     ),
-                    // color: Colors.green.shade400,
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.grey,
-                    //     offset: Offset(0.0, 1.0), //(x,y)
-                    //     blurRadius: 3.0,
-                    //   ),
-                    // ],
                   ),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        //  mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_back_ios,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => HomeScreen()),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                height: 40,
-                                width: 40,
-                              ),
-                              SizedBox(
-                                height: 150,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(40),
-                                  ),
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/care.png"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                  // color: Colors.green.shade400,
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //     color: Colors.grey,
-                                  //     offset: Offset(0.0, 1.0), //(x,y)
-                                  //     blurRadius: 3.0,
-                                  //   ),
-                                  // ],
-                                ),
-                              ),
-                              Text(
-                                widget.jobCatName,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: kFontWeight_M,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                widget.clientName,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Container(
-                                height: 30,
-                                // width: 100,
-                                // color: Colors.white,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                  color: Colors.white.withOpacity(0.1),
-
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //     color: Colors.grey,
-                                  //     offset: Offset(0.0, 1.0), //(x,y)
-                                  //     blurRadius: 3.0,
-                                  //   ),
-                                  // ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.alarm_add_outlined,
-                                        color: Colors.white,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        widget.shiftName,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 11),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
+                      Container(
+                        // color: Colors.green,
+                        height: getHeightByPercentage(25),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          // crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(40),
+                                ),
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/care.png"),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
                             Text(
-                              '',
+                              widget.jobCatName,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: kFontWeight_SB,
-                                  fontSize: kFontSize_14),
+                                fontSize: 20,
+                                fontWeight: kFontWeight_M,
+                                color: Colors.white,
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                  size: 14,
+                            Text(
+                              widget.clientName,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              height: 30,
+                              width: 120,
+                              // color: Colors.white,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
                                 ),
-                                SizedBox(width: 2),
-                                Text(
-                                  widget.startDateTime,
-                                  style: TextStyle(
+                                color: Colors.white.withOpacity(0.1),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.alarm_add_outlined,
                                       color: Colors.white,
-                                      fontWeight: kFontWeight_SB,
-                                      fontSize: kFontSize_14),
+                                      size: 15,
+                                    ),
+                                    Text(
+                                      widget.jobLocation,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 11),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                ImageIcon(
-                                  AssetImage("assets/images/ic_location.png"),
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  widget.jobLocation,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: kFontWeight_SB,
-                                    fontSize: kFontSize_14,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          // color: Colors.green,
+                          height: getHeightByPercentage(5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "£${widget.hourlyRate.toString()}/hour",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: kFontWeight_SB,
+                                    fontSize: kFontSize_14),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.calendar_today_outlined,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
+                                  SizedBox(width: 2),
+                                  Text(
+                                    widget.startDateTime,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: kFontWeight_SB,
+                                        fontSize: kFontSize_14),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  ImageIcon(
+                                    AssetImage("assets/images/ic_location.png"),
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    widget.shiftName,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: kFontWeight_SB,
+                                      fontSize: kFontSize_14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 150),
-                  child: Align(
-                    alignment: Alignment.centerRight,
+                if (widget.isRequested == "1")
+                  Positioned(
+                    top: 150,
+                    right: 0,
                     child: Container(
                       height: 30,
                       width: 72,
@@ -241,14 +193,6 @@ class _JobAppliedSuccessfulScreenState
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15)),
                         color: kButtonColorR,
-
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: Colors.grey,
-                        //     offset: Offset(0.0, 1.0), //(x,y)
-                        //     blurRadius: 3.0,
-                        //   ),
-                        // ],
                       ),
                       child: Center(
                         child: Padding(
@@ -260,6 +204,17 @@ class _JobAppliedSuccessfulScreenState
                         ),
                       ),
                     ),
+                  ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
                   ),
                 ),
               ],
@@ -338,5 +293,11 @@ class _JobAppliedSuccessfulScreenState
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
