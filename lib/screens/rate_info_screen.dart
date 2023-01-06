@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/settings.dart';
@@ -9,7 +10,7 @@ class RateInfoScreen extends StatefulWidget{
   State<RateInfoScreen> createState() => _RateInfoScreenState();
 }
 
-class _RateInfoScreenState extends State<RateInfoScreen> {
+class _RateInfoScreenState extends BaseStatefulState<RateInfoScreen> {
    List<Settings> rate=[];
   
 
@@ -29,7 +30,7 @@ class _RateInfoScreenState extends State<RateInfoScreen> {
     NetworkManager.shared
         .settings( "getSettings")
         .then((BaseResponse<List<Settings>> response) {
-      //  hideLoader();
+       hideLoader();
       setState(() {
       rate.clear();
       rate.addAll(response.data!);
@@ -124,5 +125,11 @@ class _RateInfoScreenState extends State<RateInfoScreen> {
         
        ]),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

@@ -79,25 +79,25 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                             //   child: Text('Curved View'),
                             //   alignment: Alignment.center,
                             // ),
-                            Container(
-                              height:210,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(600),
-                                  bottomRight: Radius.circular(600),
+                            // Container(
+                            //   height:210,
+                            //   width: double.infinity,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.only(
+                            //       bottomLeft: Radius.circular(600),
+                            //       bottomRight: Radius.circular(600),
                                 
-                                ),
-                                color: Color(0xfff9d7de),
-                              ),
-                            ),
-                            // ClipPath(
-                            //   clipper: CurvedBottomClipper(),
-                            //   child: Container(
+                            //     ),
                             //     color: Color(0xfff9d7de),
-                            //     height: 200,
                             //   ),
                             // ),
+                            ClipPath(
+                              clipper: CurvedBottomClipper(),
+                              child: Container(
+                                color: Color(0xfff9d7de),
+                                height: 150,
+                              ),
+                            ),
 
                             SizedBox(height: 40),
                            
@@ -141,7 +141,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 40),
+                      horizontal: 40.0, vertical: 60),
                   child: _currentIndex == 3
                       ? SizedBox(
                           width: double.infinity,

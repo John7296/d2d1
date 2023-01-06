@@ -58,6 +58,18 @@ abstract class NetworkConnection {
   Future<BaseResponse> resetPassword(
       @Header("token") String? useroken, @Body() Map<String, dynamic> map);
 
+      @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> changePassword(
+    @Header("token") String? token, 
+    @Body() Map<String, dynamic> map
+  );
+
+   @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> updateProfile(
+    @Header("token") String? token, 
+    @Body() Map<String, dynamic> map
+  );
+
 
    
      @FormUrlEncoded()
@@ -169,4 +181,10 @@ abstract class NetworkConnection {
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
+
+      @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> deleteUser(
+    @Header("token") String? token, 
+    @Body() Map<String, dynamic> map
+  );
 }

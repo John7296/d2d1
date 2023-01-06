@@ -106,9 +106,18 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
-  Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
+Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
     return call(networkConnection.resetPassword(token, map));
   }
+
+   Future<BaseResponse> changePassword(String token, Map<String, dynamic> map) {
+    return call(networkConnection.changePassword(token, map));
+  }
+
+   Future<BaseResponse> updateProfile(String token, Map<String, dynamic> map) {
+    return call(networkConnection.updateProfile(token, map));
+  }
+
 
   Future<BaseResponse> verifyOTP(Map<String, dynamic> map) {
     return call(networkConnection.verifyOTP(map));
@@ -183,6 +192,10 @@ class NetworkManager {
 
   Future<BaseResponse<List<Settings>>> settings(String sp) {
     return call(networkConnection.settings(sp));
+  }
+
+  Future<BaseResponse> deleteUser(String token, Map<String, dynamic> map) {
+    return call(networkConnection.deleteUser(token, map));
   }
 
   Future<T> call<T>(Future<T> call) async {
