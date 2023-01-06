@@ -5,6 +5,7 @@ import 'package:project_d2d/screens/about_screen.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/change_password_screen.dart';
 import 'package:project_d2d/screens/help_center_screen.dart';
+import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -26,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     NetworkManager.shared.resetPassword(NetworkManager.shared.userToken??'', <String, dynamic>{
 
   
-    "sp":"changePassword",
+    "sp":"deleteUser",
     "userId":NetworkManager.shared.userId,
    
 
@@ -37,11 +38,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       // setState(() {
       //   emailSent = true;
       // });
-      //  Navigator.pushReplacement(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 PasswordConfirmationScreen()));
+       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      LogoutScreen()));
      
     }).catchError((e) {
       //  hideLoader();
@@ -51,6 +52,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
 
   }
+
+   showAlertDialog(BuildContext context) {
+
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+
+     Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Continue"),
+    onPressed:  () {
+       onContinueBtntapped();
+
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("AlertDialog"),
+    content: Text("Are you sure you want to delete account?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -325,36 +364,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
- showAlertDialog(BuildContext context) {
 
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text("Cancel"),
-    onPressed:  () {},
-  );
-  Widget continueButton = TextButton(
-    child: Text("Continue"),
-    onPressed:  () {
-
-
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("AlertDialog"),
-    content: Text("Would you like to continue learning how to use Flutter alerts?"),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
