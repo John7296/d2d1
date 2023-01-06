@@ -284,7 +284,7 @@ class _ProfileSummaryScreenState
                                         children: [
                                           Text(
                                               payment.isNotEmpty
-                                                  ? payment[0].createdOn.toString()
+                                                  ? payment[index].createdOn.toString()
                                                   : "",
                                               // payment[index].paidOn
                                               //       ??
@@ -294,7 +294,7 @@ class _ProfileSummaryScreenState
                                           Expanded(
                                             child: Text(
                                                 payment.isNotEmpty
-                                                    ? payment[0]
+                                                    ? payment[index]
                                                         .paymentMode
                                                         .toString()
                                                     : '',
@@ -314,7 +314,7 @@ class _ProfileSummaryScreenState
                                             child: Center(
                                                 child: Text(
                                               payment.isNotEmpty
-                                                  ? payment[0]
+                                                  ? payment[index]
                                                       .paymentStatus
                                                       .toString()
                                                   : "",

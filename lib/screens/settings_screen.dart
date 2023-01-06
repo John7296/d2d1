@@ -193,10 +193,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 InkWell(
                   onTap: () {
       
-                    // Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                     builder: (context) => ProfileSummaryScreen()));
+                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProfileSummaryScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.currency_pound_outlined),
