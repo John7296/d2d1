@@ -74,10 +74,6 @@ class _SliderBannerHomeWidgetState
       print("JobID2 ${NetworkManager.shared.jobId}");
 
       NetworkManager.shared.refreshTokens();
-
-
-
-
                           Navigator.push(
                             context,
                             MaterialPageRoute(

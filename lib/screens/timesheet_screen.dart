@@ -74,7 +74,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
   }
 
   void getDropdownDetails(int jobId) {
-    showLoader();
+    // showLoader();
     NetworkManager.shared
         .gettimeSheetDetails(
       NetworkManager.shared.userToken!,
@@ -93,7 +93,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       });
     }).catchError((e) {
       // showFlashMsg(e.toString());
-      hideLoader();
+      // hideLoader();
       print(e.toString());
     });
   }
