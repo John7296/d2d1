@@ -73,10 +73,11 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => HomeScreen()));
+                        Navigator.pop(context);
                         // getJobDetails();
                       },
                     ),
@@ -249,7 +250,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                             jobList[index].jobLocation ?? '',
                                             jobList[index].startDateTime ?? '',
                                             jobList[index].shiftName ?? '',
-                                            jobList[index].isRequsted??'',
+                                            jobList[index].isRequsted ?? '',
                                             context),
                                       ),
                                     );

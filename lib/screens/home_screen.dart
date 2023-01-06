@@ -10,6 +10,7 @@ import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
+import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,7 +45,9 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
             HomeDetailScreen(),
             AvailableJobsScreen(),
             ProfileScreen(),
+            SettingsScreen(),
             LogoutScreen(),
+            
           ],
         ),
       ),
@@ -70,6 +73,11 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
           BottomNavigationBarItem(
               icon:ImageIcon(
                 AssetImage("assets/images/ic_user.png"),
+                size: 25,
+              ), label: ""),
+               BottomNavigationBarItem(
+              icon:ImageIcon(
+                AssetImage("assets/images/ic_settings.png"),
                 size: 25,
               ), label: ""),
           BottomNavigationBarItem(
