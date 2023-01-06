@@ -225,7 +225,7 @@ Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
-            _errorMessage = error.response?.data;
+            _errorMessage = error.response?.data['message'];
 
             if (error.response?.statusCode == 400) {
               // print(error.response?.data);

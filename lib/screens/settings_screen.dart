@@ -5,6 +5,7 @@ import 'package:project_d2d/screens/about_screen.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/change_password_screen.dart';
 import 'package:project_d2d/screens/help_center_screen.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
@@ -101,7 +102,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                     Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()));
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
                 SizedBox(
@@ -135,7 +139,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ProfileScreen()));
+                                        builder: (context) => ProfileSummaryScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.person_outline),
@@ -189,10 +193,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 InkWell(
                   onTap: () {
       
-                    Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileSummaryScreen()));
+                    // Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                     builder: (context) => ProfileSummaryScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.currency_pound_outlined),

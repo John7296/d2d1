@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
@@ -11,8 +12,11 @@ import 'package:project_d2d/screens/support_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class ProfileSummaryScreen extends StatefulWidget {
-  // StaffProfile? profile;
-  // ProfileSummaryScreen(this.profile);
+  // String? staffname;
+  // String? catName;
+  // double? earings;
+
+  ProfileSummaryScreen();
 
   @override
   State<ProfileSummaryScreen> createState() => _ProfileSummaryScreenState();
@@ -28,7 +32,7 @@ class _ProfileSummaryScreenState
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       staffProfile();
-      paymentHistory();
+      
 
       // _updateDeviceToken();
     });
@@ -53,6 +57,7 @@ class _ProfileSummaryScreenState
 
         //   emailSent = true;
       });
+      paymentHistory();
       //  Navigator.pushReplacement(
       //                 context,
       //                 MaterialPageRoute(
@@ -81,8 +86,7 @@ class _ProfileSummaryScreenState
     }).catchError((e) {
       hideLoader();
       showFlashMsg(e.toString());
-      print(e);
-      showFlashMsg(e.Message!);
+      
     });
   }
 
@@ -122,9 +126,14 @@ class _ProfileSummaryScreenState
               backgroundColor: Color(0xffF3B7BF),
               child: CircleAvatar(
                 radius: 35,
-                child: Image(
-                  image: AssetImage("assets/images/profile_img.png"),
-                ),
+                child: CachedNetworkImage(
+                                    imageUrl:
+
+                                    profile.isNotEmpty?
+                                        "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+                // Image(
+                //   image: AssetImage("assets/images/profile_img.png"),
+                // ),
               ),
             ),
 
@@ -132,6 +141,7 @@ class _ProfileSummaryScreenState
                 child: Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
+                // widget.staffname.toString(),
                 profile.isNotEmpty
                     ?
                     //    "Mary James",
@@ -151,7 +161,8 @@ class _ProfileSummaryScreenState
                 child: Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                profile.isNotEmpty ? profile[0].catName ?? '' : "",
+                //widget.catName.toString(),
+               profile.isNotEmpty ? profile[0].catName ?? '' : "",
                 // "Theatre practitioner",
                 //  profile.first.catName.toString(),
                 style: TextStyle(color: Color(0xff95969D), fontSize: 14),
@@ -180,6 +191,7 @@ class _ProfileSummaryScreenState
                         Icon(Icons.currency_pound_outlined,
                             color: Color(0xff07701E), size: 30),
                         Text(
+                         // widget.earings.toString(),
                           profile.isNotEmpty
                               ? profile[0].totalEarnings.toString()
                               : "",
