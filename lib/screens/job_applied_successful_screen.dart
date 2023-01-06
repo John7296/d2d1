@@ -8,8 +8,15 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobAppliedSuccessfulScreen extends StatefulWidget {
-  JobAppliedSuccessfulScreen(this.jobCatName, this.hourlyRate, this.clientName,
-      this.shiftName, this.startDateTime, this.jobLocation, this.isRequested,this.context);
+  JobAppliedSuccessfulScreen(
+      this.jobCatName,
+      this.hourlyRate,
+      this.clientName,
+      this.shiftName,
+      this.startDateTime,
+      this.jobLocation,
+      this.isRequested,
+      this.context);
   String jobCatName;
   double hourlyRate;
   String clientName;

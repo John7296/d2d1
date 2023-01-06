@@ -37,6 +37,8 @@ class NetworkManager {
   late int? userId;
   late int? staffId;
   late String? userToken;
+  late int? jobId;
+  late int? timesheetId;
 
   init() {
     dio = Dio();
@@ -55,6 +57,15 @@ class NetworkManager {
 
     SessionsManager.getStaffId().then((value) {
       staffId = value ?? 0;
+    });
+
+    SessionsManager.getJobId().then((value) {
+      jobId = value ?? 0;
+      print("JobID1 ${jobId}");
+    });
+
+    SessionsManager.getTimesheetId().then((value) {
+      timesheetId = value ?? 0;
     });
   }
 

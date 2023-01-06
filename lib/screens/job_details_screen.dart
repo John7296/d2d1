@@ -8,6 +8,7 @@ import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/jobdetails.dart';
+import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
@@ -61,7 +62,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       NetworkManager.shared.userToken!,
       "getJobDetailsByJobIdStaffId",
       NetworkManager.shared.staffId!,
-      2,
+      NetworkManager.shared.jobId!,
     )
         .then((BaseResponse<List<JobDetails>> response) {
       hideLoader();
@@ -77,11 +78,11 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
 
   void onApplyButtonTapped() {
     showLoader();
-    NetworkManager.shared.applyJob(
-        NetworkManager.shared.userToken!, <String, dynamic>{
+    NetworkManager.shared
+        .applyJob(NetworkManager.shared.userToken!, <String, dynamic>{
       "sp": "insApplyJob",
       "staffId": NetworkManager.shared.staffId,
-      "jobId": "1"
+      "jobId": NetworkManager.shared.jobId,
     }).then((BaseResponse<ApplyJob> response) {
       hideLoader();
 
@@ -281,6 +282,12 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                     icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                     onPressed: () {
                       Navigator.pop(context);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => AvailableJobsScreen(),
+                      //     ),
+                      //   );
                     },
                   ),
                 ),

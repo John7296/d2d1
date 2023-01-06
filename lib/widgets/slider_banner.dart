@@ -39,6 +39,7 @@ class _SliderBannerHomeWidgetState
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
+  
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
@@ -66,6 +67,17 @@ class _SliderBannerHomeWidgetState
                     children: [
                       InkWell(
                         onTap: () {
+                              SessionsManager.saveJobId(jobList[index].jobId ?? 0);
+
+      NetworkManager.shared.jobId = jobList[index].jobId ?? 0;
+
+      print("JobID2 ${NetworkManager.shared.jobId}");
+
+      NetworkManager.shared.refreshTokens();
+
+
+
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -76,7 +88,7 @@ class _SliderBannerHomeWidgetState
                                   jobList[index].jobLocation ?? '',
                                   jobList[index].startDateTime ?? '',
                                   jobList[index].shiftName ?? '',
-                                  jobList[index].isRequsted??'',
+                                  jobList[index].isRequsted ?? '',
                                   context),
                             ),
                           );
