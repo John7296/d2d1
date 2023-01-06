@@ -21,40 +21,35 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
 
   bool _obscureText = true;
 
-  void onRegisterButtonTapped(){
-
-     if (!_form.currentState!.validate()) {
+  void onRegisterButtonTapped() {
+    if (!_form.currentState!.validate()) {
       return;
     }
 
     Map<String, dynamic> map = {
-       "sp":"insertusers",
-    "Fullname":_usernameController.text,
-    "Email":_emailController.text,
-    "PhoneNo":_phoneController.text,
-    "Password":_passwordController.text,
-    "roleId":8,
-    "Status":1
-  
+      "sp": "insertusers",
+      "Fullname": _usernameController.text,
+      "Email": _emailController.text,
+      "PhoneNo": _phoneController.text,
+      "Password": _passwordController.text,
+      "roleId": 8,
+      "Status": 1
     };
 
     print(_usernameController);
-     showLoader();
-    NetworkManager.shared
-        .newRegister(map)
-        .then((BaseResponse response) {
+    showLoader();
+    NetworkManager.shared.newRegister(map).then((BaseResponse response) {
       hideLoader();
       showFlashMsg('Successfully Registered');
       // SessionsManager.saveUserId(response.data?. ?? 0);
 
       print(response.data);
       print("////////////////////////////");
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return LoginScreen();
+        },
+      ), (route) => false);
     }).catchError((e) {
       hideLoader();
       showFlashMsg(e.toString());
@@ -70,27 +65,30 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 50),
+              //   child: Row(
+              //     children: [
+              //       IconButton(
+              //           onPressed: () {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (context) => LoginScreen()));
+              //           },
+              //           icon: Icon(Icons.arrow_back_ios_new)),
+              //     ],
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                        },
-                        icon: Icon(Icons.arrow_back_ios_new)),
-                  ],
-                ),
-              ),
-              Container(
-                height: 70,
-          width: 180,
-                child: Image(
-                  image: AssetImage("assets/images/logo.png"),
-                  fit: BoxFit.contain,
+                padding: const EdgeInsets.only(top: 70),
+                child: Container(
+                  height: 70,
+                  width: 180,
+                  child: Image(
+                    image: AssetImage("assets/images/logo.png"),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               Padding(
@@ -347,10 +345,12 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           ),
                           TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
+                                Navigator.pushAndRemoveUntil(context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginScreen()));
+                                  builder: (BuildContext context) {
+                                    return LoginScreen();
+                                  },
+                                ), (route) => false);
                               },
                               child: Text(
                                 "Login",
@@ -371,7 +371,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

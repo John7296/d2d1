@@ -492,7 +492,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Row(
               children: [
                 Text("Time Sheets",
@@ -672,7 +672,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 40),
+            padding: const EdgeInsets.only(left: 20, top: 20),
             child: Row(
               children: [
                 Text("Training Status",

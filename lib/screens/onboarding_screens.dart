@@ -16,7 +16,7 @@ class OnboardingScreens extends StatefulWidget {
 class _OnboardingScreensState extends State<OnboardingScreens> {
   var _currentIndex = 0;
   List<OnBoard> _onBoardList = [];
-  
+
   final _controller = PageController();
   Size stackSizeSize = Size(0.0, 0.0);
 
@@ -85,7 +85,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                           //     borderRadius: BorderRadius.only(
                           //       bottomLeft: Radius.circular(600),
                           //       bottomRight: Radius.circular(600),
-                              
+
                           //     ),
                           //     color: Color(0xfff9d7de),
                           //   ),
@@ -99,10 +99,11 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                           ),
 
                           SizedBox(height: 40),
-                         
+
                           Center(
                             child: Image(
-                              image: AssetImage("assets/images/${_onBoardList[position].image}"),
+                              image: AssetImage(
+                                  "assets/images/${_onBoardList[position].image}"),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -139,11 +140,11 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 60),
+                      horizontal: 40.0, vertical: 30),
                   child: _currentIndex == 3
                       ? SizedBox(
                           width: double.infinity,
-                          height:60,
+                          height: 60,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xffFD425B),
@@ -151,10 +152,12 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                             onPressed: () {
                               SessionsManager.saveOnBoarded("");
 
-                              Navigator.push(
-                                  context,
+                              Navigator.pushAndRemoveUntil(context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
+                                builder: (BuildContext context) {
+                                  return RegisterScreen();
+                                },
+                              ), (route) => false);
                             },
                             child: Center(
                                 child: Text(
@@ -203,10 +206,12 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                                 InkWell(
                                   onTap: () {
                                     SessionsManager.saveOnBoarded("");
-                                   Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
+                                     Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return RegisterScreen();
+                                  },
+                                ), (route) => false);
                                   },
                                   child: const Text(
                                     'Skip',
@@ -232,7 +237,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                                               width: 2.0)))),
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 15.0, horizontal: 40.0),
+                                    vertical: 15.0, horizontal: 30.0),
                                 child: Text(
                                   'Next',
                                   style: TextStyle(
