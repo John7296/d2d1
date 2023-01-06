@@ -16,6 +16,8 @@ import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
+import 'package:project_d2d/screens/profile_summary_screen.dart';
+import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';

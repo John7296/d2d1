@@ -6,11 +6,13 @@ import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
 import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/screens/edit_profile.dart';
 
 import 'package:project_d2d/screens/profile_summary_screen.dart';
+import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -19,51 +21,42 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
-
   List<StaffProfile> profile = [];
-   List<TrainingStatus> training = [];
-     List<JobRequest> jobs = [];
-     List<TimesheetBanner> banner= [];
+  List<TrainingStatus> training = [];
+  List<JobRequest> jobs = [];
+  List<TimesheetBanner> banner = [];
   @override
   void initState() {
     super.initState();
 
-      Future.delayed(const Duration(milliseconds: 500), () {
-       staffProfile();
-    trainingStatus();
-    recentJobRequest();
-    timeSheetBanner();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      staffProfile();
+      //  trainingStatus();
+      // recentJobRequest();
+      // timeSheetBanner();
 
       // _updateDeviceToken();
     });
-  
   }
 
   void staffProfile() {
-    
+    showLoader();
     NetworkManager.shared
-        .staffProfile(NetworkManager.shared.userToken??'', "getStaffProfilebyid", NetworkManager.shared.staffId??0)
+        .staffProfile(NetworkManager.shared.userToken ?? '',
+            "getStaffProfilebyid", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<StaffProfile>> response) {
-      //  hideLoader();
-      // var profile = response.data!;
-      //   print(profile.first.staffName);
-      //   print("...................");
-      // print(_emailController.text);
+     hideLoader();
+      
       print(response.data?.first.staffName);
       print("...................");
       setState(() {
-      profile.clear();
-      profile.addAll(response.data!);
-     
-      //   emailSent = true;
+        profile.clear();
+        profile.addAll(response.data!);
+
       });
-      //  Navigator.pushReplacement(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 VerifyOtpScreen()));
+      recentJobRequest();
     }).catchError((e) {
-       hideLoader();
+      hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
@@ -71,23 +64,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   }
 
   void trainingStatus() {
+  
     NetworkManager.shared
-        .trainingStatus(NetworkManager.shared.userToken!, "getTrainingStatus",NetworkManager.shared.staffId!)
+        .trainingStatus(NetworkManager.shared.userToken ?? '',
+            "getTrainingStatus", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<TrainingStatus>> response) {
-      //  hideLoader();
+      hideLoader();
       setState(() {
-      training.clear();
-      training.addAll(response.data!);
-     
-      //   emailSent = true;
+        training.clear();
+        training.addAll(response.data!);
       });
-      //  Navigator.pushReplacement(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 VerifyOtpScreen()));
+      
     }).catchError((e) {
-       hideLoader();
+      hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
@@ -95,40 +84,40 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   }
 
   void recentJobRequest() {
+ 
     NetworkManager.shared
-        .recentJobRequest(NetworkManager.shared.userToken??'', "getRecentRequstedJobs",NetworkManager.shared.staffId??0)
+        .recentJobRequest(NetworkManager.shared.userToken ?? '',
+            "getRecentRequstedJobs", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<JobRequest>> response) {
-      //  hideLoader();
+       hideLoader();
       setState(() {
-      jobs.clear();
-      jobs.addAll(response.data!);
+        jobs.clear();
+        jobs.addAll(response.data!);
 
-       print(response.data?.first.allocatedOn);
-      print("...................");
-     
-      //   emailSent = true;
-      });
-     
+        print(response.data?.first.allocatedOn);
+        print("...................");
+
+     });
+     timeSheetBanner();
     }).catchError((e) {
-      //  hideLoader();
-      // showFlashMsg(e.toString());
-      // print(e);
-      // showFlashMsg(e.Message!);
+   
     });
   }
 
-   void timeSheetBanner() {
+  void timeSheetBanner() {
+ 
     NetworkManager.shared
-        .timeSheetBanner(NetworkManager.shared.userToken??'', "getStaffTimesheetBannerById", NetworkManager.shared.staffId??0)
+        .timeSheetBanner(NetworkManager.shared.userToken ?? '',
+            "getStaffTimesheetBannerById", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<TimesheetBanner>> response) {
-      //  hideLoader();
+      hideLoader();
       setState(() {
-      banner.clear();
-      banner.addAll(response.data!);
-     
-      //   emailSent = true;
+        banner.clear();
+        banner.addAll(response.data!);
+
+        //   emailSent = true;
       });
-     
+      trainingStatus();
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
@@ -154,11 +143,10 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 Spacer(),
                 TextButton(
                     onPressed: () {
-                           Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditProfile()));
-
                     },
                     child: Text("Edit",
                         style:
@@ -176,35 +164,54 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ),
             ),
           ),
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-             child: Text(
-            //    "Mary James",
-               profile.first.staffName.toString(),
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 22),
-            ),
-          )),
+         
+            Center(
+                child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                profile.isNotEmpty
+                    ?
+                   
+
+                    profile[0].staffName??''
+                    : "",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 22),
+              ),
+            )),
+
           Center(
               child: Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
+              profile.isNotEmpty
+                  ?
+                 
+
+                  profile[0].catName??''
+                  : "",
               // "Theatre practitioner",
-              profile.first.catName.toString(),
+              //profile.first.catName.toString(),
               style: TextStyle(color: Color(0xff95969D), fontSize: 14),
             ),
           )),
+       
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
+                  profile.isNotEmpty
+                      ?
+                
+
+                      profile[0].jobsCount.toString()
+                      : "",
                   // "27",
-                   profile.first.jobsCount.toString(),
+                  // profile.first.jobsCount.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
@@ -213,8 +220,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 60),
                   child: Text(
+                    profile.isNotEmpty
+                        ?
+                        
+
+                        profile[0].timeSheetCount.toString()
+                        : "",
                     // "89",
-                    profile.first.timeSheetCount.toString(),
+                    // profile.first.timeSheetCount.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -224,8 +237,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Text(
+                    profile.isNotEmpty
+                        ?
+                   
+
+                        profile[0].passportExpy??''
+                        : "",
                     // "13 Nov 2024",
-                    profile.first.passportExpy.toString(),
+                    // profile.first.passportExpy.toString(),
                     // maxLines: 2,
                     style: TextStyle(
                         color: Color(0xffF41937),
@@ -242,13 +261,25 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           MaterialPageRoute(
                               builder: (context) => ProfileSummaryScreen()));
                     },
-                    child: Text(
-                      // "\$3435.00",
-                       "\$ ${profile.first.totalEarnings.toString()}",
-                      style: TextStyle(
-                          color: kGreenColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15),
+                    child: Row(
+                      children: [
+                        Icon(Icons.currency_pound_outlined,
+                            color: kGreenColor, size: 20),
+                        Text(
+                          profile.isNotEmpty
+                              ?
+                          
+
+                              profile[0].totalEarnings.toString()
+                              : "",
+                          // "\$3435.00",
+                          //profile.first.totalEarnings.toString(),
+                          style: TextStyle(
+                              color: kGreenColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -259,7 +290,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.start,
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Jobs",
@@ -317,6 +348,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Container(
@@ -355,15 +387,21 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
+                                  jobs.isNotEmpty
+                                      ? jobs[0].profession.toString()
+                                      : "",
                                   // "Dialysis Specialist",
-                                   jobs.first.profession.toString(),
+                                  //jobs.first.profession.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
                               Text(
-                                // "Agate House",
-                                jobs.first.clientName.toString(),
+                                jobs.isNotEmpty
+                                      ? jobs[0].clientName.toString()
+                                      : "",
+                                  // "Agate House",
+                                 // jobs.first.clientName??'',
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
@@ -385,8 +423,11 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                     color: Color(0xff413E3E),
                                   ),
                                   Text(
-                                    // "Agate East",
-                                     jobs.first.staffLocation.toString(),
+                                      jobs.isNotEmpty
+                                          ? jobs[0].staffLocation.toString()
+                                          : "",
+                                      // "Agate East",
+                                      //  jobs.first.staffLocation.toString(),
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500)),
@@ -399,10 +440,13 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                     color: Color(0xffAFB0B6),
                                   ),
                                   Text(
-                                    // "11 Nov 2022",
-                                    jobs.first.allocatedOn.toString(),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                      jobs.isNotEmpty
+                                          ? jobs[0].allocatedOn.toString()
+                                          : "",
+                                      // "11 Nov 2022",
+                                      //jobs.first.allocatedOn.toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           color: Color(0xff0D0D26),
                                           fontSize: 13,
@@ -444,86 +488,34 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                 Spacer(),
-                Text("See all",
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xffAFB0B6),
-                    )),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TimeSheetScreen()));
+                  },
+                  child: Text("See all",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xffAFB0B6),
+                      )),
+                ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Row(
-              children: [
-                Container(
-                  height: 70,
-                  width: 180,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    //color: Colors.green,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Color(0xffFDD9DE),
-                              child: Container(
-                                width: 50,
-                                height: 40,
-                                child: Image(
-                                  image: AssetImage(
-                                    "assets/images/ic_time_1.png",
-                                  ),
-                                  fit: BoxFit.fill,
-                                  //    width:50,
-                                  // height:50
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 13),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // "7 Pending",
-                             " ${banner.first.jobPending.toString()} Pending",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xffFD425B))),
-                            Padding(
-                              padding: const EdgeInsets.only(left:3),
-                              child: Text(
-                                // "Agate House",
-                                banner.first.clientName.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12, color: Color(0xffAFB0B6))),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                 SizedBox(width: 5),
-                // Spacer(),
-                Expanded(
-                  child: Container(
+       
+       
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Row(
+                children: [
+                  Container(
                     height: 70,
                     width: 180,
                     decoration: BoxDecoration(
                       color: Colors.white70,
-                      // color: Colors.green,
+                      //color: Colors.green,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(
@@ -551,27 +543,35 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             ],
                           ),
                         ),
-                        // SizedBox(width: 10),
-                  
                         Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 13),
+                          padding: const EdgeInsets.only(left: 5, top: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                // "85 Approved",
-                                 " ${banner.first.jobApproved.toString()} Approved",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: kGreenprogressColor)),
                               Padding(
-                                padding: const EdgeInsets.only(left:3),
+                                padding: const EdgeInsets.only(left: 3),
                                 child: Text(
-                                  // "Agate House",
-                                  banner.first.clientName.toString(),
+                                    banner.isNotEmpty
+                                        ? "${banner[0].jobPending.toString()} Pending"
+                                        : "",
+                                    // "7 Pending",
+                                    //  " ${banner.first.jobPending.toString()} Pending",
                                     style: TextStyle(
-                                        fontSize: 12, color: Color(0xffAFB0B6))),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xffFD425B))),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3),
+                                child: Text(
+                                    banner.isNotEmpty
+                                        ? banner[0].clientName.toString()
+                                        : "",
+                                    // "Agate House",
+                                    // banner.first.clientName.toString(),
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xffAFB0B6))),
                               ),
                             ],
                           ),
@@ -579,10 +579,87 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ],
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(width: 5),
+                  
+                  
+                    // Spacer(),
+                    Expanded(
+                      child: Container(
+                        height: 70,
+                        width: 180,
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          // color: Colors.green,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Color(0xffFDD9DE),
+                                    child: Container(
+                                      width: 50,
+                                      height: 40,
+                                      child: Image(
+                                        image: AssetImage(
+                                          "assets/images/ic_time_1.png",
+                                        ),
+                                        fit: BoxFit.fill,
+                                        //    width:50,
+                                        // height:50
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // SizedBox(width: 10),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5, top: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:3),
+                                    child: Text(
+                                        banner.isNotEmpty
+                                            ? "${banner[0].jobApproved.toString()} Approved"
+                                            : "",
+                                        // "85 Approved",
+                                        //  " ${banner.first.jobApproved.toString()} Approved",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: kGreenprogressColor)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 3),
+                                    child: Text(
+                                        banner.isNotEmpty
+                                            ? banner[0].clientName.toString()
+                                            : "",
+
+                                        // "Agate House",
+                                        //  banner.first.clientName.toString(),
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xffAFB0B6))),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 40),
             child: Row(
@@ -595,142 +672,147 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ],
             ),
           ),
-
-
-          Padding(
-            padding: const EdgeInsets.only(left:20, right: 20),
-            child: Container(
-              // color: Colors.grey,
-               height: 200,
-              child: ListView.builder(
-                itemCount: training.length,
-                itemBuilder: (BuildContext context, int index){
-            
-              
-               return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+        
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Container(
+                // color: Colors.grey,
+                height: 200,
+                child: ListView.builder(
+                    itemCount: training.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Row(
+                                    //   children: [
 
-                             
-                              // Row(
-                              //   children: [
-              
-                                  // if(training.isEmpty)
-                              //     Text("Manual Handling",
-                              //         style: TextStyle(
-                              //             fontSize: 16, color: Colors.black)),
-                              //   ],
-                              // ),
-                              // SizedBox(height: 10),
-                              Text("Food Hygiene",
-                                  style:
-                                      TextStyle(fontSize: 15, color: Colors.black)),
-                              SizedBox(height: 10),
-                              // Text("Fire Awareness",
-                              //     style:
-                              //         TextStyle(fontSize: 15, color: Colors.black)),
-                              // SizedBox(height: 10),
-                              // Text("Health and Safety",
-                              //     style:
-                              //         TextStyle(fontSize: 15, color: Colors.black)),
-                              // SizedBox(height: 10),
-                              // Text("Infection Control",
-                              //     style: TextStyle(
-                              //         fontSize: 15,
-                              //         fontWeight: FontWeight.w400,
-                              //         color: Colors.black)),
+                                    // if(training.isEmpty)
+                                    //     Text("Manual Handling",
+                                    //         style: TextStyle(
+                                    //             fontSize: 16, color: Colors.black)),
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 10),
+                                    Text(
+                                        training.isNotEmpty
+                                            ? training[0]
+                                                .trainingName
+                                                .toString()
+                                            : "",
+                                        // "Food Hygiene",
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.black)),
+                                    SizedBox(height: 10),
+                                    // Text("Fire Awareness",
+                                    //     style:
+                                    //         TextStyle(fontSize: 15, color: Colors.black)),
+                                    // SizedBox(height: 10),
+                                    // Text("Health and Safety",
+                                    //     style:
+                                    //         TextStyle(fontSize: 15, color: Colors.black)),
+                                    // SizedBox(height: 10),
+                                    // Text("Infection Control",
+                                    //     style: TextStyle(
+                                    //         fontSize: 15,
+                                    //         fontWeight: FontWeight.w400,
+                                    //         color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              Column(
+                                children: [
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 150),
+                                  //   child: Text("38%"),
+                                  // ),
+                                  // LinearPercentIndicator(
+                                  //   lineHeight: 12,
+                                  //   width: 200,
+                                  //   progressColor: kGreenprogressColor,
+                                  //   backgroundColor: Color(0xffD9D9D9),
+                                  //   percent: 0.38,
+                                  //   barRadius: Radius.circular(5),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 150),
+                                    child: Text(
+                                      training.isNotEmpty
+                                          ?
+                                        
+
+                                          "${training[0].completionRate.toString()}%"
+                                          : "",
+                                      // "93%"
+                                      //"${training.first.completionRate.toString()}%",
+                                    ),
+                                  ),
+                                  LinearPercentIndicator(
+                                    lineHeight: 12,
+                                    width: 200,
+                                    progressColor: kGreenprogressColor,
+                                    backgroundColor: Color(0xffD9D9D9),
+                                    percent: 0.30,
+                                    barRadius: Radius.circular(5),
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 150),
+                                  //   child: Text("68%"),
+                                  // ),
+                                  // LinearPercentIndicator(
+                                  //   lineHeight: 12,
+                                  //   width: 200,
+                                  //   progressColor: kGreenprogressColor,
+                                  //   backgroundColor: Color(0xffD9D9D9),
+                                  //   percent: 0.68,
+                                  //   barRadius: Radius.circular(5),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 150),
+                                  //   child: Text("24%"),
+                                  // ),
+                                  // LinearPercentIndicator(
+                                  //   lineHeight: 12,
+                                  //   width: 200,
+                                  //   progressColor: kGreenprogressColor,
+                                  //   backgroundColor: Color(0xffD9D9D9),
+                                  //   percent: 0.24,
+                                  //   barRadius: Radius.circular(5),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 150),
+                                  //   child: Text("89%"),
+                                  // ),
+                                  // LinearPercentIndicator(
+                                  //   lineHeight: 12,
+                                  //   width: 200,
+                                  //   progressColor: kGreenprogressColor,
+                                  //   backgroundColor: Color(0xffD9D9D9),
+                                  //   percent: 0.89,
+                                  //   barRadius: Radius.circular(5),
+                                  // ),
+                                ],
+                              )
                             ],
                           ),
-                        ),
-                         Spacer(),
-                        Column(
-                          children: [
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 150),
-                            //   child: Text("38%"),
-                            // ),
-                            // LinearPercentIndicator(
-                            //   lineHeight: 12,
-                            //   width: 200,
-                            //   progressColor: kGreenprogressColor,
-                            //   backgroundColor: Color(0xffD9D9D9),
-                            //   percent: 0.38,
-                            //   barRadius: Radius.circular(5),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 150),
-                              child: Text(
-                                // "93%"
-                                "${training.first.completionRate.toString()}%",
-                                
-                                ),
-                            ),
-                            LinearPercentIndicator(
-                              lineHeight: 12,
-                              width: 200,
-                              progressColor: kGreenprogressColor,
-                              backgroundColor: Color(0xffD9D9D9),
-                              percent: 0.30,
-                              barRadius: Radius.circular(5),
-                            ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 150),
-                            //   child: Text("68%"),
-                            // ),
-                            // LinearPercentIndicator(
-                            //   lineHeight: 12,
-                            //   width: 200,
-                            //   progressColor: kGreenprogressColor,
-                            //   backgroundColor: Color(0xffD9D9D9),
-                            //   percent: 0.68,
-                            //   barRadius: Radius.circular(5),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 150),
-                            //   child: Text("24%"),
-                            // ),
-                            // LinearPercentIndicator(
-                            //   lineHeight: 12,
-                            //   width: 200,
-                            //   progressColor: kGreenprogressColor,
-                            //   backgroundColor: Color(0xffD9D9D9),
-                            //   percent: 0.24,
-                            //   barRadius: Radius.circular(5),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 150),
-                            //   child: Text("89%"),
-                            // ),
-                            // LinearPercentIndicator(
-                            //   lineHeight: 12,
-                            //   width: 200,
-                            //   progressColor: kGreenprogressColor,
-                            //   backgroundColor: Color(0xffD9D9D9),
-                            //   percent: 0.89,
-                            //   barRadius: Radius.circular(5),
-                            // ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                );
-                }
+                        ],
+                      );
+                    }),
               ),
-            ),
-          )
+            )
         ]),
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

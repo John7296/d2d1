@@ -39,7 +39,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
     };
 
     print(_usernameController);
-
+     showLoader();
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse response) {
