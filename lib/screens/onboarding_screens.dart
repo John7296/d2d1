@@ -62,71 +62,69 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                       });
                     },
                     itemBuilder: (context, position) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            // Expanded(
-                            //   child:
-                            // Stack(
-                            // children: <Widget>[
-                            // Container(
-                            //   width: double.infinity,
-                            //   height: 200,
-                            //   decoration: new BoxDecoration(
-                            //     color: Colors.green,
-                            //     shape: BoxShape.circle,
-                            //   ),
-                            //   child: Text('Curved View'),
-                            //   alignment: Alignment.center,
-                            // ),
-                            // Container(
-                            //   height:210,
-                            //   width: double.infinity,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.only(
-                            //       bottomLeft: Radius.circular(600),
-                            //       bottomRight: Radius.circular(600),
-                                
-                            //     ),
-                            //     color: Color(0xfff9d7de),
-                            //   ),
-                            // ),
-                            ClipPath(
-                              clipper: CurvedBottomClipper(),
-                              child: Container(
-                                color: Color(0xfff9d7de),
-                                height: 150,
-                              ),
+                      return Column(
+                        children: [
+                          // Expanded(
+                          //   child:
+                          // Stack(
+                          // children: <Widget>[
+                          // Container(
+                          //   width: double.infinity,
+                          //   height: 200,
+                          //   decoration: new BoxDecoration(
+                          //     color: Colors.green,
+                          //     shape: BoxShape.circle,
+                          //   ),
+                          //   child: Text('Curved View'),
+                          //   alignment: Alignment.center,
+                          // ),
+                          // Container(
+                          //   height:210,
+                          //   width: double.infinity,
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.only(
+                          //       bottomLeft: Radius.circular(600),
+                          //       bottomRight: Radius.circular(600),
+                              
+                          //     ),
+                          //     color: Color(0xfff9d7de),
+                          //   ),
+                          // ),
+                          ClipPath(
+                            clipper: CurvedBottomClipper(),
+                            child: Container(
+                              color: Color(0xfff9d7de),
+                              height: 150,
                             ),
+                          ),
 
-                            SizedBox(height: 40),
-                           
-                            Center(
-                              child: Image(
-                                image: AssetImage("assets/images/${_onBoardList[position].image}"),
-                                fit: BoxFit.fill,
-                              ),
+                          SizedBox(height: 40),
+                         
+                          Center(
+                            child: Image(
+                              image: AssetImage("assets/images/${_onBoardList[position].image}"),
+                              fit: BoxFit.fill,
                             ),
+                          ),
 
-                            Text(
-                              _onBoardList[position].title,
+                          Text(
+                            _onBoardList[position].title,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 28.0,
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xffFD425B)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Text(
+                              _onBoardList[position].description,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color(0xffFD425B)),
+                                  fontSize: 15.0, color: Color(0xff95969D)),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Text(
-                                _onBoardList[position].description,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontSize: 15.0, color: Color(0xff95969D)),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       );
                     },
                   ),
