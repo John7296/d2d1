@@ -98,7 +98,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
+            padding: const EdgeInsets.only(top: 20),
             child: Center(
               child: Text("Enter your new password and confirm the",
                   maxLines: 1,
@@ -108,16 +108,13 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                   )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
-            child: Center(
-              child: Text("new password to reset password",
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xffAFB0B6),
-                  )),
-            ),
+          Center(
+            child: Text("new password to reset password",
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Color(0xffAFB0B6),
+                )),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, top: 60, right: 20),

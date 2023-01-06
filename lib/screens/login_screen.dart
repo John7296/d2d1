@@ -64,6 +64,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
         return HomeScreen();
       },),(route) => false);
     }).catchError((e) {
+      hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg("Invalid username or password");
@@ -211,7 +212,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       obscureText: _obscureText,
                       controller: _passwordController,
                       validator: (val) {
-                        if (val!.isEmpty) return "Enter your password";
+                        if (val!.isEmpty) return "Enter your Password";
                         return null;
                       },
                     ),

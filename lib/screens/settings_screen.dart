@@ -139,7 +139,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ProfileSummaryScreen()));
+                                        builder: (context) => ProfileScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.person_outline),

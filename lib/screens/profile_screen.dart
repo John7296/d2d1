@@ -27,6 +27,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   List<TrainingStatus> training = [];
   List<JobRequest> jobs = [];
   List<TimesheetBanner> banner = [];
+
+  var percentvalue;
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +58,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         profile.clear();
         profile.addAll(response.data!);
 
+      
+
       });
       recentJobRequest();
     }).catchError((e) {
@@ -75,6 +80,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       setState(() {
         training.clear();
         training.addAll(response.data!);
+         
       });
       
     }).catchError((e) {

@@ -18,8 +18,11 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmpasswordController = TextEditingController();
 
   bool _obscureText = true;
+    bool _obscureText1 = true;
+
 
   void onRegisterButtonTapped() {
     if (!_form.currentState!.validate()) {
@@ -128,7 +131,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           controller: _usernameController,
                           validator: (val) {
                             if (val!.isEmpty)
-                              return "Enter E-mail or Phone Number";
+                              return "Enter your full name";
                             return null;
                           },
                           decoration: InputDecoration(
@@ -155,7 +158,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           controller: _emailController,
                           validator: (val) {
                             if (val!.isEmpty)
-                              return "Enter E-mail or Phone Number";
+                              return "Enter your E-mail ";
                             return null;
                           },
                           decoration: InputDecoration(
@@ -182,7 +185,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           controller: _phoneController,
                           validator: (val) {
                             if (val!.isEmpty)
-                              return "Enter E-mail or Phone Number";
+                              return "Enter your Phone Number";
                             return null;
                           },
                           decoration: InputDecoration(
@@ -248,59 +251,58 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           controller: _passwordController,
                           validator: (val) {
                             if (val!.isEmpty) return "Enter your password";
+                             if (val.length < 8) {
+                        return 'Must be more than 8 character';
+                      }
                             return null;
                           }),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 20, right: 20),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.
-                              //only(left:10, top:5, bottom:5),
-                              symmetric(vertical: 20, horizontal: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xffAFB0B6)),
-                          ),
-                          labelText: "  Confirm Password",
-                          labelStyle: TextStyle(
-                              color: Color(0xffAFB0B6),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: IconButton(
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Color(0xffCACBCE),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                            ),
-                          ),
-                          // suffixIcon: Padding(
-                          //   padding: const EdgeInsets.only(right: 20),
-                          //   child: Icon(
-                          //     Icons.visibility,
-                          //     color: Color(0xffCACBCE),
-                          //   ),
-                          // )
-                        ),
-                        //   obscureText: _obscureText,
-                        // controller: _passwordController,
-                        // validator: (val) {
-                        //   if (val!.isEmpty) return "Enter your password";
-                        //   return null;
-                        // }
+              padding: const EdgeInsets.only( left:20, right:20,top: 20),
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.
+                          //only(left:10, top:5, bottom:5),
+                          symmetric(vertical: 20, horizontal: 10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
-                    ),
+                      labelText: "   Confirm New Password",
+                      labelStyle: TextStyle(color: Color(0xffAFB0B6), fontSize: 15),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: IconButton(
+                         onPressed: () {
+                              setState(() {
+                              _obscureText1=!_obscureText1;
+                            });
+                            },
+                            icon: Icon(
+                                  _obscureText1?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                            color: Color(0xffCACBCE),
+                          ),
+                        ),
+                      )),
+                      
+                      obscureText:_obscureText1,
+                        controller: _confirmpasswordController,
+                        validator: (val) {
+                         if (val!.isEmpty) {
+                        return "Re-type password";
+                      }
+                      if (val != _passwordController.text) {
+                        return "Password should be same";
+                      }
+                      if (val.length < 8) {
+                        return 'Must be more than 8 character';
+                      }
+                      return null;
+                        }
+                      ),
+                      ),
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 30),
@@ -332,7 +334,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                     ),
                     Center(
                         child: Padding(
-                      padding: const EdgeInsets.only(top: 70),
+                      padding: const EdgeInsets.only(top: 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
