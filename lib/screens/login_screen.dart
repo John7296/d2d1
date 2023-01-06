@@ -41,17 +41,14 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
 
     String username = _usernameController.text;
     String password = _passwordController.text;
-     showLoader();
-    NetworkManager.shared.userLogin(
-    
-        <String, dynamic>{
-          "sp": "getAuthenticationApp",
-          "logname": username,
-          "passwd": password,
-        }).then((BaseResponse<List<User>> response) {
-           hideLoader();
+    showLoader();
+    NetworkManager.shared.userLogin(<String, dynamic>{
+      "sp": "getAuthenticationApp",
+      "logname": username,
+      "passwd": password,
+    }).then((BaseResponse<List<User>> response) {
+      hideLoader();
 
-    
       SessionsManager.saveUserToken(response.data?.first.token ?? '');
       SessionsManager.saveUserId(response.data?.first.userId ?? 0);
       SessionsManager.saveStaffId(response.data?.first.staffId ?? 0);
@@ -60,9 +57,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       NetworkManager.shared.userId = response.data?.first.userId ?? 0;
       NetworkManager.shared.staffId = response.data?.first.staffId ?? 0;
 
-
       NetworkManager.shared.refreshTokens();
-       showFlashMsg("Succesfully Logged In");
+      showFlashMsg(response.message.toString());
 
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
         return HomeScreen();
