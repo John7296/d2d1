@@ -46,8 +46,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       // _updateDeviceToken();
       getJob();
-      getTimeSheetDetails();
+      
     });
+    getTimeSheetDetails();
   }
 
   void getTimeSheetDetails() {
@@ -130,6 +131,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
+          
       hideLoader();
       setState(() {
         jobList.clear();
