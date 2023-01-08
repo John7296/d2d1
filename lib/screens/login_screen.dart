@@ -60,9 +60,11 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       NetworkManager.shared.refreshTokens();
       showFlashMsg(response.message.toString());
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return HomeScreen();
+      },),(route) => false);
     }).catchError((e) {
+      hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg("Invalid username or password");
@@ -78,24 +80,27 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
         backgroundColor: Color(0xffFFFFFF),
         body: SingleChildScrollView(
           child: Column(children: [
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 50),
+            //   child: Row(
+            //     children: [
+            //       // IconButton(
+            //       //     onPressed: () {
+            //       //       //  Navigator.pop(context);
+            //       //     },
+            //       //     icon: Icon(Icons.arrow_back_ios_new)),
+            //     ],
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        //  Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back_ios_new)),
-                ],
-              ),
-            ),
-            Container(
-              height: 70,
-              width: 180,
-              child: Image(
-                image: AssetImage("assets/images/logo.png"),
-                fit: BoxFit.fill,
+              padding: const EdgeInsets.only(top:120),
+              child: Container(
+                height: 70,
+                width: 180,
+                child: Image(
+                  image: AssetImage("assets/images/logo.png"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Padding(
@@ -207,7 +212,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       obscureText: _obscureText,
                       controller: _passwordController,
                       validator: (val) {
-                        if (val!.isEmpty) return "Enter your password";
+                        if (val!.isEmpty) return "Enter your Password";
                         return null;
                       },
                     ),

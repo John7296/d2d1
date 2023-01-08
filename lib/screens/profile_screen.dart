@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -10,6 +11,7 @@ import 'package:project_d2d/model/timesheet.dart';
 import 'package:project_d2d/model/timesheet_banner.dart';
 import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/screens/edit_profile.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 
 import 'package:project_d2d/screens/profile_summary_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
@@ -25,6 +27,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   List<TrainingStatus> training = [];
   List<JobRequest> jobs = [];
   List<TimesheetBanner> banner = [];
+
+  var percentvalue;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +58,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         profile.clear();
         profile.addAll(response.data!);
 
+      
+
       });
       recentJobRequest();
     }).catchError((e) {
@@ -73,6 +80,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       setState(() {
         training.clear();
         training.addAll(response.data!);
+         
       });
       
     }).catchError((e) {
@@ -137,7 +145,10 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                     Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>HomeScreen()));
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
                 Spacer(),
@@ -159,9 +170,15 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             backgroundColor: Color(0xffF3B7BF),
             child: CircleAvatar(
               radius: 35,
-              child: Image(
-                image: AssetImage("assets/images/profile_img.png"),
-              ),
+              child: CachedNetworkImage(
+                                    imageUrl:
+
+                                    profile.isNotEmpty?
+                                        "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+              
+              // Image(
+              //   image: AssetImage("assets/images/profile_img.png"),
+              // ),
             ),
           ),
          
@@ -481,7 +498,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Row(
               children: [
                 Text("Time Sheets",
@@ -661,7 +678,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 40),
+            padding: const EdgeInsets.only(left: 20, top: 20),
             child: Row(
               children: [
                 Text("Training Status",

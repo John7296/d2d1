@@ -109,7 +109,7 @@ abstract class NetworkConnection {
   Future<BaseResponse<List<Payment>>> paymentHistory(
     @Header("token") String? token,
     @Query("sp") String? sp,
-    @Query("staffId") int? staffId,
+    @Query("userId") int? userId,
   );
 
 

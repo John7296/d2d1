@@ -80,6 +80,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
   @override
   Widget build(BuildContext context) {
    return MaterialApp(
+    theme: ThemeData(fontFamily: "Poppins"),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
@@ -89,7 +90,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
             children: [
         
               Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 40),
               child: Row(
                 children: [
                   IconButton(
@@ -98,17 +99,17 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),
                   Spacer(),
-                  TextButton(
-                      onPressed: () {
-                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile()));
+                  // TextButton(
+                  //     onPressed: () {
+                  //           //  Navigator.push(
+                  //           // context,
+                  //           // MaterialPageRoute(
+                  //           //     builder: (context) => EditProfile()));
         
-                      },
-                      child: Text("Edit",
-                          style:
-                              TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
+                  //     },
+                  //     child: Text("Edit",
+                  //         style:
+                  //             TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
                 ],
               ),
             ),
@@ -116,7 +117,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                 child: Form(
                   key: _form,
                   child: Padding(
-                    padding: const EdgeInsets.only(top:100),
+                    padding: const EdgeInsets.only(top:60),
                     child: Column(
                       children: [
                         // SizedBox(height: 30),

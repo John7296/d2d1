@@ -93,8 +93,8 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<JobRequest>>> recentJobRequest(
-      String userToken, String sp, int staffId) {
-    return call(networkConnection.recentJobRequest(userToken, sp, staffId));
+      String userToken, String sp, int userId) {
+    return call(networkConnection.recentJobRequest(userToken, sp, userId));
   }
 
   Future<BaseResponse<List<Payment>>> paymentHistory(

@@ -32,7 +32,7 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
 
    "sp":"verifyOTP",
     "userId":NetworkManager.shared.userId,
-    "OTP":"555555"
+    "OTP":_otpController.text
 
     }).then((BaseResponse response) {
 
@@ -97,7 +97,7 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
+            padding: const EdgeInsets.only(top:20),
             child: Center(
               child: Text("Enter your verification code from your email ",
                   maxLines: 1,
@@ -107,16 +107,13 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
                   )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
-            child: Center(
-              child: Text("or phone number that we've sent",
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xffAFB0B6),
-                  )),
-            ),
+          Center(
+            child: Text("or phone number that we've sent",
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Color(0xffAFB0B6),
+                )),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 100, left: 29, right: 29),

@@ -20,6 +20,7 @@ StaffProfile _$StaffProfileFromJson(Map<String, dynamic> json) => StaffProfile(
       passportExpy: json['passportExpy'] as String?,
       totalEarnings: (json['totalEarnings'] as num?)?.toDouble(),
       catName: json['catName'] as String?,
+      profilePhoto: json['profilePhoto'] as String?,
     )..email = json['Email'] as String?;
 
 Map<String, dynamic> _$StaffProfileToJson(StaffProfile instance) =>
@@ -38,4 +39,5 @@ Map<String, dynamic> _$StaffProfileToJson(StaffProfile instance) =>
       'passportExpy': instance.passportExpy,
       'totalEarnings': instance.totalEarnings,
       'catName': instance.catName,
+      'profilePhoto': instance.profilePhoto,
     };

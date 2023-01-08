@@ -183,6 +183,10 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                               if (val!.isEmpty) {
                                 return "Please enter new password";
                               }
+
+                              if(val ==_passwordController.text){
+                                return "Password should not be the same as current password";
+                              }
                               return null;
                             }
                           
@@ -225,10 +229,10 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                          if (val!.isEmpty) {
                         return "Re-type password";
                       }
-                      if (val != _passwordController.text) {
+                      if (val != _newpasswordController.text) {
                         return "Password should be same";
                       }
-                      if (val.length < 8) {
+                      if (val.length < 6) {
                         return 'Must be more than 6 character';
                       }
                       return null;

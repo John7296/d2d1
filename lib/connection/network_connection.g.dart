@@ -386,12 +386,12 @@ class _NetworkConnection implements NetworkConnection {
   Future<BaseResponse<List<Payment>>> paymentHistory(
     token,
     sp,
-    staffId,
+    userId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'sp': sp,
-      r'staffId': staffId,
+      r'userId': userId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'token': token};

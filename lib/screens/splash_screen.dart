@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       Duration(seconds: 3),
       () => {
-      _checkTokenAndNavigate(),
+       //_checkTokenAndNavigate(),
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Onboarding()))
       },

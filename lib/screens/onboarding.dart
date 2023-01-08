@@ -39,11 +39,9 @@ class _OnboardingState extends State<Onboarding> {
       
             InkWell(
               onTap: (){
-                Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                     OnboardingScreens()));
+               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return OnboardingScreens();
+      },),(route) => false);
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom:130),

@@ -51,6 +51,9 @@ class StaffProfile{
      @JsonKey(name: 'catName')
   String? catName;
 
+  @JsonKey(name: 'profilePhoto')
+  String? profilePhoto;
+
   StaffProfile({
    
    this.staffId,
@@ -65,7 +68,8 @@ class StaffProfile{
    this.timeSheetCount,
    this.passportExpy,
    this.totalEarnings,
-   this.catName
+   this.catName,
+   this.profilePhoto,
   });
 
 
