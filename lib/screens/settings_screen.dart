@@ -21,75 +21,59 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
 
-  void onContinueBtntapped(){
-   
-
-  
-    NetworkManager.shared.resetPassword(NetworkManager.shared.userToken??'', <String, dynamic>{
-
-  
-    "sp":"deleteUser",
-    "userId":NetworkManager.shared.userId,
-   
-
+  void onContinueBtntapped() {
+    NetworkManager.shared
+        .resetPassword(NetworkManager.shared.userToken ?? '', <String, dynamic>{
+      "sp": "deleteUser",
+      "userId": NetworkManager.shared.userId,
     }).then((BaseResponse response) {
-
-  
       // print(_emailController.text);
       // setState(() {
       //   emailSent = true;
       // });
-       Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      LogoutScreen()));
-     
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LogoutScreen()));
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
       // print(e);
       // showFlashMsg(e.Message!);
     });
-
   }
 
-   showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Continue"),
+      onPressed: () {
+        onContinueBtntapped();
+      },
+    );
 
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text("Cancel"),
-    onPressed:  () {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text("Are you sure you want to delete account?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
 
-     Navigator.of(context).pop();
-    },
-  );
-  Widget continueButton = TextButton(
-    child: Text("Continue"),
-    onPressed:  () {
-       onContinueBtntapped();
-
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Alert"),
-    content: Text("Are you sure you want to delete account?"),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +86,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
                 SizedBox(
@@ -137,9 +121,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 InkWell(
                   onTap: () {
                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileScreen()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.person_outline),
@@ -154,11 +138,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 InkWell(
                   onTap: () {
-      
-                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ChangePasswordScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangePasswordScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.password_outlined),
@@ -173,11 +156,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 InkWell(
                   onTap: () {
-      
                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AvailableJobsScreen()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AvailableJobsScreen(
+                                  fromHome: false,
+                                )));
                   },
                   child: ListTile(
                     leading: Icon(Icons.work_outline),
@@ -192,11 +176,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 InkWell(
                   onTap: () {
-      
                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileSummaryScreen()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileSummaryScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.currency_pound_outlined),
@@ -211,12 +194,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    
                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>NotificationScreen()));
-      
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationScreen()));
                   },
                   child: ListTile(
                     leading: Icon(Icons.notifications_active_outlined),
@@ -266,10 +247,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>PrivacyPolicyScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PrivacyPolicyScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.privacy_tip_outlined),
@@ -285,9 +266,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>TermsAndConditionScreen()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TermsAndConditionScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.note_add_outlined),
@@ -302,10 +284,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>HelpCenterScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HelpCenterScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.help_center_outlined),
@@ -320,10 +302,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>SupportScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SupportScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.support_outlined),
@@ -339,9 +321,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>AboutScreen()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AboutScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.info_outline),
@@ -354,8 +336,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       ),
-      
-                     
                     ],
                   ),
                 )
@@ -367,5 +347,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
-

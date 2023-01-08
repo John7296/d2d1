@@ -107,15 +107,15 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
-Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
+  Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
     return call(networkConnection.resetPassword(token, map));
   }
 
-   Future<BaseResponse> changePassword(String token, Map<String, dynamic> map) {
+  Future<BaseResponse> changePassword(String token, Map<String, dynamic> map) {
     return call(networkConnection.changePassword(token, map));
   }
 
-   Future<BaseResponse> updateProfile(String token, Map<String, dynamic> map) {
+  Future<BaseResponse> updateProfile(String token, Map<String, dynamic> map) {
     return call(networkConnection.updateProfile(token, map));
   }
 
@@ -229,8 +229,10 @@ Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
             _errorMessage = error.response?.data;
 
             if (error.response?.statusCode == 400) {
-              
-              print("error_msg${error.response?.data}");
+              print("error_msg${error.response?.data['message']}");
+              _errorMessage = error.response!.data["Message"];
+            } else if (error.response!.statusCode == 500) {
+              _errorMessage = error.message;
             }
 
             break;

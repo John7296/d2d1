@@ -41,7 +41,7 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
   }
 
   void hideLoader() {
-    Helper.hideLoader(loader);
+    Helper.hideLoader(loader!);
   }
 
   // void replaceScreen(String route) {

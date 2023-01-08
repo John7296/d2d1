@@ -14,6 +14,10 @@ import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/available_job_widget.dart';
 
 class AvailableJobsScreen extends StatefulWidget {
+  bool? fromHome;
+  
+
+  AvailableJobsScreen({super.key, this.fromHome = true});
   @override
   _AvailableJobsScreenState createState() => _AvailableJobsScreenState();
 }
@@ -73,10 +77,10 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => HomeScreen()));
+                       (widget.fromHome == true)? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen())):
                         Navigator.pop(context);
                         // getJobDetails();
                       },
