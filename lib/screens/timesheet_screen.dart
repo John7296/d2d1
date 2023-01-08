@@ -47,7 +47,6 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       getJob();
       // getTimeSheetDetails();
     });
-    
   }
 
   // void getTimeSheetDetails() {
@@ -99,20 +98,23 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
   }
 
   void onApproveButtonTapped() {
-    showLoader();
+    // showLoader();
     NetworkManager.shared
         .approveTimeSheet(NetworkManager.shared.userToken!, <String, dynamic>{
       "sp": "updApproveTimeSheet",
       "staffId": NetworkManager.shared.staffId,
       "timesheetId": NetworkManager.shared.timesheetId,
     }).then((BaseResponse<ApproveTimeSheet> response) {
-      hideLoader();
+      // if (response.data!.Message == "Success") {
+      //   // hideLoader();
 
-      // Navigator.push(
+      //   Navigator.push(
       //     context,
       //     MaterialPageRoute(
       //         builder: (context) => TimeSheetScreen()));
-      Navigator.pop(context);
+      // }
+
+      // Navigator.pop(context);
     }).catchError((e) {
       // hideLoader();
       // print(e.toString());
@@ -530,8 +532,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                   onPressed: () {
                                                     (timeSheetDetailsList[index]
                                                                 .result2![index]
-                                                                .status ==
-                                                            8)
+                                                                .status !=
+                                                            "Approved")
                                                         ? showModalBottomSheet(
                                                             // isScrollControlled: true,
                                                             context: context,
@@ -735,8 +737,10 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                                   NetworkManager.shared.timesheetId = timeSheetDetailsList[index].result2![index].timesheetId ?? 0;
 
                                                                                   NetworkManager.shared.refreshTokens();
-                                                                                  onApproveButtonTapped();
-                                                                                  showFlashMsg("Approved Successfully..!");
+
+                                                                                  setState(() {
+                                                                                    onApproveButtonTapped();
+                                                                                  });
                                                                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
                                                                                 },
                                                                                 child: Text(
