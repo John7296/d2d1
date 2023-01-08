@@ -14,6 +14,10 @@ static bool validateEmail(String value) {
         .hasMatch(value);
   }
 
+ static bool isPhone(String value) => RegExp(
+  r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'
+).hasMatch(value);
+
 
     static OverlayEntry overlayLoader(context) {
     OverlayEntry loader = OverlayEntry(builder: (context) {

@@ -140,7 +140,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 30),
+                      horizontal: 40.0, vertical: 25),
                   child: _currentIndex == 3
                       ? SizedBox(
                           width: double.infinity,

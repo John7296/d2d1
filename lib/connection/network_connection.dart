@@ -9,6 +9,7 @@ import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
+import 'package:project_d2d/model/otp.dart';
 import 'package:project_d2d/model/payment.dart';
 import 'package:project_d2d/model/settings.dart';
 import 'package:project_d2d/model/staff_profile.dart';
@@ -49,10 +50,10 @@ abstract class NetworkConnection {
   Future<BaseResponse> newRegister(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
+  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse> verifyOTP(@Body() Map<String, dynamic> map);
+  Future<BaseResponse<List<Otp>>> verifyOTP(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse> resetPassword(

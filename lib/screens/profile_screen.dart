@@ -66,7 +66,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       hideLoader();
       showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+      showFlashMsg(e.Message);
     });
   }
 
@@ -387,11 +387,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Container(
                                   height: 50,
                                   width: 50,
-                                  child: Image(
-                                    image: AssetImage(
-                                        "assets/images/homecare_logo.png"),
-                                    fit: BoxFit.fill,
-                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+
+                                    profile.isNotEmpty?
+                                        "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+                                  
+                                  // Image(
+                                  //   image: AssetImage(
+                                  //       "assets/images/homecare_logo.png"),
+                                  //   fit: BoxFit.fill,
+                                  // ),
                                 ),
                               ),
                             ],
