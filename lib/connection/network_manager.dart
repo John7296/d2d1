@@ -229,7 +229,7 @@ Future<BaseResponse> resetPassword(String token, Map<String, dynamic> map) {
 
             if (error.response?.statusCode == 400) {
               
-              print("error_msg${error.response?.data}");
+              print("error_msg${error.response?.data['message']}");
             }
 
             break;

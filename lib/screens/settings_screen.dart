@@ -173,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AvailableJobsScreen()));
+                                        builder: (context) => AvailableJobsScreen(fromHome: false,)));
                   },
                   child: ListTile(
                     leading: Icon(Icons.work_outline),
