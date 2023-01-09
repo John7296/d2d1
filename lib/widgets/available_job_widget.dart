@@ -402,7 +402,7 @@ class _AvailableJobWidgetState
               )
             : Center(
                 child: Container(
-                  child: Text("No Requested Jobs Available"),
+                  child: Text("No Jobs Available"),
                 ),
               ),
       ],
