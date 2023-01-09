@@ -42,9 +42,15 @@ class _AvailableJobWidgetState
         .then((BaseResponse<List<Job>> response) {
       setState(() {
         reqJobList.clear();
-        if (response.data!.first.isRequsted == "1") {
-          reqJobList.addAll(response.data!);
-          print(reqJobList);
+        for (var element in response.data!) {
+          if (element.isRequsted == true) {
+            reqJobList.add(element);
+            print(element);
+          }
+          // else
+          // if(element.isRequsted == false){
+          //   print(element.jobLocation);
+          // }
         }
       });
     }).catchError((e) {
@@ -95,9 +101,7 @@ class _AvailableJobWidgetState
                                                       '',
                                                   reqJobList[index].shiftName ??
                                                       '',
-                                                  reqJobList[index]
-                                                          .isRequsted ??
-                                                      '',
+                                                  reqJobList[index].isRequsted!,
                                                   context)));
                                 },
                                 child: Container(
@@ -358,13 +362,13 @@ class _AvailableJobWidgetState
                                   ),
                                 ),
                               ),
-                              if (reqJobList[index].isRequsted == "1")
+                              if (reqJobList[index].isRequsted!)
                                 Image(
                                     image: AssetImage(
                                         "assets/images/redlabel_tail.png")),
                             ],
                           ),
-                          if (reqJobList[index].isRequsted == "1")
+                          if (reqJobList[index].isRequsted!)
                             Positioned(
                               top: 58,
                               right: 3,

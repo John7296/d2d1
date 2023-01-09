@@ -37,6 +37,9 @@ class JobDetails {
   @JsonKey(name: 'comments')
   String? comments;
 
+    @JsonKey(name: 'info')
+  String? info;
+
   JobDetails(
       {this.endDateTime,
       this.hourlyRate,
@@ -48,7 +51,8 @@ class JobDetails {
       this.allocatedStaff,
       this.careHomeName,
       this.comments,
-      this.jobDescription});
+      this.jobDescription,
+      this.info});
 
   factory JobDetails.fromJson(Map<String, dynamic> json) => _$JobDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$JobDetailsToJson(this);
