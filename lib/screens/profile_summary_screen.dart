@@ -87,7 +87,8 @@ class _ProfileSummaryScreenState
       });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
+      showFlashMsg(e.message);
       
     });
   }
@@ -277,7 +278,7 @@ class _ProfileSummaryScreenState
                                 Expanded(
                                   child: Container(
                                     // color: Colors.pink.shade100,
-                                    // height: 50,
+                                    // height: 30,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(

@@ -224,9 +224,9 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                               validator: (val) {
                                 if (val!.isEmpty)
                               return "Enter your E-mail ";
-                              if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
-                                return "Invalid Email";
-                              }
+                              // if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
+                              //   return "Invalid Email";
+                              // }
                             return null;
                               },
                   ),

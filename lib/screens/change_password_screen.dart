@@ -54,7 +54,7 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
      
     }).catchError((e) {
        hideLoader();
-      showFlashMsg(e.toString());
+     // showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
@@ -185,11 +185,11 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                               }
 
                               if(val ==_passwordController.text){
-                                return "Password should not be the same as current password";
+                                return "Should not be the same as current password";
                               }
 
                                if (val.length < 8) {
-                            return 'Must 8 character';
+                            return 'Must be 8 character';
                               }
                               return null;
                             }

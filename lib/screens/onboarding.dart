@@ -14,26 +14,31 @@ class _OnboardingState extends State<Onboarding> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          
+              Container(
          decoration: BoxDecoration(
-          image: DecorationImage(
+              image: DecorationImage(
          image: AssetImage("assets/images/backgroundonboard.png"),
-              fit: BoxFit.cover,
+                  fit: BoxFit.cover,
         ),
         ),
-            ),
+                ),
+           
       
             Padding(
-              padding: EdgeInsets.only(left: 70, right: 20, top:200),
-              child: Container(
-                height: 140,
-                width: 305,
-                 decoration: BoxDecoration(
-                      image: DecorationImage(
-                     image: AssetImage("assets/images/logo.png"),
-                fit: BoxFit.fill,
-                    ),
-                    ),
+              padding: const EdgeInsets.only(top:200),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 140,
+                  width: 305,
+                   decoration: BoxDecoration(
+                        image: DecorationImage(
+                       image: AssetImage("assets/images/logo.png"),
+                  fit: BoxFit.fill,
+                      ),
+                      ),
+                ),
               ),
             ),
       
@@ -79,6 +84,8 @@ class _OnboardingState extends State<Onboarding> {
             
         ]
       ),
+
+       
 
 
     );

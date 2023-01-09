@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
+import 'package:project_d2d/base/manager/data_manager.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job_request.dart';
@@ -30,11 +31,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
   var percentvalue;
 
+  StaffProfile? thisuser;
+
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 500), () {
+
       staffProfile();
         trainingStatus();
       //recentJobRequest();
@@ -52,19 +56,21 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         .then((BaseResponse<List<StaffProfile>> response) {
      hideLoader();
       
+      
       print(response.data?.first.staffName);
       print("...................");
       setState(() {
         profile.clear();
         profile.addAll(response.data!);
 
+    //  DataManager.shared.thisuser = response.data!;
       
 
       });
       recentJobRequest();
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message);
     });
@@ -86,7 +92,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
@@ -508,6 +514,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Row(
               children: [
+                
                 Text("Time Sheets",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
