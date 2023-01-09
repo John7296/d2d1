@@ -311,39 +311,54 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 shrinkWrap: true,
                 itemCount: jobDetailsList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      //          Text(
-                      //   "Job Name: ${jobDetailsList[index].jobCatName}",
-                      //   style: TextStyle(
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
-                      // Text(
-                      //   "Shift Type: ${jobDetailsList[index].shiftName}",
-                      //   style: TextStyle(
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
-                      //   Text(
-                      //   "Job Location: ${jobDetailsList[index].jobLocation}",
-                      //   style: TextStyle(
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Container(
-                          child: Text(
-                            "Shift Type: ${jobDetailsList[index].jobDescription}",
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                                 Text(
+                          "Job Description: ${jobDetailsList[index].jobDescription}",
+                          style: TextStyle(
+                            fontSize: 12,
                           ),
                         ),
-                      ),
-                    ],
+
+                         SizedBox(height: 10,),
+                          Text(
+                          "Rate: ${jobDetailsList[index].hourlyRate}/hour",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      
+                        SizedBox(height: 10,),
+                          Text(
+                          "Job Location: ${jobDetailsList[index].jobLocation}",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                          Text((jobDetailsList[index].info == null)?
+                          "Info: ${"No information available"}":"Info: ${jobDetailsList[index].info}",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //   child: Container(
+                        //     child: Text(
+                        //       "Details: ${jobDetailsList[index].jobDescription}",
+                        //       style: TextStyle(
+                        //         fontSize: 12,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   );
                 },
               ),

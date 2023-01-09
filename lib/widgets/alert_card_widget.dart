@@ -23,7 +23,7 @@ class _AlertCardWidgetState extends BaseStatefulState<AlertCardWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    
+
     getAlertDetails();
   }
 
@@ -47,61 +47,63 @@ class _AlertCardWidgetState extends BaseStatefulState<AlertCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: alertList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ClipPath(
-            child: Container(
-              height: 40,
-              width: 350,
-              padding: EdgeInsets.only(left: 10, right: 10),
-              decoration: BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                      color:
-                          // (alertList[index].alert??'')
-                          // ?
-                          Colors.redAccent,
-                      // : Colors.greenAccent,
-                      width: 5),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    alertList[index].alert ?? '',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: kFontWeight_M,
+    return (alertList.isNotEmpty)
+        ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: alertList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                child: ClipPath(
+                  child: Container(
+                    height: 40,
+                    width: 350,
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                            color:
+                                // (alertList[index].alert??'')
+                                // ?
+                                Colors.redAccent,
+                            // : Colors.greenAccent,
+                            width: 5),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          alertList[index].alert ?? '',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: kFontWeight_M,
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          alertList[index].subAlert ?? '',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: kFontWeight_M,
+                              color:
+                                  // (jobalerts[index].highPriority!)
+                                  // ?
+                                  Colors.redAccent
+                              // : Colors.greenAccent,
+                              ),
+                        ),
+                      ],
                     ),
                   ),
-                  Spacer(),
-                  Text(
-                    alertList[index].subAlert ?? '',
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: kFontWeight_M,
-                        color:
-                            // (jobalerts[index].highPriority!)
-                            // ?
-                            Colors.redAccent
-                        // : Colors.greenAccent,
-                        ),
-                  )
-                ],
-              ),
-            ),
-            clipper: ShapeBorderClipper(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+                  clipper: ShapeBorderClipper(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                ),
+              );
+            },
+          )
+        : Text("No data");
   }
 
   @override
