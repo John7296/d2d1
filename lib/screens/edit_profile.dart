@@ -4,6 +4,7 @@ import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/screens/password_confirmation_screen.dart';
 
 class EditProfile extends StatefulWidget{
   @override
@@ -66,6 +67,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
     }).then((BaseResponse response) {
       // hideLoader();
       showFlashMsg("Profile Updated");
+      Navigator.pop(context, true);
      
       getProfile();
     }).catchError((e) {
@@ -96,6 +98,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                   IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                       
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),
                   Spacer(),
@@ -261,6 +264,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                     onPressed: () {
           
                       onUpdateButtonTapped();
+                      // getProfile();
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(

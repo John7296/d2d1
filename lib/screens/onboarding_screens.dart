@@ -155,7 +155,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                               Navigator.pushAndRemoveUntil(context,
                                   MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return RegisterScreen();
+                                  return LoginScreen();
                                 },
                               ), (route) => false);
                             },
@@ -209,7 +209,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                                      Navigator.pushAndRemoveUntil(context,
                                     MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                    return RegisterScreen();
+                                    return LoginScreen();
                                   },
                                 ), (route) => false);
                                   },

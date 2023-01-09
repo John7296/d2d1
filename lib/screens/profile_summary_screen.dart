@@ -33,8 +33,8 @@ class _ProfileSummaryScreenState
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
-      staffProfile();
-      
+     staffProfile();
+      paymentHistory();
 
       // _updateDeviceToken();
     });
@@ -59,7 +59,7 @@ class _ProfileSummaryScreenState
 
         //   emailSent = true;
       });
-      paymentHistory();
+    //  paymentHistory();
       //  Navigator.pushReplacement(
       //                 context,
       //                 MaterialPageRoute(
@@ -67,7 +67,7 @@ class _ProfileSummaryScreenState
       //                 VerifyOtpScreen()));
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });

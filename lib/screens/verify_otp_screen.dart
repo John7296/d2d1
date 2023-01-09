@@ -58,7 +58,7 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
      
     }).catchError((e) {
        hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg("Invalid OTP");
     });

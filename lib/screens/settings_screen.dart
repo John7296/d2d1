@@ -58,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
+      title: Text("Alert"),
       content: Text("Are you sure you want to delete account?"),
       actions: [
         cancelButton,

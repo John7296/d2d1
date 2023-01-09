@@ -149,12 +149,12 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         validator: (val) {
                           if (val!.isEmpty)
                             return "Enter E-mail or Phone Number";
-                              if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
-                                return "Invalid Email";
-                              }
-                               if(!RegExp( r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$').hasMatch(val)){
-                                return "Enter valid Number";
-                              }
+                              // if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
+                              //   return "Invalid Email";
+                              // }
+                              //  if(!RegExp( r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$').hasMatch(val)){
+                              //   return "Enter valid Number";
+                              // }
                           return null;
                         },
                         decoration: InputDecoration(
@@ -219,39 +219,42 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       obscureText: _obscureText,
                       controller: _passwordController,
                       validator: (val) {
-                        if (val!.isEmpty) return "Enter your Password";
-                        return null;
+                     if (val!.isEmpty) return "Enter your password";
+                             if (val.length < 8) {
+                        return 'Must be 8 character';
+                      }
+                            return null;
                       },
                     ),
                   ),
 
-                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, top: 30),
-                    child: Container(
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xffFD425B),
-                        ),
-                        onPressed: () {
-                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      RegisterScreen()));
-                        },
-                        child: Center(
-                            child: Text(
-                          "Register",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        )),
-                      ),
-                    ),
-                  ),
+                  //  Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 20, right: 20, top: 30),
+                  //   child: Container(
+                  //     height: 60,
+                  //     child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor: Color(0xffFD425B),
+                  //       ),
+                  //       onPressed: () {
+                  //          Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) =>
+                  //                     RegisterScreen()));
+                  //       },
+                  //       child: Center(
+                  //           child: Text(
+                  //         "Register",
+                  //         style: TextStyle(
+                  //             fontSize: 20,
+                  //             fontWeight: FontWeight.w500,
+                  //             color: Colors.white),
+                  //       )),
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 30),

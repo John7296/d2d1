@@ -36,9 +36,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       staffProfile();
-      //  trainingStatus();
-      // recentJobRequest();
-      // timeSheetBanner();
+        trainingStatus();
+      //recentJobRequest();
+   // timeSheetBanner();
 
       // _updateDeviceToken();
     });
@@ -82,6 +82,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         training.addAll(response.data!);
          
       });
+       timeSheetBanner();
       
     }).catchError((e) {
       hideLoader();
@@ -125,7 +126,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
         //   emailSent = true;
       });
-      trainingStatus();
+     // trainingStatus();
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
