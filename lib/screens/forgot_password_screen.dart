@@ -2,6 +2,7 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/forgot_password.dart';
 import 'package:project_d2d/screens/forgot_password_screen.dart';
 import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/verify_otp_screen.dart';
@@ -29,6 +30,8 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
 
   bool emailSent = false;
 
+  List<ForgotPassword> password =[];
+
 
   void forgotPasswordOTPSend() {
 
@@ -42,23 +45,25 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
     "sp":"forgotPasswordsendOTP",
     "username":_emailController.text
  
-    }).then((BaseResponse response) {
+    }).then((BaseResponse<List<ForgotPassword>> response) {
 
        hideLoader();
         showFlashMsg("OTP has sent");
       print(_emailController.text);
       setState(() {
         emailSent = true;
+         password.clear();
+        password.addAll(response.data!);
       });
        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                       builder: (context) =>
-                      VerifyOtpScreen()));
+                      VerifyOtpScreen(password.first.userId??0)));
      
     }).catchError((e) {
        hideLoader();
-      showFlashMsg(e.toString());
+      // showFlashMsg(e.toString());
       print(e);
       showFlashMsg("Enter valid Email or PhoneNumber");
     });
@@ -218,8 +223,11 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                    controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty)
-                                  return "Enter E-mail";
-                                return null;
+                              return "Enter your E-mail ";
+                              if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
+                                return "Invalid Email";
+                              }
+                            return null;
                               },
                   ),
                   // child: text[index],
@@ -245,7 +253,10 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
               controller: _mobileController,
                           validator: (val) {
                             if (val!.isEmpty)
-                              return "Enter Mobile Number";
+                              return "Enter your Phone Number";
+                              if(!RegExp( r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$').hasMatch(val)){
+                                return "Enter valid Number";
+                              }
                             return null;
                           },
               ),

@@ -20,6 +20,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
   void onContinueBtntapped() {
     NetworkManager.shared
         .resetPassword(NetworkManager.shared.userToken ?? '', <String, dynamic>{
@@ -57,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
+      title: Text("Alert"),
       content: Text("Are you sure you want to delete account?"),
       actions: [
         cancelButton,
@@ -277,7 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.w500), 
                           ),
                         ),
                       ),

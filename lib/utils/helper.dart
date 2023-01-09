@@ -10,7 +10,12 @@ class Helper {
         .hasMatch(value);
   }
 
-  static OverlayEntry overlayLoader(context) {
+ static bool isPhone(String value) => RegExp(
+  r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'
+).hasMatch(value);
+
+
+    static OverlayEntry overlayLoader(context) {
     OverlayEntry loader = OverlayEntry(builder: (context) {
       final size = MediaQuery.of(context).size;
       return Positioned(

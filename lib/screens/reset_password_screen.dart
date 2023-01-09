@@ -7,6 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
+  
+  int id;
+  String? token;
+  ResetPasswordScreen(this.id, this.token);
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
@@ -29,11 +33,11 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
     }
 
     showLoader();
-    NetworkManager.shared.resetPassword(NetworkManager.shared.userToken??'', <String, dynamic>{
+    NetworkManager.shared.resetPassword(widget.token.toString(), <String, dynamic>{
 
     // "token": NetworkManager.shared.userToken,
     "sp":"resetPassword",
-    "userId":NetworkManager.shared.userId,
+    "userId":widget.id,
     "password":_passwordController.text
 
     }).then((BaseResponse response) {
@@ -201,7 +205,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                         return "Password should be same";
                       }
                       if (val.length < 8) {
-                        return 'Must be more than 6 character';
+                        return 'Must be more than 8 character';
                       }
                       return null;
                         }

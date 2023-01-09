@@ -1,6 +1,8 @@
 import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/forgot_password.dart';
+import 'package:project_d2d/model/otp.dart';
 import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/reset_password_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
-// BaseResponse? response;
-// VerifyOtpScreen(this.response);
+
+ int id;
+ VerifyOtpScreen(this.id);
   
   @override
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
@@ -22,6 +25,8 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
     final _otpController = TextEditingController();
      bool emailSent = false;
 
+     List<Otp> otp =[];
+
    void verifyOTP() {
 
     showLoader();
@@ -31,27 +36,29 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
     NetworkManager.shared.verifyOTP(<String, dynamic>{
 
    "sp":"verifyOTP",
-    "userId":NetworkManager.shared.userId,
+    "userId":widget.id,
     "OTP":_otpController.text
 
-    }).then((BaseResponse response) {
+    }).then((BaseResponse<List<Otp>> response) {
 
        showFlashMsg("OTP has verified successfully");
 
         hideLoader();
       // print(_emailController.text);
-      // setState(() {
-      //   emailSent = true;
-      // });
+      setState(() {
+        emailSent = true;
+         otp.clear();
+        otp.addAll(response.data!);
+      });
        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                       builder: (context) =>
-                      ResetPasswordScreen()));
+                      ResetPasswordScreen(widget.id, otp.first.token.toString())));
      
     }).catchError((e) {
        hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg("Invalid OTP");
     });

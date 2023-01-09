@@ -159,6 +159,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           validator: (val) {
                             if (val!.isEmpty)
                               return "Enter your E-mail ";
+                              if(!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(val)){
+                                return "Invalid Email";
+                              }
                             return null;
                           },
                           decoration: InputDecoration(
@@ -186,6 +189,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           validator: (val) {
                             if (val!.isEmpty)
                               return "Enter your Phone Number";
+                              if(!RegExp( r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$').hasMatch(val)){
+                                return "Enter valid Number";
+                              }
                             return null;
                           },
                           decoration: InputDecoration(
@@ -252,7 +258,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           validator: (val) {
                             if (val!.isEmpty) return "Enter your password";
                              if (val.length < 8) {
-                        return 'Must be more than 8 character';
+                        return 'Must be 8 character';
                       }
                             return null;
                           }),
@@ -296,9 +302,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                       if (val != _passwordController.text) {
                         return "Password should be same";
                       }
-                      if (val.length < 8) {
-                        return 'Must be more than 8 character';
-                      }
+                      // if (val.length < 8) {
+                      //   return 'Must be more than 8 character';
+                      // }
                       return null;
                         }
                       ),

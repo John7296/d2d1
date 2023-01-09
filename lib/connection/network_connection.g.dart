@@ -77,14 +77,14 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<dynamic>> forgotPasswordOTPSend(map) async {
+  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
+        _setStreamType<BaseResponse<List<ForgotPassword>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -96,22 +96,25 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<dynamic>.fromJson(
+    final value = BaseResponse<List<ForgotPassword>>.fromJson(
       _result.data!,
-      (json) => json as dynamic,
+      (json) => (json as List<dynamic>)
+          .map<ForgotPassword>(
+              (i) => ForgotPassword.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<dynamic>> verifyOTP(map) async {
+  Future<BaseResponse<List<Otp>>> verifyOTP(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
+        _setStreamType<BaseResponse<List<Otp>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -123,9 +126,11 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<dynamic>.fromJson(
+    final value = BaseResponse<List<Otp>>.fromJson(
       _result.data!,
-      (json) => json as dynamic,
+      (json) => (json as List<dynamic>)
+          .map<Otp>((i) => Otp.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

@@ -36,9 +36,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       staffProfile();
-      //  trainingStatus();
-      // recentJobRequest();
-      // timeSheetBanner();
+        trainingStatus();
+      //recentJobRequest();
+   // timeSheetBanner();
 
       // _updateDeviceToken();
     });
@@ -66,7 +66,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       hideLoader();
       showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+      showFlashMsg(e.Message);
     });
   }
 
@@ -82,6 +82,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         training.addAll(response.data!);
          
       });
+       timeSheetBanner();
       
     }).catchError((e) {
       hideLoader();
@@ -125,7 +126,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
         //   emailSent = true;
       });
-      trainingStatus();
+     // trainingStatus();
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
@@ -387,11 +388,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Container(
                                   height: 50,
                                   width: 50,
-                                  child: Image(
-                                    image: AssetImage(
-                                        "assets/images/homecare_logo.png"),
-                                    fit: BoxFit.fill,
-                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+
+                                    profile.isNotEmpty?
+                                        "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+                                  
+                                  // Image(
+                                  //   image: AssetImage(
+                                  //       "assets/images/homecare_logo.png"),
+                                  //   fit: BoxFit.fill,
+                                  // ),
                                 ),
                               ),
                             ],
