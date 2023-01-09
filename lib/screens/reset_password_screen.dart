@@ -56,7 +56,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
      
     }).catchError((e) {
        hideLoader();
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
@@ -160,6 +160,9 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                             if (val!.isEmpty) {
                               return "Please enter new password";
                             }
+                             if (val.length < 8) {
+                        return 'Must be 8 character';
+                      }
                             return null;
                           }
                         
@@ -204,9 +207,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                       if (val != _passwordController.text) {
                         return "Password should be same";
                       }
-                      if (val.length < 8) {
-                        return 'Must be more than 8 character';
-                      }
+                     
                       return null;
                         }
                       ),

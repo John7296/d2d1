@@ -5,6 +5,7 @@ import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/screens/password_confirmation_screen.dart';
+import 'package:project_d2d/screens/profile_screen.dart';
 
 class EditProfile extends StatefulWidget{
   @override
@@ -67,7 +68,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
     }).then((BaseResponse response) {
       // hideLoader();
       showFlashMsg("Profile Updated");
-      Navigator.pop(context, true);
+      //Navigator.pop(context, true);
      
       getProfile();
     }).catchError((e) {
@@ -262,8 +263,17 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                       backgroundColor: Color(0xffFD425B),
                     ),
                     onPressed: () {
+
+                      //  if (_form.currentState!.validate()) {
+                        onUpdateButtonTapped();
+                      // getProfile();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ProfileScreen()));
+                      //         }
           
-                      onUpdateButtonTapped();
+                      // onUpdateButtonTapped();
                       // getProfile();
                       // Navigator.push(
                       //     context,

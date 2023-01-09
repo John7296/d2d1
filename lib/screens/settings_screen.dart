@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/screens/about_screen.dart';
@@ -19,7 +20,7 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
 
   void onContinueBtntapped() {
     NetworkManager.shared
@@ -31,8 +32,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       // setState(() {
       //   emailSent = true;
       // });
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LogoutScreen()));
+      showFlashMsg("Account Deleted");
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => LogoutScreen()));
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
@@ -345,5 +347,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
