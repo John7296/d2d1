@@ -8,18 +8,18 @@ part of 'timesheet_banner.dart';
 
 TimesheetBanner _$TimesheetBannerFromJson(Map<String, dynamic> json) =>
     TimesheetBanner(
-      jobPending: json['jobPending'] as int?,
-      jobApproved: json['jobApproved'] as int?,
-      jobCompleted: json['jobCompleted'] as int?,
+      pending: json['Pending'] as int?,
+      approved: json['Approved'] as int?,
+      completed: json['Completed'] as int?,
       currentJob: json['currentJob'] as String?,
       clientName: json['clientName'] as String?,
     );
 
 Map<String, dynamic> _$TimesheetBannerToJson(TimesheetBanner instance) =>
     <String, dynamic>{
-      'jobPending': instance.jobPending,
-      'jobApproved': instance.jobApproved,
-      'jobCompleted': instance.jobCompleted,
+      'Pending': instance.pending,
+      'Approved': instance.approved,
+      'Completed': instance.completed,
       'currentJob': instance.currentJob,
       'clientName': instance.clientName,
     };

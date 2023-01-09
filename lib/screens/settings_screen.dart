@@ -84,7 +84,11 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
         child: Column(children: [
           Padding(
             padding: const EdgeInsets.only(top: 50),
-            child: Row(
+            child:
+
+           
+            
+             Row(
               children: [
                 IconButton(
                     onPressed: () {

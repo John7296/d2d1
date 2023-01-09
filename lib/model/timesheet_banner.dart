@@ -6,14 +6,14 @@ part 'timesheet_banner.g.dart';
 
 class TimesheetBanner{
 
-  @JsonKey(name: 'jobPending')
-  int?    jobPending;
+  @JsonKey(name: 'Pending')
+  int?    pending;
 
-  @JsonKey(name: 'jobApproved')
-  int? jobApproved;
+  @JsonKey(name: 'Approved')
+  int? approved;
 
-@JsonKey(name: 'jobCompleted')
- int? jobCompleted;
+@JsonKey(name: 'Completed')
+ int? completed;
 
  @JsonKey(name: 'currentJob')
  String? currentJob;
@@ -24,9 +24,9 @@ class TimesheetBanner{
 
 TimesheetBanner({
 
-  this.jobPending,
-  this.jobApproved,
-  this.jobCompleted,
+  this.pending,
+  this.approved,
+  this.completed,
   this.currentJob,
   this.clientName
  });
