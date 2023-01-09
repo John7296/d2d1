@@ -29,22 +29,27 @@ class Job {
   String? endDateTime;
 
   @JsonKey(name: 'isRequsted')
-  String? isRequsted;
+  bool? isRequsted;
 
-    @JsonKey(name: 'jobId')
+  @JsonKey(name: 'jobId')
   int? jobId;
 
-    @JsonKey(name: 'allocatedStaff')
+  @JsonKey(name: 'allocatedStaff')
   String? allocatedStaff;
-  
 
+  Job(
+      {this.clientName,
+      this.isRequsted,
+      this.endDateTime,
+      this.hourlyRate,
+      this.jobCatName,
+      this.jobLocation,
+      this.jobNumber,
+      this.shiftName,
+      this.startDateTime,
+      this.allocatedStaff,
+      this.jobId});
 
-  Job({
-  this.clientName,this.isRequsted,
-  this.endDateTime,this.hourlyRate,this.jobCatName,this.jobLocation,this.jobNumber,this.shiftName,this.startDateTime,this.allocatedStaff,this.jobId
-  });
-
-  factory Job.fromJson(Map<String, dynamic> json) =>
-      _$JobFromJson(json);
+  factory Job.fromJson(Map<String, dynamic> json) => _$JobFromJson(json);
   Map<String, dynamic> toJson() => _$JobToJson(this);
 }

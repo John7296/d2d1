@@ -267,8 +267,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                               .shiftName ??
                                                           '',
                                                       jobList[index]
-                                                              .isRequsted ??
-                                                          '',
+                                                              .isRequsted!,
                                                       context),
                                             ),
                                           );
@@ -281,8 +280,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                             ),
                                             image: DecorationImage(
                                               image: (jobList[index]
-                                                          .isRequsted ==
-                                                      "1")
+                                                          .isRequsted!)
                                                   ? AssetImage(
                                                       "assets/images/green_bg.png")
                                                   : AssetImage(
@@ -555,7 +553,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                 "assets/images/redlabel_tail.png")),
                                     ],
                                   ),
-                                  if (jobList[index].isRequsted == "1")
+                                  if (jobList[index].isRequsted!)
                                     Positioned(
                                       top: 58,
                                       right: 3,

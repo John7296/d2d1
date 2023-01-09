@@ -738,11 +738,14 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
                                                                                   NetworkManager.shared.refreshTokens();
 
-                                                                                  setState(() {
+                                                                                 
                                                                                     onApproveButtonTapped();
                                                                                     showFlashMsg("Approved Successfully");
-                                                                                  });
+                                                                                  
                                                                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
+                                                                                  setState(() {
+                                                                                    
+                                                                                  });
                                                                                 },
                                                                                 child: Text(
                                                                                   'Approve',
