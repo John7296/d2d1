@@ -289,7 +289,7 @@ class _AvailableJobWidgetState
                                                         fontSize: 11,
                                                         color: Colors.white,
                                                       ),
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -326,7 +326,7 @@ class _AvailableJobWidgetState
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 11),
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
                                               ),

@@ -740,6 +740,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
                                                                                   setState(() {
                                                                                     onApproveButtonTapped();
+                                                                                    showFlashMsg("Approved Successfully");
                                                                                   });
                                                                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
                                                                                 },
