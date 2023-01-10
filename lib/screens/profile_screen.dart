@@ -886,7 +886,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         ),
         if (training.isNotEmpty)
           Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 20, top:20, bottom: 10),
             child: Container(
               // color: Colors.grey,
               height: 200,
@@ -894,69 +894,69 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               child: ListView.builder(
                   itemCount: training.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top:10),
-                      child: Column(
-                      
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 20),
-                                child: Text(
-                                  training.isNotEmpty
-                                      ? "${training[0].completionRate.toString()}%"
-                                      : "",
-                                  // "93%"
-                                  //"${training.first.completionRate.toString()}%",
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                  training.isNotEmpty
-                                      ? training[0].trainingName.toString()
-                                      : "",
-                                  // "Food Hygiene",
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.black)),
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: LinearPercentIndicator(
-                                  lineHeight: 12,
-                                  width: 200,
-                                  progressColor: kGreenprogressColor,
-                                  backgroundColor: Color(0xffD9D9D9),
-                                  percent: 0.30,
-                                  barRadius: Radius.circular(5),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          if (training.isEmpty)
+                    return Column(
+                    mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Spacer(),
                             Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20),
-                              child: Container(
-                                height: 200,
-                                child: Center(
-                                    child: Text("No Training Status Found")),
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Text(
+                                training.isNotEmpty
+                                    ? "${training[0].completionRate.toString()}%"
+                                    : "",
+                                // "93%"
+                                //"${training.first.completionRate.toString()}%",
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                                training.isNotEmpty
+                                    ? training[0].trainingName.toString()
+                                    : "",
+                                // "Food Hygiene",
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black)),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: LinearPercentIndicator(
+                                lineHeight: 12,
+                                width: 200,
+                                progressColor: kGreenprogressColor,
+                                backgroundColor: Color(0xffD9D9D9),
+                                percent: 0.30,
+                                barRadius: Radius.circular(5),
                               ),
                             ),
-                        ],
-                      ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                       
+                      ],
                     );
                   }),
+                  
             ),
 
+          ),         
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 20, right: 20),
+                          //   child: Container(
+                          //     height: 200,
+                          //     child: Center(
+                          //         child: Text("No Training Status Found")),
+                          //   ),
+                          // ),
+          
             // Container(
             //   color: Colors.yellow,
-
+          
             // child: Column(
             //   crossAxisAlignment: CrossAxisAlignment.start,
             //   children: [
@@ -969,7 +969,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             //             children: [
             //               // Row(
             //               //   children: [
-
+          
             //               // if(training.isEmpty)
             //               //     Text("Manual Handling",
             //               //         style: TextStyle(
@@ -1080,7 +1080,20 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             // ),
             //   );
             // }),
-          ),
+        // ),
+
+           if (training.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20, top:20),
+                            child: Container(
+                             // color: Colors.amber,
+                              height: 100,
+                              width: double.infinity,
+                              child: Center(
+                                  child: Text("No Training Status Found")),
+                            ),
+                          ),
+          
       ])),
     );
     //        if(training.isEmpty)

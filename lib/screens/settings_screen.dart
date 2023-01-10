@@ -7,6 +7,7 @@ import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/change_password_screen.dart';
 import 'package:project_d2d/screens/help_center_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
+import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
@@ -32,8 +33,9 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
       //   emailSent = true;
       // });
       showFlashMsg("Account Deleted");
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => LogoutScreen()));
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return LoginScreen();
+      },),(route) => false);
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());

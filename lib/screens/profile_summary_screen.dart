@@ -108,19 +108,19 @@ class _ProfileSummaryScreenState
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),
-                  Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile()));
-                      },
-                      child: Text("Edit",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xffAFB0B6),
-                              fontSize: 13)))
+                  // Spacer(),
+                  // TextButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) => EditProfile()));
+                  //     },
+                  //     child: Text("Edit",
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w900,
+                  //             color: Color(0xffAFB0B6),
+                  //             fontSize: 13)))
                 ],
               ),
             ),
