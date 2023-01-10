@@ -217,6 +217,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
+                      prefixIcon: Icon(Icons.email),
                       labelText: "   E-mail",
                       labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
                     ),
@@ -249,6 +250,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                   ),
                   labelText: "   Mobile Number",
                   labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
+                  prefixIcon: Icon(Icons.phone),
                 ),
               controller: _mobileController,
                           validator: (val) {

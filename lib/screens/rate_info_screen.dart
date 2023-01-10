@@ -80,7 +80,8 @@ class _RateInfoScreenState extends BaseStatefulState<RateInfoScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-             color: Colors.white, borderRadius: BorderRadius.circular(5)),
+             //color: Colors.white, 
+             borderRadius: BorderRadius.circular(5)),
               child: ListView.builder(
                 itemCount: rate.length,
                 itemBuilder: (BuildContext context, int index){
@@ -88,7 +89,8 @@ class _RateInfoScreenState extends BaseStatefulState<RateInfoScreen> {
                       width: double.infinity,
                      
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                  //color: Colors.white,
+                   borderRadius: BorderRadius.circular(5)),
                  child: Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [

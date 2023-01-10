@@ -137,6 +137,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                         ),
                         labelText: "   New Password",
                         labelStyle: TextStyle(color: Color(0xffAFB0B6), fontSize: 15),
+                        prefixIcon: Icon(Icons.lock),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: IconButton(
@@ -181,6 +182,7 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                       ),
                       labelText: "   Confirm New Password",
                       labelStyle: TextStyle(color: Color(0xffAFB0B6), fontSize: 15),
+                      prefixIcon: Icon(Icons.lock),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
