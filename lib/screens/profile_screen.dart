@@ -31,15 +31,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
   var percentvalue;
 
-  StaffProfile? thisuser;
+  List<StaffProfile>? thisuser;
 
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 500), () {
+
+
       staffProfile();
-      trainingStatus();
+     // trainingStatus();
       //recentJobRequest();
       // timeSheetBanner();
 
@@ -47,7 +49,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
     });
   }
 
-  void staffProfile() {
+  Future<void> staffProfile() async {
     showLoader();
     NetworkManager.shared
         .staffProfile(NetworkManager.shared.userToken ?? '',
@@ -61,8 +63,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         profile.clear();
         profile.addAll(response.data!);
 
-        //  DataManager.shared.thisuser = response.data!;
-      });
+      //     DataManager.shared.thisuser = response.data!;
+      //     thisuser = response.data!;
+       });
       recentJobRequest();
     }).catchError((e) {
       hideLoader();
@@ -82,7 +85,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         training.clear();
         training.addAll(response.data!);
       });
-      timeSheetBanner();
+      // timeSheetBanner();
     }).catchError((e) {
       hideLoader();
       //showFlashMsg(e.toString());
@@ -103,6 +106,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
         print(response.data?.first.allocatedOn);
         print("...................");
+         print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        print(jobs.length);
       });
       timeSheetBanner();
     }).catchError((e) {});
@@ -120,7 +125,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
         //   emailSent = true;
       });
-      // trainingStatus();
+       trainingStatus();
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
@@ -330,142 +335,340 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               ],
             ),
           ),
+          
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.white70
-                    // color: Colors.yellow,
-                    ),
-                height: 90,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 25),
-                          child: Column(
+                  borderRadius: BorderRadius.circular(30),
+                  //color: Colors.white70
+                  //color: Colors.yellow,
+                ),
+                height: 94,
+              
+                child: 
+               
+                ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: jobs.length,
+                     shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.only(right:10),
+                        width: 390,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                        color: Colors.white70
+                         // color: Colors.grey,
+                        ),
+                        child: Column(children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3, right: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                    ),
+                                    color: kGreenprogressColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
                             children: [
-                              Center(
-                                child: Container(
-                                  height: 50,
-                                  width: 50,
-                                  child: CachedNetworkImage(
-                                      imageUrl: profile.isNotEmpty
-                                          ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
-                                          : ""),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 15),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: CachedNetworkImage(
+                                            imageUrl: jobs.isNotEmpty
+                                                ? "https://wpr.intertoons.net/d2dwebadmin/${jobs[index].profilePhoto}"
+                                                : ""),
 
-                                  // Image(
-                                  //   image: AssetImage(
-                                  //       "assets/images/homecare_logo.png"),
-                                  //   fit: BoxFit.fill,
-                                  // ),
+                                        // Image(
+                                        //   image: AssetImage(
+                                        //       "assets/images/homecare_logo.png"),
+                                        //   fit: BoxFit.fill,
+                                        // ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        jobs.isNotEmpty
+                                            ? jobs[index]
+                                                .profession
+                                                .toString()
+                                            : "",
+                                        // "Dialysis Specialist",
+                                        //jobs.first.profession.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                        )),
+                                    Text(
+                                        jobs.isNotEmpty
+                                            ? jobs[index]
+                                                .clientName
+                                                .toString()
+                                            : "",
+                                        // "Agate House",
+                                        // jobs.first.clientName??'',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff000000))),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, top: 15),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.add_location_outlined,
+                                          color: Color(0xff413E3E),
+                                        ),
+                                        Text(
+                                            jobs.isNotEmpty
+                                                ? jobs[index]
+                                                    .staffLocation
+                                                    .toString()
+                                                : "",
+                                            // "Agate East",
+                                            //  jobs.first.staffLocation.toString(),
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_month_outlined,
+                                          color: Color(0xffAFB0B6),
+                                        ),
+                                        Text(
+                                            jobs.isNotEmpty
+                                                ? jobs[index]
+                                                    .allocatedOn
+                                                    .toString()
+                                                : "",
+                                            // "11 Nov 2022",
+                                            //jobs.first.allocatedOn.toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Color(0xff0D0D26),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  jobs.isNotEmpty
-                                      ? jobs[0].profession.toString()
-                                      : "",
-                                  // "Dialysis Specialist",
-                                  //jobs.first.profession.toString(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                  )),
-                              Text(
-                                  jobs.isNotEmpty
-                                      ? jobs[0].clientName.toString()
-                                      : "",
-                                  // "Agate House",
-                                  // jobs.first.clientName??'',
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff000000))),
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10, top: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.add_location_outlined,
-                                    color: Color(0xff413E3E),
-                                  ),
-                                  Text(
-                                      jobs.isNotEmpty
-                                          ? jobs[0].staffLocation.toString()
-                                          : "",
-                                      // "Agate East",
-                                      //  jobs.first.staffLocation.toString(),
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500)),
-                                ],
+                          Container(
+                            height: 15,
+                            width: 110,
+                            decoration: BoxDecoration(
+                              color: Color(0xffD00000),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                topLeft: Radius.circular(15),
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_month_outlined,
-                                    color: Color(0xffAFB0B6),
-                                  ),
-                                  Text(
-                                      jobs.isNotEmpty
-                                          ? jobs[0].allocatedOn.toString()
-                                          : "",
-                                      // "11 Nov 2022",
-                                      //jobs.first.allocatedOn.toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Color(0xff0D0D26),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 15,
-                      width: 110,
-                      decoration: BoxDecoration(
-                        color: Color(0xffD00000),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15),
-                        ),
-                      ),
-                      child: Center(
-                          child: Text(
-                        "Requested",
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      )),
-                    )
-                  ],
-                )),
+                            ),
+                            child: Center(
+                                child: Text(
+                              "Requested",
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            )),
+                          )
+                        ]),
+                      );
+
+                      //  Column(
+                      // children: [
+                      //   Padding(
+                      //     padding: const EdgeInsets.only(top:1, right:5),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.end,
+                      //      children: [
+                      //       Container(
+                      //         height:10,
+                      //         width:120,
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.only(
+                      //             topRight: Radius.circular(10),
+
+                      //           ),
+                      //             color: kGreenprogressColor,
+                      //         ),
+
+                      //       )
+                      //      ],
+                      //     ),
+                      //   ),
+                      //                    Row(
+                      //                      children: [
+                      //                        Padding(
+                      //                          padding: const EdgeInsets.only(left: 10),
+                      //                          child: Column(
+                      //                            children: [
+                      //                              Center(
+                      //                                child: Container(
+                      //                                  height: 50,
+                      //                                  width: 50,
+                      //                                  child: CachedNetworkImage(
+                      //                                    imageUrl:
+
+                      //                                    profile.isNotEmpty?
+                      //                                        "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+
+                      //                                  // Image(
+                      //                                  //   image: AssetImage(
+                      //                                  //       "assets/images/homecare_logo.png"),
+                      //                                  //   fit: BoxFit.fill,
+                      //                                  // ),
+                      //                                ),
+                      //                              ),
+                      //                            ],
+                      //                          ),
+                      //                        ),
+                      //                        Padding(
+                      //                          padding: const EdgeInsets.only(left: 10, top: 15),
+                      //                          child: Column(
+                      //                            mainAxisAlignment: MainAxisAlignment.start,
+                      //                            crossAxisAlignment: CrossAxisAlignment.start,
+                      //                            children: [
+                      //                              Text(
+                      //                                  jobs.isNotEmpty
+                      //                                      ? jobs[0].profession.toString()
+                      //                                      : "",
+                      //                                  // "Dialysis Specialist",
+                      //                                  //jobs.first.profession.toString(),
+                      //                                  style: TextStyle(
+                      //                                    fontWeight: FontWeight.w500,
+                      //                                    fontSize: 15,
+                      //                                  )),
+                      //                              Text(
+                      //                                jobs.isNotEmpty
+                      //                                      ? jobs[0].clientName.toString()
+                      //                                      : "",
+                      //                                  // "Agate House",
+                      //                                 // jobs.first.clientName??'',
+                      //                                  style: TextStyle(
+                      //                                      fontSize: 13,
+                      //                                      fontWeight: FontWeight.w500,
+                      //                                      color: Color(0xff000000))),
+                      //                            ],
+                      //                          ),
+                      //                        ),
+                      //                        Spacer(),
+                      //                        Padding(
+                      //                          padding: const EdgeInsets.only(right: 10, top: 15),
+                      //                          child: Column(
+                      //                            crossAxisAlignment: CrossAxisAlignment.start,
+                      //                            children: [
+                      //                              Row(
+                      //                                mainAxisAlignment: MainAxisAlignment.start,
+                      //                                children: [
+                      //                                  Icon(
+                      //                                    Icons.add_location_outlined,
+                      //                                    color: Color(0xff413E3E),
+                      //                                  ),
+                      //                                  Text(
+                      //                                      jobs.isNotEmpty
+                      //                                          ? jobs[0].staffLocation.toString()
+                      //                                          : "",
+                      //                                      // "Agate East",
+                      //                                      //  jobs.first.staffLocation.toString(),
+                      //                                      style: TextStyle(
+                      //                                          fontSize: 13,
+                      //                                          fontWeight: FontWeight.w500)),
+                      //                                ],
+                      //                              ),
+                      //                              Row(
+                      //                                children: [
+                      //                                  Icon(
+                      //                                    Icons.calendar_month_outlined,
+                      //                                    color: Color(0xffAFB0B6),
+                      //                                  ),
+                      //                                  Text(
+                      //                                      jobs.isNotEmpty
+                      //                                          ? jobs[0].allocatedOn.toString()
+                      //                                          : "",
+                      //                                      // "11 Nov 2022",
+                      //                                      //jobs.first.allocatedOn.toString(),
+                      //                                      maxLines: 1,
+                      //                                      overflow: TextOverflow.ellipsis,
+                      //                                      style: TextStyle(
+                      //                                          color: Color(0xff0D0D26),
+                      //                                          fontSize: 13,
+                      //                                          fontWeight: FontWeight.w500)),
+                      //                                ],
+                      //                              ),
+                      //                            ],
+                      //                          ),
+                      //                        ),
+                      //                      ],
+                      //                    ),
+                      //                    Container(
+                      //                      height: 15,
+                      //                      width: 110,
+                      //                      decoration: BoxDecoration(
+                      //                        color: Color(0xffD00000),
+                      //                        borderRadius: BorderRadius.only(
+                      //                          topRight: Radius.circular(15),
+                      //                          topLeft: Radius.circular(15),
+                      //                        ),
+                      //                      ),
+                      //                      child: Center(
+                      //                          child: Text(
+                      //                        "Requested",
+                      //                        style: TextStyle(
+                      //                            fontSize: 10,
+                      //                            fontWeight: FontWeight.w500,
+                      //                            color: Colors.white),
+                      //                      )),
+                      //                    )
+                      //     ],
+                      //  );
+                    })),
           ),
+          
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Row(
@@ -495,7 +698,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             child: Row(
               children: [
                 Container(
-                  height: 70,
+                  height: 80,
                   width: 180,
                   decoration: BoxDecoration(
                     color: Colors.white70,
@@ -508,19 +711,21 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                         padding: const EdgeInsets.only(left: 10, top: 10),
                         child: Column(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Color(0xffFDD9DE),
-                              child: Container(
-                                width: 50,
-                                height: 40,
-                                child: Image(
-                                  image: AssetImage(
-                                    "assets/images/ic_time_1.png",
+                            Center(
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Color(0xffFDD9DE),
+                                child: Container(
+                                  width: 50,
+                                  height: 40,
+                                  child: Image(
+                                    image: AssetImage(
+                                      "assets/images/ic_time_1.png",
+                                    ),
+                                    fit: BoxFit.fill,
+                                    //    width:50,
+                                    // height:50
                                   ),
-                                  fit: BoxFit.fill,
-                                  //    width:50,
-                                  // height:50
                                 ),
                               ),
                             ),
@@ -536,7 +741,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               padding: const EdgeInsets.only(left: 3),
                               child: Text(
                                   banner.isNotEmpty
-                                      ? "${banner[0].Pending.toString()} Pending"
+                                      ? "${banner[0].pending.toString()} Pending"
                                       : "",
                                   // "7 Pending",
                                   //  " ${banner.first.jobPending.toString()} Pending",
@@ -567,7 +772,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                 // Spacer(),
                 Expanded(
                   child: Container(
-                    height: 70,
+                    height: 80,
                     width: 180,
                     decoration: BoxDecoration(
                       color: Colors.white70,
@@ -580,19 +785,21 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           padding: const EdgeInsets.only(left: 10, top: 10),
                           child: Column(
                             children: [
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xffFDD9DE),
-                                child: Container(
-                                  width: 50,
-                                  height: 40,
-                                  child: Image(
-                                    image: AssetImage(
-                                      "assets/images/ic_time_1.png",
+                              Center(
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Color(0xffFDD9DE),
+                                  child: Container(
+                                    width: 50,
+                                    height: 40,
+                                    child: Image(
+                                      image: AssetImage(
+                                        "assets/images/ic_time_1.png",
+                                      ),
+                                      fit: BoxFit.fill,
+                                      //    width:50,
+                                      // height:50
                                     ),
-                                    fit: BoxFit.fill,
-                                    //    width:50,
-                                    // height:50
                                   ),
                                 ),
                               ),
@@ -610,7 +817,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 padding: const EdgeInsets.only(left: 3),
                                 child: Text(
                                     banner.isNotEmpty
-                                        ? "${banner[0].Approved.toString()} Approved"
+                                        ? "${banner[0].approved.toString()} Approved"
                                         : "",
                                     // "85 Approved",
                                     //  " ${banner.first.jobApproved.toString()} Approved",
@@ -662,34 +869,77 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               child: ListView.builder(
                   itemCount: training.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Row(
-                                  //   children: [
+                    return Container(
+                     // color: Colors.yellow,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Row(
+                                    //   children: [
 
-                                  // if(training.isEmpty)
-                                  //     Text("Manual Handling",
-                                  //         style: TextStyle(
-                                  //             fontSize: 16, color: Colors.black)),
-                                  //   ],
+                                    // if(training.isEmpty)
+                                    //     Text("Manual Handling",
+                                    //         style: TextStyle(
+                                    //             fontSize: 16, color: Colors.black)),
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 10),
+                                    Text(
+                                        training.isNotEmpty
+                                            ? training[0].trainingName.toString()
+                                            : "",
+                                        // "Food Hygiene",
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.black)),
+                                    SizedBox(height: 10),
+                                    // Text("Fire Awareness",
+                                    //     style:
+                                    //         TextStyle(fontSize: 15, color: Colors.black)),
+                                    // SizedBox(height: 10),
+                                    // Text("Health and Safety",
+                                    //     style:
+                                    //         TextStyle(fontSize: 15, color: Colors.black)),
+                                    // SizedBox(height: 10),
+                                    // Text("Infection Control",
+                                    //     style: TextStyle(
+                                    //         fontSize: 15,
+                                    //         fontWeight: FontWeight.w400,
+                                    //         color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              Column(
+                                children: [
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 150),
+                                  //   child: Text("38%"),
                                   // ),
-                                  // SizedBox(height: 10),
-                                  Text(
+                                  // LinearPercentIndicator(
+                                  //   lineHeight: 12,
+                                  //   width: 200,
+                                  //   progressColor: kGreenprogressColor,
+                                  //   backgroundColor: Color(0xffD9D9D9),
+                                  //   percent: 0.38,
+                                  //   barRadius: Radius.circular(5),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 150),
+                                    child: Text(
                                       training.isNotEmpty
-                                          ? training[0].trainingName.toString()
+                                          ? "${training[0].completionRate.toString()}%"
                                           : "",
                                       // "Food Hygiene",
                                       style: TextStyle(
                                           fontSize: 15, color: Colors.black)),
-                                  SizedBox(height: 10),
+                                  // SizedBox(height: 10),
                                   // Text("Fire Awareness",
                                   //     style:
                                   //         TextStyle(fontSize: 15, color: Colors.black)),
@@ -703,83 +953,11 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                   //         fontSize: 15,
                                   //         fontWeight: FontWeight.w400,
                                   //         color: Colors.black)),
-                                ],
-                              ),
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 150),
-                                //   child: Text("38%"),
-                                // ),
-                                // LinearPercentIndicator(
-                                //   lineHeight: 12,
-                                //   width: 200,
-                                //   progressColor: kGreenprogressColor,
-                                //   backgroundColor: Color(0xffD9D9D9),
-                                //   percent: 0.38,
-                                //   barRadius: Radius.circular(5),
-                                // ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 150),
-                                  child: Text(
-                                    training.isNotEmpty
-                                        ? "${training[0].completionRate.toString()}%"
-                                        : "",
-                                    // "93%"
-                                    //"${training.first.completionRate.toString()}%",
-                                  ),
-                                ),
-                                LinearPercentIndicator(
-                                  lineHeight: 12,
-                                  width: 200,
-                                  progressColor: kGreenprogressColor,
-                                  backgroundColor: Color(0xffD9D9D9),
-                                  percent: 0.30,
-                                  barRadius: Radius.circular(5),
-                                ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 150),
-                                //   child: Text("68%"),
-                                // ),
-                                // LinearPercentIndicator(
-                                //   lineHeight: 12,
-                                //   width: 200,
-                                //   progressColor: kGreenprogressColor,
-                                //   backgroundColor: Color(0xffD9D9D9),
-                                //   percent: 0.68,
-                                //   barRadius: Radius.circular(5),
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 150),
-                                //   child: Text("24%"),
-                                // ),
-                                // LinearPercentIndicator(
-                                //   lineHeight: 12,
-                                //   width: 200,
-                                //   progressColor: kGreenprogressColor,
-                                //   backgroundColor: Color(0xffD9D9D9),
-                                //   percent: 0.24,
-                                //   barRadius: Radius.circular(5),
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 150),
-                                //   child: Text("89%"),
-                                // ),
-                                // LinearPercentIndicator(
-                                //   lineHeight: 12,
-                                //   width: 200,
-                                //   progressColor: kGreenprogressColor,
-                                //   backgroundColor: Color(0xffD9D9D9),
-                                //   percent: 0.89,
-                                //   barRadius: Radius.circular(5),
-                                // ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
+                              ),],                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     );
                   }),
             ),

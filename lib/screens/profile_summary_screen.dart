@@ -273,71 +273,77 @@ class _ProfileSummaryScreenState
                           shrinkWrap: true,
                           itemCount: payment.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Row(
+                            return  Column(
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    // color: Colors.pink.shade100,
-                                    // height: 30,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                              payment.isNotEmpty
-                                                  ? payment[index].createdOn.toString()
-                                                  : "",
-                                              // payment[index].paidOn
-                                              //       ??
-                                              //  '',
-                                              style: TextStyle(fontSize: 12)),
-                                          SizedBox(width: 60),
-                                          Expanded(
-                                            child: Text(
-                                                payment.isNotEmpty
-                                                    ? payment[index]
-                                                        .paymentMode
-                                                        .toString()
-                                                    : '',
-                                                // payment[index]
-                                                //        .paymentMode.toString(),
-
-                                                style: TextStyle(fontSize: 12)),
-                                          ),
-                                          Container(
-                                            height: 25,
-                                            width: 80,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xffC8F8B8),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                      //  color: Colors.pink.shade100,
+                                        // height: 50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: 
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                  payment.isNotEmpty
+                                                      ? payment[index].createdOn.toString()
+                                                      : "",
+                                                  // payment[index].paidOn
+                                                  //       ??
+                                                  //  '',
+                                                  style: TextStyle(fontSize: 12)),
+                                              SizedBox(width: 60),
+                                              Expanded(
                                                 child: Text(
-                                              payment.isNotEmpty
-                                                  ? payment[index]
-                                                      .paymentStatus
-                                                      .toString()
-                                                  : "",
-                                              // "Credited",
-                                              // payment.first.paymentStatus.toString(),
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color(0xff666666)),
-                                            )),
+                                                    payment.isNotEmpty
+                                                        ? payment[index]
+                                                            .paymentMode
+                                                            .toString()
+                                                        : '',
+                                                    // payment[index]
+                                                    //        .paymentMode.toString(),
+
+                                                    style: TextStyle(fontSize: 12)),
+                                              ),
+                                              Container(
+                                                height: 25,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xffC8F8B8),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                    child: Text(
+                                                  payment.isNotEmpty
+                                                      ? payment[index]
+                                                          .paymentStatus
+                                                          .toString()
+                                                      : "",
+                                                  // "Credited",
+                                                  // payment.first.paymentStatus.toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Color(0xff666666)),
+                                                )),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
+                                  ],
+                                ),
                               ],
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
-                            return Divider(
+                            return
+                             Divider(
                               height: 1,
                               color: Colors.grey,
                             );

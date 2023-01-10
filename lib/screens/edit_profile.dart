@@ -56,7 +56,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
   }
 
   void onUpdateButtonTapped() {
-    // showLoader();
+   //showLoader();
     NetworkManager.shared.updateProfile(NetworkManager.shared.userToken??'', <String, dynamic>{
 
   "sp":"updUserProfile",
@@ -66,8 +66,11 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
     "PhoneNo":_mobileController.text
 
     }).then((BaseResponse response) {
-      // hideLoader();
+       //hideLoader();
       showFlashMsg("Profile Updated");
+      setState(() {
+       
+      });
       //Navigator.pop(context, true);
      
       getProfile();

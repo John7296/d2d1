@@ -345,7 +345,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.Pending
+                                                timeSheetList.first.pending
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
@@ -429,7 +429,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.Approved.toString(),
+                                                timeSheetList.first.approved.toString(),
                                                 // "",
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_SB,
@@ -514,8 +514,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.Completed
-                                                    .toString(),
+                                                timeSheetList.first.completed.toString(),
                                                 // "",
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_SB,
