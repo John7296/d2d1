@@ -50,8 +50,6 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJobDetails();
-
-      // _updateDeviceToken();
     });
   }
 
@@ -293,70 +291,92 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Text(
-                      "Details",
-                      style: TextStyle(fontSize: 18, fontWeight: kFontWeight_M),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Container(
+            //         child: Text(
+            //           "Details",
+            //           style: TextStyle(fontSize: 20, fontWeight: kFontWeight_M),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: jobDetailsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:10),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                                 Text(
-                          "Job Description: ${jobDetailsList[index].jobDescription}",
-                          style: TextStyle(
-                            fontSize: 12,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text("Job Description",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: kFontWeight_M)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            jobDetailsList[index].jobDescription ?? '',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-
-                         SizedBox(height: 10,),
-                          Text(
-                          "Rate: ${jobDetailsList[index].hourlyRate}/hour",
-                          style: TextStyle(
-                            fontSize: 12,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Rate",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: kFontWeight_M)),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "£${jobDetailsList[index].hourlyRate}/hour",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-                      
-                        SizedBox(height: 10,),
-                          Text(
-                          "Job Location: ${jobDetailsList[index].jobLocation}",
-                          style: TextStyle(
-                            fontSize: 12,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Job Location",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: kFontWeight_M)),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            jobDetailsList[index].jobLocation ?? '',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-                        SizedBox(height: 10,),
-                          Text((jobDetailsList[index].info == null)?
-                          "Info: ${"No information available"}":"Info: ${jobDetailsList[index].info}",
-                          style: TextStyle(
-                            fontSize: 12,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Info",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: kFontWeight_M)),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            jobDetailsList[index].info == null ||
+                                    jobDetailsList[index].info == ""
+                                ? "No info available"
+                                : jobDetailsList[index].info ?? '',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                        //   child: Container(
-                        //     child: Text(
-                        //       "Details: ${jobDetailsList[index].jobDescription}",
-                        //       style: TextStyle(
-                        //         fontSize: 12,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   );

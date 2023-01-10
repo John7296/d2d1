@@ -155,7 +155,7 @@ abstract class NetworkConnection {
   );
 
   @GET("d2dApi")
-  Future<BaseResponse<List<TimeSheet>>> timeSheet(
+  Future<BaseResponse<List<TimesheetBanner>>> timeSheet(
     @Header("token") String? token,
     @Query("sp") String sp,
     @Query("staffId") int staffId,

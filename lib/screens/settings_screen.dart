@@ -162,8 +162,8 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => AvailableJobsScreen(
-                                  fromHome: false,
-                                )));
+                                  fromSettings: false,
+                                ),),);
                   },
                   child: ListTile(
                     leading: Icon(Icons.work_outline),

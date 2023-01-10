@@ -78,6 +78,13 @@ class _AvailableJobWidgetState
                             children: [
                               InkWell(
                                 onTap: () {
+                                  SessionsManager.saveJobId(
+                                      reqJobList[index].jobId ?? 0);
+
+                                  NetworkManager.shared.jobId =
+                                      reqJobList[index].jobId ?? 0;
+
+                                  NetworkManager.shared.refreshTokens();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -284,14 +291,19 @@ class _AvailableJobWidgetState
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      reqJobList[index]
-                                                              .shiftName ??
-                                                          "",
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                        fontSize: 11,
-                                                        color: Colors.white,
+                                                    Container(
+                                                      width: 60,
+                                                      
+                                                      child: Text(
+                                                        reqJobList[index]
+                                                                .shiftName ??
+                                                            "",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize: 11,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
@@ -323,13 +335,18 @@ class _AvailableJobWidgetState
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      reqJobList[index]
-                                                              .jobLocation ??
-                                                          "",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11),
+                                          
+                                                    Container(
+                                                      width: 60,
+                                                      child: Text(
+                                                        reqJobList[index]
+                                                                .jobLocation ??
+                                                            "",
+                                                            overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

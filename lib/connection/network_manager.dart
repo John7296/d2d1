@@ -156,7 +156,7 @@ class NetworkManager {
     ));
   }
 
-  Future<BaseResponse<List<TimeSheet>>> timeSheet(
+  Future<BaseResponse<List<TimesheetBanner>>> timeSheet(
       String token, String sp, int staffId) {
     return call(networkConnection.timeSheet(
       token,

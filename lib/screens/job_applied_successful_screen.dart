@@ -16,7 +16,8 @@ class JobAppliedSuccessfulScreen extends StatefulWidget {
       this.startDateTime,
       this.jobLocation,
       this.isRequested,
-      this.context);
+      this.context
+      );
   String jobCatName;
   double hourlyRate;
   String clientName;

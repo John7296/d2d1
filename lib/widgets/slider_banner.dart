@@ -51,11 +51,12 @@ class _SliderBannerHomeWidgetState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 160,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 2),
-        child: (jobList.isNotEmpty)
-            ? ListView.builder(
+            height: 160,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 2),
+              child: 
+              (jobList.isNotEmpty)
+        ? ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: jobList.length,
                 itemBuilder: (context, index) {
@@ -238,13 +239,17 @@ class _SliderBannerHomeWidgetState
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    jobList[index].shiftName ??
-                                                        "",
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontSize: 11,
-                                                      color: Colors.white,
+                                                  Container(
+                                                    width: 60,
+                                                    child: Text(
+                                                      jobList[index].shiftName ??
+                                                          "",
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   )
                                                 ],
@@ -277,13 +282,17 @@ class _SliderBannerHomeWidgetState
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    jobList[index]
-                                                            .jobLocation ??
-                                                        "",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 11),
+                                                  Container(
+                                                    width: 60,
+                                                    child: Text(
+                                                      jobList[index]
+                                                              .jobLocation ??
+                                                          "",
+                                                          overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 11),
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -364,10 +373,10 @@ class _SliderBannerHomeWidgetState
                     ),
                   );
                 },
-              )
-            : Text("No Available Jobs"),
-      ),
-    );
+              ): Center(child: Text("No Available Jobs")),
+            ),
+          );
+        
   }
 
   @override
