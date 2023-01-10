@@ -71,11 +71,12 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
       setState(() {
        
       });
-      //Navigator.pop(context, true);
-     
+      Navigator.pop(context, true);
+  
       getProfile();
+     
     }).catchError((e) {
-      // hideLoader();
+       hideLoader();
       showFlashMsg(e.toString());
       print(e.toString());
     });
