@@ -88,7 +88,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       hideLoader();
       setState(() {
         timeSheetDetailsList.clear();
-        timeSheetDetailsList.add(response.data!);
+        if (response.data!.result1!.isNotEmpty) {
+          timeSheetDetailsList.add(response.data!);
+        }
       });
     }).catchError((e) {
       // showFlashMsg(e.toString());
@@ -107,13 +109,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
     }).then((BaseResponse<ApproveTimeSheet> response) {
       // if (response.data!.Message == "Success") {
       //   // hideLoader();
-
       //   Navigator.push(
       //     context,
       //     MaterialPageRoute(
       //         builder: (context) => TimeSheetScreen()));
       // }
-
       // Navigator.pop(context);
     }).catchError((e) {
       // hideLoader();
@@ -191,7 +191,13 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     icon: Icon(Icons.arrow_back_ios,
                                         color: Colors.white),
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      Navigator.pushAndRemoveUntil(context,
+                                          MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return HomeScreen();
+                                        },
+                                      ), (route) => false);
+                                      // Navigator.pop(context);
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -214,9 +220,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                           ),
                           Column(
                             children: [
-                              SizedBox(
-                                height: 20,
-                              ),
+                              // SizedBox(
+                              //   height: 10,
+                              // ),
                               // Container(
                               //   height: 80,
                               //   width: 80,
@@ -243,8 +249,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                 height: 40,
                                 width: 200,
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.transparent),
+                                  border:
+                                      Border.all(width: 1, color: Colors.white),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(0)),
                                 ),
@@ -252,7 +258,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   alignedDropdown: true,
                                   child: DropdownButton<Job>(
                                     hint: Text(
-                                      "Select a Job",
+                                      (jobList.isNotEmpty)
+                                          ? "Select a Job"
+                                          : "No Jobs",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -288,14 +296,14 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              // SizedBox(height: 10),
                               Text(
                                 (timeSheetDetailsList.isNotEmpty)
                                     ? timeSheetDetailsList[0]
                                             .result1![0]
                                             .catName ??
                                         ""
-                                    : "",
+                                    : "No data found",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: kFontWeight_M,
@@ -313,16 +321,16 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                   color: Colors.white,
                                 ),
                               ),
-                              SizedBox(height: 50),
+                              // SizedBox(height: 50),
                             ],
                           ),
                         ],
                       ),
-                      Spacer(),
+                      // Spacer(),
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           // crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
@@ -353,7 +361,13 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                       ),
                                     ],
                                   )
-                                : SizedBox(),
+                                : Text(
+                                    "",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: kFontWeight_SB,
+                                        fontSize: kFontSize_14),
+                                  ),
                             (timeSheetDetailsList.isNotEmpty)
                                 ? Row(
                                     children: [
@@ -376,7 +390,13 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                       ),
                                     ],
                                   )
-                                : SizedBox(),
+                                : Text(
+                                    "",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: kFontWeight_SB,
+                                        fontSize: kFontSize_14),
+                                  ),
                           ],
                         ),
                       ),
@@ -385,15 +405,6 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                 ),
               ],
             ),
-
-            // ListView.builder(
-            //   physics: NeverScrollableScrollPhysics(),
-            //   shrinkWrap: true,
-            //   itemCount: timeSheetDetailsList.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return
-            //   },
-
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Row(
@@ -432,7 +443,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 SizedBox(
-                                    width: 60,
+                                    width: 70,
                                     child: Text("Date",
                                         style: TextStyle(fontSize: 12))),
                                 SizedBox(
@@ -477,7 +488,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             SizedBox(
-                                                width: 60,
+                                                width: 70,
                                                 child: Text(
                                                     timeSheetDetailsList[index]
                                                             .result2![index]
@@ -539,7 +550,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                             context: context,
                                                             builder:
                                                                 (BuildContext
-                                                                    context) {
+                                                                    cntx) {
                                                               return Padding(
                                                                 padding:
                                                                     const EdgeInsets
@@ -568,24 +579,40 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                               10,
                                                                         ),
                                                                         Row(
+                                                                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                           children: [
-                                                                            ImageIcon(
-                                                                              AssetImage("assets/images/ic_briefcase.png"),
-                                                                              size: 15,
-                                                                              color: Colors.grey,
+                                                                            Row(
+                                                                              children: [
+                                                                                ImageIcon(
+                                                                                  AssetImage("assets/images/ic_briefcase.png"),
+                                                                                  size: 15,
+                                                                                  color: Colors.grey,
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 5,
+                                                                                ),
+                                                                                Text(
+                                                                                  timeSheetDetailsList[index].result1![index].catName ?? '',
+                                                                                  style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                            Text(
-                                                                              timeSheetDetailsList[index].result1![index].catName ?? '',
-                                                                              style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                            SizedBox(
+                                                                              width: 10,
                                                                             ),
-                                                                            ImageIcon(
-                                                                              AssetImage("assets/images/ic_location.png"),
-                                                                              size: 15,
-                                                                              color: Colors.grey,
-                                                                            ),
-                                                                            Text(
-                                                                              timeSheetDetailsList[index].result1![index].clientName ?? '',
-                                                                              style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                            Row(
+                                                                              children: [
+                                                                                ImageIcon(
+                                                                                  AssetImage("assets/images/ic_location.png"),
+                                                                                  size: 15,
+                                                                                  color: Colors.grey,
+                                                                                ),
+                                                                                SizedBox(width: 5),
+                                                                                Text(
+                                                                                  timeSheetDetailsList[index].result1![index].clientName ?? '',
+                                                                                  style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                                ),
+                                                                              ],
                                                                             )
                                                                           ],
                                                                         ),
@@ -599,6 +626,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                               Icons.calendar_today,
                                                                               size: 20,
                                                                               color: Colors.grey,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 5,
                                                                             ),
                                                                             Text(
                                                                               timeSheetDetailsList[index].result1![index].shiftName ?? '',
@@ -621,6 +651,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                               size: 15,
                                                                               color: Colors.grey,
                                                                             ),
+                                                                            SizedBox(
+                                                                              width: 5,
+                                                                            ),
                                                                             Text(
                                                                               timeSheetDetailsList[index].result2![index].starttime ?? '',
                                                                               style: TextStyle(fontSize: 9),
@@ -633,6 +666,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                               size: 15,
                                                                               color: Colors.grey,
                                                                             ),
+                                                                            SizedBox(
+                                                                              width: 5,
+                                                                            ),
                                                                             Text(
                                                                               timeSheetDetailsList[index].result2![index].endtime ?? '',
                                                                               style: TextStyle(fontSize: 9),
@@ -644,6 +680,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                               AssetImage("assets/images/ic_clock.png"),
                                                                               size: 15,
                                                                               color: Colors.grey,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 5,
                                                                             ),
                                                                             Text(
                                                                               timeSheetDetailsList[index].result2![index].breakTime ?? '',
@@ -738,14 +777,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
                                                                                   NetworkManager.shared.refreshTokens();
 
-                                                                                 
-                                                                                    onApproveButtonTapped();
-                                                                                    showFlashMsg("Approved Successfully");
-                                                                                  
-                                                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
-                                                                                  setState(() {
-                                                                                    
-                                                                                  });
+                                                                                  onApproveButtonTapped();
+                                                                                  showFlashMsg("Approved Successfully");
+
+                                                                                  Navigator.pushReplacement(cntx, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
+                                                                                  setState(() {});
                                                                                 },
                                                                                 child: Text(
                                                                                   'Approve',

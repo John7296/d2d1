@@ -14,9 +14,9 @@ import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/available_job_widget.dart';
 
 class AvailableJobsScreen extends StatefulWidget {
-  bool? fromHome;
+  bool? fromSettings;
 
-  AvailableJobsScreen({super.key, this.fromHome = true});
+  AvailableJobsScreen({super.key, this.fromSettings = true});
   @override
   _AvailableJobsScreenState createState() => _AvailableJobsScreenState();
 }
@@ -76,11 +76,13 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () {
-                        (widget.fromHome == true)
-                            ? Navigator.push(
-                                context,
+                        (widget.fromSettings == true)
+                            ? Navigator.pushAndRemoveUntil(context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomeScreen()))
+                                builder: (BuildContext context) {
+                                  return HomeScreen();
+                                },
+                              ), (route) => false)
                             : Navigator.pop(context);
                         // getJobDetails();
                       },
@@ -140,22 +142,26 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                 size: 25, color: Color(0xFF95969D)),
                           ),
                           Expanded(
-                            child: TextField(
-                              autofocus: false,
-                              textInputAction: TextInputAction.search,
-                              onChanged: (value) {
-                                _searchString = value;
-                              },
-                              onSubmitted: (value) {
-                                getJobDetails();
-                              },
-                              decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Search Available Jobs",
-                                  hintStyle: TextStyle(
-                                      fontFamily: "Intro",
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextField(
+                                autofocus: false,
+                                textInputAction: TextInputAction.search,
+                                onChanged: (value) {
+                                  _searchString = value;
+                                },
+                                onSubmitted: (value) {
+                                  getJobDetails();
+                                },
+                                decoration: const InputDecoration(
+
+                                    border: InputBorder.none,
+                                    hintText: "Search Available Jobs",
+                                    hintStyle: TextStyle(decoration: TextDecoration.none,
+                                        fontFamily: "Intro",
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey)),
+                              ),
                             ),
                           ),
                         ],
@@ -191,8 +197,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                             ),
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text(
-                                "Requested",
+                              child: Text("Available"
+                                ,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: kFontWeight_M),
                               ),
@@ -208,8 +214,9 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                 border:
                                     Border.all(color: Colors.grey, width: 1)),
                             child: Align(
+                              
                               alignment: Alignment.center,
-                              child: Text("Available",
+                              child: Text("Requested",
                                   style: TextStyle(
                                       fontSize: 16, fontWeight: kFontWeight_M)),
                             ),
@@ -226,9 +233,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  AvailableJobWidget(),
-// ==================================================================================================================================
-                  (jobList.isNotEmpty)
+                   (jobList.isNotEmpty)
                       ? ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -243,31 +248,43 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                     children: [
                                       InkWell(
                                         onTap: () {
+                                          SessionsManager.saveJobId(
+                                              jobList[index].jobId ?? 0);
+
+                                          NetworkManager.shared.jobId =
+                                              jobList[index].jobId ?? 0;
+
+                                          NetworkManager.shared.refreshTokens();
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   JobDetailsScreen(
-                                                      jobList[index]
+                                                      jobList[
+                                                                  index]
                                                               .jobCatName ??
                                                           '',
-                                                      jobList[index]
+                                                      jobList[
+                                                              index]
                                                           .hourlyRate!
                                                           .toDouble(),
-                                                      jobList[index]
+                                                      jobList[
+                                                                  index]
                                                               .clientName ??
                                                           '',
-                                                      jobList[index]
+                                                      jobList[
+                                                                  index]
                                                               .jobLocation ??
                                                           '',
-                                                      jobList[index]
+                                                      jobList[
+                                                                  index]
                                                               .startDateTime ??
                                                           '',
                                                       jobList[index]
                                                               .shiftName ??
                                                           '',
                                                       jobList[index]
-                                                              .isRequsted!,
+                                                          .isRequsted!,
                                                       context),
                                             ),
                                           );
@@ -280,7 +297,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                             ),
                                             image: DecorationImage(
                                               image: (jobList[index]
-                                                          .isRequsted!)
+                                                      .isRequsted!)
                                                   ? AssetImage(
                                                       "assets/images/green_bg.png")
                                                   : AssetImage(
@@ -429,7 +446,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceEvenly,
+                                                          .spaceAround,
                                                   children: [
                                                     Container(
                                                       height: 30,
@@ -461,15 +478,22 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                                     .white,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              jobList[index]
-                                                                      .shiftName ??
-                                                                  "",
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                fontSize: 11,
-                                                                color: Colors
-                                                                    .white,
+                                                            Container(
+                                                              width: 60,
+                                                              child: Text(
+                                                                jobList[index]
+                                                                        .shiftName ??
+                                                                    "",
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 11,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
                                                             )
                                                           ],
@@ -505,14 +529,21 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                                     .white,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              jobList[index]
-                                                                      .jobLocation ??
-                                                                  "",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 11),
+                                                            Container(
+                                                              width: 60,
+                                                              child: Text(
+                                                                jobList[index]
+                                                                        .jobLocation ??
+                                                                    "",
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        11),
+                                                              ),
                                                             )
                                                           ],
                                                         ),
@@ -591,6 +622,9 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                         )
                       : Center(
                           child: Container(child: Text("No Jobs Available"))),
+// ==================================================================================================================================
+                  AvailableJobWidget(),
+                 
                 ],
               ),
             ),

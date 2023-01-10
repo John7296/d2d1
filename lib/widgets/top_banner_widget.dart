@@ -29,7 +29,7 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
       NetworkManager.shared.userToken!,
       "getJobDetailsByJobIdClient",
       NetworkManager.shared.staffId!,
-      2,
+      NetworkManager.shared.jobId!,
       
     )
         .then((BaseResponse<List<JobDetails>> response) {

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,9 @@ import 'package:project_d2d/model/alert.dart';
 import 'package:project_d2d/model/alert_messages.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/job.dart';
+import 'package:project_d2d/model/staff_profile.dart';
 import 'package:project_d2d/model/timesheet.dart';
+import 'package:project_d2d/model/timesheet_banner.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -33,7 +36,8 @@ class HomeDetailScreen extends StatefulWidget {
 
 class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
   List<Job> jobList = [];
-  List<TimeSheet> timeSheetList = [];
+  List<TimesheetBanner> timeSheetList = [];
+  List<StaffProfile> profile = [];
 
   @override
   void initState() {
@@ -42,6 +46,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       getJob();
     });
     getTimeSheet();
+    staffProfile();
   }
 
   void getJob() {
@@ -55,15 +60,13 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
-   
-
-      hideLoader();
+      // hideLoader();
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
       });
     }).catchError((e) {
-      hideLoader();
+      // hideLoader();
       print(e.toString());
     });
   }
@@ -76,7 +79,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       "getStaffTimesheetBannerById",
       NetworkManager.shared.staffId!,
     )
-        .then((BaseResponse<List<TimeSheet>> response) {
+        .then((BaseResponse<List<TimesheetBanner>> response) {
       // hideLoader();
       setState(() {
         timeSheetList.clear();
@@ -84,6 +87,27 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       });
     }).catchError((e) {
       print(e.toString());
+    });
+  }
+
+  void staffProfile() {
+    // showLoader();
+    NetworkManager.shared
+        .staffProfile(NetworkManager.shared.userToken ?? '',
+            "getStaffProfilebyid", NetworkManager.shared.staffId ?? 0)
+        .then((BaseResponse<List<StaffProfile>> response) {
+      hideLoader();
+      setState(() {
+        profile.clear();
+        profile.addAll(response.data!);
+
+        //  DataManager.shared.thisuser = response.data!;
+      });
+    }).catchError((e) {
+      hideLoader();
+      //showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message);
     });
   }
 
@@ -113,8 +137,10 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                   fontSize: kFontSize_14,
                                   color: kGreyColorTxt),
                             ),
-                            Text((jobList.isNotEmpty)?
-                              '${jobList.first.allocatedStaff}👋 ':'',
+                            Text(
+                              (profile.isNotEmpty)
+                                  ? '${profile.first.staffName}👋 '
+                                  : '',
                               style: TextStyle(
                                   fontFamily: kFontFamily,
                                   fontSize: 22,
@@ -136,9 +162,15 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                               );
                             },
                             child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/profile.png'),
                               radius: 25,
+                              child: CachedNetworkImage(
+                                  imageUrl: profile.isNotEmpty
+                                      ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
+                                      : ""),
+
+                              // Image(
+                              //   image: AssetImage("assets/images/profile_img.png"),
+                              // ),
                             ),
                           ),
                         ],
@@ -313,7 +345,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.jobPending
+                                                timeSheetList.first.pending
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
@@ -397,7 +429,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.jobApproved
+                                                timeSheetList.first.approved
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
@@ -483,7 +515,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.jobCompleted
+                                                timeSheetList.first.completed
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
