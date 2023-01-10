@@ -429,7 +429,8 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.approved.toString(),
+                                                timeSheetList.first.approved
+                                                    .toString(),
                                                 // "",
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_SB,
@@ -514,7 +515,8 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.completed.toString(),
+                                                timeSheetList.first.completed
+                                                    .toString(),
                                                 // "",
                                                 style: TextStyle(
                                                   fontWeight: kFontWeight_SB,
