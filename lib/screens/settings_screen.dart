@@ -172,7 +172,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AvailableJobsScreen(
+                              builder: (context) => RecentlyAppliedJobs(
                                    
                                   ),),);
                     },
