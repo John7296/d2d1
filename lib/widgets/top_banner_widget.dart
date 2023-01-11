@@ -30,7 +30,6 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
       "getJobDetailsByJobIdClient",
       NetworkManager.shared.staffId!,
       NetworkManager.shared.jobId!,
-      
     )
         .then((BaseResponse<List<JobDetails>> response) {
       // hideLoader();
@@ -85,10 +84,11 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                             icon:
                                 Icon(Icons.arrow_back_ios, color: Colors.white),
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                              // Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => HomeScreen()));
+                              Navigator.pop(context);
                             },
                           ),
                         ),
