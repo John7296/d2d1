@@ -103,7 +103,7 @@ class _AlertCardWidgetState extends BaseStatefulState<AlertCardWidget> {
               );
             },
           )
-        : Text("No data");
+        : Center(child: Text("No Alerts Available"));
   }
 
   @override

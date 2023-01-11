@@ -124,7 +124,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                     ),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         // color: Colors.green,
@@ -135,18 +135,11 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(40),
-                                ),
-                                color: Colors.white,
-                                image: DecorationImage(
-                                  image: AssetImage("assets/images/care.png"),
-                                  fit: BoxFit.contain,
-                                ),
+                            CircleAvatar(
+                              radius: 35,
+                              child: Image(
+                                image:
+                                    AssetImage("assets/images/care.png"),
                               ),
                             ),
                             Text(
@@ -252,11 +245,11 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
                 if (widget.isRequested)
                   Positioned(
-                    top: 150,
+                    top: 160,
                     right: 0,
                     child: Container(
                       height: 30,
-                      width: 72,
+                      width: 75,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
@@ -274,20 +267,17 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                       ),
                     ),
                   ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => AvailableJobsScreen(),
-                      //     ),
-                      //   );
-                    },
-                  ),
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => AvailableJobsScreen(),
+                    //     ),
+                    //   );
+                  },
                 ),
               ],
             ),
