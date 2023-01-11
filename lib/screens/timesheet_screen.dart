@@ -17,6 +17,7 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 import 'package:signature/signature.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class TimeSheetScreen extends StatefulWidget {
   const TimeSheetScreen({super.key});
@@ -689,7 +690,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                                 height: 150,
                                                                                 width: 150,
                                                                                 color: Colors.green,
-                                                                                child: Signature(controller: _controller),
+                                                                                child: SfSignaturePad(
+                                                                                  backgroundColor: Colors.grey[200],
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           ],

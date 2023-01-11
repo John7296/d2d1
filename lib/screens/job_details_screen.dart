@@ -264,7 +264,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                           padding: const EdgeInsets.only(left: 10),
                           child: Text(
                             'Requested',
-                            style: TextStyle(color: Colors.white, fontSize: 11),
+                            style: TextStyle(color: Colors.white, fontSize: 10),
                           ),
                         ),
                       ),
