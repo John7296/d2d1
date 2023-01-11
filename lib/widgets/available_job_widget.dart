@@ -127,7 +127,7 @@ class _AvailableJobWidgetState
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  height: 150,
+                                  height: 155,
                                   child: Padding(
                                     padding: const EdgeInsets.all(20),
                                     child: Column(

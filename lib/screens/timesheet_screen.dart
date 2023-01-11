@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
   var dropDownList = [];
   // String? _chosenValue;
   Job? showSelectedJob;
+  List<TimeSheetResponse> timesheetlist = [];
 
   @override
   void initState() {
@@ -83,17 +85,18 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       "multiple",
     )
         .then((BaseResponse<TimeSheetResponse> response) {
-      // print("qwert");
+      log("asdfg");
       // print("response ${response.data!}");
       hideLoader();
       setState(() {
         timeSheetDetailsList.clear();
         if (response.data!.result1!.isNotEmpty) {
           timeSheetDetailsList.add(response.data!);
+          timesheetlist = timeSheetDetailsList;
         }
       });
     }).catchError((e) {
-      // showFlashMsg(e.toString());
+      showFlashMsg(e.toString());
       hideLoader();
       print(e.toString());
     });
@@ -116,7 +119,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       // }
       // Navigator.pop(context);
     }).catchError((e) {
-      // hideLoader();
+      hideLoader();
+      showFlashMsg(e.toString());
       // print(e.toString());
     });
   }
@@ -146,7 +150,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print("result ${timeSheetDetailsList}");
+    log("result ${timeSheetDetailsList.length}");
+    log(timesheetlist.length.toString());
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
@@ -174,233 +180,186 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                     //   ),
                     // ],
                   ),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        //  mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_back_ios,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      Navigator.pushAndRemoveUntil(context,
-                                          MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return HomeScreen();
-                                        },
-                                      ), (route) => false);
-                                      // Navigator.pop(context);
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             HomeScreen()));
-                                      // getJob();
-                                    },
-                                  ),
-                                ),
-                                height: 40,
-                                width: 40,
-                              ),
-                              SizedBox(
-                                height: 150,
-                              ),
-                            ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.white),
+                            borderRadius: BorderRadius.all(Radius.circular(0)),
                           ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Column(
-                            children: [
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
-                              // Container(
-                              //   height: 80,
-                              //   width: 80,
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.all(
-                              //       Radius.circular(40),
-                              //     ),
-                              //     color: Colors.white,
-                              //     image: DecorationImage(
-                              //       image: AssetImage("assets/images/care.png"),
-                              //       fit: BoxFit.contain,
-                              //     ),
-                              //     // color: Colors.green.shade400,
-                              //     // boxShadow: [
-                              //     //   BoxShadow(
-                              //     //     color: Colors.grey,
-                              //     //     offset: Offset(0.0, 1.0), //(x,y)
-                              //     //     blurRadius: 3.0,
-                              //     //   ),
-                              //     // ],
-                              //   ),
-                              // ),
-                              Container(
-                                height: 40,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.white),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(0)),
-                                ),
-                                child: ButtonTheme(
-                                  alignedDropdown: true,
-                                  child: DropdownButton<Job>(
-                                    hint: Text(
-                                      (jobList.isNotEmpty)
-                                          ? "Select a Job"
-                                          : "No Jobs",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                    isExpanded: true,
-                                    dropdownColor:
-                                        Color.fromARGB(255, 201, 105, 117),
-                                    elevation: 5,
-                                    value: showSelectedJob,
-                                    underline:
-                                        Container(color: Colors.transparent),
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_outlined,
-                                      color: Colors.white,
-                                    ),
-                                    onChanged: (Job? value) {
-                                      getDropdownDetails(value!.jobId!);
-                                      // This is called when the user selects an item.
-                                      setState(() {
-                                        showSelectedJob = value;
-                                      });
-                                      // print(showSelectedState!.name);
-                                    },
-                                    items: jobList.map<DropdownMenuItem<Job>>(
-                                        (Job value) {
-                                      return DropdownMenuItem<Job>(
-                                        value: value,
-                                        child: Text(
-                                          value.jobNumber ?? '',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                              // SizedBox(height: 10),
-                              Text(
-                                (timeSheetDetailsList.isNotEmpty)
-                                    ? timeSheetDetailsList[0]
-                                            .result1![0]
-                                            .catName ??
-                                        ""
-                                    : "No data found",
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButton<Job>(
+                              hint: Text(
+                                (jobList.isNotEmpty)
+                                    ? "Select a Job"
+                                    : "No Jobs",
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: kFontWeight_M,
-                                  color: Colors.white,
-                                ),
+                                    color: Colors.white, fontSize: 20),
                               ),
-                              Text(
-                                (timeSheetDetailsList.isNotEmpty)
-                                    ? timeSheetDetailsList[0]
-                                            .result1![0]
-                                            .clientName ??
-                                        ''
-                                    : '',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                              isExpanded: true,
+                              dropdownColor: Color.fromARGB(255, 201, 105, 117),
+                              elevation: 5,
+                              value: showSelectedJob,
+                              underline: Container(color: Colors.transparent),
+                              icon: const Icon(
+                                Icons.arrow_drop_down_outlined,
+                                color: Colors.white,
                               ),
-                              // SizedBox(height: 50),
-                            ],
-                          ),
-                        ],
-                      ),
-                      // Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          // crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: kFontWeight_SB,
-                                  fontSize: kFontSize_14),
+                              onChanged: (Job? value) {
+                                getDropdownDetails(value!.jobId!);
+                                // This is called when the user selects an item.
+                                setState(() {
+                                  showSelectedJob = value;
+                                });
+                                // print(showSelectedState!.name);
+                              },
+                              items: jobList
+                                  .map<DropdownMenuItem<Job>>((Job value) {
+                                return DropdownMenuItem<Job>(
+                                  value: value,
+                                  child: Text(
+                                    value.jobNumber ?? '',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              }).toList(),
                             ),
-                            (timeSheetDetailsList.isNotEmpty)
-                                ? Row(
-                                    children: [
-                                      Icon(
-                                        Icons.calendar_today_outlined,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      SizedBox(width: 2),
-                                      Text(
-                                        timeSheetDetailsList[0]
-                                                .result1![0]
-                                                .jobPostDate ??
-                                            '',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: kFontWeight_SB,
-                                            fontSize: kFontSize_14),
-                                      ),
-                                    ],
-                                  )
-                                : Text(
-                                    "",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: kFontWeight_SB,
-                                        fontSize: kFontSize_14),
-                                  ),
-                            (timeSheetDetailsList.isNotEmpty)
-                                ? Row(
-                                    children: [
-                                      ImageIcon(
-                                        AssetImage(
-                                            "assets/images/ic_location.png"),
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                      Text(
-                                        timeSheetDetailsList[0]
-                                                .result1![0]
-                                                .jobLocation ??
-                                            '',
-                                        style: TextStyle(
+                          ),
+                        ),
+                        // SizedBox(height: 10),
+                        Text(
+                          (timeSheetDetailsList.isNotEmpty)
+                              ? timeSheetDetailsList[0].result1![0].catName ??
+                                  ""
+                              : "No data found",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: kFontWeight_M,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          (timeSheetDetailsList.isNotEmpty)
+                              ? timeSheetDetailsList[0]
+                                      .result1![0]
+                                      .clientName ??
+                                  ''
+                              : '',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: kFontWeight_SB,
+                                    fontSize: kFontSize_14),
+                              ),
+                              (timeSheetDetailsList.isNotEmpty)
+                                  ? Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today_outlined,
+                                          color: Colors.white,
+                                          size: 14,
+                                        ),
+                                        SizedBox(width: 2),
+                                        Text(
+                                          timeSheetDetailsList[0]
+                                                  .result1![0]
+                                                  .jobPostDate ??
+                                              '',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: kFontWeight_SB,
+                                              fontSize: kFontSize_14),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      "",
+                                      style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: kFontWeight_SB,
-                                          fontSize: kFontSize_14,
+                                          fontSize: kFontSize_14),
+                                    ),
+                              (timeSheetDetailsList.isNotEmpty)
+                                  ? Row(
+                                      children: [
+                                        ImageIcon(
+                                          AssetImage(
+                                              "assets/images/ic_location.png"),
+                                          size: 20,
+                                          color: Colors.white,
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                : Text(
-                                    "",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: kFontWeight_SB,
-                                        fontSize: kFontSize_14),
-                                  ),
-                          ],
+                                        Text(
+                                          timeSheetDetailsList[0]
+                                                  .result1![0]
+                                                  .jobLocation ??
+                                              '',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: kFontWeight_SB,
+                                            fontSize: kFontSize_14,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      "",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: kFontWeight_SB,
+                                          fontSize: kFontSize_14),
+                                    ),
+                            ],
+                          ),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return HomeScreen();
+                            },
+                          ), (route) => false);
+                          // Navigator.pop(context);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             HomeScreen()));
+                          // getJob();
+                        },
                       ),
-                    ],
+                    ),
+                    height: 40,
+                    width: 40,
                   ),
                 ),
               ],
@@ -654,9 +613,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                             SizedBox(
                                                                               width: 5,
                                                                             ),
-                                                                            Text(
-                                                                              timeSheetDetailsList[index].result2![index].starttime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
+                                                                            Center(
+                                                                              child: Text(
+                                                                                timeSheetDetailsList[index].result2![index].starttime ?? '',
+                                                                                style: TextStyle(fontSize: 9),
+                                                                              ),
                                                                             ),
                                                                             SizedBox(
                                                                               width: 10,
@@ -669,9 +630,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                             SizedBox(
                                                                               width: 5,
                                                                             ),
-                                                                            Text(
-                                                                              timeSheetDetailsList[index].result2![index].endtime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
+                                                                            Center(
+                                                                              child: Text(
+                                                                                timeSheetDetailsList[index].result2![index].endtime ?? '',
+                                                                                style: TextStyle(fontSize: 9),
+                                                                              ),
                                                                             ),
                                                                             SizedBox(
                                                                               width: 10,
@@ -684,9 +647,11 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                             SizedBox(
                                                                               width: 5,
                                                                             ),
-                                                                            Text(
-                                                                              timeSheetDetailsList[index].result2![index].breakTime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
+                                                                            Center(
+                                                                              child: Text(
+                                                                                timeSheetDetailsList[index].result2![index].breakTime ?? '',
+                                                                                style: TextStyle(fontSize: 9),
+                                                                              ),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -807,7 +772,23 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                       ]),
                                                                 ),
                                                               );
-                                                            })
+                                                            }).then((value) {
+                                                            print("qwerty");
+                                                            log(timeSheetDetailsList
+                                                                .length
+                                                                .toString());
+                                                            log(timeSheetDetailsList[
+                                                                    0]
+                                                                .result2![0]
+                                                                .status
+                                                                .toString());
+                                                            // getJob();
+                                                            getDropdownDetails(
+                                                                NetworkManager
+                                                                    .shared
+                                                                    .jobId!);
+                                                            setState(() {});
+                                                          })
                                                         : showModalBottomSheet(
                                                             // isScrollControlled: true,
                                                             context: context,
