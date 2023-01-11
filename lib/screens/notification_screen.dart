@@ -107,7 +107,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                   // color: Colors.white, 
+                    borderRadius: BorderRadius.circular(5)),
                 child: Row(
                   children: [
                     Column(

@@ -97,7 +97,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-               color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              // color: Colors.white,
+                borderRadius: BorderRadius.circular(5)),
                 child: ListView.builder(
                   itemCount: help.length,
                   itemBuilder: (BuildContext context, int index){
@@ -105,7 +106,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                         width: double.infinity,
                        
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                  //  color: Colors.white, 
+                    borderRadius: BorderRadius.circular(5)),
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [

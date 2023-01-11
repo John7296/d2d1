@@ -7,6 +7,7 @@ import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/change_password_screen.dart';
 import 'package:project_d2d/screens/help_center_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
+import 'package:project_d2d/screens/login_screen.dart';
 import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
@@ -21,7 +22,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
-
   void onContinueBtntapped() {
     NetworkManager.shared
         .resetPassword(NetworkManager.shared.userToken ?? '', <String, dynamic>{
@@ -33,8 +33,9 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
       //   emailSent = true;
       // });
       showFlashMsg("Account Deleted");
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => LogoutScreen()));
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return LoginScreen();
+      },),(route) => false);
     }).catchError((e) {
       //  hideLoader();
       // showFlashMsg(e.toString());
@@ -84,26 +85,26 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
         child: Column(children: [
           Padding(
             padding: const EdgeInsets.only(top: 50),
-            child:
-
-           
-            
-             Row(
+            child: Row(
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return HomeScreen();
+                        },
+                      ), (route) => false);
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
                 SizedBox(
-                  width: 120,
+                  width: 140,
                 ),
-                Text(
-                  "Settings",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Settings",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  ),
                 )
               ],
             ),
@@ -284,7 +285,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500), 
+                                fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -352,7 +353,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

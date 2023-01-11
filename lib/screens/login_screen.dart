@@ -172,7 +172,10 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                               color: Color(0xffAFB0B6),
                               fontWeight: FontWeight.w500,
                               fontSize: 15),
-                        )),
+                             prefixIcon: Icon(Icons.person),
+                        ),
+                        
+                        ),
                   ),
                   Padding(
                     padding:
@@ -191,6 +194,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                             color: Color(0xffAFB0B6),
                             fontWeight: FontWeight.w500,
                             fontSize: 15),
+                            prefixIcon: Icon(Icons.lock),
 
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 5),

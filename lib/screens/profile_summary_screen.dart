@@ -59,7 +59,7 @@ class _ProfileSummaryScreenState
 
         //   emailSent = true;
       });
-    //  paymentHistory();
+      paymentHistory();
       //  Navigator.pushReplacement(
       //                 context,
       //                 MaterialPageRoute(
@@ -108,19 +108,19 @@ class _ProfileSummaryScreenState
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),
-                  Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile()));
-                      },
-                      child: Text("Edit",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xffAFB0B6),
-                              fontSize: 13)))
+                  // Spacer(),
+                  // TextButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) => EditProfile()));
+                  //     },
+                  //     child: Text("Edit",
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w900,
+                  //             color: Color(0xffAFB0B6),
+                  //             fontSize: 13)))
                 ],
               ),
             ),
@@ -222,7 +222,8 @@ class _ProfileSummaryScreenState
               ),
             ),
             SizedBox(height: 20),
-
+             
+           
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Container(
@@ -268,6 +269,7 @@ class _ProfileSummaryScreenState
                         ),
                       ],
                     ),
+                    if(payment.isNotEmpty)
                     
                       ListView.separated(
                           shrinkWrap: true,
@@ -347,7 +349,22 @@ class _ProfileSummaryScreenState
                               height: 1,
                               color: Colors.grey,
                             );
-                          })
+                          }),
+
+                         if(payment.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                              
+                               Container(child: Center(
+                                 child: Text(
+                                  "No Payment history Found",
+                                 ),
+                               ),)
+                            ],),
+                          )
                   ],
                 ),
               ),

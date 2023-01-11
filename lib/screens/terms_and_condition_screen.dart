@@ -99,7 +99,8 @@ class _TermsAndConditionScreenState extends BaseStatefulState<TermsAndConditionS
                 width: double.infinity,
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-               color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              // color: Colors.white, 
+               borderRadius: BorderRadius.circular(5)),
                 child: ListView.builder(
                   itemCount: terms.length,
                   itemBuilder: (BuildContext context, int index){
@@ -107,7 +108,8 @@ class _TermsAndConditionScreenState extends BaseStatefulState<TermsAndConditionS
                         width: double.infinity,
                        
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                    //color: Colors.white, 
+                    borderRadius: BorderRadius.circular(5)),
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [

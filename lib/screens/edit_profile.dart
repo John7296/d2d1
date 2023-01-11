@@ -23,6 +23,8 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
 
   List<StaffProfile>? staffProfile;
 
+    bool isLoading = false;
+
     @override
   void initState() {
     // TODO: implement initState
@@ -43,15 +45,18 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
       hideLoader();
       setState(() {
         staffProfile = response.data;
-        _staffNameController.text = staffProfile?.first.staffName?? '';
+        
+      });
+
+      _staffNameController.text = staffProfile?.first.staffName?? '';
       _emailController.text = staffProfile?.first.email??'';
       _mobileController.text = staffProfile?.first.phoneHome??'';
       _addressController.text= staffProfile?.first.address??'';
-      });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+     // showFlashMsg(e.toString());
       print(e.toString());
+      showFlashMsg(e.Message);
     });
   }
 
@@ -71,13 +76,15 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
       setState(() {
        
       });
-      //Navigator.pop(context, true);
-     
+     // Navigator.pop(context, true);
+  
       getProfile();
+     
     }).catchError((e) {
-      // hideLoader();
-      showFlashMsg(e.toString());
+       hideLoader();
+      //showFlashMsg(e.toString());
       print(e.toString());
+      showFlashMsg(e.Message);
     });
   }
 
@@ -158,7 +165,8 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5)
+                                      contentPadding: EdgeInsets.all(5),
+                                      prefixIcon: Icon(Icons.person)
                                       // labelText: 'Mobile'
                                       ),
                                   controller: _staffNameController,
@@ -210,7 +218,8 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5)
+                                      contentPadding: EdgeInsets.all(5),
+                                      prefixIcon: Icon(Icons.email),
                                       // labelText: 'Mobile'
                                       ),
                                   controller: _emailController,
@@ -238,16 +247,17 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5)
+                                      contentPadding: EdgeInsets.all(5),
                                       // labelText: 'Mobile'
+                                      prefixIcon: Icon(Icons.phone)
                                       ),
                                   controller: _mobileController,
                                     validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Enter Mobile Number';
                                     }
-                                    if (value.length < 8) {
-                                      return 'Enter valid phone number';
+                                    if (value.length < 10) {
+                                      return 'Enter 10 digits phone number';
                                     }
                                      if(!RegExp( r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$').hasMatch(value)){
                                 return "Enter valid Number";
@@ -266,15 +276,17 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                       backgroundColor: Color(0xffFD425B),
                     ),
                     onPressed: () {
-
-                      //  if (_form.currentState!.validate()) {
+                        //     if (isLoading) {
+                        //   return;
+                        // }
+                       if (_form.currentState!.validate()) {
                         onUpdateButtonTapped();
-                      // getProfile();
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ProfileScreen()));
-                      //         }
+                      getProfile();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()));
+                              }
           
                       // onUpdateButtonTapped();
                       // getProfile();
