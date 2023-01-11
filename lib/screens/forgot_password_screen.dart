@@ -251,6 +251,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                   labelText: "   Mobile Number",
                   labelStyle: TextStyle(color: Color(0xffAFB0B6), fontFamily: "Poppins"),
                   prefixIcon: Icon(Icons.phone),
+                   prefixText: "+44  ",
                 ),
               controller: _mobileController,
                           validator: (val) {

@@ -249,7 +249,8 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                       border: OutlineInputBorder(),
                                       contentPadding: EdgeInsets.all(5),
                                       // labelText: 'Mobile'
-                                      prefixIcon: Icon(Icons.phone)
+                                      prefixIcon: Icon(Icons.phone),
+                                      prefixText: "+44  "
                                       ),
                                   controller: _mobileController,
                                     validator: (value) {
@@ -282,6 +283,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                        if (_form.currentState!.validate()) {
                         onUpdateButtonTapped();
                       getProfile();
+                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
