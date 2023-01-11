@@ -44,9 +44,10 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-    });
-    getTimeSheet();
     staffProfile();
+
+    });
+    
   }
 
   void getJob() {
@@ -86,6 +87,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
         timeSheetList.addAll(response.data!);
       });
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -104,7 +106,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
         //  DataManager.shared.thisuser = response.data!;
       });
     }).catchError((e) {
-      hideLoader();
+      
       //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message);
