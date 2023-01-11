@@ -120,7 +120,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       // Navigator.pop(context);
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      // showFlashMsg(e.toString());
       // print(e.toString());
     });
   }
