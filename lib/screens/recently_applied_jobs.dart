@@ -136,14 +136,15 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                         onPressed: () {
+                          Navigator.pop(context);
                           // (widget.fromSettings == true)
                           // ?
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return HomeScreen();
-                            },
-                          ), (route) => false);
+                          // Navigator.pushAndRemoveUntil(context,
+                          //     MaterialPageRoute(
+                          //   builder: (BuildContext context) {
+                          //     return HomeScreen();
+                          //   },
+                          // ), (route) => false);
                           //     : Navigator.pop(context);
                           // // getJobDetails();
                         },

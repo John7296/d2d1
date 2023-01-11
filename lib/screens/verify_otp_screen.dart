@@ -143,13 +143,24 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
                 activeFillColor: Colors.white,
               ),
               controller: _otpController,
-                    validator: (val) {
-                      if (!emailSent) return null;
-                      if (val!.isEmpty) {
-                        return "Enter the OTP";
-                      }
-                      return null;
-                    }
+
+               validator: ( value) {
+                        if (value!.isEmpty) {
+                          return "Please enter phone number";
+                        } else if (value.length != 6) {
+                          return "Please enter valid Phone number";
+                        } else {
+                          return null;
+                        }
+                      },
+
+                    // validator: (val) {
+                    //   if (!emailSent) return null;
+                    //   if (val!.isEmpty) {
+                    //     return "Enter the OTP";
+                    //   }
+                    //   return null;
+                    // }
             ),
           ),
           Padding(
