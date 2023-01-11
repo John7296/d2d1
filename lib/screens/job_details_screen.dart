@@ -156,32 +156,35 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Container(
-                              height: 30,
-                              width: 120,
-                              // color: Colors.white,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:135),
+                              child: Container(
+                                height: 30,
+                                // width: 120,
+                                // color: Colors.white,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  color: Colors.white.withOpacity(0.1),
                                 ),
-                                color: Colors.white.withOpacity(0.1),
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.alarm_add_outlined,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                    Text(
-                                      widget.jobLocation,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 11),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.alarm_add_outlined,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        widget.jobLocation,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 11),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
