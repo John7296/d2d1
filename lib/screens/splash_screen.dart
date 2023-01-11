@@ -91,9 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
       
             InkWell(
               onTap: (){
-               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-        return OnboardingScreens();
-      },),(route) => false);
+      //          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+      //   return OnboardingScreens();
+      // },),(route) => false);
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom:130),

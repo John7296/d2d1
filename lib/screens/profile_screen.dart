@@ -14,6 +14,8 @@ import 'package:project_d2d/model/training_status.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/edit_profile.dart';
 import 'package:project_d2d/screens/home_screen.dart';
+import 'package:project_d2d/screens/job_cancel_screen.dart';
+import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 
 import 'package:project_d2d/screens/profile_summary_screen.dart';
@@ -347,7 +349,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AvailableJobsScreen()));
+                                  builder: (context) => JobCancelScreen()));
                         },
                         child: Container(
                           margin: EdgeInsets.only(right: 10),
