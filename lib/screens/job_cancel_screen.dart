@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
+import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
@@ -18,9 +20,10 @@ class JobCancelScreen extends StatefulWidget {
   State<JobCancelScreen> createState() => _JobCancelScreenState();
 }
 
-class _JobCancelScreenState extends State<JobCancelScreen> {
+class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
   final formKey = GlobalKey<FormState>();
   final _reasonController = TextEditingController();
+   List<JobRequest> jobs = [];
 
   void onCancelButtonTapped() {
     NetworkManager.shared.cancelJob(NetworkManager.shared.userToken!, <String, dynamic>{
@@ -36,6 +39,20 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
     }).catchError((e) {
       // print(e.toString());
     });
+  }
+
+    void recentJobRequest() {
+    NetworkManager.shared
+        .recentJobRequest(NetworkManager.shared.userToken ?? '',
+            "getRecentRequstedJobs", NetworkManager.shared.staffId ?? 0)
+        .then((BaseResponse<List<JobRequest>> response) {
+      hideLoader();
+      setState(() {
+        jobs.clear();
+        jobs.addAll(response.data!);
+      });
+      // timeSheetBanner();
+    }).catchError((e) {});
   }
 
   @override
@@ -171,4 +188,11 @@ class _JobCancelScreenState extends State<JobCancelScreen> {
       ),
     );
   }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
+  }
+
 }

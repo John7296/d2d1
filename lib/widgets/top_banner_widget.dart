@@ -245,7 +245,7 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
             alignment: Alignment.centerRight,
             child: Container(
               height: 30,
-              width: 72,
+              width: 75,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),

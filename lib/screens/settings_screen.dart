@@ -13,6 +13,7 @@ import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/profile_summary_screen.dart';
+import 'package:project_d2d/screens/recently_applied_jobs.dart';
 import 'package:project_d2d/screens/support_screen.dart';
 import 'package:project_d2d/screens/terms_and_condition_screen.dart';
 
@@ -167,7 +168,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => AvailableJobsScreen(
-                                  fromSettings: false,
+                                 
                                 ),),);
                   },
                   child: ListTile(
