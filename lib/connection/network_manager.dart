@@ -40,6 +40,7 @@ class NetworkManager {
   late String? userToken;
   late int? jobId;
   late int? timesheetId;
+  late int? clientId;
 
   init() {
     dio = Dio();

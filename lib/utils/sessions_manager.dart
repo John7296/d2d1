@@ -6,6 +6,7 @@ class SessionsManager {
   static const String userId = "userId";
   static const String staffId = "staffId";
   static const String jobId = "jobId";
+  static const String clientId = "clientId";
   static const String timesheetId = "timesheetId";
 
   static Future<String?> getUserToken() async {
@@ -67,5 +68,15 @@ class SessionsManager {
   static Future<int?> getTimesheetId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt(timesheetId);
+  }
+
+      static void saveClientId(int data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(jobId, data);
+  }
+
+  static Future<int?> getClientId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(jobId);
   }
 }
