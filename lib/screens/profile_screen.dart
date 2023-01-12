@@ -148,97 +148,135 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-
-                     (widget.fromSettings == true)
-                          ?
-                          // Navigator.pop(context)
-                          Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SettingsScreen()))
-                          :Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return HomeScreen();
-                            },
-                          ), (route) => false);
-
-                            if (widget.fromProfile == true)
-                             Navigator.pop(context);
-
-                          if (widget.fromBottom == true)
-                        
-                        //  Navigator.pushAndRemoveUntil(context,
-                        //       MaterialPageRoute(
-                        //     builder: (BuildContext context) {
-                        //       return HomeScreen();
-                        //     },
-                        //   ), (route) => false);
-                              
-                     Navigator.pop(context);
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => HomeScreen()));
-                  },
-                  icon: Icon(Icons.arrow_back_ios_new)),
-              Spacer(),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditProfile()));
-                  },
-                  child: Text("Edit",
-                      style: TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
-            ],
-          ),
+        physics: NeverScrollableScrollPhysics(),
+        child: Column(children: [
+          Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+      
+                   (widget.fromSettings == true)
+                        ?
+                        //  Navigator.pop(context)
+                        Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SettingsScreen()))
+                        :Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return HomeScreen();
+                          },
+                        ), (route) => false);
+      
+                          if (widget.fromProfile == true)
+                           Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return HomeScreen();
+                          },
+                        ), (route) => false);
+      
+                        if (widget.fromBottom == true)
+                      
+                       Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return HomeScreen();
+                          },
+                        ), (route) => false);
+                            
+                  // Navigator.pop(context);
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                },
+                icon: Icon(Icons.arrow_back_ios_new)),
+            Spacer(),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditProfile()));
+                },
+                child: Text("Edit",
+                    style: TextStyle(color: Color(0xffAFB0B6), fontSize: 15)))
+          ],
         ),
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: Color(0xffF3B7BF),
-          child: CircleAvatar(
-            radius: 35,
-            child: CachedNetworkImage(
-                imageUrl: profile.isNotEmpty
-                    ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
-                    : ""),
-
-            // Image(
-            //   image: AssetImage("assets/images/profile_img.png"),
-            // ),
           ),
+          CircleAvatar(
+        radius: 50,
+        backgroundColor: Color(0xffF3B7BF),
+        child: CircleAvatar(
+          radius: 35,
+          child: CachedNetworkImage(
+              imageUrl: profile.isNotEmpty
+                  ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
+                  : ""),
+      
+          // Image(
+          //   image: AssetImage("assets/images/profile_img.png"),
+          // ),
         ),
-        Center(
-            child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Text(
-            profile.isNotEmpty ? profile[0].staffName ?? '' : "",
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w700, fontSize: 22),
           ),
-        )),
-        Center(
-            child: Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: Text(
-            profile.isNotEmpty ? profile[0].catName ?? '' : "",
-            // "Theatre practitioner",
-            //profile.first.catName.toString(),
-            style: TextStyle(color: Color(0xff95969D), fontSize: 14),
-          ),
-        )),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                profile.isNotEmpty ? profile[0].jobsCount.toString() : "",
-                // "27",
-                // profile.first.jobsCount.toString(),
+          Center(
+          child: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Text(
+          profile.isNotEmpty ? profile[0].staffName ?? '' : "",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w700, fontSize: 22),
+        ),
+          )),
+          Center(
+          child: Padding(
+        padding: const EdgeInsets.only(top: 5),
+        child: Text(
+          profile.isNotEmpty ? profile[0].catName ?? '' : "",
+          // "Theatre practitioner",
+          //profile.first.catName.toString(),
+          style: TextStyle(color: Color(0xff95969D), fontSize: 13),
+        ),
+          )),
+          SizedBox(height: 10),
+          Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+      
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                  Text(
+              profile.isNotEmpty ? profile[0].jobsCount.toString() : "",
+              // "27",
+              // profile.first.jobsCount.toString(),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15),),
+      
+                   Text(
+              "Jobs",
+              style: TextStyle(
+                  color: Color(0xff95969D),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13),
+            ),
+      
+                ]),
+      
+              ),
+      
+              Container(
+                  child: Column(children: [
+                    Text(
+                profile.isNotEmpty
+                    ? profile[0].timeSheetCount.toString()
+                    : "",
+                // "89",
+                // profile.first.timeSheetCount.toString(),
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
@@ -712,245 +750,646 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               // color: Colors.green,
               child: Center(child: Text("No Job Request Found")),
             ),
-          ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Row(
-            children: [
-              Text("Time Sheets",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-              Spacer(),
-              TextButton(
-                onPressed: () {
+                  
+                ]),
+              ),
+      
+              Container(
+                  child: Column(
+                    
+                    children: [
+      
+                     Text(
+                profile.isNotEmpty ? profile[0].passportExpy.toString() : "",
+                // "13 Nov 2024",
+                // profile.first.passportExpy.toString(),
+                // maxLines: 2,
+                style: TextStyle(
+                    color: Color(0xffF41937),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15),),
+      
+                    Text(
+              "Passport expiry",
+              style: TextStyle(
+                  color: Color(0xff95969D),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13),
+            ),
+        
+                  
+                ]),
+                
+              ),
+      
+              Container(
+                  child: InkWell(
+      
+                    onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TimeSheetScreen()));
+                          builder: (context) => ProfileSummaryScreen()));
                 },
-                child: Text("See all",
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xffAFB0B6),
-                    )),
-              ),
-            ],
-          ),
-        ),
-        if (banner.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Row(
-              children: [
-                Container(
-                  height: 80,
-                  width: 180,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    //color: Colors.green,
-                    borderRadius: BorderRadius.circular(30),
+                    child: Column(children: [
+                           
+                  
+                      Row(
+                        children: [
+                              Icon(Icons.currency_pound_outlined,
+                          color: kGreenColor, size: 20),
+                          Text(
+                            profile.isNotEmpty
+                                ? profile[0].totalEarnings.toString()
+                                : "",
+                            // "\$3435.00",
+                            //profile.first.totalEarnings.toString(),
+                            style: TextStyle(
+                                color: kGreenColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15),
+                          ),
+                        ],
+                      ),
+                  
+                      Text(
+                                  "Total Earnings",
+                                  style: TextStyle(
+                    color: Color(0xff95969D),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13),
+                                ),
+                    
+                                    ]),
                   ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Column(
-                          children: [
-                            Center(
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xffFDD9DE),
-                                child: Container(
-                                  width: 50,
-                                  height: 40,
-                                  child: Image(
-                                    image: AssetImage(
-                                      "assets/images/ic_time_1.png",
+                
+              ),
+      
+      
+        ]),
+      
+      
+        // child: Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   children: [
+        //     Text(
+        //       profile.isNotEmpty ? profile[0].jobsCount.toString() : "",
+        //       // "27",
+        //       // profile.first.jobsCount.toString(),
+        //       style: TextStyle(
+        //           color: Colors.black,
+        //           fontWeight: FontWeight.w700,
+        //           fontSize: 15),
+        //     ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(left: 60),
+        //       child: Text(
+        //         profile.isNotEmpty
+        //             ? profile[0].timeSheetCount.toString()
+        //             : "",
+        //         // "89",
+        //         // profile.first.timeSheetCount.toString(),
+        //         style: TextStyle(
+        //             color: Colors.black,
+        //             fontWeight: FontWeight.w700,
+        //             fontSize: 15),
+        //       ),
+        //     ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(left: 50),
+        //       child: Text(
+        //         profile.isNotEmpty ? profile[0].passportExpy.toString() : "",
+        //         // "13 Nov 2024",
+        //         // profile.first.passportExpy.toString(),
+        //         // maxLines: 2,
+        //         style: TextStyle(
+        //             color: Color(0xffF41937),
+        //             fontWeight: FontWeight.w700,
+        //             fontSize: 15),
+        //       ),
+        //     ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(left: 30),
+        //       child: InkWell(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => ProfileSummaryScreen()));
+        //         },
+        //         child: Row(
+        //           children: [
+        //             Icon(Icons.currency_pound_outlined,
+        //                 color: kGreenColor, size: 20),
+        //             Text(
+        //               profile.isNotEmpty
+        //                   ? profile[0].totalEarnings.toString()
+        //                   : "",
+        //               // "\$3435.00",
+        //               //profile.first.totalEarnings.toString(),
+        //               style: TextStyle(
+        //                   color: kGreenColor,
+        //                   fontWeight: FontWeight.w700,
+        //                   fontSize: 15),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Row(
+          //     // crossAxisAlignment: CrossAxisAlignment.start,
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       Text(
+          //         "Jobs",
+          //         style: TextStyle(
+          //             color: Color(0xff95969D),
+          //             fontWeight: FontWeight.w500,
+          //             fontSize: 14),
+          //       ),
+          //       // SizedBox(
+          //       //   width: 15,
+          //       // ),
+          //       Text(
+          //         "Time sheets",
+          //         style: TextStyle(
+          //             color: Color(0xff95969D),
+          //             fontWeight: FontWeight.w500,
+          //             fontSize: 14),
+          //       ),
+          //       // SizedBox(
+          //       //   width: 15,
+          //       // ),
+          //       
+          //       // SizedBox(
+          //       //   width:15,
+          //       // ),
+          //       
+          //     ],
+          //   ),
+          // ),
+          Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
+        child: Row(
+          children: [
+            Text("Recent Job Request",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+            // Spacer(),
+            // Text("See all",
+            //     style: TextStyle(
+            //       fontSize: 13,
+            //       color: Color(0xffAFB0B6),
+            //     )),
+          ],
+        ),
+          ),
+          if (jobs.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 15),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                //color: Colors.white70
+                // color: Colors.yellow,
+              ),
+              height: 94,
+              // width:double.infinity,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: jobs.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => JobCancelScreen()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        width: 376,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white70
+                            // color: Colors.grey,
+                            ),
+                        child: Column(children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3, right: 18),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
                                     ),
-                                    fit: BoxFit.fill,
-                                    //    width:50,
-                                    // height:50
+                                    color: kGreenprogressColor,
                                   ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 15),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: CachedNetworkImage(
+                                            imageUrl: jobs.isNotEmpty
+                                                ? "https://wpr.intertoons.net/d2dwebadmin/${jobs[index].profilePhoto}"
+                                                : ""),
+      
+                                        // Image(
+                                        //   image: AssetImage(
+                                        //       "assets/images/homecare_logo.png"),
+                                        //   fit: BoxFit.fill,
+                                        // ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 3),
-                              child: Text(
-                                  banner.isNotEmpty
-                                      ? "${banner[0].pending.toString()} Pending"
-                                      : "",
-                                  // "7 Pending",
-                                  //  " ${banner.first.jobPending.toString()} Pending",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xffFD425B))),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 3),
-                              child: Text(
-                                  banner.isNotEmpty
-                                      ? banner[0].clientName.toString()
-                                      : "",
-                                  // "Agate House",
-                                  // banner.first.clientName.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12, color: Color(0xffAFB0B6))),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 5),
-
-                // Spacer(),
-                Expanded(
-                  child: Container(
-                    height: 80,
-                    width: 180,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      // color: Colors.green,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Column(
-                            children: [
-                              Center(
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Color(0xffFDD9DE),
-                                  child: Container(
-                                    width: 50,
-                                    height: 40,
-                                    child: Image(
-                                      image: AssetImage(
-                                        "assets/images/ic_time_1.png",
-                                      ),
-                                      fit: BoxFit.fill,
-                                      //    width:50,
-                                      // height:50
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        jobs.isNotEmpty
+                                            ? jobs[index]
+                                                .profession
+                                                .toString()
+                                            : "",
+                                        // "Dialysis Specialist",
+                                        //jobs.first.profession.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                        )),
+                                    Text(
+                                        jobs.isNotEmpty
+                                            ? jobs[index]
+                                                .clientName
+                                                .toString()
+                                            : "",
+                                        // "Agate House",
+                                        // jobs.first.clientName??'',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff000000))),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, top: 15),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.add_location_outlined,
+                                          color: Color(0xff413E3E),
+                                        ),
+                                        Text(
+                                            jobs.isNotEmpty
+                                                ? jobs[index]
+                                                    .staffLocation
+                                                    .toString()
+                                                : "",
+                                            // "Agate East",
+                                            //  jobs.first.staffLocation.toString(),
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500)),
+                                      ],
                                     ),
-                                  ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_month_outlined,
+                                          color: Color(0xffAFB0B6),
+                                        ),
+                                        Text(
+                                            jobs.isNotEmpty
+                                                ? jobs[index]
+                                                    .allocatedOn
+                                                    .toString()
+                                                : "",
+                                            // "11 Nov 2022",
+                                            //jobs.first.allocatedOn.toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Color(0xff0D0D26),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        // SizedBox(width: 10),
-
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3),
+                          Container(
+                            height: 15,
+                            width: 110,
+                            decoration: BoxDecoration(
+                              color: Color(0xffD00000),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                topLeft: Radius.circular(15),
+                              ),
+                            ),
+                            child: Center(
                                 child: Text(
+                              "Requested",
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            )),
+                          )
+                        ]),
+                      ),
+                    );
+      
+                    
+                  })),
+        ),
+          if (jobs.isEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: Container(
+            height: 94,
+            // color: Colors.green,
+            child: Center(child: Text("No Job Request Found")),
+          ),
+        ),
+          Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
+        child: Row(
+          children: [
+            Text("Time Sheets",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+            Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TimeSheetScreen()));
+              },
+              child: Text("See all",
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Color(0xffAFB0B6),
+                  )),
+            ),
+          ],
+        ),
+          ),
+          if (banner.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left:20, right:20, top:20),
+          child: Row(
+         
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Container(
+                   height: 80,
+                  // width: 180,
+                  decoration: BoxDecoration(
+                    color: Colors.white70,
+                   //color: Colors.green,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: 
+                 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: CircleAvatar(
+                             radius: 30,
+                              backgroundColor: Color(0xffFDD9DE),
+                              child: Image(
+                                image: AssetImage(
+                                  "assets/images/ic_time_1.png",
+                                  
+                                ),
+                                height: 40,
+                                fit: BoxFit.fill,
+                                //    width:50,
+                                // height:50
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10 ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                      
+                      
+                              Text(
                                     banner.isNotEmpty
-                                        ? "${banner[0].approved.toString()} Approved"
+                                        ? "${banner[0].pending.toString()} Pending"
                                         : "",
-                                    // "85 Approved",
-                                    //  " ${banner.first.jobApproved.toString()} Approved",
+                                    // "7 Pending",
+                                    //  " ${banner.first.jobPending.toString()} Pending",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
-                                        color: kGreenprogressColor)),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3),
-                                child: Text(
+                                        color: Color(0xffFD425B))),
+                      
+                                        Text(
                                     banner.isNotEmpty
                                         ? banner[0].clientName.toString()
                                         : "",
-
                                     // "Agate House",
-                                    //  banner.first.clientName.toString(),
+                                    // banner.first.clientName.toString(),
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: Color(0xffAFB0B6))),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                                        fontSize: 12, color: Color(0xffAFB0B6))),
+                            
+                              
+                      
+                            ],),
+                          )
+                          
+                        ],
+                      ),
+                     
+                  
                 ),
-
-                // if(banner.isEmpty)
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                //   child: Container(
-                //     height: 70,
-                //     color:Colors.yellow,
-                //     child: Center(child: Text("No data found"))),
-                // ),
-              ],
-            ),
-          ),
-        if (banner.isEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Container(
-              height: 80,
-              // color:Colors.amber,
-              child: Center(child: Text("No data found")),
-            ),
-          ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
-          child: Row(
-            children: [
-              Text("Training Status",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black)),
+              ),
+              
+              SizedBox(width: 5,),
+      
+      
+      
+             Expanded(
+                child: Container(
+                   height: 80,
+                  // width: 180,
+                  decoration: BoxDecoration(
+                    color: Colors.white70,
+                  // color: Colors.green,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: 
+                 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: CircleAvatar(
+                             radius: 30,
+                              backgroundColor: Color(0xffFDD9DE),
+                              child: Image(
+                                image: AssetImage(
+                                  "assets/images/ic_time_1.png",
+                                  
+                                ),
+                                height: 40,
+                                fit: BoxFit.fill,
+                                //    width:50,
+                                // height:50
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10 ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                      
+                      
+                              Text(
+                                    banner.isNotEmpty
+                                        ? "${banner[0].approved.toString()} Approved"
+                                        : "",
+                                    // "7 Pending",
+                                    //  " ${banner.first.jobPending.toString()} Pending",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xffFD425B))),
+                      
+                                        Text(
+                                    banner.isNotEmpty
+                                        ? banner[0].clientName.toString()
+                                        : "",
+                                    // "Agate House",
+                                    // banner.first.clientName.toString(),
+                                    style: TextStyle(
+                                        fontSize: 12, color: Color(0xffAFB0B6))),
+                            
+                              
+                      
+                            ],),
+                          )
+                          
+                        ],
+                      ),
+                     
+                  
+                ),
+              ),
+      
+            
+             
+      
+              // if(banner.isEmpty)
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              //   child: Container(
+              //     height: 70,
+              //     color:Colors.yellow,
+              //     child: Center(child: Text("No data found"))),
+              // ),
             ],
           ),
         ),
-        if (training.isNotEmpty)
+          if (banner.isEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
+          child: Container(
+            height: 80,
+            // color:Colors.amber,
+            child: Center(child: Text("No data found")),
+          ),
+        ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top:20, bottom: 10),
-            child: Container(
-              // color: Colors.grey,
-              height: 200,
-              width: double.infinity,
+        padding: const EdgeInsets.only(left: 20, top: 25),
+        child: Row(
+          children: [
+            Text("Training Status",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black)),
+          ],
+        ),
+          ),
+          if (training.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left: 20,top:10, bottom: 10),
+          child: Container(
+            //color: Colors.grey,
+            height: 200,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(top:8.0),
               child: ListView.builder(
+                scrollDirection: Axis.vertical,
                   itemCount: training.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
-                    mainAxisSize: MainAxisSize.min,
+                  
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Text(
-                                training.isNotEmpty
-                                    ? "${training[0].completionRate.toString()}%"
-                                    : "",
-                                // "93%"
-                                //"${training.first.completionRate.toString()}%",
-                              ),
-                            )
-                          ],
+                     
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              training.isNotEmpty
+                                  ? "${training[0].completionRate.toString()}%"
+                                  : "",
+                              // "93%"
+                              //"${training.first.completionRate.toString()}%",
+                            ),
+                          ),
                         ),
                         Row(
                           children: [
@@ -980,173 +1419,164 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ],
                     );
                   }),
-                  
             ),
-
-          ),         
-                          // Padding(
-                          //   padding: const EdgeInsets.only(left: 20, right: 20),
-                          //   child: Container(
-                          //     height: 200,
-                          //     child: Center(
-                          //         child: Text("No Training Status Found")),
-                          //   ),
-                          // ),
-          
-            // Container(
-            //   color: Colors.yellow,
-          
-            // child: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Row(
-            //       children: [
-            //         Padding(
-            //           padding: const EdgeInsets.only(top: 20),
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               // Row(
-            //               //   children: [
-          
-            //               // if(training.isEmpty)
-            //               //     Text("Manual Handling",
-            //               //         style: TextStyle(
-            //               //             fontSize: 16, color: Colors.black)),
-            //               //   ],
-            //               // ),
-            //               // SizedBox(height: 10),
-            //               Text(
-            //                   training.isNotEmpty
-            //                       ? training[0]
-            //                           .trainingName
-            //                           .toString()
-            //                       : "",
-            //                   // "Food Hygiene",
-            //                   style: TextStyle(
-            //                       fontSize: 15, color: Colors.black)),
-            //               SizedBox(height: 10),
-            //               // Text("Fire Awareness",
-            //               //     style:
-            //               //         TextStyle(fontSize: 15, color: Colors.black)),
-            //               // SizedBox(height: 10),
-            //               // Text("Health and Safety",
-            //               //     style:
-            //               //         TextStyle(fontSize: 15, color: Colors.black)),
-            //               // SizedBox(height: 10),
-            //               // Text("Infection Control",
-            //               //     style: TextStyle(
-            //               //         fontSize: 15,
-            //               //         fontWeight: FontWeight.w400,
-            //               //         color: Colors.black)),
-            //             ],
-            //           ),
-            //         ),
-            //         Spacer(),
-            //         Column(
-            //           children: [
-            //             // Padding(
-            //             //   padding: const EdgeInsets.only(left: 150),
-            //             //   child: Text("38%"),
-            //             // ),
-            //             // LinearPercentIndicator(
-            //             //   lineHeight: 12,
-            //             //   width: 200,
-            //             //   progressColor: kGreenprogressColor,
-            //             //   backgroundColor: Color(0xffD9D9D9),
-            //             //   percent: 0.38,
-            //             //   barRadius: Radius.circular(5),
-            //             // ),
-            //             Padding(
-            //               padding: const EdgeInsets.only(left: 150),
-            //               child: Text(
-            //                 training.isNotEmpty
-            //                     ? "${training[0].completionRate.toString()}%"
-            //                     : "",
-            //                 // "93%"
-            //                 //"${training.first.completionRate.toString()}%",
-            //               ),
-            //             ),
-            //             LinearPercentIndicator(
-            //               lineHeight: 12,
-            //               width: 200,
-            //               progressColor: kGreenprogressColor,
-            //               backgroundColor: Color(0xffD9D9D9),
-            //               percent: 0.30,
-            //               barRadius: Radius.circular(5),
-            //             ),
-            //             // Padding(
-            //             //   padding: const EdgeInsets.only(left: 150),
-            //             //   child: Text("68%"),
-            //             // ),
-            //             // LinearPercentIndicator(
-            //             //   lineHeight: 12,
-            //             //   width: 200,
-            //             //   progressColor: kGreenprogressColor,
-            //             //   backgroundColor: Color(0xffD9D9D9),
-            //             //   percent: 0.68,
-            //             //   barRadius: Radius.circular(5),
-            //             // ),
-            //             // Padding(
-            //             //   padding: const EdgeInsets.only(left: 150),
-            //             //   child: Text("24%"),
-            //             // ),
-            //             // LinearPercentIndicator(
-            //             //   lineHeight: 12,
-            //             //   width: 200,
-            //             //   progressColor: kGreenprogressColor,
-            //             //   backgroundColor: Color(0xffD9D9D9),
-            //             //   percent: 0.24,
-            //             //   barRadius: Radius.circular(5),
-            //             // ),
-            //             // Padding(
-            //             //   padding: const EdgeInsets.only(left: 150),
-            //             //   child: Text("89%"),
-            //             // ),
-            //             // LinearPercentIndicator(
-            //             //   lineHeight: 12,
-            //             //   width: 200,
-            //             //   progressColor: kGreenprogressColor,
-            //             //   backgroundColor: Color(0xffD9D9D9),
-            //             //   percent: 0.89,
-            //             //   barRadius: Radius.circular(5),
-            //             // ),
-            //           ],
-            //         )
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            //   );
-            // }),
-        // ),
-
-           if (training.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top:20),
-                            child: Container(
-                             // color: Colors.amber,
-                              height: 100,
-                              width: double.infinity,
-                              child: Center(
-                                  child: Text("No Training Status Found")),
-                            ),
+                
+          ),
+      
+        ),         
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 20, right: 20),
+                        //   child: Container(
+                        //     height: 200,
+                        //     child: Center(
+                        //         child: Text("No Training Status Found")),
+                        //   ),
+                        // ),
+        
+          // Container(
+          //   color: Colors.yellow,
+        
+          // child: Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Row(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.only(top: 20),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               // Row(
+          //               //   children: [
+        
+          //               // if(training.isEmpty)
+          //               //     Text("Manual Handling",
+          //               //         style: TextStyle(
+          //               //             fontSize: 16, color: Colors.black)),
+          //               //   ],
+          //               // ),
+          //               // SizedBox(height: 10),
+          //               Text(
+          //                   training.isNotEmpty
+          //                       ? training[0]
+          //                           .trainingName
+          //                           .toString()
+          //                       : "",
+          //                   // "Food Hygiene",
+          //                   style: TextStyle(
+          //                       fontSize: 15, color: Colors.black)),
+          //               SizedBox(height: 10),
+          //               // Text("Fire Awareness",
+          //               //     style:
+          //               //         TextStyle(fontSize: 15, color: Colors.black)),
+          //               // SizedBox(height: 10),
+          //               // Text("Health and Safety",
+          //               //     style:
+          //               //         TextStyle(fontSize: 15, color: Colors.black)),
+          //               // SizedBox(height: 10),
+          //               // Text("Infection Control",
+          //               //     style: TextStyle(
+          //               //         fontSize: 15,
+          //               //         fontWeight: FontWeight.w400,
+          //               //         color: Colors.black)),
+          //             ],
+          //           ),
+          //         ),
+          //         Spacer(),
+          //         Column(
+          //           children: [
+          //             // Padding(
+          //             //   padding: const EdgeInsets.only(left: 150),
+          //             //   child: Text("38%"),
+          //             // ),
+          //             // LinearPercentIndicator(
+          //             //   lineHeight: 12,
+          //             //   width: 200,
+          //             //   progressColor: kGreenprogressColor,
+          //             //   backgroundColor: Color(0xffD9D9D9),
+          //             //   percent: 0.38,
+          //             //   barRadius: Radius.circular(5),
+          //             // ),
+          //             Padding(
+          //               padding: const EdgeInsets.only(left: 150),
+          //               child: Text(
+          //                 training.isNotEmpty
+          //                     ? "${training[0].completionRate.toString()}%"
+          //                     : "",
+          //                 // "93%"
+          //                 //"${training.first.completionRate.toString()}%",
+          //               ),
+          //             ),
+          //             LinearPercentIndicator(
+          //               lineHeight: 12,
+          //               width: 200,
+          //               progressColor: kGreenprogressColor,
+          //               backgroundColor: Color(0xffD9D9D9),
+          //               percent: 0.30,
+          //               barRadius: Radius.circular(5),
+          //             ),
+          //             // Padding(
+          //             //   padding: const EdgeInsets.only(left: 150),
+          //             //   child: Text("68%"),
+          //             // ),
+          //             // LinearPercentIndicator(
+          //             //   lineHeight: 12,
+          //             //   width: 200,
+          //             //   progressColor: kGreenprogressColor,
+          //             //   backgroundColor: Color(0xffD9D9D9),
+          //             //   percent: 0.68,
+          //             //   barRadius: Radius.circular(5),
+          //             // ),
+          //             // Padding(
+          //             //   padding: const EdgeInsets.only(left: 150),
+          //             //   child: Text("24%"),
+          //             // ),
+          //             // LinearPercentIndicator(
+          //             //   lineHeight: 12,
+          //             //   width: 200,
+          //             //   progressColor: kGreenprogressColor,
+          //             //   backgroundColor: Color(0xffD9D9D9),
+          //             //   percent: 0.24,
+          //             //   barRadius: Radius.circular(5),
+          //             // ),
+          //             // Padding(
+          //             //   padding: const EdgeInsets.only(left: 150),
+          //             //   child: Text("89%"),
+          //             // ),
+          //             // LinearPercentIndicator(
+          //             //   lineHeight: 12,
+          //             //   width: 200,
+          //             //   progressColor: kGreenprogressColor,
+          //             //   backgroundColor: Color(0xffD9D9D9),
+          //             //   percent: 0.89,
+          //             //   barRadius: Radius.circular(5),
+          //             // ),
+          //           ],
+          //         )
+          //       ],
+          //     ),
+          //   ],
+          // ),
+          //   );
+          // }),
+          // ),
+      
+         if (training.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20, top:20),
+                          child: Container(
+                           // color: Colors.amber,
+                            height: 100,
+                            width: double.infinity,
+                            child: Center(
+                                child: Text("No Training Status Found")),
                           ),
-          
-      ])),
+                        ),
+        
+        ]),
+      ),
     );
-    //        if(training.isEmpty)
-    //       Padding(
-    //         padding: const EdgeInsets.only(left: 20, right: 20),
-    //         child: Container(
-    //           height:200,
-    //           child: Center(child: Text("No Training Status Found")),
-    //         ),
-    //       ),
-
-    //     ]),
-    //   ),
-    // );
+    
   }
 
   @override

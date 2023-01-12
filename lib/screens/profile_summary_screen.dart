@@ -27,13 +27,11 @@ class _ProfileSummaryScreenState
   List<StaffProfile> profile = [];
   List<Payment> payment = [];
 
-
-
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
-     staffProfile();
+      staffProfile();
       paymentHistory();
 
       // _updateDeviceToken();
@@ -89,7 +87,6 @@ class _ProfileSummaryScreenState
       hideLoader();
       //showFlashMsg(e.toString());
       showFlashMsg(e.message);
-      
     });
   }
 
@@ -131,16 +128,15 @@ class _ProfileSummaryScreenState
                 child: CircleAvatar(
                   radius: 35,
                   child: CachedNetworkImage(
-                                      imageUrl:
-        
-                                      profile.isNotEmpty?
-                                          "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}": ""),
+                      imageUrl: profile.isNotEmpty
+                          ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
+                          : ""),
                   // Image(
                   //   image: AssetImage("assets/images/profile_img.png"),
                   // ),
                 ),
               ),
-        
+
               Center(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -149,7 +145,7 @@ class _ProfileSummaryScreenState
                   profile.isNotEmpty
                       ?
                       //    "Mary James",
-        
+
                       profile[0].staffName ?? ''
                       : "",
                   // "Mary James",
@@ -160,19 +156,19 @@ class _ProfileSummaryScreenState
                       fontSize: 20),
                 ),
               )),
-        
+
               Center(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   //widget.catName.toString(),
-                 profile.isNotEmpty ? profile[0].catName ?? '' : "",
+                  profile.isNotEmpty ? profile[0].catName ?? '' : "",
                   // "Theatre practitioner",
                   //  profile.first.catName.toString(),
                   style: TextStyle(color: Color(0xff95969D), fontSize: 14),
                 ),
               )),
-        
+
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: DottedBorder(
@@ -195,7 +191,7 @@ class _ProfileSummaryScreenState
                           Icon(Icons.currency_pound_outlined,
                               color: Color(0xff07701E), size: 30),
                           Text(
-                           // widget.earings.toString(),
+                            // widget.earings.toString(),
                             profile.isNotEmpty
                                 ? profile[0].totalEarnings.toString()
                                 : "",
@@ -217,24 +213,23 @@ class _ProfileSummaryScreenState
                 child: Row(
                   children: [
                     Text("Payment History",
-                        style:
-                            TextStyle(fontWeight: FontWeight.w700, fontSize: 16))
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16))
                   ],
                 ),
               ),
               SizedBox(height: 20),
-               
-             
-           Padding(
+
+            
+
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                 
                   decoration: BoxDecoration(
-                   // color:Colors.yellow,
+                      // color:Colors.yellow,
                       border: Border.all(color: Colors.grey, width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Column(
-                    
                     children: [
                       Row(
                         children: [
@@ -247,15 +242,15 @@ class _ProfileSummaryScreenState
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(5),
                                       topLeft: Radius.circular(5)),
-                                 color: Colors.pink.shade100
-                                 ),
+                                  color: Colors.pink.shade100),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text("Date", style: TextStyle(fontSize: 12)),
+                                    Text("Date",
+                                        style: TextStyle(fontSize: 12)),
                                     SizedBox(width: 100),
                                     Expanded(
                                       child: Text("Mode of Payment",
@@ -265,7 +260,6 @@ class _ProfileSummaryScreenState
                                         style: TextStyle(fontSize: 12)),
                                   ],
                                 ),
-                                
                               ),
                             ),
                           ),
@@ -276,361 +270,110 @@ class _ProfileSummaryScreenState
                         ],
                       ),
                       (payment.isNotEmpty)
-                      
-                        ?ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: payment.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return  Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                    //  color: Colors.pink.shade100,
-                                      // height: 50,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: 
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                                payment.isNotEmpty
-                                                    ? payment[index].createdOn.toString()
-                                                    : "",
-                                                // payment[index].paidOn
-                                                //       ??
-                                                //  '',
-                                                style: TextStyle(fontSize: 12)),
-                                            SizedBox(width: 60),
-                                            Expanded(
-                                              child: Text(
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        //  color: Colors.pink.shade100,
+                                        // height: 50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
                                                   payment.isNotEmpty
                                                       ? payment[index]
-                                                          .paymentMode
+                                                          .createdOn
                                                           .toString()
-                                                      : '',
-                                                  // payment[index]
-                                                  //        .paymentMode.toString(),
-                      
-                                                  style: TextStyle(fontSize: 12)),
-                                            ),
-                                            Container(
-                                              height: 25,
-                                              width: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffC8F8B8),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
+                                                      : "",
+                                                  // payment[index].paidOn
+                                                  //       ??
+                                                  //  '',
+                                                  style:
+                                                      TextStyle(fontSize: 12)),
+                                              SizedBox(width: 60),
+                                              Expanded(
+                                                child: Text(
+                                                  (payment[index].paymentMode==null)
+                                                  ?"Unpaid"
+                                                  : payment[index]
+                                                            .paymentMode
+                                                            .toString()
+                                                        ,
+                                                    // payment[index]
+                                                    //        .paymentMode.toString(),
+
+                                                    style: TextStyle(
+                                                        fontSize: 12)),
                                               ),
-                                              child: Center(
-                                                  child: Text(
-                                                payment.isNotEmpty
-                                                    ? payment[index]
-                                                        .paymentStatus
-                                                        .toString()
-                                                    : "",
-                                                // "Credited",
-                                                // payment.first.paymentStatus.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Color(0xff666666)),
-                                              )),
-                                            ),
-                                          ],
+                                              Container(
+                                                height: 25,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  color: (payment[index]
+                                                              .paymentStatus ==
+                                                          0)
+                                                      ? Color(0xffFD425B)
+                                                      : Color(0xffC8F8B8),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                    child: Text(
+                                                  payment.isNotEmpty
+                                                      ? payment[index]
+                                                          .paymentStatus
+                                                          .toString()
+                                                      : "",
+                                                  // "Credited",
+                                                  // payment.first.paymentStatus.toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                    ),
+                                                )),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
-                            separatorBuilder: (BuildContext context, int index) {
-                              return
-                               Divider(
-                                height: 1,
-                                color: Colors.grey,
-                              );
-                            })
-                      
+                                  ],
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return Divider(
+                                  height: 2,
+                                  color: Colors.grey,
+                                );
+                              })
+
                           //  if(payment.isEmpty)
-                          :  Padding(
+                          : Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                               mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                
-                                 Container(child: Center(
-                                   child: Text(
-                                    "No Payment history Found",
-                                   ),
-                                 ),)
-                              ],),
+                                  Container(
+                                    child: Center(
+                                      child: Text(
+                                        "No Payment history Found",
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             )
                     ],
                   ),
                 ),
               ),
-        
-              // Padding(
-              //     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(5),
-              //         border: Border.all(
-              //           color: Color(0xffCECCDD),
-              //         ),
-              //       ),
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Row(
-              //             children: [
-              //               Expanded(
-              //                 child: Container(
-              //                   height: 45,
-              //                   decoration: BoxDecoration(
-              //                     color: Color(0xffF3B7BF),
-              //                     //  borderRadius: BorderRadius.only(
-              //                     //   topLeft: Radius.circular(5),
-              //                     //   topRight: Radius.circular(5)
-              //                     //  )
-              //                   ),
-              //                   child: Padding(
-              //                     padding: const EdgeInsets.all(8.0),
-              //                     child: Row(
-              //                       mainAxisAlignment:
-              //                           MainAxisAlignment.spaceBetween,
-              //                       children: [
-              //                         Text(
-              //                           "Date",
-              //                           style: TextStyle(
-              //                               color: Color(0xff4A4646), fontSize: 14),
-              //                         ),
-              //                         SizedBox(width: 10),
-              //                         Expanded(
-              //                           child: Text(
-              //                             "Mode of Payment",
-              //                             textAlign: TextAlign.center,
-              //                             style: TextStyle(
-              //                                 color: Color(0xff4A4646),
-              //                                 fontSize: 14),
-              //                           ),
-              //                         ),
-              //                         Text(
-              //                           "Status",
-              //                           style: TextStyle(
-              //                               color: Color(0xff4A4646), fontSize: 14),
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-              //               Divider(
-              //                 height: 1,
-              //                 color: Colors.grey.shade900,
-              //               )
-              //             ],
-              //           ),
-        
-              //           ListView.separated(
-              //             shrinkWrap: true,
-              //               itemCount: payment.length,
-              //               itemBuilder: (BuildContext context, int index) {
-              //                 return Row(
-              //                   children: [
-              //                     Expanded(
-              //                       child: Container(
-              //                           height: 50,
-              //                           color: Colors.yellow,
-              //                           child: Padding(
-              //                             padding: const EdgeInsets.all(8.0),
-              //                             child: Row(
-              //                               children: [
-              //                                 Text(
-              //                                   payment.first.paidOn.toString(),
-              //                                   style: TextStyle(
-              //                                       fontSize: 13,
-              //                                       color: Color(0xff666666)),
-              //                                 ),
-        
-              //                                 SizedBox(width: 50),
-        
-              //                                  Expanded(
-              //                                    child: Text(
-              //                                     payment.first.paymentMode.toString(),
-              //                                     style: TextStyle(
-              //                                         fontSize: 13,
-              //                                         color: Color(0xff666666)),
-              //                                                                          ),
-              //                                  ),
-        
-              //                                    Container(
-              //                               height: 25,
-              //                               width: 80,
-              //                               decoration: BoxDecoration(
-              //                                 color: Color(0xffC8F8B8),
-              //                                 borderRadius: BorderRadius.circular(10),
-              //                               ),
-              //                               child: Center(
-              //                                   child: Text(
-              //                                 // "Credited",
-              //                                  payment.first.paymentStatus.toString(),
-              //                                 style: TextStyle(
-              //                                     fontSize: 13, color: Color(0xff666666)),
-              //                               )),
-              //                             ),
-              //                               ],
-              //                             ),
-              //                           )),
-              //                     ),
-              //                   ],
-              //                 );
-              //               },
-              //               separatorBuilder: (BuildContext context, int index) {
-              //                 return Divider(
-              //                   height: 1,
-              //                   color: Colors.grey,
-              //                 );
-              //               }),
-        
-              // Container(
-              //   height: 80,
-              //   child: Expanded(
-              //     child: ListView.builder(
-              //       itemCount: payment.length,
-              //       itemBuilder: (BuildContext context, int index){
-              //              return Container(
-              //     // height: 30,
-              //          decoration: BoxDecoration(
-              //         border: Border.all(
-              //             color: Color(0xffCECCDD),
-              //           ),
-              //           color: Colors.grey
-              //         ),
-              //         child: Padding(
-              //           padding: const EdgeInsets.all(8.0),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             children: [
-              //           Text(
-              //                 // "25-Aug-2022",
-              //                  payment.first.paidOn.toString(),
-              //                 style: TextStyle(
-              //                     fontSize: 13, color: Color(0xff666666)),
-              //               ),
-        
-              //             Expanded(
-              //               child: Text(
-              //                 // "Bank Transfer",
-              //                 payment.first.paymentMode.toString(),
-              //              textAlign: TextAlign.center,
-        
-              //                       style: TextStyle(
-              //                           color: Color(0xff4A4646),
-              //                           fontSize: 13)),
-              //             ),
-        
-              //                         Container(
-              //                   height: 25,
-              //                   width: 80,
-              //                   decoration: BoxDecoration(
-              //                     color: Color(0xffC8F8B8),
-              //                     borderRadius: BorderRadius.circular(10),
-              //                   ),
-              //                   child: Center(
-              //                       child: Text(
-              //                     // "Credited",
-              //                      payment.first.paymentStatus.toString(),
-              //                     style: TextStyle(
-              //                         fontSize: 13, color: Color(0xff666666)),
-              //                   )),
-              //                 ),
-        
-              //               ],),
-              //             ),
-              //           );
-              //           }
-              //         ),
-              //   ),
-              //     ),
-        
-              //  Container(
-              //    decoration: BoxDecoration(
-              //   border: Border.all(
-              //       color: Color(0xffCECCDD),
-              //     )
-              //   ),
-              //    child: Padding(
-              //      padding: const EdgeInsets.all(8.0),
-              //      child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: [
-              // Text(
-              //           "28-Apr-2022",
-              //           style: TextStyle(
-              //               fontSize: 13, color: Color(0xff666666)),
-              //         ),
-        
-              //       Expanded(
-              //         child: Text("Bank Transfer",
-              //           textAlign: TextAlign.center,
-              //                 style: TextStyle(
-              //                     color: Color(0xff4A4646),
-              //                     fontSize: 13)),
-              //       ),
-        
-              //                   Container(
-              //             height: 25,
-              //             width: 80,
-              //             decoration: BoxDecoration(
-              //               color: Color(0xffC8F8B8),
-              //               borderRadius: BorderRadius.circular(10),
-              //             ),
-              //             child: Center(
-              //                 child: Text(
-              //               "Credited",
-              //               style: TextStyle(
-              //                   fontSize: 13, color: Color(0xff666666)),
-              //             )),
-              //           ),
-        
-              // ],),
-              //    ),
-              //  ),
-        
-              //     ],
-              //   ),
-              // )
-        
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 200, bottom: 20),
-              //   child: Container(
-              //     height: 50,
-              //     width: 160,
-              //     child: ElevatedButton(
-              //       style: ElevatedButton.styleFrom(
-              //         backgroundColor: Color(0xffFD425B),
-              //       ),
-              //       onPressed: () {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => SettingsScreen()));
-              //       },
-              //       child: Center(
-              //           child: Text(
-              //         "Contact Us",
-              //         style: TextStyle(
-              //             fontSize: 20,
-              //             fontWeight: FontWeight.w500,
-              //             color: Colors.white),
-              //       )),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

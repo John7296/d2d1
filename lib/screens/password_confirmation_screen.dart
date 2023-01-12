@@ -1,8 +1,12 @@
 import 'package:project_d2d/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_d2d/screens/settings_screen.dart';
 
 class PasswordConfirmationScreen extends StatefulWidget {
+//    bool? fromResetpwd;
+//  bool? fromChangepwd;
+PasswordConfirmationScreen();
   @override
   State<PasswordConfirmationScreen> createState() =>
       _PasswordConfirmationScreenState();
@@ -87,6 +91,18 @@ class _PasswordConfirmationScreenState
                 backgroundColor: Color(0xffFD425B),
               ),
               onPressed: () {
+
+                // if(widget.fromChangepwd==true){
+                //    Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) =>SettingsScreen()));
+                // }
+
+                //  if(widget.fromResetpwd==true){
+                //    Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) =>LoginScreen()));
+                // }
+
+                
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
               },

@@ -188,4 +188,10 @@ abstract class NetworkConnection {
     @Header("token") String? token, 
     @Body() Map<String, dynamic> map
   );
+
+    @POST("d2dApi/Default.aspx")
+  Future<BaseResponse> supportRequest(
+    @Header("token") String? token, 
+    @Body() Map<String, dynamic> map
+  );
 }
