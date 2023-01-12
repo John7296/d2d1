@@ -56,7 +56,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
       hideLoader();
      // showFlashMsg(e.toString());
       print(e.toString());
-      showFlashMsg(e.Message);
+      //showFlashMsg(e.Message);
     });
   }
 
@@ -72,10 +72,8 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
 
     }).then((BaseResponse response) {
        //hideLoader();
-      showFlashMsg("Profile Updated");
-      setState(() {
-       
-      });
+     // showFlashMsg(response.message!);
+     
      // Navigator.pop(context, true);
   
       getProfile();
@@ -108,7 +106,10 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen()));
                        
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),
@@ -292,6 +293,9 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                         // }
                        if (_form.currentState!.validate()) {
                         onUpdateButtonTapped();
+
+                        showFlashMsg("Profile updated");
+
                       getProfile();
                       
 

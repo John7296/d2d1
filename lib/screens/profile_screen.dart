@@ -27,8 +27,9 @@ class ProfileScreen extends StatefulWidget {
  bool? fromSettings;
  bool? fromBottom;
  bool? fromProfile;
+ bool? fromEdit;
 
- ProfileScreen({super.key,this.fromSettings=true, this.fromBottom=true, this.fromProfile=true});
+ ProfileScreen({super.key,this.fromSettings=true, this.fromBottom=true,this.fromProfile=true, this.fromEdit=true});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -148,7 +149,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+       // physics: NeverScrollableScrollPhysics(),
         child: Column(children: [
           Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -185,10 +186,12 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             return HomeScreen();
                           },
                         ), (route) => false);
+
+                        if(widget.fromEdit==true)
                             
                   // Navigator.pop(context);
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
                 icon: Icon(Icons.arrow_back_ios_new)),
             Spacer(),
@@ -905,7 +908,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 20,top:10, bottom: 10),
           child: Container(
-            //color: Colors.grey,
+           // color: Colors.grey,
             height: 200,
             width: double.infinity,
             child: Padding(

@@ -46,7 +46,7 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
             AvailableJobsScreen(),
             ProfileScreen(),
             SettingsScreen(),
-            LogoutScreen(),
+           
             
           ],
         ),
@@ -80,11 +80,11 @@ class _HomeScreenState extends BaseStatefulState<HomeScreen> {
                 AssetImage("assets/images/ic_settings.png"),
                 size: 25,
               ), label: ""),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("assets/images/ic_log-out.png"),
-                size: 25,
-              ), label: ""),
+          // BottomNavigationBarItem(
+          //     icon: ImageIcon(
+          //       AssetImage("assets/images/ic_log-out.png"),
+          //       size: 25,
+          //     ), label: ""),
         ],
         selectedLabelStyle: TextStyle(fontFamily: 'Intro'),
         selectedFontSize: 0,
