@@ -46,11 +46,9 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
       // setState(() {
       //   emailSent = true;
       // });
-       Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      PasswordConfirmationScreen()));
+      Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => SettingsScreen()));
+     
      
     }).catchError((e) {
        hideLoader();

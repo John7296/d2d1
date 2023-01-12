@@ -20,6 +20,8 @@ class VerifyOtpScreen extends StatefulWidget {
 
 class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
 
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
 
   
     final _otpController = TextEditingController();
@@ -50,6 +52,13 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
          otp.clear();
         otp.addAll(response.data!);
       });
+
+      // Navigator.pushAndRemoveUntil(context,
+      //                         MaterialPageRoute(
+      //                       builder: (BuildContext context) {
+      //                         return LoginScreen(widget.id, otp.first.token.toString());
+      //                       },
+      //                     ), (route) => false);
        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -76,10 +85,12 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginScreen()));
+                        Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return LoginScreen();
+                            },
+                          ), (route) => false);
                     },
                     icon: Icon(Icons.arrow_back_ios_new)),
               ],
@@ -143,17 +154,17 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
                 activeFillColor: Colors.white,
               ),
               controller: _otpController,
-
+          
                validator: ( value) {
                         if (value!.isEmpty) {
-                          return "Please enter phone number";
+                          return "Enter Otp";
                         } else if (value.length != 6) {
-                          return "Please enter valid Phone number";
+                          return "Invalid Otp";
                         } else {
                           return null;
                         }
                       },
-
+          
                     // validator: (val) {
                     //   if (!emailSent) return null;
                     //   if (val!.isEmpty) {

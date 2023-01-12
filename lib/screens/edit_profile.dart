@@ -299,11 +299,11 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
       //   return ProfileScreen();
       // },),(route) => false);
                       
-                          //    Navigator.push(
-                          // context,
-                          // MaterialPageRoute(
-                          //     builder: (context) => ProfileScreen()));
-                              }
+                             Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()));
+                               }
           
                       // onUpdateButtonTapped();
                       // getProfile();

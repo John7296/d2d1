@@ -200,6 +200,10 @@ class NetworkManager {
     return call(networkConnection.deleteUser(token, map));
   }
 
+   Future<BaseResponse> supportRequest(String token, Map<String, dynamic> map) {
+    return call(networkConnection.supportRequest(token, map));
+  }
+
   Future<T> call<T>(Future<T> call) async {
     T response;
 
