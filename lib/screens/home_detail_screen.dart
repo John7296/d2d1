@@ -36,7 +36,7 @@ class HomeDetailScreen extends StatefulWidget {
 
 class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
   List<Job> jobList = [];
-  List<TimesheetBanner> timeSheetList = [];
+  List<TimeSheet> timeSheetList = [];
   List<StaffProfile> profile = [];
 
   @override
@@ -44,10 +44,9 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-    staffProfile();
-
+      staffProfile();
+      getTimeSheet();
     });
-    
   }
 
   void getJob() {
@@ -80,7 +79,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       "getStaffTimesheetBannerById",
       NetworkManager.shared.staffId!,
     )
-        .then((BaseResponse<List<TimesheetBanner>> response) {
+        .then((BaseResponse<List<TimeSheet>> response) {
       // hideLoader();
       setState(() {
         timeSheetList.clear();
@@ -102,11 +101,9 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
       setState(() {
         profile.clear();
         profile.addAll(response.data!);
-
         //  DataManager.shared.thisuser = response.data!;
       });
     }).catchError((e) {
-      
       //showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message);
@@ -347,7 +344,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.pending
+                                                timeSheetList.first.Pending
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
@@ -431,7 +428,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.approved
+                                                timeSheetList.first.Approved
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(
@@ -517,7 +514,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                         padding: const EdgeInsets.all(2),
                                         child: (timeSheetList.isNotEmpty)
                                             ? Text(
-                                                timeSheetList.first.completed
+                                                timeSheetList.first.Completed
                                                     .toString(),
                                                 // "",
                                                 style: TextStyle(

@@ -7,12 +7,14 @@ import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/applyjob.dart';
 import 'package:project_d2d/model/base_response.dart';
+import 'package:project_d2d/model/job.dart';
 import 'package:project_d2d/model/job_request.dart';
 import 'package:project_d2d/model/jobdetails.dart';
 import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
+import 'package:project_d2d/screens/job_details_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
@@ -45,8 +47,8 @@ class RecentlyAppliedJobs extends StatefulWidget {
 }
 
 class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
-  List<JobDetails> jobDetailsList = [];
-  List<JobRequest> jobs = [];
+  List<Job> jobList = [];
+  // List<JobRequest> jobs = [];
 
   @override
   void initState() {
@@ -54,71 +56,68 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJobDetails();
-      recentJobRequest();
     });
   }
 
   void getJobDetails() {
-    showLoader();
     NetworkManager.shared
-        .getJobDetails(
+        .getJob(
       NetworkManager.shared.userToken!,
-      "getJobDetailsByJobIdStaffId",
+      "getJobsByStaffId",
       NetworkManager.shared.staffId!,
-      NetworkManager.shared.jobId!,
+      "",
+      "Applied",
     )
-        .then((BaseResponse<List<JobDetails>> response) {
-      hideLoader();
+        .then((BaseResponse<List<Job>> response) {
       setState(() {
-        jobDetailsList.clear();
-        jobDetailsList.addAll(response.data!);
+        jobList.clear();
+        jobList.addAll(response.data!);
       });
     }).catchError((e) {
-      hideLoader();
       print(e.toString());
     });
   }
 
-  void onApplyButtonTapped() {
-    showLoader();
-    NetworkManager.shared
-        .applyJob(NetworkManager.shared.userToken!, <String, dynamic>{
-      "sp": "insApplyJob",
-      "staffId": NetworkManager.shared.staffId,
-      "jobId": NetworkManager.shared.jobId,
-    }).then((BaseResponse<ApplyJob> response) {
-      hideLoader();
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => JobAppliedSuccessfulScreen(
-      //             widget.jobCatName,
-      //             // jobList[index].hourlyRate,
-      //             widget.clientName,
-      //             widget.jobLocation,
-      //             widget.startDateTime,
-      //             widget.shiftName,
-      //             context)));
-    }).catchError((e) {
-      hideLoader();
-      // showFlashMsg("Job Applied Successful..!");
-      // print(e.toString());
-    });
-  }
+  // void onApplyButtonTapped() {
+  //   showLoader();
+  //   NetworkManager.shared
+  //       .applyJob(NetworkManager.shared.userToken!, <String, dynamic>{
+  //     "sp": "insApplyJob",
+  //     "staffId": NetworkManager.shared.staffId,
+  //     "jobId": NetworkManager.shared.jobId,
+  //   }).then((BaseResponse<ApplyJob> response) {
+  //     hideLoader();
+  //     // Navigator.push(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //         builder: (context) => JobAppliedSuccessfulScreen(
+  //     //             widget.jobCatName,
+  //     //             // jobList[index].hourlyRate,
+  //     //             widget.clientName,
+  //     //             widget.jobLocation,
+  //     //             widget.startDateTime,
+  //     //             widget.shiftName,
+  //     //             context)));
+  //   }).catchError((e) {
+  //     hideLoader();
+  //     // showFlashMsg("Job Applied Successful..!");
+  //     // print(e.toString());
+  //   });
+  // }
 
-  void recentJobRequest() {
-    NetworkManager.shared
-        .recentJobRequest(NetworkManager.shared.userToken ?? '',
-            "getRecentRequstedJobs", NetworkManager.shared.staffId ?? 0)
-        .then((BaseResponse<List<JobRequest>> response) {
-      hideLoader();
-      setState(() {
-        jobs.clear();
-        jobs.addAll(response.data!);
-      });
-      // timeSheetBanner();
-    }).catchError((e) {});
-  }
+  // void recentJobRequest() {
+  //   NetworkManager.shared
+  //       .recentJobRequest(NetworkManager.shared.userToken ?? '',
+  //           "getRecentRequstedJobs", NetworkManager.shared.staffId ?? 0)
+  //       .then((BaseResponse<List<JobRequest>> response) {
+  //     hideLoader();
+  //     setState(() {
+  //       jobs.clear();
+  //       jobs.addAll(response.data!);
+  //     });
+  //     // timeSheetBanner();
+  //   }).catchError((e) {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -161,12 +160,12 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                       textAlign: TextAlign.center),
                 ],
               ),
-              (jobs.isNotEmpty)
+              (jobList.isNotEmpty)
                   ? Expanded(
                       child: ListView.builder(
                         // physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: jobs.length,
+                        itemCount: jobList.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
@@ -177,18 +176,44 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        SessionsManager.saveClientId(
-                                            jobs[index].clientId ?? 0);
+                                        SessionsManager.saveJobId(
+                                            jobList[index].jobId ?? 0);
 
-                                        NetworkManager.shared.clientId =
-                                            jobs[index].clientId ?? 0;
+                                        NetworkManager.shared.jobId =
+                                            jobList[index].jobId ?? 0;
 
                                         NetworkManager.shared.refreshTokens();
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    JobCancelScreen()));
+                                                    JobDetailsScreen(
+                                                        jobList[
+                                                                    index]
+                                                                .jobCatName ??
+                                                            '',
+                                                        jobList[
+                                                                    index]
+                                                                .hourlyRate ??
+                                                            0,
+                                                        jobList[
+                                                                    index]
+                                                                .clientName ??
+                                                            '',
+                                                        jobList[
+                                                                    index]
+                                                                .jobLocation ??
+                                                            '',
+                                                        jobList[
+                                                                    index]
+                                                                .startDateTime ??
+                                                            '',
+                                                        jobList[index]
+                                                                .shiftName ??
+                                                            '',
+                                                        jobList[index]
+                                                            .isRequsted!,
+                                                        context)));
                                       },
                                       child: Container(
                                         width: getWidthByPercentage(92),
@@ -198,7 +223,7 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                           ),
                                           image: DecorationImage(
                                             image:
-                                                // (jobs[index].requested!)
+                                                // (jobList[index].requested!)
                                                 // ?
                                                 AssetImage(
                                                     "assets/images/green_bg.png"),
@@ -258,7 +283,7 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                                     Expanded(
                                                                       child:
                                                                           Text(
-                                                                        jobs[index].profession ??
+                                                                        jobList[index].jobCatName ??
                                                                             '',
                                                                         maxLines:
                                                                             2,
@@ -273,21 +298,28 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    // InkWell(
-                                                                    //   onTap: () {},
-                                                                    //   child: ImageIcon(
-                                                                    //     AssetImage(
-                                                                    //         "assets/images/ic_edit_task.png"),
-                                                                    //     size: 25,
-                                                                    //     color: Colors.white,
-                                                                    //   ),
-                                                                    // ),
+                                                                    if (jobList[index]
+                                                                            .jobStatus ==
+                                                                        "Applied")
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {},
+                                                                        child:
+                                                                            ImageIcon(
+                                                                          AssetImage(
+                                                                              "assets/images/ic_tick.png"),
+                                                                          size:
+                                                                              25,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
                                                                   ],
                                                                 ),
                                                                 Row(
                                                                   children: [
                                                                     Text(
-                                                                      jobs[index]
+                                                                      jobList[index]
                                                                               .clientName ??
                                                                           '',
                                                                       maxLines:
@@ -323,7 +355,7 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                   // ),
                                                   // SizedBox(width: 2),
                                                   // Text(
-                                                  //   jobs[index].startDateTime ?? "",
+                                                  //   jobList[index].startDateTime ?? "",
                                                   //   style: TextStyle(
                                                   //     fontWeight: kFontWeight_M,
                                                   //     fontSize: 13,
@@ -332,7 +364,7 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                   // ),
                                                   Spacer(),
                                                   Text(
-                                                    jobs[index].gender ?? '',
+                                                    "£${jobList[index].hourlyRate.toString()}/hour",
                                                     style: TextStyle(
                                                       fontWeight: kFontWeight_M,
                                                       fontSize: 13,
@@ -379,8 +411,8 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobs[index]
-                                                                      .availability ??
+                                                              jobList[index]
+                                                                      .shiftName ??
                                                                   "",
                                                               maxLines: 1,
                                                               overflow:
@@ -429,8 +461,8 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobs[index]
-                                                                      .staffLocation ??
+                                                              jobList[index]
+                                                                      .jobLocation ??
                                                                   "",
                                                               overflow:
                                                                   TextOverflow
@@ -455,8 +487,8 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                                       ),
                                                       SizedBox(width: 2),
                                                       Text(
-                                                        jobs[index]
-                                                                .allocatedOn ??
+                                                        jobList[index]
+                                                                .startDateTime ??
                                                             "",
                                                         style: TextStyle(
                                                           fontWeight:

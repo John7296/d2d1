@@ -349,7 +349,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => JobCancelScreen()));
+                                  builder: (context) => JobCancelScreen(
+                                    "",2,"","","","",true,context
+                                  )));
                         },
                         child: Container(
                           margin: EdgeInsets.only(right: 10),

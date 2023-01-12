@@ -228,6 +228,17 @@ class _AvailableJobWidgetState
                                                 ),
                                               ),
                                             ),
+                                            if (reqJobList[index].jobStatus ==
+                                                "Applied")
+                                              InkWell(
+                                                onTap: () {},
+                                                child: ImageIcon(
+                                                  AssetImage(
+                                                      "assets/images/ic_tick.png"),
+                                                  size: 25,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                           ],
                                         ),
                                         SizedBox(
@@ -293,13 +304,13 @@ class _AvailableJobWidgetState
                                                     ),
                                                     Container(
                                                       width: 60,
-                                                      
                                                       child: Text(
                                                         reqJobList[index]
                                                                 .shiftName ??
                                                             "",
                                                         maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontSize: 11,
                                                           color: Colors.white,
@@ -335,14 +346,14 @@ class _AvailableJobWidgetState
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                          
                                                     Container(
                                                       width: 60,
                                                       child: Text(
                                                         reqJobList[index]
                                                                 .jobLocation ??
                                                             "",
-                                                            overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 11),

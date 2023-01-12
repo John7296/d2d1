@@ -6,6 +6,8 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobCancelledSuccessfulScreen extends StatefulWidget {
+
+  
   const JobCancelledSuccessfulScreen({super.key});
 
   @override

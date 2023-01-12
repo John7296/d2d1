@@ -8,14 +8,15 @@ part of 'timesheet.dart';
 
 TimeSheet _$TimeSheetFromJson(Map<String, dynamic> json) => TimeSheet(
       currentJob: json['currentJob'] as String?,
-      jobApproved: json['jobApproved'] as int?,
-      jobCompleted: json['jobCompleted'] as int?,
-      jobPending: json['jobPending'] as int?,
-    );
+      Approved: json['Approved'] as int?,
+      Completed: json['Completed'] as int?,
+      Pending: json['Pending'] as int?,
+    )..clientName = json['clientName'] as String?;
 
 Map<String, dynamic> _$TimeSheetToJson(TimeSheet instance) => <String, dynamic>{
-      'jobPending': instance.jobPending,
-      'jobApproved': instance.jobApproved,
-      'jobCompleted': instance.jobCompleted,
+      'Pending': instance.Pending,
+      'Approved': instance.Approved,
+      'Completed': instance.Completed,
       'currentJob': instance.currentJob,
+      'clientName': instance.clientName,
     };

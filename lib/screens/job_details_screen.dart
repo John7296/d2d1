@@ -138,8 +138,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             CircleAvatar(
                               radius: 35,
                               child: Image(
-                                image:
-                                    AssetImage("assets/images/care.png"),
+                                image: AssetImage("assets/images/care.png"),
                               ),
                             ),
                             Text(
@@ -157,7 +156,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:135),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 135),
                               child: Container(
                                 height: 30,
                                 // width: 120,
@@ -169,8 +169,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                   color: Colors.white.withOpacity(0.1),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                   child: Row(
                                     children: [
                                       Icon(
@@ -284,6 +284,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
               ],
             ),
+           
             // Row(
             //   children: [
             //     Padding(
@@ -315,8 +316,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            jobDetailsList[index].jobDescription ?? '',
+                          child: Text((jobDetailsList[index].jobDescription != "")?
+                            jobDetailsList[index].jobDescription ?? '':"Not Available",
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -370,89 +371,112 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 5),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.end,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              (jobDetailsList[index].jobStatus != "Applied")
+                                  ? Expanded(
+                                      child: Container(
+                                        // width: 150,
+                                        height: 50,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // getJobDetails();
+                                            onApplyButtonTapped();
+                                            showFlashMsg(
+                                                "Job Applied Successful..!");
+                                            Navigator.pushAndRemoveUntil(
+                                                context, MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return JobAppliedSuccessfulScreen(
+                                                    widget.jobCatName,
+                                                    widget.hourlyRate
+                                                        .toDouble(),
+                                                    widget.clientName,
+                                                    widget.jobLocation,
+                                                    widget.startDateTime,
+                                                    widget.shiftName,
+                                                    widget.isRequested,
+                                                    context);
+                                              },
+                                            ), (route) => false);
+                                          },
+                                          child: Text(
+                                            'Apply',
+                                            style: TextStyle(
+                                                fontSize: kFontSize_16,
+                                                fontWeight: kFontWeight_M),
+                                          ),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Color(0xff12831D)),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: Container(
+                                        // width: 150,
+                                        height: 50,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        JobCancelScreen(
+                                                           widget.jobCatName,
+                                                    widget.hourlyRate
+                                                        .toDouble(),
+                                                    widget.clientName,
+                                                    widget.jobLocation,
+                                                    widget.startDateTime,
+                                                    widget.shiftName,
+                                                    widget.isRequested,
+                                                    context
+
+                                                          
+                                                        )));
+                                          },
+                                          child: Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                                fontSize: kFontSize_16,
+                                                fontWeight: kFontWeight_M),
+                                          ),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Color(0xffF41937)),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   );
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Container(
-                      // width: 150,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // getJobDetails();
-                          onApplyButtonTapped();
-                          showFlashMsg("Job Applied Successful..!");
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return JobAppliedSuccessfulScreen(
-                                  widget.jobCatName,
-                                  widget.hourlyRate.toDouble(),
-                                  widget.clientName,
-                                  widget.jobLocation,
-                                  widget.startDateTime,
-                                  widget.shiftName,
-                                  widget.isRequested,
-                                  context);
-                            },
-                          ), (route) => false);
-                        },
-                        child: Text(
-                          'Apply',
-                          style: TextStyle(
-                              fontSize: kFontSize_16,
-                              fontWeight: kFontWeight_M),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xff12831D)),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          )),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Container(
-                  //   // width: 150,
-                  //   height: 50,
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) =>
-                  //                   JobCancelScreen()));
-                  //     },
-                  //     child: Text(
-                  //       'Cancel',
-                  //       style: TextStyle(
-                  //           fontSize: kFontSize_16,
-                  //           fontWeight: kFontWeight_M),
-                  //     ),
-                  //     style: ButtonStyle(
-                  //       backgroundColor: MaterialStateProperty.all(
-                  //           Color(0xffF41937)),
-                  //       shape: MaterialStateProperty.all(
-                  //           RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(5),
-                  //       )),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
+
             // Spacer(),
 
             SizedBox(height: 10)

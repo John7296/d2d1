@@ -84,11 +84,11 @@ class _TopBannerWidgetState extends BaseStatefulState<TopBannerWidget> {
                             icon:
                                 Icon(Icons.arrow_back_ios, color: Colors.white),
                             onPressed: () {
-                              // Navigator.pushReplacement(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => HomeScreen()));
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
+                              // Navigator.pop(context);
                             },
                           ),
                         ),

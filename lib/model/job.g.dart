@@ -18,6 +18,7 @@ Job _$JobFromJson(Map<String, dynamic> json) => Job(
       startDateTime: json['startDateTime'] as String?,
       allocatedStaff: json['allocatedStaff'] as String?,
       jobId: json['jobId'] as int?,
+      jobStatus: json['jobStatus'] as String?,
     );
 
 Map<String, dynamic> _$JobToJson(Job instance) => <String, dynamic>{
@@ -32,4 +33,5 @@ Map<String, dynamic> _$JobToJson(Job instance) => <String, dynamic>{
       'isRequsted': instance.isRequsted,
       'jobId': instance.jobId,
       'allocatedStaff': instance.allocatedStaff,
+      'jobStatus': instance.jobStatus,
     };
