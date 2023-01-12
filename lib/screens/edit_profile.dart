@@ -131,7 +131,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                 child: Form(
                   key: _form,
                   child: Padding(
-                    padding: const EdgeInsets.only(top:60),
+                    padding: const EdgeInsets.only(top:40),
                     child: Column(
                       children: [
                         // SizedBox(height: 30),
@@ -161,17 +161,20 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                     ),
                                   )),
                               Container(
-                                height: 60,
+                                // height: 60,
                                 child: TextFormField(
                                   decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.
+                            //only(left:10, top:5, bottom:5),
+                            symmetric(vertical: 20, horizontal: 10),
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5),
+                                      //contentPadding: EdgeInsets.all(5),
                                       prefixIcon: Icon(Icons.person)
                                       // labelText: 'Mobile'
                                       ),
                                   controller: _staffNameController,
                                   validator: (value) {
-                                    if (value!.isEmpty) return "Enter UserNmae";
+                                    if (value!.isEmpty) return "Enter Username";
                                     return null;
                                   },
                                 ),
@@ -208,17 +211,21 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                   alignment: Alignment.topLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: Text('Email ID',
+                                    child: Text('Email ID*',
                                         style: TextStyle(
                                             color: Color(0xffAFB0B6),
                                             )),
                                   )),
                               Container(
-                                height: 60,
+                               
                                 child: TextFormField(
+                                 
                                   decoration: InputDecoration(
+                                     contentPadding: EdgeInsets.
+                            //only(left:10, top:5, bottom:5),
+                            symmetric(vertical: 20, horizontal: 10),
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5),
+                                      // contentPadding: EdgeInsets.all(5),
                                       prefixIcon: Icon(Icons.email),
                                       // labelText: 'Mobile'
                                       ),
@@ -237,17 +244,20 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                                   alignment: Alignment.topLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: Text('Mobile',
+                                    child: Text('Mobile*',
                                         style: TextStyle(
                                             color: Color(0xffAFB0B6),
                                             )),
                                   )),
                               Container(
-                                height: 60,
+                                
                                 child: TextFormField(
                                   decoration: InputDecoration(
+                                     contentPadding: EdgeInsets.
+                            //only(left:10, top:5, bottom:5),
+                            symmetric(vertical: 20, horizontal: 10),
                                       border: OutlineInputBorder(),
-                                      contentPadding: EdgeInsets.all(5),
+                                      // contentPadding: EdgeInsets.all(5),
                                       // labelText: 'Mobile'
                                       prefixIcon: Icon(Icons.phone),
                                       prefixText: "+44  "
@@ -271,7 +281,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                               // if(_userNameController.text.isNotEmpty)
                               Container(
                                 width: 400,
-                                height: 50,
+                                height: 60,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffFD425B),
@@ -284,10 +294,15 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                         onUpdateButtonTapped();
                       getProfile();
                       
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileScreen()));
+
+      //                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+      //   return ProfileScreen();
+      // },),(route) => false);
+                      
+                          //    Navigator.push(
+                          // context,
+                          // MaterialPageRoute(
+                          //     builder: (context) => ProfileScreen()));
                               }
           
                       // onUpdateButtonTapped();

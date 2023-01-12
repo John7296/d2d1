@@ -19,10 +19,17 @@ import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
 
 import 'package:project_d2d/screens/profile_summary_screen.dart';
+import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
 import 'package:project_d2d/utils/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
+ bool? fromSettings;
+ bool? fromBottom;
+ bool? fromProfile;
+
+ ProfileScreen({super.key,this.fromSettings=true, this.fromBottom=true, this.fromProfile=true});
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -36,6 +43,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   var percentvalue;
 
   List<StaffProfile>? thisuser;
+
+  
 
   @override
   void initState() {
@@ -146,8 +155,34 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+
+                     (widget.fromSettings == true)
+                          ?
+                          // Navigator.pop(context)
+                          Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SettingsScreen()))
+                          :Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return HomeScreen();
+                            },
+                          ), (route) => false);
+
+                            if (widget.fromProfile == true)
+                             Navigator.pop(context);
+
+                          if (widget.fromBottom == true)
+                        
+                        //  Navigator.pushAndRemoveUntil(context,
+                        //       MaterialPageRoute(
+                        //     builder: (BuildContext context) {
+                        //       return HomeScreen();
+                        //     },
+                        //   ), (route) => false);
+                              
+                     Navigator.pop(context);
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   icon: Icon(Icons.arrow_back_ios_new)),
               Spacer(),

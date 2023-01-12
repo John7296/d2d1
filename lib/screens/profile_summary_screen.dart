@@ -223,21 +223,6 @@ class _ProfileSummaryScreenState
                 ),
               ),
               SizedBox(height: 20),
-
-
-                  
-                        
-                      
-                      
-                    
-              
-
-
-
-
-
-
-
                
              
            Padding(
@@ -262,7 +247,7 @@ class _ProfileSummaryScreenState
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(5),
                                       topLeft: Radius.circular(5)),
-                                 // color: Colors.pink.shade100
+                                 color: Colors.pink.shade100
                                  ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
