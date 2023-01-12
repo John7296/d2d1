@@ -169,15 +169,18 @@ class _SliderBannerHomeWidgetState
                                                                 ),
                                                               ),
                                                             ),
-                                                            // InkWell(
-                                                            //   onTap: () {},
-                                                            //   child: ImageIcon(
-                                                            //     AssetImage(
-                                                            //         "assets/images/ic_edit_task.png"),
-                                                            //     size: 25,
-                                                            //     color: Colors.white,
-                                                            //   ),
-                                                            // ),
+                                                            if(jobList[index].jobStatus == "Applied")
+                                                            InkWell(
+                                                              onTap: () {
+                                                                
+                                                              },
+                                                              child: ImageIcon(
+                                                                AssetImage(
+                                                                    "assets/images/ic_tick.png"),
+                                                                size: 25,
+                                                                color: Colors.white,
+                                                              ),
+                                                            ),
                                                           ],
                                                         ),
                                                         Row(

@@ -4,23 +4,27 @@ part 'timesheet.g.dart';
 
 @JsonSerializable()
 class TimeSheet {
-  @JsonKey(name: 'jobPending')
-  int? jobPending;
+  @JsonKey(name: 'Pending')
+  int? Pending;
 
-  @JsonKey(name: 'jobApproved')
-  int? jobApproved;
+  @JsonKey(name: 'Approved')
+  int? Approved;
 
-  @JsonKey(name: 'jobCompleted')
-  int? jobCompleted;
+  @JsonKey(name: 'Completed')
+  int? Completed;
 
   @JsonKey(name: 'currentJob')
   String? currentJob;
+
+    @JsonKey(name: 'clientName')
+  String? clientName;
+
 
  
 
 
   TimeSheet({
-this.currentJob,this.jobApproved,this.jobCompleted,this.jobPending  });
+this.currentJob,this.Approved,this.Completed,this.Pending });
 
   factory TimeSheet.fromJson(Map<String, dynamic> json) =>
       _$TimeSheetFromJson(json);

@@ -143,7 +143,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                           ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: TextField(
                                 autofocus: false,
                                 textInputAction: TextInputAction.search,
@@ -154,10 +155,10 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                   getJobDetails();
                                 },
                                 decoration: const InputDecoration(
-
                                     border: InputBorder.none,
                                     hintText: "Search Available Jobs",
-                                    hintStyle: TextStyle(decoration: TextDecoration.none,
+                                    hintStyle: TextStyle(
+                                        decoration: TextDecoration.none,
                                         fontFamily: "Intro",
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey)),
@@ -197,8 +198,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                             ),
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Available"
-                                ,
+                              child: Text(
+                                "Available",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: kFontWeight_M),
                               ),
@@ -214,7 +215,6 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                 border:
                                     Border.all(color: Colors.grey, width: 1)),
                             child: Align(
-                              
                               alignment: Alignment.center,
                               child: Text("Requested",
                                   style: TextStyle(
@@ -233,7 +233,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                   (jobList.isNotEmpty)
+                  (jobList.isNotEmpty)
                       ? ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -409,6 +409,18 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                         ),
                                                       ),
                                                     ),
+                                                    if (jobList[index]
+                                                            .jobStatus ==
+                                                        "Applied")
+                                                      InkWell(
+                                                        onTap: () {},
+                                                        child: ImageIcon(
+                                                          AssetImage(
+                                                              "assets/images/ic_tick.png"),
+                                                          size: 25,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -624,7 +636,6 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                           child: Container(child: Text("No Jobs Available"))),
 // ==================================================================================================================================
                   AvailableJobWidget(),
-                 
                 ],
               ),
             ),
