@@ -69,7 +69,10 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
        hideLoader();
       //showFlashMsg(e.toString());
       print(e);
-      showFlashMsg("Invalid OTP");
+       if(_otpController.text.isEmpty){
+                    showFlashMsg("Enter OTP");
+                  }
+     else showFlashMsg("Invalid OTP");
     });
   }
 
@@ -155,15 +158,15 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
               ),
               controller: _otpController,
           
-               validator: ( value) {
-                        if (value!.isEmpty) {
-                          return "Enter Otp";
-                        } else if (value.length != 6) {
-                          return "Invalid Otp";
-                        } else {
-                          return null;
-                        }
-                      },
+              //  validator: ( value) {
+              //           if (value!.isEmpty) {
+              //             return "Enter Otp";
+              //           } else if (value.length != 6) {
+              //             return "Invalid Otp";
+              //           } else {
+              //             return null;
+              //           }
+              //         },
           
                     // validator: (val) {
                     //   if (!emailSent) return null;
@@ -183,6 +186,8 @@ class _VerifyOtpScreenState extends BaseStatefulState<VerifyOtpScreen> {
                   backgroundColor: Color(0xffFD425B),
                 ),
                 onPressed: () {
+
+                 
 
                   verifyOTP();
                   // Navigator.push(

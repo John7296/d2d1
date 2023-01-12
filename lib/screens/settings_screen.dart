@@ -16,6 +16,7 @@ import 'package:project_d2d/screens/profile_summary_screen.dart';
 import 'package:project_d2d/screens/recently_applied_jobs.dart';
 import 'package:project_d2d/screens/support_screen.dart';
 import 'package:project_d2d/screens/terms_and_condition_screen.dart';
+import 'package:project_d2d/utils/sessions_manager.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -81,6 +82,48 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
     );
   }
 
+    showlogouttDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Continue"),
+      onPressed: () {
+         SessionsManager.clearSession();
+                                  Navigator.pushAndRemoveUntil(context,
+                                      MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return LoginScreen();
+                                    },
+                                  ), (route) => false);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Log Out"),
+      content: Text("Do you want to Log Out?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,12 +175,11 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-
-                          Navigator.push(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProfileScreen()));
-                      
+
                         // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                         //   builder: (BuildContext context) {
                         //     return ProfileScreen();
@@ -350,6 +392,23 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                               leading: Icon(Icons.info_outline),
                               title: Text(
                                 "About",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                             showlogouttDialog(context);
+                            },
+                            child: ListTile(
+                              leading: ImageIcon(
+                                AssetImage("assets/images/ic_log-out.png"),
+                              ),
+                              title: Text(
+                                "Log Out",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
