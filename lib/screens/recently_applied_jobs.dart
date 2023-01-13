@@ -507,42 +507,42 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                         ),
                                       ),
                                     ),
-                                    //   if (jobs[index].isRequsted!)
-                                    //     Image(
-                                    //         image: AssetImage(
-                                    //             "assets/images/redlabel_tail.png")),
+                                      if (jobList[index].isRequsted!)
+                                        Image(
+                                            image: AssetImage(
+                                                "assets/images/redlabel_tail.png")),
                                   ],
                                 ),
-                                // if (jobs[index].isRequsted!)
-                                //   Positioned(
-                                //     top: 58,
-                                //     right: 3,
-                                //     child: Stack(
-                                //       children: [
-                                //         Image(
-                                //             image: AssetImage(
-                                //                 "assets/images/redlabel.png")),
-                                //         Positioned(
-                                //           right: 0,
-                                //           left: 0,
-                                //           bottom: 0,
-                                //           top: 0,
-                                //           child: Container(
-                                //             // color: Colors.yellow,
-                                //             child: Center(
-                                //               child: Text(
-                                //                 "Requested",
-                                //                 style: TextStyle(
-                                //                     fontSize: 10,
-                                //                     color: Colors.white,
-                                //                     fontWeight: kFontWeight_M),
-                                //               ),
-                                //             ),
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
+                                if (jobList[index].isRequsted!)
+                                  Positioned(
+                                    top: 58,
+                                    right: 3,
+                                    child: Stack(
+                                      children: [
+                                        Image(
+                                            image: AssetImage(
+                                                "assets/images/redlabel.png")),
+                                        Positioned(
+                                          right: 0,
+                                          left: 0,
+                                          bottom: 0,
+                                          top: 0,
+                                          child: Container(
+                                            // color: Colors.yellow,
+                                            child: Center(
+                                              child: Text(
+                                                "Requested",
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.white,
+                                                    fontWeight: kFontWeight_M),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                               ],
                             ),
                           );
