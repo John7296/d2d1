@@ -44,6 +44,15 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
     Helper.hideLoader(loader!);
   }
 
+   void goBack() {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } 
+    else {
+      SystemNavigator.pop();
+    }
+  }
+
   // void replaceScreen(String route) {
   //   // Navigator.pushReplacementNamed(context, route);
 

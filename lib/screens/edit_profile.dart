@@ -106,10 +106,11 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                 children: [
                   IconButton(
                       onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileScreen()));
+                        Navigator.pop(context);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => ProfileScreen()));
                        
                       },
                       icon: Icon(Icons.arrow_back_ios_new)),

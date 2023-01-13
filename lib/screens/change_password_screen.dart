@@ -188,8 +188,8 @@ class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen>
                                 return "Should not be the same as current password";
                               }
 
-                               if (val.length < 8) {
-                            return 'Must be 8 character';
+                               if (val.length < 6) {
+                            return 'Must be 6 character';
                               }
                               return null;
                             }

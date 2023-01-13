@@ -163,8 +163,8 @@ class _ResetPasswordScreenState extends BaseStatefulState<ResetPasswordScreen> {
                             if (val!.isEmpty) {
                               return "Please enter new password";
                             }
-                             if (val.length < 8) {
-                        return 'Must be 8 character';
+                             if (val.length < 6) {
+                        return 'Must be 6 character';
                       }
                             return null;
                           }
