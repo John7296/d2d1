@@ -160,7 +160,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       
                    (widget.fromSettings == true)
                         ?
-                        //  Navigator.pop(context)
+                         // Navigator.pop(context)
                         Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SettingsScreen()))
                         :Navigator.pushAndRemoveUntil(context,
@@ -190,8 +190,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                         if(widget.fromEdit==true)
                             
                   // Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  // Navigator.pushReplacement(context,
+                  //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                       Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return HomeScreen();
+                          },
+                        ), (route) => false);
                 },
                 icon: Icon(Icons.arrow_back_ios_new)),
             Spacer(),

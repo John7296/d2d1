@@ -4,6 +4,7 @@ import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/staff_profile.dart';
+import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/password_confirmation_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 
@@ -74,7 +75,13 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
        //hideLoader();
      // showFlashMsg(response.message!);
      
-     // Navigator.pop(context, true);
+    //  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+    //     return ProfileScreen();
+    //   },),(route) => false);
+      //  Navigator.push(
+      //                     context,
+      //                     MaterialPageRoute(
+      //                         builder: (context) => ProfileScreen()));
   
       getProfile();
      
@@ -297,16 +304,21 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                         showFlashMsg("Profile updated");
 
                       getProfile();
-                      
 
-      //                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-      //   return ProfileScreen();
-      // },),(route) => false);
-                      
-                             Navigator.pushReplacement(
+                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ProfileScreen()));
+                      
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return HomeScreen();
+      },),(route) => false);
+                       
+                      
+                          //    Navigator.push(
+                          // context,
+                          // MaterialPageRoute(
+                          //     builder: (context) => ProfileScreen()));
                                }
           
                       // onUpdateButtonTapped();
@@ -316,6 +328,7 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                       //     MaterialPageRoute(
                       //         builder: (context) => PasswordConfirmationScreen()));
                     },
+                    
                     child: Center(
                         child: Text(
                       "Update Profile",
