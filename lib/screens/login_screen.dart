@@ -224,8 +224,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       controller: _passwordController,
                       validator: (val) {
                      if (val!.isEmpty) return "Enter your password";
-                             if (val.length < 8) {
-                        return 'Must be 8 character';
+                             if (val.length < 6) {
+                        return 'Must be 6 character';
                       }
                             return null;
                       },

@@ -41,9 +41,11 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   List<JobRequest> jobs = [];
   List<TimesheetBanner> banner = [];
 
-  var percentvalue;
+  int? percentvalue;
 
   List<StaffProfile>? thisuser;
+
+
 
   
 
@@ -75,6 +77,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       setState(() {
         profile.clear();
         profile.addAll(response.data!);
+       
         //  DataManager.shared.thisuser =response.data!;
       });
       //recentJobRequest();
@@ -95,6 +98,12 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       setState(() {
         training.clear();
         training.addAll(response.data!);
+
+        
+        percentvalue = response.data?.first.completionRate;
+
+        print("****************");
+        print(percentvalue);
       });
       // timeSheetBanner();
     }).catchError((e) {
@@ -157,47 +166,51 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
           children: [
             IconButton(
                 onPressed: () {
-      
-                   (widget.fromSettings == true)
-                        ?
-                         // Navigator.pop(context)
-                        Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SettingsScreen()))
-                        :Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return SettingsScreen();
-                          },
-                        ), (route) => false);
-      
-                          if (widget.fromProfile == true)
-                           Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return HomeScreen();
-                          },
-                        ), (route) => false);
-      
-                        if (widget.fromBottom == true)
-                      
-                       Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return HomeScreen();
-                          },
-                        ), (route) => false);
+                        Navigator.pop(context);
 
-                        if(widget.fromEdit==true)
+      
+                  //  (widget.fromSettings == true)
+                  //       ?
+                  //        // Navigator.pop(context);
+                  //       Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => SettingsScreen()))
+                  //       :Navigator.pushAndRemoveUntil(context,
+                  //           MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return SettingsScreen();
+                  //         },
+                  //       ), (route) => false);
+      
+                  //         if (widget.fromProfile == true)
+                  //          Navigator.pushAndRemoveUntil(context,
+                  //           MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return HomeScreen();
+                  //         },
+                  //       ), (route) => false);
+      
+                  //       if (widget.fromBottom == true)
+
+                  // //       Navigator.pop(context);
+                      
+                  //      Navigator.pushAndRemoveUntil(context,
+                  //           MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return HomeScreen();
+                  //         },
+                  //       ), (route) => false);
+
+                  //       if(widget.fromEdit==true)
                             
-                  // Navigator.pop(context);
-                  // Navigator.pushReplacement(context,
-                  //     MaterialPageRoute(builder: (context) => HomeScreen()));
-                       Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return HomeScreen();
-                          },
-                        ), (route) => false);
+                  // // // Navigator.pop(context);
+                  // // // Navigator.pushReplacement(context,
+                  // // //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                  //      Navigator.pushAndRemoveUntil(context,
+                  //           MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return HomeScreen();
+                  //         },
+                  //       ), (route) => false);
                 },
                 icon: Icon(Icons.arrow_back_ios_new)),
             Spacer(),
@@ -214,18 +227,35 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
           CircleAvatar(
         radius: 50,
         backgroundColor: Color(0xffF3B7BF),
-        child: CircleAvatar(
+        child: profile.isNotEmpty? profile.first.profilePhoto!=null
+      ?  CircleAvatar(
           radius: 35,
-          child: CachedNetworkImage(
-              imageUrl: profile.isNotEmpty
-                  ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
-                  : ""),
+          child: 
+          CachedNetworkImage(
+              imageUrl:
+                   "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
+                  ),
       
           // Image(
           //   image: AssetImage("assets/images/profile_img.png"),
           // ),
-        ),
+        )
+        : CircleAvatar(
+          radius: 35,
+          child:  
+          Image(
+            image: AssetImage("assets/images/profile_img.png"),
           ),
+        )
+     :     CircleAvatar(
+          radius: 35,
+          child:  
+          Image(
+            image: AssetImage("assets/images/profile_img.png"),
+          ),
+        )    
+          ),
+          
           Center(
           child: Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -281,6 +311,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               Container(
                   child: Column(children: [
                     Text(
+                      
                 profile.isNotEmpty
                     ? profile[0].timeSheetCount.toString()
                     : "",
@@ -347,10 +378,11 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                         children: [
                               Icon(Icons.currency_pound_outlined,
                           color: kGreenColor, size: 20),
-                          Text(
+                           Text(
                             profile.isNotEmpty
-                                ? profile[0].totalEarnings.toString()
-                                : "",
+                                ? profile.first.totalEarnings==null?
+                               
+                                "0":   profile[0].totalEarnings.toString():"",
                             // "\$3435.00",
                             //profile.first.totalEarnings.toString(),
                             style: TextStyle(
@@ -378,110 +410,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         ]),
       
       
-        // child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //   children: [
-        //     Text(
-        //       profile.isNotEmpty ? profile[0].jobsCount.toString() : "",
-        //       // "27",
-        //       // profile.first.jobsCount.toString(),
-        //       style: TextStyle(
-        //           color: Colors.black,
-        //           fontWeight: FontWeight.w700,
-        //           fontSize: 15),
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(left: 60),
-        //       child: Text(
-        //         profile.isNotEmpty
-        //             ? profile[0].timeSheetCount.toString()
-        //             : "",
-        //         // "89",
-        //         // profile.first.timeSheetCount.toString(),
-        //         style: TextStyle(
-        //             color: Colors.black,
-        //             fontWeight: FontWeight.w700,
-        //             fontSize: 15),
-        //       ),
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(left: 50),
-        //       child: Text(
-        //         profile.isNotEmpty ? profile[0].passportExpy.toString() : "",
-        //         // "13 Nov 2024",
-        //         // profile.first.passportExpy.toString(),
-        //         // maxLines: 2,
-        //         style: TextStyle(
-        //             color: Color(0xffF41937),
-        //             fontWeight: FontWeight.w700,
-        //             fontSize: 15),
-        //       ),
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(left: 30),
-        //       child: InkWell(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                   builder: (context) => ProfileSummaryScreen()));
-        //         },
-        //         child: Row(
-        //           children: [
-        //             Icon(Icons.currency_pound_outlined,
-        //                 color: kGreenColor, size: 20),
-        //             Text(
-        //               profile.isNotEmpty
-        //                   ? profile[0].totalEarnings.toString()
-        //                   : "",
-        //               // "\$3435.00",
-        //               //profile.first.totalEarnings.toString(),
-        //               style: TextStyle(
-        //                   color: kGreenColor,
-        //                   fontWeight: FontWeight.w700,
-        //                   fontSize: 15),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
+       
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     // crossAxisAlignment: CrossAxisAlignment.start,
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       Text(
-          //         "Jobs",
-          //         style: TextStyle(
-          //             color: Color(0xff95969D),
-          //             fontWeight: FontWeight.w500,
-          //             fontSize: 14),
-          //       ),
-          //       // SizedBox(
-          //       //   width: 15,
-          //       // ),
-          //       Text(
-          //         "Time sheets",
-          //         style: TextStyle(
-          //             color: Color(0xff95969D),
-          //             fontWeight: FontWeight.w500,
-          //             fontSize: 14),
-          //       ),
-          //       // SizedBox(
-          //       //   width: 15,
-          //       // ),
-          //       
-          //       // SizedBox(
-          //       //   width:15,
-          //       // ),
-          //       
-          //     ],
-          //   ),
-          // ),
+          
           Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
         child: Row(
@@ -957,7 +888,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 width: 200,
                                 progressColor: kGreenprogressColor,
                                 backgroundColor: Color(0xffD9D9D9),
-                                percent: 0.30,
+                                percent: percentvalue!/100,
                                 barRadius: Radius.circular(5),
                               ),
                             ),
