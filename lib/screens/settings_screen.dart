@@ -13,7 +13,7 @@ import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/profile_summary_screen.dart';
-import 'package:project_d2d/screens/recently_applied_jobs.dart';
+import 'package:project_d2d/screens/applied_jobs.dart';
 import 'package:project_d2d/screens/support_screen.dart';
 import 'package:project_d2d/screens/terms_and_condition_screen.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
@@ -224,7 +224,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RecentlyAppliedJobs(),
+                            builder: (context) => AppliedJobs(),
                           ),
                         );
                       },

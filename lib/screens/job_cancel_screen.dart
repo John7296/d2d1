@@ -30,7 +30,7 @@ class JobCancelScreen extends StatefulWidget {
   String jobLocation;
   String startDateTime;
   String shiftName;
-  bool isRequested;
+  int isRequested;
   BuildContext context;
 
   @override
@@ -50,19 +50,19 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
       "jobId": NetworkManager.shared.jobId,
       "reason": _reasonController.text
     }).then((BaseResponse<CancelJob> response) {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-        builder: (BuildContext context) {
-          return JobCancelledSuccessfulScreen(
-              widget.jobCatName,
-              widget.hourlyRate.toDouble(),
-              widget.clientName,
-              widget.jobLocation,
-              widget.startDateTime,
-              widget.shiftName,
-              widget.isRequested,
-              context);
-        },
-      ), (route) => false);
+      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+      //   builder: (BuildContext context) {
+      //     return JobCancelledSuccessfulScreen(
+      //         widget.jobCatName,
+      //         widget.hourlyRate.toDouble(),
+      //         widget.clientName,
+      //         widget.jobLocation,
+      //         widget.startDateTime,
+      //         widget.shiftName,
+      //         widget.isRequested,
+      //         context);
+      //   },
+      // ), (route) => false);
     }).catchError((e) {
       print(e.toString());
       showFlashMsg(e.toString());
@@ -215,7 +215,7 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
                     ],
                   ),
                 ),
-                if (widget.isRequested)
+                if (widget.isRequested == 1)
                   Positioned(
                     top: 160,
                     right: 0,
@@ -341,7 +341,22 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 onCancelButtonTapped();
+                                Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return JobCancelledSuccessfulScreen(
+                                        widget.jobCatName,
+                                        widget.hourlyRate.toDouble(),
+                                        widget.clientName,
+                                        widget.jobLocation,
+                                        widget.startDateTime,
+                                        widget.shiftName,
+                                        widget.isRequested,
+                                        context);
+                                  },
+                                ), (route) => false);
                               }
+                              showFlashMsg("Job Cancelled Successfully..!");
                             },
                             child: Text(
                               'Cancel',

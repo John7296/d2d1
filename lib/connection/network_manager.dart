@@ -236,12 +236,15 @@ class NetworkManager {
               _errorMessage = error.response!.data["Message"];
             } else if (error.response!.statusCode == 500) {
               _errorMessage = error.response!.data["Message"];
+            } else if (error.response!.statusCode == 200) {
+              _errorMessage = error.response!.data["Message"];
             }
 
             break;
           case DioErrorType.sendTimeout:
             _errorMessage = "Receive timeout in send request";
             break;
+            
         }
 
         throw (_errorMessage);

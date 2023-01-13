@@ -21,15 +21,38 @@ class SliderBannerHomeWidget extends StatefulWidget {
 class _SliderBannerHomeWidgetState
     extends BaseWidgetStatefulState<SliderBannerHomeWidget> {
   List<Job> jobList = [];
+  List<Job> jobListTwo = [];
+  List<Job> jobListThree = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getJobDetails();
+    
   }
 
   void getJobDetails() {
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Upcoming",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      setState(() {
+        jobList.clear();
+        jobList.addAll(response.data!);
+        getJobDetailsTwo();
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void getJobDetailsTwo() {
     NetworkManager.shared
         .getJob(
       NetworkManager.shared.userToken!,
@@ -40,8 +63,9 @@ class _SliderBannerHomeWidgetState
     )
         .then((BaseResponse<List<Job>> response) {
       setState(() {
-        jobList.clear();
-        jobList.addAll(response.data!);
+        jobListTwo.clear();
+        jobListTwo.addAll(response.data!);
+        jobListThree = jobList + jobListTwo;
       });
     }).catchError((e) {
       print(e.toString());
@@ -51,14 +75,13 @@ class _SliderBannerHomeWidgetState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-            height: 160,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 2),
-              child: 
-              (jobList.isNotEmpty)
-        ? ListView.builder(
+      height: 160,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 2),
+        child: (jobListThree.isNotEmpty)
+            ? ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: jobList.length,
+                itemCount: jobListThree.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(left: 20),
@@ -69,23 +92,23 @@ class _SliderBannerHomeWidgetState
                             InkWell(
                               onTap: () {
                                 SessionsManager.saveJobId(
-                                    jobList[index].jobId ?? 0);
+                                    jobListThree[index].jobId ?? 0);
 
                                 NetworkManager.shared.jobId =
-                                    jobList[index].jobId ?? 0;
+                                    jobListThree[index].jobId ?? 0;
 
                                 NetworkManager.shared.refreshTokens();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => JobDetailsScreen(
-                                        jobList[index].jobCatName ?? '',
-                                        jobList[index].hourlyRate ?? 0,
-                                        jobList[index].clientName ?? '',
-                                        jobList[index].jobLocation ?? '',
-                                        jobList[index].startDateTime ?? '',
-                                        jobList[index].shiftName ?? '',
-                                        jobList[index].isRequsted!,
+                                        jobListThree[index].jobCatName ?? '',
+                                        jobListThree[index].hourlyRate ?? 0,
+                                        jobListThree[index].clientName ?? '',
+                                        jobListThree[index].jobLocation ?? '',
+                                        jobListThree[index].startDateTime ?? '',
+                                        jobListThree[index].shiftName ?? '',
+                                        jobListThree[index].isRequsted!,
                                         context),
                                   ),
                                 );
@@ -97,7 +120,7 @@ class _SliderBannerHomeWidgetState
                                     Radius.circular(30),
                                   ),
                                   image: DecorationImage(
-                                    image: (jobList[index].isRequsted!)
+                                    image: (jobListThree[index].isRequsted == 1)
                                         ? AssetImage(
                                             "assets/images/green_bg.png")
                                         : AssetImage(
@@ -154,7 +177,7 @@ class _SliderBannerHomeWidgetState
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                jobList[index]
+                                                                jobListThree[index]
                                                                         .jobCatName ??
                                                                     '',
                                                                 maxLines: 2,
@@ -169,24 +192,26 @@ class _SliderBannerHomeWidgetState
                                                                 ),
                                                               ),
                                                             ),
-                                                            if(jobList[index].jobStatus == "Applied")
-                                                            InkWell(
-                                                              onTap: () {
-                                                                
-                                                              },
-                                                              child: ImageIcon(
-                                                                AssetImage(
-                                                                    "assets/images/ic_tick.png"),
-                                                                size: 25,
-                                                                color: Colors.white,
+                                                            if (jobListThree[index]
+                                                                    .jobStatus ==
+                                                                "Applied")
+                                                              InkWell(
+                                                                onTap: () {},
+                                                                child:
+                                                                    ImageIcon(
+                                                                  AssetImage(
+                                                                      "assets/images/ic_tick.png"),
+                                                                  size: 25,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
                                                           ],
                                                         ),
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              jobList[index]
+                                                              jobListThree[index]
                                                                       .clientName ??
                                                                   '',
                                                               maxLines: 1,
@@ -245,10 +270,12 @@ class _SliderBannerHomeWidgetState
                                                   Container(
                                                     width: 60,
                                                     child: Text(
-                                                      jobList[index].shiftName ??
+                                                      jobListThree[index]
+                                                              .shiftName ??
                                                           "",
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         fontSize: 11,
                                                         color: Colors.white,
@@ -288,10 +315,11 @@ class _SliderBannerHomeWidgetState
                                                   Container(
                                                     width: 60,
                                                     child: Text(
-                                                      jobList[index]
+                                                      jobListThree[index]
                                                               .jobLocation ??
                                                           "",
-                                                          overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 11),
@@ -313,7 +341,7 @@ class _SliderBannerHomeWidgetState
                                           ),
                                           SizedBox(width: 2),
                                           Text(
-                                            jobList[index].startDateTime ?? "",
+                                            jobListThree[index].startDateTime ?? "",
                                             style: TextStyle(
                                               fontWeight: kFontWeight_M,
                                               fontSize: 13,
@@ -322,7 +350,7 @@ class _SliderBannerHomeWidgetState
                                           ),
                                           Spacer(),
                                           Text(
-                                            '£ ${jobList[index].hourlyRate ?? ""}/hour',
+                                            '£ ${jobListThree[index].hourlyRate ?? ""}/hour',
                                             style: TextStyle(
                                               fontWeight: kFontWeight_M,
                                               fontSize: 13,
@@ -336,13 +364,13 @@ class _SliderBannerHomeWidgetState
                                 ),
                               ),
                             ),
-                            if (jobList[index].isRequsted!)
+                            if (jobListThree[index].isRequsted == 1)
                               Image(
                                   image: AssetImage(
                                       "assets/images/redlabel_tail.png")),
                           ],
                         ),
-                        if (jobList[index].isRequsted!)
+                        if (jobListThree[index].isRequsted == 1)
                           Positioned(
                             top: 65,
                             right: 0,
@@ -376,10 +404,10 @@ class _SliderBannerHomeWidgetState
                     ),
                   );
                 },
-              ): Center(child: Text("No Available Jobs")),
-            ),
-          );
-        
+              )
+            : Center(child: Text("No Available Jobs")),
+      ),
+    );
   }
 
   @override

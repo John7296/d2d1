@@ -24,7 +24,9 @@ class AvailableJobsScreen extends StatefulWidget {
 class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     with TickerProviderStateMixin {
   String _searchString = "";
-  List<Job> jobList = [];
+    List<Job> jobList = [];
+  List<Job> jobListTwo = [];
+  List<Job> jobListThree = [];
 
   @override
   void initState() {
@@ -32,29 +34,45 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
       getJobDetails();
-
-      // _updateDeviceToken();
     });
   }
 
-  void getJobDetails() {
-    showLoader();
+   void getJobDetails() {
     NetworkManager.shared
         .getJob(
       NetworkManager.shared.userToken!,
       "getJobsByStaffId",
       NetworkManager.shared.staffId!,
-      _searchString,
-      "Active",
+      "",
+      "Upcoming",
     )
         .then((BaseResponse<List<Job>> response) {
-      hideLoader();
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
+        getJobDetailsTwo();
       });
     }).catchError((e) {
-      hideLoader();
+      print(e.toString());
+    });
+  }
+
+  void getJobDetailsTwo() {
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Active",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      setState(() {
+        jobListTwo.clear();
+        jobListTwo.addAll(response.data!);
+        jobListThree = jobList + jobListTwo;
+      });
+    }).catchError((e) {
       print(e.toString());
     });
   }
@@ -233,11 +251,11 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  (jobList.isNotEmpty)
+                  (jobListThree.isNotEmpty)
                       ? ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: jobList.length,
+                          itemCount: jobListThree.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(
@@ -249,10 +267,10 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                       InkWell(
                                         onTap: () {
                                           SessionsManager.saveJobId(
-                                              jobList[index].jobId ?? 0);
+                                              jobListThree[index].jobId ?? 0);
 
                                           NetworkManager.shared.jobId =
-                                              jobList[index].jobId ?? 0;
+                                              jobListThree[index].jobId ?? 0;
 
                                           NetworkManager.shared.refreshTokens();
                                           Navigator.push(
@@ -260,30 +278,30 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   JobDetailsScreen(
-                                                      jobList[
+                                                      jobListThree[
                                                                   index]
                                                               .jobCatName ??
                                                           '',
-                                                      jobList[
+                                                      jobListThree[
                                                               index]
                                                           .hourlyRate!
                                                           .toDouble(),
-                                                      jobList[
+                                                      jobListThree[
                                                                   index]
                                                               .clientName ??
                                                           '',
-                                                      jobList[
+                                                      jobListThree[
                                                                   index]
                                                               .jobLocation ??
                                                           '',
-                                                      jobList[
+                                                      jobListThree[
                                                                   index]
                                                               .startDateTime ??
                                                           '',
-                                                      jobList[index]
+                                                      jobListThree[index]
                                                               .shiftName ??
                                                           '',
-                                                      jobList[index]
+                                                      jobListThree[index]
                                                           .isRequsted!,
                                                       context),
                                             ),
@@ -296,8 +314,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                               Radius.circular(15),
                                             ),
                                             image: DecorationImage(
-                                              image: (jobList[index]
-                                                      .isRequsted!)
+                                              image: (jobListThree[index]
+                                                      .isRequsted==1)
                                                   ? AssetImage(
                                                       "assets/images/green_bg.png")
                                                   : AssetImage(
@@ -357,7 +375,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                                       Expanded(
                                                                         child:
                                                                             Text(
-                                                                          jobList[index].jobCatName ??
+                                                                          jobListThree[index].jobCatName ??
                                                                               '',
                                                                           maxLines:
                                                                               2,
@@ -388,7 +406,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                                   Row(
                                                                     children: [
                                                                       Text(
-                                                                        jobList[index].clientName ??
+                                                                        jobListThree[index].clientName ??
                                                                             '',
                                                                         maxLines:
                                                                             1,
@@ -409,7 +427,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                         ),
                                                       ),
                                                     ),
-                                                    if (jobList[index]
+                                                    if (jobListThree[index]
                                                             .jobStatus ==
                                                         "Applied")
                                                       InkWell(
@@ -435,7 +453,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                     // ),
                                                     // SizedBox(width: 2),
                                                     // Text(
-                                                    //   jobList[index].startDateTime ?? "",
+                                                    //   jobListThree[index].startDateTime ?? "",
                                                     //   style: TextStyle(
                                                     //     fontWeight: kFontWeight_M,
                                                     //     fontSize: 13,
@@ -444,7 +462,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                     // ),
                                                     Spacer(),
                                                     Text(
-                                                      '£ ${jobList[index].hourlyRate ?? ""}/hour',
+                                                      '£ ${jobListThree[index].hourlyRate ?? ""}/hour',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             kFontWeight_M,
@@ -493,7 +511,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                             Container(
                                                               width: 60,
                                                               child: Text(
-                                                                jobList[index]
+                                                                jobListThree[index]
                                                                         .shiftName ??
                                                                     "",
                                                                 maxLines: 1,
@@ -544,7 +562,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                             Container(
                                                               width: 60,
                                                               child: Text(
-                                                                jobList[index]
+                                                                jobListThree[index]
                                                                         .jobLocation ??
                                                                     "",
                                                                 overflow:
@@ -571,7 +589,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                         ),
                                                         SizedBox(width: 2),
                                                         Text(
-                                                          jobList[index]
+                                                          jobListThree[index]
                                                                   .startDateTime ??
                                                               "",
                                                           style: TextStyle(
@@ -590,13 +608,13 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                           ),
                                         ),
                                       ),
-                                      if (jobList[index].isRequsted == "1")
+                                      if (jobListThree[index].isRequsted == "1")
                                         Image(
                                             image: AssetImage(
                                                 "assets/images/redlabel_tail.png")),
                                     ],
                                   ),
-                                  if (jobList[index].isRequsted!)
+                                  if (jobListThree[index].isRequsted==1)
                                     Positioned(
                                       top: 58,
                                       right: 3,
@@ -633,9 +651,9 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                           },
                         )
                       : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 100),
-                        child: Container(child: Text("No Jobs Available")),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal: 100),
+                          child: Container(child: Text("No Jobs Available")),
+                        ),
 // ==================================================================================================================================
                   AvailableJobWidget(),
                 ],

@@ -21,14 +21,17 @@ class Payment{
       @JsonKey(name: 'paidOn')
   String? paidOn;
 
+    @JsonKey(name: 'invoicePath')
+  String? invoicePath;
+
   Payment({
   
   this.invoiceId,
   this.createdOn,
   this.paymentMode,
   this.paymentStatus,
-  this.paidOn
-
+  this.paidOn,
+this.invoicePath
   });
 
   factory Payment.fromJson(Map<String, dynamic> json) =>

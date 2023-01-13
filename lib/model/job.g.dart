@@ -8,7 +8,7 @@ part of 'job.dart';
 
 Job _$JobFromJson(Map<String, dynamic> json) => Job(
       clientName: json['clientName'] as String?,
-      isRequsted: json['isRequsted'] as bool?,
+      isRequsted: json['isRequsted'] as int?,
       endDateTime: json['endDateTime'] as String?,
       hourlyRate: (json['hourlyRate'] as num?)?.toDouble(),
       jobCatName: json['jobCatName'] as String?,

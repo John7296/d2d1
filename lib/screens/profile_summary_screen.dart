@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
@@ -301,7 +306,15 @@ class _ProfileSummaryScreenState
                                       ),
                                       if (payment[index].paymentStatus == 1)
                                         InkWell(
-                                            onTap: () {},
+                                            onTap: () {
+                                              openFile(
+                                                // url:
+                                                // 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+                                                url:
+                                                    'https://wpr.intertoons.net/d2dwebadmin/${payment[index].invoicePath}',
+                                                fileName: 'file.pdf',
+                                              );
+                                            },
                                             child: Icon(Icons.download)),
                                       Container(
                                         height: 25,
@@ -394,6 +407,39 @@ class _ProfileSummaryScreenState
         ),
       ]),
     );
+  }
+
+  Future openFile({required String url, String? fileName}) async {
+    final file = await downloadFile(url, fileName!);
+    if (file == null) return;
+
+    print('Path:${file.path}');
+
+    OpenFile.open(file.path);
+  }
+
+  Future<File?> downloadFile(String url, String name) async {
+    final appStorage = await getApplicationDocumentsDirectory();
+    final file = File('${appStorage.path}/$name');
+    try {
+      final response = await Dio().get(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+          receiveTimeout: 0,
+        ),
+      );
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+
+      return file;
+    } catch (e) {
+      print(e.toString());
+      showFlashMsg("No invoice available..!");
+      return null;
+    }
   }
 
   @override

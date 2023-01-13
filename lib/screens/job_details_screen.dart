@@ -34,7 +34,7 @@ class JobDetailsScreen extends StatefulWidget {
 
   String startDateTime;
   String shiftName;
-  bool isRequested;
+  int isRequested;
   BuildContext context;
 
   @override
@@ -66,7 +66,14 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       hideLoader();
       setState(() {
         jobDetailsList.clear();
-        jobDetailsList.addAll(response.data!);
+
+// if (response.data!.result1!.isNotEmpty) {
+//           timeSheetDetailsList.add(response.data!);
+//           timesheetlist = timeSheetDetailsList;
+//         }
+        if (response.data!.isNotEmpty) {
+          jobDetailsList.addAll(response.data!);
+        }
       });
     }).catchError((e) {
       hideLoader();
@@ -97,8 +104,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       //             context)));
     }).catchError((e) {
       hideLoader();
-      // showFlashMsg("Job Applied Successful..!");
-      // print(e.toString());
+      // showFlashMsg(e.toString());
+      print(e.toString());
     });
   }
 
@@ -246,7 +253,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                     ],
                   ),
                 ),
-                if (widget.isRequested)
+                if (widget.isRequested==1)
                   Positioned(
                     top: 160,
                     right: 0,
@@ -284,7 +291,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                 ),
               ],
             ),
-           
+
             // Row(
             //   children: [
             //     Padding(
@@ -316,8 +323,10 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text((jobDetailsList[index].jobDescription != "")?
-                            jobDetailsList[index].jobDescription ?? '':"Not Available",
+                          child: Text(
+                            (jobDetailsList[index].jobDescription != "")
+                                ? jobDetailsList[index].jobDescription ?? ''
+                                : "Not Available",
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -435,18 +444,16 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         JobCancelScreen(
-                                                           widget.jobCatName,
-                                                    widget.hourlyRate
-                                                        .toDouble(),
-                                                    widget.clientName,
-                                                    widget.jobLocation,
-                                                    widget.startDateTime,
-                                                    widget.shiftName,
-                                                    widget.isRequested,
-                                                    context
-
-                                                          
-                                                        )));
+                                                            widget.jobCatName,
+                                                            widget.hourlyRate
+                                                                .toDouble(),
+                                                            widget.clientName,
+                                                            widget.jobLocation,
+                                                            widget
+                                                                .startDateTime,
+                                                            widget.shiftName,
+                                                            widget.isRequested,
+                                                            context)));
                                           },
                                           child: Text(
                                             'Cancel',

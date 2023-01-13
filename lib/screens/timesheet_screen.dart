@@ -134,7 +134,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       "getJobsByStaffId",
       NetworkManager.shared.staffId!,
       "",
-      "Active",
+      "Applied",
     )
         .then((BaseResponse<List<Job>> response) {
       hideLoader();
@@ -438,7 +438,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return Row(
                             children: [
-                              (timeSheetDetailsList[index].result2!.isNotEmpty)
+                              (timeSheetDetailsList[index]
+                                          .result2!
+                                          .isNotEmpty)
                                   ? Expanded(
                                       child: Container(
                                         // color: Colors.pink.shade100,
@@ -525,259 +527,293 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                                                             20,
                                                                         top:
                                                                             10),
-                                                                child:
-                                                                    Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment
-                                                                                .start,
+                                                                child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Time Sheet",
+                                                                            style:
+                                                                                TextStyle(fontSize: 12, fontWeight: kFontWeight_M),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                         children: [
                                                                           Row(
                                                                             children: [
-                                                                              Text(
-                                                                                "Time Sheet",
-                                                                                style: TextStyle(fontSize: 12, fontWeight: kFontWeight_M),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          ),
-                                                                          Row(
-                                                                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                            children: [
-                                                                              Row(
-                                                                                children: [
-                                                                                  ImageIcon(
-                                                                                    AssetImage("assets/images/ic_briefcase.png"),
-                                                                                    size: 15,
-                                                                                    color: Colors.grey,
-                                                                                  ),
-                                                                                  SizedBox(
-                                                                                    width: 5,
-                                                                                  ),
-                                                                                  Text(
-                                                                                    timeSheetDetailsList[index].result1![index].catName ?? '',
-                                                                                    style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 10,
-                                                                              ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  ImageIcon(
-                                                                                    AssetImage("assets/images/ic_location.png"),
-                                                                                    size: 15,
-                                                                                    color: Colors.grey,
-                                                                                  ),
-                                                                                  SizedBox(width: 5),
-                                                                                  Text(
-                                                                                    timeSheetDetailsList[index].result1![index].clientName ?? '',
-                                                                                    style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
-                                                                                  ),
-                                                                                ],
-                                                                              )
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.calendar_today,
-                                                                                size: 20,
+                                                                              ImageIcon(
+                                                                                AssetImage("assets/images/ic_briefcase.png"),
+                                                                                size: 15,
                                                                                 color: Colors.grey,
                                                                               ),
                                                                               SizedBox(
                                                                                 width: 5,
                                                                               ),
                                                                               Text(
-                                                                                timeSheetDetailsList[index].result1![index].shiftName ?? '',
-                                                                                style: TextStyle(fontSize: 9),
+                                                                                timeSheetDetailsList[index].result1![index].catName ?? '',
+                                                                                style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
                                                                               ),
                                                                             ],
                                                                           ),
                                                                           SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          ),
-                                                                          Row(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            // mainAxisAlignment:
-                                                                            //     MainAxisAlignment.spaceEvenly,
-                                                                            children: [
-                                                                              ImageIcon(
-                                                                                AssetImage("assets/images/ic_clock.png"),
-                                                                                size: 15,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Center(
-                                                                                child: Text(
-                                                                                  timeSheetDetailsList[index].result2![index].starttime ?? '',
-                                                                                  style: TextStyle(fontSize: 9),
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 10,
-                                                                              ),
-                                                                              ImageIcon(
-                                                                                AssetImage("assets/images/ic_clock.png"),
-                                                                                size: 15,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Center(
-                                                                                child: Text(
-                                                                                  timeSheetDetailsList[index].result2![index].endtime ?? '',
-                                                                                  style: TextStyle(fontSize: 9),
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 10,
-                                                                              ),
-                                                                              ImageIcon(
-                                                                                AssetImage("assets/images/ic_clock.png"),
-                                                                                size: 15,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Center(
-                                                                                child: Text(
-                                                                                  timeSheetDetailsList[index].result2![index].breakTime ?? '',
-                                                                                  style: TextStyle(fontSize: 9),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
+                                                                            width:
                                                                                 10,
                                                                           ),
                                                                           Row(
                                                                             children: [
                                                                               ImageIcon(
-                                                                                AssetImage("assets/images/ic_edit.png"),
+                                                                                AssetImage("assets/images/ic_location.png"),
                                                                                 size: 15,
                                                                                 color: Colors.grey,
                                                                               ),
+                                                                              SizedBox(width: 5),
                                                                               Text(
-                                                                                "Sign Here",
+                                                                                timeSheetDetailsList[index].result1![index].clientName ?? '',
+                                                                                style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.calendar_today,
+                                                                            size:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Text(
+                                                                            timeSheetDetailsList[index].result1![index].shiftName ??
+                                                                                '',
+                                                                            style:
+                                                                                TextStyle(fontSize: 9),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        // mainAxisAlignment:
+                                                                        //     MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          ImageIcon(
+                                                                            AssetImage("assets/images/ic_clock.png"),
+                                                                            size:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Center(
+                                                                            child:
+                                                                                Text(
+                                                                              timeSheetDetailsList[index].result2![index].starttime ?? '',
+                                                                              style: TextStyle(fontSize: 9),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                10,
+                                                                          ),
+                                                                          ImageIcon(
+                                                                            AssetImage("assets/images/ic_clock.png"),
+                                                                            size:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Center(
+                                                                            child:
+                                                                                Text(
+                                                                              timeSheetDetailsList[index].result2![index].endtime ?? '',
+                                                                              style: TextStyle(fontSize: 9),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                10,
+                                                                          ),
+                                                                          ImageIcon(
+                                                                            AssetImage("assets/images/ic_clock.png"),
+                                                                            size:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Center(
+                                                                            child:
+                                                                                Text(
+                                                                              timeSheetDetailsList[index].result2![index].breakTime ?? '',
+                                                                              style: TextStyle(fontSize: 9),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          ImageIcon(
+                                                                            AssetImage("assets/images/ic_edit.png"),
+                                                                            size:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          Text(
+                                                                            "Sign Here",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 9,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                      Row(
+                                                                        children: [
+                                                                          Container(
+                                                                            height:
+                                                                                150,
+                                                                            width:
+                                                                                300,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                            ),
+                                                                            child:
+                                                                                Container(
+                                                                              height: 150,
+                                                                              width: 150,
+                                                                              color: Colors.green,
+                                                                              child: SfSignaturePad(
+                                                                                backgroundColor: Colors.grey[200],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              20),
+                                                                      Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Signed By",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 9,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                      Row(
+                                                                        children: [
+                                                                          Container(
+                                                                            height:
+                                                                                50,
+                                                                            width:
+                                                                                300,
+                                                                            child:
+                                                                                TextField(
+                                                                              textAlign: TextAlign.left,
+                                                                              enabled: true,
+                                                                              maxLines: 5,
+                                                                              // controller: _instructionController,
+                                                                              decoration: InputDecoration(contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15), border: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: BorderSide(color: Colors.grey.shade50))),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Container(
+                                                                            width:
+                                                                                150,
+                                                                            height:
+                                                                                50,
+                                                                            child:
+                                                                                ElevatedButton(
+                                                                              onPressed: () {
+                                                                                SessionsManager.saveTimesheetId(timeSheetDetailsList[index].result2![index].timesheetId ?? 0);
+
+                                                                                NetworkManager.shared.timesheetId = timeSheetDetailsList[index].result2![index].timesheetId ?? 0;
+
+                                                                                NetworkManager.shared.refreshTokens();
+
+                                                                                onApproveButtonTapped();
+                                                                                showFlashMsg("Approved Successfully");
+
+                                                                                Navigator.pushReplacement(cntx, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
+                                                                                setState(() {});
+                                                                              },
+                                                                              child: Text(
+                                                                                'Approve',
                                                                                 style: TextStyle(
-                                                                                  fontSize: 9,
+                                                                                  fontSize: 16,
                                                                                 ),
                                                                               ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                              height:
-                                                                                  10),
-                                                                          Row(
-                                                                            children: [
-                                                                              Container(
-                                                                                height: 150,
-                                                                                width: 300,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                                                ),
-                                                                                child: Container(
-                                                                                  height: 150,
-                                                                                  width: 150,
-                                                                                  color: Colors.green,
-                                                                                  child: SfSignaturePad(
-                                                                                    backgroundColor: Colors.grey[200],
+                                                                              style: ButtonStyle(
+                                                                                backgroundColor: MaterialStateProperty.all(kButtonColorR),
+                                                                                shape: MaterialStateProperty.all(
+                                                                                  RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(5),
                                                                                   ),
                                                                                 ),
                                                                               ),
-                                                                            ],
+                                                                            ),
                                                                           ),
-                                                                          SizedBox(
-                                                                              height:
-                                                                                  20),
-                                                                          Row(
-                                                                            children: [
-                                                                              Text(
-                                                                                "Signed By",
-                                                                                style: TextStyle(
-                                                                                  fontSize: 9,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                              height:
-                                                                                  10),
-                                                                          Row(
-                                                                            children: [
-                                                                              Container(
-                                                                                height: 50,
-                                                                                width: 300,
-                                                                                child: TextField(
-                                                                                  textAlign: TextAlign.left,
-                                                                                  enabled: true,
-                                                                                  maxLines: 5,
-                                                                                  // controller: _instructionController,
-                                                                                  decoration: InputDecoration(contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15), border: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: BorderSide(color: Colors.grey.shade50))),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Container(
-                                                                                width: 150,
-                                                                                height: 50,
-                                                                                child: ElevatedButton(
-                                                                                  onPressed: () {
-                                                                                    SessionsManager.saveTimesheetId(timeSheetDetailsList[index].result2![index].timesheetId ?? 0);
-
-                                                                                    NetworkManager.shared.timesheetId = timeSheetDetailsList[index].result2![index].timesheetId ?? 0;
-
-                                                                                    NetworkManager.shared.refreshTokens();
-
-                                                                                    onApproveButtonTapped();
-                                                                                    showFlashMsg("Approved Successfully");
-
-                                                                                    Navigator.pushReplacement(cntx, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
-                                                                                    setState(() {});
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    'Approve',
-                                                                                    style: TextStyle(
-                                                                                      fontSize: 16,
-                                                                                    ),
-                                                                                  ),
-                                                                                  style: ButtonStyle(
-                                                                                    backgroundColor: MaterialStateProperty.all(kButtonColorR),
-                                                                                    shape: MaterialStateProperty.all(
-                                                                                      RoundedRectangleBorder(
-                                                                                        borderRadius: BorderRadius.circular(5),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                              height:
-                                                                                  10),
-                                                                        ]),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                    ]),
                                                               );
                                                             }).then((value) {
                                                             print("qwerty");

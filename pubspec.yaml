@@ -45,6 +45,10 @@ dependencies:
   shared_preferences: ^2.0.7
   flash: ^2.0.3
   cached_network_image: ^3.2.3
+  dio: ^4.0.6
+  path_provider: ^2.0.11
+  open_file: ^3.2.1
+  file_picker:
 
  
 

@@ -24,7 +24,7 @@ class JobCancelledSuccessfulScreen extends StatefulWidget {
   String jobLocation;
   String startDateTime;
   String shiftName;
-  bool isRequested;
+  int isRequested;
   BuildContext context;
 
   @override
@@ -178,7 +178,7 @@ class _JobCancelledSuccessfulScreenState
                     ],
                   ),
                 ),
-                if (widget.isRequested)
+                if (widget.isRequested==1)
                   Positioned(
                     top: 160,
                     right: 0,

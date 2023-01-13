@@ -12,6 +12,7 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) => Payment(
       paymentMode: json['paymentMode'] as String?,
       paymentStatus: json['paymentStatus'] as int?,
       paidOn: json['paidOn'] as String?,
+      invoicePath: json['invoicePath'] as String?,
     );
 
 Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
       'paymentMode': instance.paymentMode,
       'paymentStatus': instance.paymentStatus,
       'paidOn': instance.paidOn,
+      'invoicePath': instance.invoicePath,
     };

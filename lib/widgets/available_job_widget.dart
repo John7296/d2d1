@@ -43,7 +43,7 @@ class _AvailableJobWidgetState
       setState(() {
         reqJobList.clear();
         for (var element in response.data!) {
-          if (element.isRequsted == true) {
+          if (element.isRequsted == 1) {
             reqJobList.add(element);
             print(element);
           }
@@ -390,13 +390,13 @@ class _AvailableJobWidgetState
                                   ),
                                 ),
                               ),
-                              if (reqJobList[index].isRequsted!)
+                              if (reqJobList[index].isRequsted==1)
                                 Image(
                                     image: AssetImage(
                                         "assets/images/redlabel_tail.png")),
                             ],
                           ),
-                          if (reqJobList[index].isRequsted!)
+                          if (reqJobList[index].isRequsted==1)
                             Positioned(
                               top: 58,
                               right: 3,

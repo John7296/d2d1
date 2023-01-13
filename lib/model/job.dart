@@ -29,7 +29,7 @@ class Job {
   String? endDateTime;
 
   @JsonKey(name: 'isRequsted')
-  bool? isRequsted;
+  int? isRequsted;
 
   @JsonKey(name: 'jobId')
   int? jobId;

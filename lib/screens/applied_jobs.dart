@@ -19,10 +19,10 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
-class RecentlyAppliedJobs extends StatefulWidget {
+class AppliedJobs extends StatefulWidget {
   // final JobDetails _jobDetails;
 
-  RecentlyAppliedJobs(
+  AppliedJobs(
       // this.jobCatName,
       // this.hourlyRate,
       // this.clientName,
@@ -43,10 +43,10 @@ class RecentlyAppliedJobs extends StatefulWidget {
   // BuildContext context;
 
   @override
-  _RecentlyAppliedJobsState createState() => _RecentlyAppliedJobsState();
+  _AppliedJobsState createState() => _AppliedJobsState();
 }
 
-class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
+class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
   List<Job> jobList = [];
   // List<JobRequest> jobs = [];
 
@@ -60,6 +60,7 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
   }
 
   void getJobDetails() {
+    showLoader();
     NetworkManager.shared
         .getJob(
       NetworkManager.shared.userToken!,
@@ -69,11 +70,13 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
       "Applied",
     )
         .then((BaseResponse<List<Job>> response) {
+      hideLoader();
       setState(() {
         jobList.clear();
         jobList.addAll(response.data!);
       });
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -507,13 +510,13 @@ class _RecentlyAppliedJobsState extends BaseStatefulState<RecentlyAppliedJobs> {
                                         ),
                                       ),
                                     ),
-                                      if (jobList[index].isRequsted!)
-                                        Image(
-                                            image: AssetImage(
-                                                "assets/images/redlabel_tail.png")),
+                                    if (jobList[index].isRequsted==1)
+                                      Image(
+                                          image: AssetImage(
+                                              "assets/images/redlabel_tail.png")),
                                   ],
                                 ),
-                                if (jobList[index].isRequsted!)
+                                if (jobList[index].isRequsted==1)
                                   Positioned(
                                     top: 58,
                                     right: 3,
