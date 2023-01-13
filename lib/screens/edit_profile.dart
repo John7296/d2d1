@@ -310,9 +310,9 @@ class _EditProfileState extends BaseStatefulState<EditProfile> {
                           MaterialPageRoute(
                               builder: (context) => ProfileScreen()));
                       
-  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-        return HomeScreen();
-      },),(route) => false);
+  // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+  //       return HomeScreen();
+  //     },),(route) => false);
                        
                       
                           //    Navigator.push(
