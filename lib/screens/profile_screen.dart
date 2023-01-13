@@ -166,7 +166,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                         :Navigator.pushAndRemoveUntil(context,
                             MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return HomeScreen();
+                            return SettingsScreen();
                           },
                         ), (route) => false);
       

@@ -134,11 +134,15 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return HomeScreen();
-                      },
-                    ), (route) => false);
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                    // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    //   builder: (BuildContext context) {
+                    //     return HomeScreen();
+                    //   },
+                    // ), (route) => false);
                   },
                   icon: Icon(Icons.arrow_back_ios_new)),
               SizedBox(

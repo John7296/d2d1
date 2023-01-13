@@ -136,7 +136,6 @@ class _ProfileSummaryScreenState
                   // ),
                 ),
               ),
-
               Center(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -156,7 +155,6 @@ class _ProfileSummaryScreenState
                       fontSize: 20),
                 ),
               )),
-
               Center(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 5),
@@ -168,7 +166,6 @@ class _ProfileSummaryScreenState
                   style: TextStyle(color: Color(0xff95969D), fontSize: 14),
                 ),
               )),
-
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: DottedBorder(
@@ -219,14 +216,11 @@ class _ProfileSummaryScreenState
                 ),
               ),
               SizedBox(height: 20),
-
-            
-
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      // color:Colors.yellow,
+                      //color:Colors.yellow,
                       border: Border.all(color: Colors.grey, width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Column(
@@ -242,21 +236,19 @@ class _ProfileSummaryScreenState
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(5),
                                       topLeft: Radius.circular(5)),
-                                  color: Colors.pink.shade100
-                                  ),
+                                  color: Colors.pink.shade100),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Date",
                                         style: TextStyle(fontSize: 12)),
-                                    SizedBox(width: 100),
-                                    Expanded(
-                                      child: Text("Mode of Payment",
-                                          style: TextStyle(fontSize: 12)),
-                                    ),
+                                    // SizedBox(width: 100),
+                                    Text("Mode of Payment",
+                                        style: TextStyle(fontSize: 12)),
                                     Text("Status",
                                         style: TextStyle(fontSize: 12)),
                                   ],
@@ -276,65 +268,68 @@ class _ProfileSummaryScreenState
                               itemCount: payment.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    //  mainAxisAlignment:
+                                    //      MainAxisAlignment.spaceAround,
                                     children: [
+                                      Text(
+                                          payment.isNotEmpty
+                                              ? payment[index]
+                                                  .createdOn
+                                                  .toString()
+                                              : "",
+                                          // payment[index].paidOn
+                                          //       ??
+                                          //  '',
+                                          style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: 60),
                                       Expanded(
                                         child: Text(
-                                            payment.isNotEmpty
-                                                ? payment[index]
-                                                    .createdOn
-                                                    .toString()
-                                                : "",
-                                            // payment[index].paidOn
-                                            //       ??
-                                            //  '',
-                                            style:
-                                                TextStyle(fontSize: 12)),
-                                      ),
-                                      // SizedBox(width: 60),
-                                      Expanded(
-                                        child: Text(
-                                          (payment[index].paymentMode==null)
-                                          ?"Unpaid"
-                                          : payment[index]
+                                            (payment[index].paymentMode == null)
+                                                ? "Unpaid"
+                                                : payment[index]
                                                     .paymentMode
-                                                    .toString()
-                                                ,
+                                                    .toString(),
                                             // payment[index]
                                             //        .paymentMode.toString(),
 
-                                            style: TextStyle(
-                                                fontSize: 12)),
+                                            style: TextStyle(fontSize: 12)),
                                       ),
+                                      if (payment[index].paymentStatus == 1)
+                                        InkWell(
+                                            onTap: () {},
+                                            child: Icon(Icons.download)),
                                       Container(
                                         height: 25,
                                         width: 80,
                                         decoration: BoxDecoration(
-                                          color: (payment[index]
-                                                      .paymentStatus ==
-                                                  0)
-                                              ? Color(0xffFD425B)
-                                              : Color(0xffC8F8B8),
+                                          color:
+                                              (payment[index].paymentStatus ==
+                                                      0)
+                                                  ? Color(0xffFD425B)
+                                                  : Color(0xffC8F8B8),
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
                                         child: Center(
                                             child: Text(
                                           payment.isNotEmpty
-                                              ? payment[index]
-                                                  .paymentStatus
-                                                  .toString()
+                                              ? payment[index].paymentStatus ==
+                                                      1
+                                                  ? "Credited"
+                                                  : "Pending"
                                               : "",
                                           // "Credited",
                                           // payment.first.paymentStatus.toString(),
                                           style: TextStyle(
-                                              fontSize: 13,
-                                            ),
+                                            fontSize: 13,
+                                          ),
                                         )),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 );
