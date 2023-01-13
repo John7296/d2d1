@@ -75,7 +75,8 @@ class NetworkManager {
     return call(networkConnection.userLogin(map));
   }
 
-  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(Map<String, dynamic> map) {
+  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(
+      Map<String, dynamic> map) {
     return call(networkConnection.forgotPasswordOTPSend(map));
   }
 
@@ -119,7 +120,6 @@ class NetworkManager {
   Future<BaseResponse> updateProfile(String token, Map<String, dynamic> map) {
     return call(networkConnection.updateProfile(token, map));
   }
-
 
   Future<BaseResponse<List<Otp>>> verifyOTP(Map<String, dynamic> map) {
     return call(networkConnection.verifyOTP(map));
@@ -200,7 +200,7 @@ class NetworkManager {
     return call(networkConnection.deleteUser(token, map));
   }
 
-   Future<BaseResponse> supportRequest(String token, Map<String, dynamic> map) {
+  Future<BaseResponse> supportRequest(String token, Map<String, dynamic> map) {
     return call(networkConnection.supportRequest(token, map));
   }
 
@@ -231,13 +231,11 @@ class NetworkManager {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
-            _errorMessage = error.response?.data;
-
             if (error.response?.statusCode == 400) {
-              print("error_msg${error.response?.data['message']}");
+              // print("error_msg${error.response?.data['message']}");
               _errorMessage = error.response!.data["Message"];
             } else if (error.response!.statusCode == 500) {
-              _errorMessage = error.message;
+              _errorMessage = error.response!.data["Message"];
             }
 
             break;

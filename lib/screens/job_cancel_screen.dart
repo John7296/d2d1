@@ -14,7 +14,8 @@ import 'package:project_d2d/utils/sessions_manager.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobCancelScreen extends StatefulWidget {
-  JobCancelScreen(   this.jobCatName,
+  JobCancelScreen(
+      this.jobCatName,
       this.hourlyRate,
       this.clientName,
       this.shiftName,
@@ -23,7 +24,7 @@ class JobCancelScreen extends StatefulWidget {
       this.isRequested,
       this.context);
 
-        String jobCatName;
+  String jobCatName;
   double hourlyRate;
   String clientName;
   String jobLocation;
@@ -31,7 +32,6 @@ class JobCancelScreen extends StatefulWidget {
   String shiftName;
   bool isRequested;
   BuildContext context;
-  
 
   @override
   State<JobCancelScreen> createState() => _JobCancelScreenState();
@@ -50,13 +50,23 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
       "jobId": NetworkManager.shared.jobId,
       "reason": _reasonController.text
     }).then((BaseResponse<CancelJob> response) {
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => JobCancelledSuccessfulScreen()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return JobCancelledSuccessfulScreen(
+              widget.jobCatName,
+              widget.hourlyRate.toDouble(),
+              widget.clientName,
+              widget.jobLocation,
+              widget.startDateTime,
+              widget.shiftName,
+              widget.isRequested,
+              context);
+        },
+      ), (route) => false);
     }).catchError((e) {
-      // print(e.toString());
+      print(e.toString());
       showFlashMsg(e.toString());
+      // showFlashMsg("It is not possible to cancel a job.");
     });
   }
 
@@ -243,7 +253,6 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
                 ),
               ],
             ),
-           
             Padding(
               padding: const EdgeInsets.all(20),
               child: Card(
@@ -332,13 +341,6 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 onCancelButtonTapped();
-
-                                Navigator.pushAndRemoveUntil(context,
-                                    MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return JobCancelledSuccessfulScreen();
-                                  },
-                                ), (route) => false);
                               }
                             },
                             child: Text(

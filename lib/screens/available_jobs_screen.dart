@@ -632,8 +632,10 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                             );
                           },
                         )
-                      : Center(
-                          child: Container(child: Text("No Jobs Available"))),
+                      : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 100),
+                        child: Container(child: Text("No Jobs Available")),
+                      ),
 // ==================================================================================================================================
                   AvailableJobWidget(),
                 ],
