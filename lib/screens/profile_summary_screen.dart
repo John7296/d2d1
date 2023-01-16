@@ -100,6 +100,7 @@ class _ProfileSummaryScreenState
     return Scaffold(
       body: Stack(children: [
         SingleChildScrollView(
+
           child: Column(
             children: [
               Padding(
@@ -130,7 +131,9 @@ class _ProfileSummaryScreenState
               CircleAvatar(
                 radius: 50,
                 backgroundColor: Color(0xffF3B7BF),
-                child: CircleAvatar(
+                child: profile.isNotEmpty? profile.first.profilePhoto!=null
+                
+               ? CircleAvatar(
                   radius: 35,
                   child: CachedNetworkImage(
                       imageUrl: profile.isNotEmpty
@@ -139,7 +142,21 @@ class _ProfileSummaryScreenState
                   // Image(
                   //   image: AssetImage("assets/images/profile_img.png"),
                   // ),
-                ),
+                )
+                : CircleAvatar(
+          radius: 35,
+          child:  
+          Image(
+            image: AssetImage("assets/images/profile_img.png"),
+          ),
+        )
+     :     CircleAvatar(
+          radius: 35,
+          child:  
+          Image(
+            image: AssetImage("assets/images/profile_img.png"),
+          ),
+        ) 
               ),
               Center(
                   child: Padding(
@@ -170,12 +187,13 @@ class _ProfileSummaryScreenState
               )),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(10),
-                  color: Color(0xff95969D),
-                  strokeWidth: 2, //thickness of dash/dots
-                  dashPattern: [3, 3],
+                //child: 
+                // DottedBorder(
+                //   borderType: BorderType.RRect,
+                //   radius: Radius.circular(10),
+                //   color: Color(0xff95969D),
+                //   strokeWidth: 2, //thickness of dash/dots
+                //   dashPattern: [3, 3],
                   child: Container(
                     height: 80,
                     width: 200,
@@ -191,8 +209,9 @@ class _ProfileSummaryScreenState
                               color: Color(0xff07701E), size: 30),
                           Text(
                             profile.isNotEmpty
-                                ? profile[0].totalEarnings.toString()
-                                : "0",
+                                ? profile.first.totalEarnings==null?
+                               
+                                "0":   profile[0].totalEarnings.toString():"",
                             style: TextStyle(
                                 color: Color(0xff07701E),
                                 fontSize: 25,
@@ -202,7 +221,7 @@ class _ProfileSummaryScreenState
                       ),
                     ),
                   ),
-                ),
+                //),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 20),
@@ -218,8 +237,10 @@ class _ProfileSummaryScreenState
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
+                    
                   decoration: BoxDecoration(
-                      //color:Colors.yellow,
+                     // color:Colors.yellow,
+                
                       border: Border.all(color: Colors.grey, width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Column(
@@ -285,7 +306,7 @@ class _ProfileSummaryScreenState
                                           //       ??
                                           //  '',
                                           style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: 60),
+                                      SizedBox(width: 62),
                                       Expanded(
                                         child: Text(
                                             (payment[index].paymentMode == null)
@@ -295,7 +316,7 @@ class _ProfileSummaryScreenState
                                                     .toString(),
                                             // payment[index]
                                             //        .paymentMode.toString(),
-
+                                  
                                             style: TextStyle(fontSize: 12)),
                                       ),
                                       if (payment[index].paymentStatus == 1)
@@ -348,7 +369,7 @@ class _ProfileSummaryScreenState
                                   color: Colors.grey,
                                 );
                               })
-
+                
                           //  if(payment.isEmpty)
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
