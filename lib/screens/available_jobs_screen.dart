@@ -284,8 +284,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                           '',
                                                       jobListThree[
                                                               index]
-                                                          .hourlyRate!
-                                                          .toDouble(),
+                                                          .hourlyRate!.toDouble(),
                                                       jobListThree[
                                                                   index]
                                                               .clientName ??
@@ -462,7 +461,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                     // ),
                                                     Spacer(),
                                                     Text(
-                                                      '£ ${jobListThree[index].hourlyRate ?? ""}/hour',
+                                                      '£ ${jobListThree[index].hourlyRate ?? 0}/hour',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             kFontWeight_M,

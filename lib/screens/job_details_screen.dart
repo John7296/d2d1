@@ -104,7 +104,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       //             context)));
     }).catchError((e) {
       hideLoader();
-      // showFlashMsg(e.toString());
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }

@@ -48,7 +48,6 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
 
   
-
   @override
   void initState() {
     super.initState();
@@ -56,9 +55,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       // thisuser=DataManager.shared.thisuser;
       staffProfile();
-      trainingStatus();
-      recentJobRequest();
-      timeSheetBanner();
+
 
       // _updateDeviceToken();
     });
@@ -70,10 +67,11 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         .staffProfile(NetworkManager.shared.userToken ?? '',
             "getStaffProfilebyid", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<StaffProfile>> response) {
-      hideLoader();
 
-      print(response.data?.first.staffName);
-      print("...................");
+                trainingStatus();
+      recentJobRequest();
+      timeSheetBanner();
+      
       setState(() {
         profile.clear();
         profile.addAll(response.data!);
@@ -101,9 +99,6 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
         
         percentvalue = response.data?.first.completionRate;
-
-        print("****************");
-        print(percentvalue);
       });
       // timeSheetBanner();
     }).catchError((e) {
@@ -123,11 +118,6 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
       setState(() {
         jobs.clear();
         jobs.addAll(response.data!);
-
-        print(response.data?.first.allocatedOn);
-        print("...................");
-        print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        print(jobs.length);
       });
       // timeSheetBanner();
     }).catchError((e) {});
@@ -138,7 +128,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         .timeSheetBanner(NetworkManager.shared.userToken ?? '',
             "getStaffTimesheetBannerById", NetworkManager.shared.staffId ?? 0)
         .then((BaseResponse<List<TimesheetBanner>> response) {
-      hideLoader();
+   
       setState(() {
         banner.clear();
         banner.addAll(response.data!);

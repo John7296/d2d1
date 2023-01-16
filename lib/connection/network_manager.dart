@@ -211,43 +211,46 @@ class NetworkManager {
       response = await call;
     } catch (error) {
       if (error is DioError) {
-        String _errorMessage = "";
+        String errorMessage = "";
 
         switch (error.type) {
           case DioErrorType.cancel:
-            _errorMessage = "Request was cancelled";
+            errorMessage = "Request was cancelled";
             break;
           case DioErrorType.connectTimeout:
-            _errorMessage = "Connection timeout";
+            errorMessage = "Connection timeout";
             break;
           case DioErrorType.other:
             if (error.message.contains('Failed host lookup')) {
-              _errorMessage = "Please check your internet connection";
+              errorMessage = "Please check your internet connection";
+            } else if (error.message.contains("Success")) {
+              errorMessage = "Success";
             } else {
-              _errorMessage = "Something went wrong ${error.message}";
+              errorMessage = "Something went wrong ${error.message}";
             }
             break;
           case DioErrorType.receiveTimeout:
-            _errorMessage = "Receive timeout in connection";
+            errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
             if (error.response?.statusCode == 400) {
               // print("error_msg${error.response?.data['message']}");
-              _errorMessage = error.response!.data["Message"];
+              errorMessage = error.response!.data["Message"];
             } else if (error.response!.statusCode == 500) {
-              _errorMessage = error.response!.data["Message"];
-            } else if (error.response!.statusCode == 200) {
-              _errorMessage = error.response!.data["Message"];
+              errorMessage = error.response!.data["Message"];
             }
+
+            // else if (error.response!.statusCode == 200) {
+            // _errorMessage = error.response!.data["Message"];
+            // }
 
             break;
           case DioErrorType.sendTimeout:
-            _errorMessage = "Receive timeout in send request";
+            errorMessage = "Receive timeout in send request";
             break;
-            
         }
 
-        throw (_errorMessage);
+        throw (errorMessage);
       }
 
       throw ("$error");

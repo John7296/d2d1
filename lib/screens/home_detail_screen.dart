@@ -162,14 +162,14 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                             },
                             child: CircleAvatar(
                               radius: 25,
-                              child: CachedNetworkImage(
-                                  imageUrl: profile.isNotEmpty
-                                      ? "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}"
-                                      : ""),
-
-                              // Image(
-                              //   image: AssetImage("assets/images/profile_img.png"),
-                              // ),
+                              child: profile.isNotEmpty
+                                  ? CachedNetworkImage(
+                                      imageUrl:
+                                          "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}")
+                                  : Image(
+                                      image: AssetImage(
+                                          "assets/images/profile_img.png"),
+                                    ),
                             ),
                           ),
                         ],

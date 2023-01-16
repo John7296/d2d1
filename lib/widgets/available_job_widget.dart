@@ -22,6 +22,8 @@ class _AvailableJobWidgetState
     extends BaseWidgetStatefulState<AvailableJobWidget> {
   // List<Job> jobList = [];
   List<Job> reqJobList = [];
+  List<Job> reqJobListOne = [];
+  List<Job> reqJobListTwo = [];
 
   @override
   void initState() {
@@ -37,15 +39,46 @@ class _AvailableJobWidgetState
       "getJobsByStaffId",
       NetworkManager.shared.staffId!,
       "",
-      "Active",
+      "Upcoming",
     )
         .then((BaseResponse<List<Job>> response) {
+      getJobOne();
       setState(() {
         reqJobList.clear();
         for (var element in response.data!) {
           if (element.isRequsted == 1) {
             reqJobList.add(element);
             print(element);
+          }
+          // else
+          // if(element.isRequsted == false){
+          //   print(element.jobLocation);
+          // }
+        }
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void getJobOne() {
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Active",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      setState(() {
+        reqJobListOne.clear();
+        for (var element in response.data!) {
+          if (element.isRequsted == 1) {
+            reqJobListOne.add(element);
+            print(element);
+
+            reqJobListTwo = reqJobList + reqJobListOne;
           }
           // else
           // if(element.isRequsted == false){
@@ -390,13 +423,13 @@ class _AvailableJobWidgetState
                                   ),
                                 ),
                               ),
-                              if (reqJobList[index].isRequsted==1)
+                              if (reqJobList[index].isRequsted == 1)
                                 Image(
                                     image: AssetImage(
                                         "assets/images/redlabel_tail.png")),
                             ],
                           ),
-                          if (reqJobList[index].isRequsted==1)
+                          if (reqJobList[index].isRequsted == 1)
                             Positioned(
                               top: 58,
                               right: 3,

@@ -164,10 +164,7 @@ class _ProfileSummaryScreenState
                   child: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
-                  //widget.catName.toString(),
-                  profile.isNotEmpty ? profile[0].catName ?? '' : "",
-                  // "Theatre practitioner",
-                  //  profile.first.catName.toString(),
+                  profile.isNotEmpty ? profile[0].catName ?? '' : "",                
                   style: TextStyle(color: Color(0xff95969D), fontSize: 14),
                 ),
               )),
@@ -193,12 +190,9 @@ class _ProfileSummaryScreenState
                           Icon(Icons.currency_pound_outlined,
                               color: Color(0xff07701E), size: 30),
                           Text(
-                            // widget.earings.toString(),
                             profile.isNotEmpty
                                 ? profile[0].totalEarnings.toString()
-                                : "",
-                            // "\$ 3425.00",
-                            //profile.first.totalEarnings.toString(),
+                                : "0",
                             style: TextStyle(
                                 color: Color(0xff07701E),
                                 fontSize: 25,

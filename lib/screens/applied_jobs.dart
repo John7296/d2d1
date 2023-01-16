@@ -227,11 +227,11 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                           ),
                                           image: DecorationImage(
                                             image:
-                                                // (jobList[index].requested!)
-                                                // ?
+                                                (jobList[index].isRequsted ==1)
+                                                ?
                                                 AssetImage(
-                                                    "assets/images/green_bg.png"),
-                                            // : AssetImage("assets/images/red_bg.png"),
+                                                    "assets/images/green_bg.png")
+                                            : AssetImage("assets/images/red_bg.png"),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
