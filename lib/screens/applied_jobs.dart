@@ -317,7 +317,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                                           size:
                                                                               25,
                                                                           color:
-                                                                              Colors.white,
+                                                                              Colors.black,
                                                                         ),
                                                                       ),
                                                                   ],

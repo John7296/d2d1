@@ -49,7 +49,7 @@ dependencies:
   path_provider: ^2.0.11
   open_file: ^3.2.1
   file_picker:
-  flutter_html: ^0.8.2
+  flutter_html: ^0.11.1
 
 
  

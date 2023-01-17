@@ -50,9 +50,10 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
       "userId": NetworkManager.shared.userId,
       "jobId": NetworkManager.shared.jobId,
       "reason": _reasonController.text
-    }).then((BaseResponse<CancelJob> response) {
-      // showFlashMsg(response.message![0]);
-      print("response${response.message}");
+    }).then((BaseResponse<List<CancelJob>> response) {
+      print("response1 ${response.message}");
+      showFlashMsg(response.message!.toString());
+      print("response ${response.message}");
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (BuildContext context) {
           return JobCancelledSuccessfulScreen(

@@ -121,12 +121,12 @@ class _SliderBannerHomeWidgetState
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  border: Border.all(
-                                      color: (jobListThree[index].jobStatus ==
-                                              "Applied")
-                                          ? Colors.black12
-                                          : Colors.transparent,
-                                      width: 3),
+                                  // border: Border.all(
+                                  //     color: (jobListThree[index].jobStatus ==
+                                  //             "Applied")
+                                  //         ? Colors.black12
+                                  //         : Colors.transparent,
+                                  //     width: 3),
                                           //  boxShadow: [
                                                 // BoxShadow(
                                                   // color: Colors.black ,
@@ -217,28 +217,33 @@ class _SliderBannerHomeWidgetState
                                                                       "assets/images/ic_tick.png"),
                                                                   size: 25,
                                                                   color: Colors
-                                                                      .white,
+                                                                      .black,
                                                                 ),
                                                               ),
                                                           ],
                                                         ),
                                                         Row(
                                                           children: [
-                                                            Text(
-                                                              jobListThree[
-                                                                          index]
-                                                                      .clientName ??
-                                                                  '',
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white
-                                                                      .withOpacity(
-                                                                          0.8),
-                                                                  fontSize:
-                                                                      kFontSize_14,
-                                                                  fontWeight:
-                                                                      kFontWeight_M),
+                                                            Container(
+                                                              // color: Colors.black,
+                                                              width: 200,
+                                                              child: Text(
+                                                                jobListThree[
+                                                                            index]
+                                                                        .clientName ??
+                                                                    '',
+                                                                maxLines: 1,
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    fontSize:
+                                                                        kFontSize_14,
+                                                                    fontWeight:
+                                                                        kFontWeight_M),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),

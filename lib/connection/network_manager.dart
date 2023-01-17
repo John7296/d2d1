@@ -166,12 +166,12 @@ class NetworkManager {
     ));
   }
 
-  Future<BaseResponse<ApplyJob>> applyJob(
+  Future<BaseResponse<List<ApplyJob>>> applyJob(
       String token, Map<String, dynamic> map) {
     return call(networkConnection.applyJob(token, map));
   }
 
-  Future<BaseResponse<CancelJob>> cancelJob(
+  Future<BaseResponse<List<CancelJob>>> cancelJob(
       String token, Map<String, dynamic> map) {
     return call(networkConnection.cancelJob(token, map));
   }

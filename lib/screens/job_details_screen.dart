@@ -90,7 +90,21 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       "sp": "insApplyJob",
       "staffId": NetworkManager.shared.staffId,
       "jobId": NetworkManager.shared.jobId,
-    }).then((BaseResponse<ApplyJob> response) {
+    }).then((BaseResponse<List<ApplyJob>> response) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return JobAppliedSuccessfulScreen(
+              widget.jobCatName,
+              widget.hourlyRate.toDouble(),
+              widget.clientName,
+              widget.jobLocation,
+              widget.startDateTime,
+              widget.shiftName,
+              widget.isRequested,
+              widget.jobNumber,
+              context);
+        },
+      ), (route) => false);
       print("response1${response.message.toString()}");
       showFlashMsg(response.message.toString());
       hideLoader();
@@ -188,10 +202,14 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                         color: Colors.white,
                                         size: 15,
                                       ),
-                                      Text(
-                                        widget.jobLocation,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 11),
+                                      Container(
+                                        width: 70,
+                                        child: Text(
+                                          widget.jobLocation,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white, fontSize: 11),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -419,24 +437,8 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                           onPressed: () {
                                             // getJobDetails();
                                             onApplyButtonTapped();
-                                            showFlashMsg(
-                                                "Job Applied Successful..!");
-                                            Navigator.pushAndRemoveUntil(
-                                                context, MaterialPageRoute(
-                                              builder: (BuildContext context) {
-                                                return JobAppliedSuccessfulScreen(
-                                                    widget.jobCatName,
-                                                    widget.hourlyRate
-                                                        .toDouble(),
-                                                    widget.clientName,
-                                                    widget.jobLocation,
-                                                    widget.startDateTime,
-                                                    widget.shiftName,
-                                                    widget.isRequested,
-                                                    widget.jobNumber,
-                                                    context);
-                                              },
-                                            ), (route) => false);
+                                            // showFlashMsg(
+                                            //     "Job Applied Successful..!");
                                           },
                                           child: Text(
                                             'Apply',

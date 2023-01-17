@@ -634,7 +634,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     MaterialPageRoute(
                         builder: (context) => TimeSheetScreen()));
               },
-              child: Text("See all",
+              child: Text("See all ➤",
                   style: TextStyle(
                     fontSize: 13,
                     color: Color(0xffAFB0B6),
@@ -854,7 +854,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             alignment: Alignment.topRight,
                             child: Text(
                               training.isNotEmpty
-                                  ? "${training[0].completionRate.toString()}%"
+                                  ? "${training[index].completionRate.toString()}%"
                                   : "",
                               // "93%"
                               //"${training.first.completionRate.toString()}%",
@@ -865,7 +865,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           children: [
                             Text(
                                 training.isNotEmpty
-                                    ? training[0].trainingName.toString()
+                                    ? training[index].trainingName.toString()
                                     : "",
                                 // "Food Hygiene",
                                 style: TextStyle(

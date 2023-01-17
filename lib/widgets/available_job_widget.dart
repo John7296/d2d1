@@ -24,12 +24,15 @@ class _AvailableJobWidgetState
   List<Job> reqJobList = [];
   List<Job> reqJobListOne = [];
   List<Job> reqJobListTwo = [];
+  List<Job> reqJobListThree = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getJob();
+    getJobOne();
+    getJobTwo();
   }
 
   void getJob() {
@@ -39,16 +42,15 @@ class _AvailableJobWidgetState
       "getJobsByStaffId",
       NetworkManager.shared.staffId!,
       "",
-      "Upcoming",
+      "Active",
     )
         .then((BaseResponse<List<Job>> response) {
-      getJobOne();
       setState(() {
         reqJobList.clear();
         for (var element in response.data!) {
           if (element.isRequsted == 1) {
             reqJobList.add(element);
-            print(element);
+            print("ActiveList ${element.jobLocation}");
           }
           // else
           // if(element.isRequsted == false){
@@ -68,17 +70,46 @@ class _AvailableJobWidgetState
       "getJobsByStaffId",
       NetworkManager.shared.staffId!,
       "",
-      "Active",
+      "Upcoming",
     )
         .then((BaseResponse<List<Job>> response) {
       setState(() {
-        reqJobListOne.clear();
         for (var element in response.data!) {
           if (element.isRequsted == 1) {
+            reqJobListOne.clear();
             reqJobListOne.add(element);
-            print(element);
+            print("UpcomingList ${element.jobLocation}");
+          }
+          // else
+          // if(element.isRequsted == false){
+          //   print(element.jobLocation);
+          // }
+        }
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
 
-            reqJobListTwo = reqJobList + reqJobListOne;
+  void getJobTwo() {
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Requested",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      setState(() {
+        for (var element in response.data!) {
+          if (element.isRequsted == 1) {
+            reqJobListTwo.clear();
+            reqJobListTwo.add(element);
+            // print("RequestedList ${.jobLocation}");
+            reqJobListThree.add(element);
+            // reqJobListThree = reqJobList + reqJobListOne + reqJobListTwo;
+            print("FinalList ${reqJobListThree}");
           }
           // else
           // if(element.isRequsted == false){
@@ -95,12 +126,12 @@ class _AvailableJobWidgetState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        (reqJobList.isNotEmpty)
+        (reqJobListTwo.isNotEmpty)
             ? Expanded(
                 child: ListView.builder(
                   // physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: reqJobList.length,
+                  itemCount: reqJobListThree.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding:
@@ -112,50 +143,50 @@ class _AvailableJobWidgetState
                               InkWell(
                                 onTap: () {
                                   SessionsManager.saveJobId(
-                                      reqJobList[index].jobId ?? 0);
+                                      reqJobListThree[index].jobId ?? 0);
 
                                   NetworkManager.shared.jobId =
-                                      reqJobList[index].jobId ?? 0;
+                                      reqJobListThree[index].jobId ?? 0;
 
                                   NetworkManager.shared.refreshTokens();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              JobDetailsScreen(
-                                                  reqJobList[index]
-                                                          .jobCatName ??
-                                                      '',
-                                                  reqJobList[index]
-                                                      .hourlyRate!
-                                                      .toDouble(),
-                                                  reqJobList[index]
-                                                          .clientName ??
-                                                      '',
-                                                  reqJobList[index]
-                                                          .jobLocation ??
-                                                      '',
-                                                  reqJobList[
-                                                              index]
-                                                          .startDateTime ??
-                                                      '',
-                                                  reqJobList[index].shiftName ??
-                                                      '',
-                                                  reqJobList[index].isRequsted!,
-                                                  reqJobList[index].jobNumber??'',
-                                                  context)));
+                                          builder: (context) => JobDetailsScreen(
+                                              reqJobListThree[index]
+                                                      .jobCatName ??
+                                                  '',
+                                              reqJobListThree[index]
+                                                  .hourlyRate!
+                                                  .toDouble(),
+                                              reqJobListThree[index]
+                                                      .clientName ??
+                                                  '',
+                                              reqJobListThree[index]
+                                                      .jobLocation ??
+                                                  '',
+                                              reqJobListThree[index]
+                                                      .startDateTime ??
+                                                  '',
+                                              reqJobListThree[index].shiftName ??
+                                                  '',
+                                              reqJobListThree[index]
+                                                  .isRequsted!,
+                                              reqJobListThree[index]
+                                                      .jobNumber ??
+                                                  '',
+                                              context)));
                                 },
                                 child: Container(
                                   width: getWidthByPercentage(92),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(15),
-                                      
                                     ),
-                                    border: Border.all(color:(reqJobList[index].jobStatus =="Applied")?Color.fromARGB(103, 51, 50, 50):Colors.transparent,width: 3),
+                                    // border: Border.all(color:(reqJobListThree[index].jobStatus =="Applied")?Color.fromARGB(103, 51, 50, 50):Colors.transparent,width: 3),
                                     image: DecorationImage(
                                       image:
-                                          // (reqJobList[index].requested!)
+                                          // (reqJobListThree[index].requested!)
                                           // ?
                                           AssetImage(
                                               "assets/images/green_bg.png"),
@@ -212,7 +243,8 @@ class _AvailableJobWidgetState
                                                             children: [
                                                               Expanded(
                                                                 child: Text(
-                                                                  reqJobList[index]
+                                                                  reqJobListThree[
+                                                                              index]
                                                                           .jobCatName ??
                                                                       '',
                                                                   maxLines: 2,
@@ -241,7 +273,8 @@ class _AvailableJobWidgetState
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                reqJobList[index]
+                                                                reqJobListThree[
+                                                                            index]
                                                                         .clientName ??
                                                                     '',
                                                                 maxLines: 1,
@@ -264,7 +297,8 @@ class _AvailableJobWidgetState
                                                 ),
                                               ),
                                             ),
-                                            if (reqJobList[index].jobStatus ==
+                                            if (reqJobListThree[index]
+                                                    .jobStatus ==
                                                 "Applied")
                                               InkWell(
                                                 onTap: () {},
@@ -272,7 +306,7 @@ class _AvailableJobWidgetState
                                                   AssetImage(
                                                       "assets/images/ic_tick.png"),
                                                   size: 25,
-                                                  color: Colors.white,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                           ],
@@ -289,7 +323,7 @@ class _AvailableJobWidgetState
                                             // ),
                                             // SizedBox(width: 2),
                                             // Text(
-                                            //   reqJobList[index].startDateTime ?? "",
+                                            //   reqJobListThree[index].startDateTime ?? "",
                                             //   style: TextStyle(
                                             //     fontWeight: kFontWeight_M,
                                             //     fontSize: 13,
@@ -298,7 +332,7 @@ class _AvailableJobWidgetState
                                             // ),
                                             Spacer(),
                                             Text(
-                                              '£ ${reqJobList[index].hourlyRate ?? ""}/hour',
+                                              '£ ${reqJobListThree[index].hourlyRate ?? ""}/hour',
                                               style: TextStyle(
                                                 fontWeight: kFontWeight_M,
                                                 fontSize: 13,
@@ -341,7 +375,7 @@ class _AvailableJobWidgetState
                                                     Container(
                                                       width: 60,
                                                       child: Text(
-                                                        reqJobList[index]
+                                                        reqJobListThree[index]
                                                                 .shiftName ??
                                                             "",
                                                         maxLines: 1,
@@ -385,7 +419,7 @@ class _AvailableJobWidgetState
                                                     Container(
                                                       width: 60,
                                                       child: Text(
-                                                        reqJobList[index]
+                                                        reqJobListThree[index]
                                                                 .jobLocation ??
                                                             "",
                                                         overflow: TextOverflow
@@ -408,7 +442,7 @@ class _AvailableJobWidgetState
                                                 ),
                                                 SizedBox(width: 2),
                                                 Text(
-                                                  reqJobList[index]
+                                                  reqJobListThree[index]
                                                           .startDateTime ??
                                                       "",
                                                   style: TextStyle(
@@ -426,13 +460,13 @@ class _AvailableJobWidgetState
                                   ),
                                 ),
                               ),
-                              if (reqJobList[index].isRequsted == 1)
+                              if (reqJobListThree[index].isRequsted == 1)
                                 Image(
                                     image: AssetImage(
                                         "assets/images/redlabel_tail.png")),
                             ],
                           ),
-                          if (reqJobList[index].isRequsted == 1)
+                          if (reqJobListThree[index].isRequsted == 1)
                             Positioned(
                               top: 58,
                               right: 3,

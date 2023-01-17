@@ -650,7 +650,7 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<ApplyJob>> applyJob(
+  Future<BaseResponse<List<ApplyJob>>> applyJob(
     token,
     map,
   ) async {
@@ -662,7 +662,7 @@ class _NetworkConnection implements NetworkConnection {
     final _data = <String, dynamic>{};
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ApplyJob>>(Options(
+        _setStreamType<BaseResponse<List<ApplyJob>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -674,15 +674,17 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<ApplyJob>.fromJson(
+    final value = BaseResponse<List<ApplyJob>>.fromJson(
       _result.data!,
-      (json) => ApplyJob.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<ApplyJob>((i) => ApplyJob.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<CancelJob>> cancelJob(
+  Future<BaseResponse<List<CancelJob>>> cancelJob(
     token,
     map,
   ) async {
@@ -694,7 +696,7 @@ class _NetworkConnection implements NetworkConnection {
     final _data = <String, dynamic>{};
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<CancelJob>>(Options(
+        _setStreamType<BaseResponse<List<CancelJob>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -706,9 +708,11 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<CancelJob>.fromJson(
+    final value = BaseResponse<List<CancelJob>>.fromJson(
       _result.data!,
-      (json) => CancelJob.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<CancelJob>((i) => CancelJob.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

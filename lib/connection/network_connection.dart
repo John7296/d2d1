@@ -50,7 +50,8 @@ abstract class NetworkConnection {
   Future<BaseResponse> newRegister(@Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
+  Future<BaseResponse<List<ForgotPassword>>> forgotPasswordOTPSend(
+      @Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
   Future<BaseResponse<List<Otp>>> verifyOTP(@Body() Map<String, dynamic> map);
@@ -59,25 +60,19 @@ abstract class NetworkConnection {
   Future<BaseResponse> resetPassword(
       @Header("token") String? useroken, @Body() Map<String, dynamic> map);
 
-      @POST("d2dApi/Default.aspx")
+  @POST("d2dApi/Default.aspx")
   Future<BaseResponse> changePassword(
-    @Header("token") String? token, 
-    @Body() Map<String, dynamic> map
-  );
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
 
-   @POST("d2dApi/Default.aspx")
+  @POST("d2dApi/Default.aspx")
   Future<BaseResponse> updateProfile(
-    @Header("token") String? token, 
-    @Body() Map<String, dynamic> map
-  );
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
 
-
-   
-     @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<StaffProfile>>> staffProfile( 
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
+  @FormUrlEncoded()
+  @GET("d2dApi")
+  Future<BaseResponse<List<StaffProfile>>> staffProfile(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
     @Query("staffId") int? staffId,
   );
 
@@ -113,21 +108,19 @@ abstract class NetworkConnection {
     @Query("userId") int? userId,
   );
 
-
-   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<Settings>>> settings(   
-   @Query("sp") String? sp,    
+  @FormUrlEncoded()
+  @GET("d2dApi")
+  Future<BaseResponse<List<Settings>>> settings(
+    @Query("sp") String? sp,
   );
 
-   @FormUrlEncoded()
-   @GET("d2dApi")
-  Future<BaseResponse<List<AlertMessages>>> notifications(   
-    @Header("token") String? token,   
-   @Query("sp") String? sp,
-    @Query("staffId") int? staffId,   
+  @FormUrlEncoded()
+  @GET("d2dApi")
+  Future<BaseResponse<List<AlertMessages>>> notifications(
+    @Header("token") String? token,
+    @Query("sp") String? sp,
+    @Query("staffId") int? staffId,
   );
-
 
   @GET("d2dApi")
   Future<BaseResponse<List<Job>>> getJob(
@@ -163,11 +156,11 @@ abstract class NetworkConnection {
 
   // @FormUrlEncoded()
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse<ApplyJob>> applyJob(
+  Future<BaseResponse<List<ApplyJob>>> applyJob(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
 
   @POST("d2dApi/Default.aspx")
-  Future<BaseResponse<CancelJob>> cancelJob(
+  Future<BaseResponse<List<CancelJob>>> cancelJob(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
 
   @GET("d2dApi")
@@ -183,15 +176,11 @@ abstract class NetworkConnection {
   Future<BaseResponse<ApproveTimeSheet>> approveTimeSheet(
       @Header("token") String? token, @Body() Map<String, dynamic> map);
 
-      @POST("d2dApi/Default.aspx")
+  @POST("d2dApi/Default.aspx")
   Future<BaseResponse> deleteUser(
-    @Header("token") String? token, 
-    @Body() Map<String, dynamic> map
-  );
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
 
-    @POST("d2dApi/Default.aspx")
+  @POST("d2dApi/Default.aspx")
   Future<BaseResponse> supportRequest(
-    @Header("token") String? token, 
-    @Body() Map<String, dynamic> map
-  );
+      @Header("token") String? token, @Body() Map<String, dynamic> map);
 }
