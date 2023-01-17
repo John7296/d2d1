@@ -7,9 +7,8 @@ import 'package:project_d2d/utils/constants.dart';
 import 'package:project_d2d/widgets/top_banner_widget.dart';
 
 class JobCancelledSuccessfulScreen extends StatefulWidget {
-
-  
-   JobCancelledSuccessfulScreen(   this.jobCatName,
+  JobCancelledSuccessfulScreen(
+      this.jobCatName,
       this.hourlyRate,
       this.clientName,
       this.shiftName,
@@ -18,7 +17,7 @@ class JobCancelledSuccessfulScreen extends StatefulWidget {
       this.isRequested,
       this.context);
 
-       String jobCatName;
+  String jobCatName;
   double hourlyRate;
   String clientName;
   String jobLocation;
@@ -41,7 +40,7 @@ class _JobCancelledSuccessfulScreenState
       body: SafeArea(
         child: Column(
           children: [
-             Stack(
+            Stack(
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -178,7 +177,7 @@ class _JobCancelledSuccessfulScreenState
                     ],
                   ),
                 ),
-                if (widget.isRequested==1)
+                if (widget.isRequested == 1)
                   Positioned(
                     top: 160,
                     right: 0,
@@ -205,18 +204,17 @@ class _JobCancelledSuccessfulScreenState
                 IconButton(
                   icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                   onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => AvailableJobsScreen(),
-                    //     ),
-                    //   );
+                    // Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
                   },
                 ),
               ],
             ),
-           
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -289,7 +287,7 @@ class _JobCancelledSuccessfulScreenState
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

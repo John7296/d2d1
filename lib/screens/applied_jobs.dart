@@ -47,7 +47,7 @@ class AppliedJobs extends StatefulWidget {
 }
 
 class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
-  List<Job> jobList = [];
+  List<Job> jobListApplied = [];
   // List<JobRequest> jobs = [];
 
   @override
@@ -55,11 +55,11 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
-      getJobDetails();
+      getJobAppliedDetails();
     });
   }
 
-  void getJobDetails() {
+  void getJobAppliedDetails() {
     showLoader();
     NetworkManager.shared
         .getJob(
@@ -72,8 +72,8 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
         .then((BaseResponse<List<Job>> response) {
       hideLoader();
       setState(() {
-        jobList.clear();
-        jobList.addAll(response.data!);
+        jobListApplied.clear();
+        jobListApplied.addAll(response.data!);
       });
     }).catchError((e) {
       hideLoader();
@@ -95,7 +95,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
   //     //     MaterialPageRoute(
   //     //         builder: (context) => JobAppliedSuccessfulScreen(
   //     //             widget.jobCatName,
-  //     //             // jobList[index].hourlyRate,
+  //     //             // jobListApplied[index].hourlyRate,
   //     //             widget.clientName,
   //     //             widget.jobLocation,
   //     //             widget.startDateTime,
@@ -164,12 +164,12 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                       textAlign: TextAlign.center),
                 ],
               ),
-              (jobList.isNotEmpty)
+              (jobListApplied.isNotEmpty)
                   ? Expanded(
                       child: ListView.builder(
                         // physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: jobList.length,
+                        itemCount: jobListApplied.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
@@ -181,10 +181,10 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                     InkWell(
                                       onTap: () {
                                         SessionsManager.saveJobId(
-                                            jobList[index].jobId ?? 0);
+                                            jobListApplied[index].jobId ?? 0);
 
                                         NetworkManager.shared.jobId =
-                                            jobList[index].jobId ?? 0;
+                                            jobListApplied[index].jobId ?? 0;
 
                                         NetworkManager.shared.refreshTokens();
                                         Navigator.push(
@@ -192,31 +192,32 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     JobDetailsScreen(
-                                                        jobList[
+                                                        jobListApplied[
                                                                     index]
                                                                 .jobCatName ??
                                                             '',
-                                                        jobList[
+                                                        jobListApplied[
                                                                     index]
                                                                 .hourlyRate ??
                                                             0,
-                                                        jobList[
+                                                        jobListApplied[
                                                                     index]
                                                                 .clientName ??
                                                             '',
-                                                        jobList[
+                                                        jobListApplied[
                                                                     index]
                                                                 .jobLocation ??
                                                             '',
-                                                        jobList[
+                                                        jobListApplied[
                                                                     index]
                                                                 .startDateTime ??
                                                             '',
-                                                        jobList[index]
+                                                        jobListApplied[index]
                                                                 .shiftName ??
                                                             '',
-                                                        jobList[index]
+                                                        jobListApplied[index]
                                                             .isRequsted!,
+                                                            jobListApplied[index].jobNumber??'',
                                                         context)));
                                       },
                                       child: Container(
@@ -227,7 +228,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                           ),
                                           image: DecorationImage(
                                             image:
-                                                (jobList[index].isRequsted ==1)
+                                                (jobListApplied[index].isRequsted ==1)
                                                 ?
                                                 AssetImage(
                                                     "assets/images/green_bg.png")
@@ -247,6 +248,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                     width: 50,
                                                     // color: Colors.white,
                                                     decoration: BoxDecoration(
+                                                      
                                                       borderRadius:
                                                           BorderRadius.all(
                                                         Radius.circular(10),
@@ -287,7 +289,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                                     Expanded(
                                                                       child:
                                                                           Text(
-                                                                        jobList[index].jobCatName ??
+                                                                        jobListApplied[index].jobCatName ??
                                                                             '',
                                                                         maxLines:
                                                                             2,
@@ -302,7 +304,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    if (jobList[index]
+                                                                    if (jobListApplied[index]
                                                                             .jobStatus ==
                                                                         "Applied")
                                                                       InkWell(
@@ -323,7 +325,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                                 Row(
                                                                   children: [
                                                                     Text(
-                                                                      jobList[index]
+                                                                      jobListApplied[index]
                                                                               .clientName ??
                                                                           '',
                                                                       maxLines:
@@ -359,7 +361,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                   // ),
                                                   // SizedBox(width: 2),
                                                   // Text(
-                                                  //   jobList[index].startDateTime ?? "",
+                                                  //   jobListApplied[index].startDateTime ?? "",
                                                   //   style: TextStyle(
                                                   //     fontWeight: kFontWeight_M,
                                                   //     fontSize: 13,
@@ -368,7 +370,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                   // ),
                                                   Spacer(),
                                                   Text(
-                                                    "£${jobList[index].hourlyRate.toString()}/hour",
+                                                    "£${jobListApplied[index].hourlyRate.toString()}/hour",
                                                     style: TextStyle(
                                                       fontWeight: kFontWeight_M,
                                                       fontSize: 13,
@@ -415,7 +417,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobList[index]
+                                                              jobListApplied[index]
                                                                       .shiftName ??
                                                                   "",
                                                               maxLines: 1,
@@ -465,7 +467,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobList[index]
+                                                              jobListApplied[index]
                                                                       .jobLocation ??
                                                                   "",
                                                               overflow:
@@ -491,7 +493,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                       ),
                                                       SizedBox(width: 2),
                                                       Text(
-                                                        jobList[index]
+                                                        jobListApplied[index]
                                                                 .startDateTime ??
                                                             "",
                                                         style: TextStyle(
@@ -510,13 +512,13 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                         ),
                                       ),
                                     ),
-                                    if (jobList[index].isRequsted==1)
+                                    if (jobListApplied[index].isRequsted==1)
                                       Image(
                                           image: AssetImage(
                                               "assets/images/redlabel_tail.png")),
                                   ],
                                 ),
-                                if (jobList[index].isRequsted==1)
+                                if (jobListApplied[index].isRequsted==1)
                                   Positioned(
                                     top: 58,
                                     right: 3,

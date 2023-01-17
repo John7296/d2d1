@@ -16,8 +16,8 @@ class JobAppliedSuccessfulScreen extends StatefulWidget {
       this.startDateTime,
       this.jobLocation,
       this.isRequested,
-      this.context
-      );
+      this.jobNumber,
+      this.context);
   String jobCatName;
   double hourlyRate;
   String clientName;
@@ -25,6 +25,7 @@ class JobAppliedSuccessfulScreen extends StatefulWidget {
   String startDateTime;
   String shiftName;
   int isRequested;
+  String jobNumber;
   BuildContext context;
 
   @override
@@ -56,7 +57,7 @@ class _JobAppliedSuccessfulScreenState
                     ),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         // color: Colors.green,
@@ -96,7 +97,8 @@ class _JobAppliedSuccessfulScreenState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 130),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 130),
                               child: Container(
                                 height: 30,
                                 // width: 120,
@@ -108,8 +110,8 @@ class _JobAppliedSuccessfulScreenState
                                   color: Colors.white.withOpacity(0.1),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                   child: Row(
                                     children: [
                                       Icon(
@@ -118,7 +120,7 @@ class _JobAppliedSuccessfulScreenState
                                         size: 15,
                                       ),
                                       Text(
-                                        widget.jobLocation,
+                                        widget.shiftName,
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 11),
                                       ),
@@ -169,7 +171,7 @@ class _JobAppliedSuccessfulScreenState
                                     color: Colors.white,
                                   ),
                                   Text(
-                                    widget.shiftName,
+                                    widget.jobLocation,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: kFontWeight_SB,
@@ -185,7 +187,7 @@ class _JobAppliedSuccessfulScreenState
                     ],
                   ),
                 ),
-                if (widget.isRequested==1)
+                if (widget.isRequested == 1)
                   Positioned(
                     top: 160,
                     right: 0,
@@ -245,20 +247,30 @@ class _JobAppliedSuccessfulScreenState
                 // ],
               ),
             ),
-            Container(
-              // color: Colors.white,
-              width: 200,
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Your Job Application has been submitted successfully",
-                    style: TextStyle(
-                      fontSize: 25,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                // color: Colors.white,
+                // width: 200,
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Your Job Application has been submitted successfully",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                      Text(
+                      "Job Number: ${widget.jobNumber}",
+                      style: TextStyle(
+                        fontSize: 20,color: Colors.red
+                      ),
+                      // textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ),
             Spacer(),

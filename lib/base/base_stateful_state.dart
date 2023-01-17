@@ -44,11 +44,10 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
     Helper.hideLoader(loader!);
   }
 
-   void goBack() {
+  void goBack() {
     if (Navigator.canPop(context)) {
       Navigator.pop(context);
-    } 
-    else {
+    } else {
       SystemNavigator.pop();
     }
   }
@@ -124,13 +123,14 @@ abstract class BaseStatefulState<T extends StatefulWidget> extends State<T> {
     );
   }
 
-
   double getHeightByPercentage(double percentage) {
     return getScreenSize().height * percentage / 100;
   }
-    double getWidthByPercentage(double percentage) {
+
+  double getWidthByPercentage(double percentage) {
     return getScreenSize().width * percentage / 100;
   }
+
   Size getScreenSize() {
     return MediaQuery.of(context).size;
   }

@@ -26,6 +26,7 @@ class JobDetailsScreen extends StatefulWidget {
       this.startDateTime,
       this.jobLocation,
       this.isRequested,
+      this.jobNumber,
       this.context);
   String jobCatName;
   double hourlyRate;
@@ -35,6 +36,7 @@ class JobDetailsScreen extends StatefulWidget {
   String startDateTime;
   String shiftName;
   int isRequested;
+  String jobNumber;
   BuildContext context;
 
   @override
@@ -89,9 +91,10 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
       "staffId": NetworkManager.shared.staffId,
       "jobId": NetworkManager.shared.jobId,
     }).then((BaseResponse<ApplyJob> response) {
+      print("response1${response.message.toString()}");
+      showFlashMsg(response.message.toString());
       hideLoader();
-
-      // Navigator.push(
+      // Navigator.push(Y
       //     context,
       //     MaterialPageRoute(
       //         builder: (context) => JobAppliedSuccessfulScreen(
@@ -253,7 +256,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                     ],
                   ),
                 ),
-                if (widget.isRequested==1)
+                if (widget.isRequested == 1)
                   Positioned(
                     top: 160,
                     right: 0,
@@ -325,7 +328,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
                             (jobDetailsList[index].jobDescription != "")
-                                ? jobDetailsList[index].jobDescription ?? ''
+                                ? "▶ ${jobDetailsList[index].jobDescription ?? ''}"
                                 : "Not Available",
                             style: TextStyle(
                               fontSize: 14,
@@ -341,7 +344,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            "£${jobDetailsList[index].hourlyRate}/hour",
+                            "▶ £${jobDetailsList[index].hourlyRate}/hour",
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -356,7 +359,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            jobDetailsList[index].jobLocation ?? '',
+                            "▶ ${jobDetailsList[index].jobLocation ?? ''}",
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -374,11 +377,31 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                             jobDetailsList[index].info == null ||
                                     jobDetailsList[index].info == ""
                                 ? "No info available"
-                                : jobDetailsList[index].info ?? '',
+                                : "▶ ${jobDetailsList[index].info ?? ''}",
                             style: TextStyle(
                               fontSize: 14,
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        if (jobDetailsList[index].jobStatus != "Applied")
+                          Text("Days Left",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: kFontWeight_M)),
+                        if (jobDetailsList[index].jobStatus != "Applied")
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              "▶ ${jobDetailsList[index].daysLeft.toString()} days remaining to apply.",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -410,6 +433,7 @@ class _JobDetailsScreenState extends BaseStatefulState<JobDetailsScreen> {
                                                     widget.startDateTime,
                                                     widget.shiftName,
                                                     widget.isRequested,
+                                                    widget.jobNumber,
                                                     context);
                                               },
                                             ), (route) => false);

@@ -138,7 +138,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                             ),
                             Text(
                               (profile.isNotEmpty)
-                                  ? '${profile.first.staffName}👋 '
+                                  ? '${profile.first.staffName}👋'
                                   : '',
                               style: TextStyle(
                                   fontFamily: kFontFamily,
@@ -151,6 +151,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                       ),
                       Column(
                         children: [
+                          if(profile.isNotEmpty)
                           InkWell(
                             onTap: () {
                               Navigator.push(
@@ -162,15 +163,22 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                             },
                             child: CircleAvatar(
                               radius: 25,
-                              child: profile.isNotEmpty
-                                  ? CachedNetworkImage(
-                                      imageUrl:
-                                          "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}")
-                                  : Image(
-                                      image: AssetImage(
-                                          "assets/images/profile_img.png"),
-                                    ),
+                              child: FadeInImage.assetNetwork(
+                                  placeholder: 'assets/images/profile_img.png',
+                                  placeholderFit: BoxFit.contain,
+                                  image:
+                                      "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}",
+                                  fit: BoxFit.contain),
                             ),
+
+                            // profile.isNotEmpty
+                            //     ? Image(
+                            //         image: AssetImage(
+                            //             "assets/images/profile_img.png"),
+                            //       )
+                            //     : CachedNetworkImage(
+                            //         imageUrl:
+                            //             "https://wpr.intertoons.net/d2dwebadmin/${profile.first.profilePhoto}")),
                           ),
                         ],
                       ),
@@ -243,7 +251,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                           AvailableJobsScreen()));
                             },
                             child: Text(
-                              'See all ',
+                              'See all ➤',
                               style: TextStyle(
                                 color: kGreyColorTxt,
                                 fontSize: 13,
@@ -281,7 +289,7 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                                       builder: (context) => TimeSheetScreen()));
                             },
                             child: Text(
-                              'See all ',
+                              'See all ➤',
                               style: TextStyle(
                                 color: Color(0xFF95969D),
                                 fontSize: 13,
@@ -591,21 +599,11 @@ class _HomeDetailScreenState extends BaseStatefulState<HomeDetailScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(20),
-                        dashPattern: [10, 10],
-                        color: Colors.blueGrey,
-                        strokeWidth: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: SizedBox(
-                              height: 150,
-                              width: 350,
-                              child: AlertCardWidget()),
-                        ),
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SizedBox(
+                          height: 150,
+                          // width: 350,
+                          child: AlertCardWidget()),
                     ),
                     SizedBox(height: 10),
                   ],

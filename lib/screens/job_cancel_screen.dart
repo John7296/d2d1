@@ -6,6 +6,7 @@ import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/canceljob.dart';
 import 'package:project_d2d/model/job_request.dart';
+import 'package:project_d2d/screens/available_jobs_screen.dart';
 import 'package:project_d2d/screens/home_detail_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
@@ -50,23 +51,25 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
       "jobId": NetworkManager.shared.jobId,
       "reason": _reasonController.text
     }).then((BaseResponse<CancelJob> response) {
-      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-      //   builder: (BuildContext context) {
-      //     return JobCancelledSuccessfulScreen(
-      //         widget.jobCatName,
-      //         widget.hourlyRate.toDouble(),
-      //         widget.clientName,
-      //         widget.jobLocation,
-      //         widget.startDateTime,
-      //         widget.shiftName,
-      //         widget.isRequested,
-      //         context);
-      //   },
-      // ), (route) => false);
+      // showFlashMsg(response.message![0]);
+      print("response${response.message}");
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return JobCancelledSuccessfulScreen(
+              widget.jobCatName,
+              widget.hourlyRate.toDouble(),
+              widget.clientName,
+              widget.jobLocation,
+              widget.startDateTime,
+              widget.shiftName,
+              widget.isRequested,
+              context);
+        },
+      ), (route) => false);
     }).catchError((e) {
       print(e.toString());
       showFlashMsg(e.toString());
-      // showFlashMsg("It is not possible to cancel a job.");
+      // showFlashMsg("Not possible to cancel this Job");
     });
   }
 
@@ -332,48 +335,84 @@ class _JobCancelScreenState extends BaseStatefulState<JobCancelScreen> {
                         //   ),
                         // ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          // width: 150,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                onCancelButtonTapped();
-                                Navigator.pushAndRemoveUntil(context,
-                                    MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return JobCancelledSuccessfulScreen(
-                                        widget.jobCatName,
-                                        widget.hourlyRate.toDouble(),
-                                        widget.clientName,
-                                        widget.jobLocation,
-                                        widget.startDateTime,
-                                        widget.shiftName,
-                                        widget.isRequested,
-                                        context);
-                                  },
-                                ), (route) => false);
-                              }
-                              showFlashMsg("Job Cancelled Successfully..!");
-                            },
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                fontSize: kFontSize_16,
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              // width: 150,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  onCancelButtonTapped();
+                                  Navigator.pushAndRemoveUntil(context,
+                                      MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return AvailableJobsScreen();
+                                    },
+                                  ), (route) => false);
+                                },
+                                child: Text(
+                                  'Back To Jobs',
+                                  style: TextStyle(
+                                    fontSize: kFontSize_16,
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(kGreenColor),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  )),
+                                ),
                               ),
                             ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(kButtonColorR),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              // width: 150,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    onCancelButtonTapped();
+                                    // Navigator.pushAndRemoveUntil(context,
+                                    //     MaterialPageRoute(
+                                    //   builder: (BuildContext context) {
+                                    //     return JobCancelledSuccessfulScreen(
+                                    //         widget.jobCatName,
+                                    //         widget.hourlyRate.toDouble(),
+                                    //         widget.clientName,
+                                    //         widget.jobLocation,
+                                    //         widget.startDateTime,
+                                    //         widget.shiftName,
+                                    //         widget.isRequested,
+                                    //         context);
+                                    //   },
+                                    // ), (route) => false);
+                                  }
+                                  // showFlashMsg("Job Cancelled Successfully..!");
+                                },
+                                child: Text(
+                                  'Confirm',
+                                  style: TextStyle(
+                                    fontSize: kFontSize_16,
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(kButtonColorR),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  )),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),

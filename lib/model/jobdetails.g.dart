@@ -20,6 +20,7 @@ JobDetails _$JobDetailsFromJson(Map<String, dynamic> json) => JobDetails(
       jobDescription: json['jobDescription'] as String?,
       info: json['info'] as String?,
       jobStatus: json['jobStatus'] as String?,
+      daysLeft: json['daysLeft'] as int?,
     );
 
 Map<String, dynamic> _$JobDetailsToJson(JobDetails instance) =>
@@ -37,4 +38,5 @@ Map<String, dynamic> _$JobDetailsToJson(JobDetails instance) =>
       'comments': instance.comments,
       'info': instance.info,
       'jobStatus': instance.jobStatus,
+      'daysLeft': instance.daysLeft,
     };

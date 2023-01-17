@@ -142,6 +142,7 @@ class _AvailableJobWidgetState
                                                   reqJobList[index].shiftName ??
                                                       '',
                                                   reqJobList[index].isRequsted!,
+                                                  reqJobList[index].jobNumber??'',
                                                   context)));
                                 },
                                 child: Container(
@@ -149,7 +150,9 @@ class _AvailableJobWidgetState
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(15),
+                                      
                                     ),
+                                    border: Border.all(color:(reqJobList[index].jobStatus =="Applied")?Color.fromARGB(103, 51, 50, 50):Colors.transparent,width: 3),
                                     image: DecorationImage(
                                       image:
                                           // (reqJobList[index].requested!)

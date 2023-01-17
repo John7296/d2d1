@@ -24,9 +24,10 @@ class AvailableJobsScreen extends StatefulWidget {
 class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     with TickerProviderStateMixin {
   String _searchString = "";
-    List<Job> jobList = [];
+  List<Job> jobList = [];
   List<Job> jobListTwo = [];
   List<Job> jobListThree = [];
+  List<Job> jobListApplied = [];
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     });
   }
 
-   void getJobDetails() {
+  void getJobDetails() {
     NetworkManager.shared
         .getJob(
       NetworkManager.shared.userToken!,
@@ -67,6 +68,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
       "Active",
     )
         .then((BaseResponse<List<Job>> response) {
+      getJobAppliedDetails();
       setState(() {
         jobListTwo.clear();
         jobListTwo.addAll(response.data!);
@@ -77,9 +79,31 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
     });
   }
 
+  void getJobAppliedDetails() {
+    showLoader();
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Applied",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      hideLoader();
+      setState(() {
+        jobListApplied.clear();
+        jobListApplied.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 2, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     return Scaffold(
       body: SafeArea(
@@ -209,7 +233,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                         Tab(
                           child: Container(
                             height: 40,
-                            width: 120,
+                            width: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               border: Border.all(color: Colors.grey, width: 1),
@@ -227,7 +251,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                         Tab(
                           child: Container(
                             height: 40,
-                            width: 120,
+                            width: 100,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border:
@@ -235,6 +259,22 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                             child: Align(
                               alignment: Alignment.center,
                               child: Text("Requested",
+                                  style: TextStyle(
+                                      fontSize: 16, fontWeight: kFontWeight_M)),
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Container(
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Applied",
                                   style: TextStyle(
                                       fontSize: 16, fontWeight: kFontWeight_M)),
                             ),
@@ -276,45 +316,54 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  JobDetailsScreen(
-                                                      jobListThree[
-                                                                  index]
-                                                              .jobCatName ??
-                                                          '',
-                                                      jobListThree[
-                                                              index]
-                                                          .hourlyRate!.toDouble(),
-                                                      jobListThree[
-                                                                  index]
-                                                              .clientName ??
-                                                          '',
-                                                      jobListThree[
-                                                                  index]
-                                                              .jobLocation ??
-                                                          '',
-                                                      jobListThree[
-                                                                  index]
-                                                              .startDateTime ??
-                                                          '',
-                                                      jobListThree[index]
-                                                              .shiftName ??
-                                                          '',
-                                                      jobListThree[index]
-                                                          .isRequsted!,
-                                                      context),
+                                              builder:
+                                                  (context) =>
+                                                      JobDetailsScreen(
+                                                          jobListThree[index]
+                                                                  .jobCatName ??
+                                                              '',
+                                                          jobListThree[index]
+                                                              .hourlyRate!
+                                                              .toDouble(),
+                                                          jobListThree[index]
+                                                                  .clientName ??
+                                                              '',
+                                                          jobListThree[index]
+                                                                  .jobLocation ??
+                                                              '',
+                                                          jobListThree[
+                                                                      index]
+                                                                  .startDateTime ??
+                                                              '',
+                                                          jobListThree[
+                                                                      index]
+                                                                  .shiftName ??
+                                                              '',
+                                                          jobListThree[index]
+                                                              .isRequsted!,
+                                                          jobListThree[index]
+                                                                  .jobNumber ??
+                                                              '',
+                                                          context),
                                             ),
                                           );
                                         },
                                         child: Container(
                                           width: getWidthByPercentage(92),
                                           decoration: BoxDecoration(
+                                                   border: Border.all(
+                                      color: (jobListThree[index].jobStatus ==
+                                              "Applied")
+                                          ? Color.fromARGB(103, 51, 50, 50)
+                                          : Colors.transparent,
+                                      width: 3),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(15),
                                             ),
                                             image: DecorationImage(
                                               image: (jobListThree[index]
-                                                      .isRequsted==1)
+                                                          .isRequsted ==
+                                                      1)
                                                   ? AssetImage(
                                                       "assets/images/green_bg.png")
                                                   : AssetImage(
@@ -510,7 +559,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                             Container(
                                                               width: 60,
                                                               child: Text(
-                                                                jobListThree[index]
+                                                                jobListThree[
+                                                                            index]
                                                                         .shiftName ??
                                                                     "",
                                                                 maxLines: 1,
@@ -561,7 +611,8 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                             Container(
                                                               width: 60,
                                                               child: Text(
-                                                                jobListThree[index]
+                                                                jobListThree[
+                                                                            index]
                                                                         .jobLocation ??
                                                                     "",
                                                                 overflow:
@@ -613,7 +664,7 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                                                 "assets/images/redlabel_tail.png")),
                                     ],
                                   ),
-                                  if (jobListThree[index].isRequsted==1)
+                                  if (jobListThree[index].isRequsted == 1)
                                     Positioned(
                                       top: 58,
                                       right: 3,
@@ -655,6 +706,428 @@ class _AvailableJobsScreenState extends BaseStatefulState<AvailableJobsScreen>
                         ),
 // ==================================================================================================================================
                   AvailableJobWidget(),
+                  (jobListApplied.isNotEmpty)
+                      ? Expanded(
+                          child: ListView.builder(
+                            // physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: jobListApplied.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Stack(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            SessionsManager.saveJobId(
+                                                jobListApplied[index].jobId ??
+                                                    0);
+
+                                            NetworkManager.shared.jobId =
+                                                jobListApplied[index].jobId ??
+                                                    0;
+
+                                            NetworkManager.shared
+                                                .refreshTokens();
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        JobDetailsScreen(
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .jobCatName ??
+                                                                '',
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .hourlyRate ??
+                                                                0,
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .clientName ??
+                                                                '',
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .jobLocation ??
+                                                                '',
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .startDateTime ??
+                                                                '',
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .shiftName ??
+                                                                '',
+                                                            jobListApplied[
+                                                                    index]
+                                                                .isRequsted!,
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .jobNumber ??
+                                                                '',
+                                                            context)));
+                                          },
+                                          child: Container(
+                                            width: getWidthByPercentage(92),
+                                            decoration: BoxDecoration(
+                                                     border: Border.all(
+                                      color: (jobListThree[index].jobStatus ==
+                                              "Applied")
+                                          ? Color.fromARGB(103, 51, 50, 50)
+                                          : Colors.transparent,
+                                      width: 3),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(15),
+                                              ),
+                                              image: DecorationImage(
+                                                image: (jobListApplied[index]
+                                                            .isRequsted ==
+                                                        1)
+                                                    ? AssetImage(
+                                                        "assets/images/green_bg.png")
+                                                    : AssetImage(
+                                                        "assets/images/red_bg.png"),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            height: 155,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(20),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 50,
+                                                        width: 50,
+                                                        // color: Colors.white,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                            Radius.circular(10),
+                                                          ),
+                                                          color: Colors.white,
+                                                          image:
+                                                              DecorationImage(
+                                                            image: AssetImage(
+                                                                "assets/images/care.png"),
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          // boxShadow: [
+                                                          //   BoxShadow(
+                                                          //     color: Colors.grey,
+                                                          //     offset: Offset(0.0, 1.0), //(x,y)
+                                                          //     blurRadius: 3.0,
+                                                          //   ),
+                                                          // ],
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 10),
+                                                          child: Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Text(
+                                                                            jobListApplied[index].jobCatName ??
+                                                                                '',
+                                                                            maxLines:
+                                                                                2,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: kFontWeight_SB,
+                                                                              fontSize: kFontSize_16,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        if (jobListApplied[index].jobStatus ==
+                                                                            "Applied")
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {},
+                                                                            child:
+                                                                                ImageIcon(
+                                                                              AssetImage("assets/images/ic_tick.png"),
+                                                                              size: 25,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          jobListApplied[index].clientName ??
+                                                                              '',
+                                                                          maxLines:
+                                                                              1,
+                                                                          style: TextStyle(
+                                                                              color: Colors.white.withOpacity(0.8),
+                                                                              fontSize: kFontSize_14,
+                                                                              fontWeight: kFontWeight_M),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      // Icon(
+                                                      //   Icons.calendar_today_outlined,
+                                                      //   color: Colors.white,
+                                                      //   size: 14,
+                                                      // ),
+                                                      // SizedBox(width: 2),
+                                                      // Text(
+                                                      //   jobListApplied[index].startDateTime ?? "",
+                                                      //   style: TextStyle(
+                                                      //     fontWeight: kFontWeight_M,
+                                                      //     fontSize: 13,
+                                                      //     color: Colors.white,
+                                                      //   ),
+                                                      // ),
+                                                      Spacer(),
+                                                      Text(
+                                                        "£${jobListApplied[index].hourlyRate.toString()}/hour",
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              kFontWeight_M,
+                                                          fontSize: 13,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacer(),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                            Radius.circular(20),
+                                                          ),
+                                                          color: Colors.white
+                                                              .withOpacity(
+                                                                  0.15),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            2),
+                                                                child:
+                                                                    ImageIcon(
+                                                                  AssetImage(
+                                                                      "assets/images/ic_alarm.png"),
+                                                                  size: 15,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 60,
+                                                                child: Text(
+                                                                  jobListApplied[
+                                                                              index]
+                                                                          .shiftName ??
+                                                                      "",
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        11,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                            Radius.circular(15),
+                                                          ),
+                                                          color: Colors.white
+                                                              .withOpacity(
+                                                                  0.15),
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10),
+                                                          child: Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            2),
+                                                                child:
+                                                                    ImageIcon(
+                                                                  AssetImage(
+                                                                      "assets/images/ic_location.png"),
+                                                                  size: 15,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 60,
+                                                                child: Text(
+                                                                  jobListApplied[
+                                                                              index]
+                                                                          .jobLocation ??
+                                                                      "",
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          11),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .calendar_today_outlined,
+                                                            color: Colors.white,
+                                                            size: 14,
+                                                          ),
+                                                          SizedBox(width: 2),
+                                                          Text(
+                                                            jobListApplied[
+                                                                        index]
+                                                                    .startDateTime ??
+                                                                "",
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  kFontWeight_M,
+                                                              fontSize: 13,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        if (jobListApplied[index].isRequsted ==
+                                            1)
+                                          Image(
+                                              image: AssetImage(
+                                                  "assets/images/redlabel_tail.png")),
+                                      ],
+                                    ),
+                                    if (jobListApplied[index].isRequsted == 1)
+                                      Positioned(
+                                        top: 58,
+                                        right: 3,
+                                        child: Stack(
+                                          children: [
+                                            Image(
+                                                image: AssetImage(
+                                                    "assets/images/redlabel.png")),
+                                            Positioned(
+                                              right: 0,
+                                              left: 0,
+                                              bottom: 0,
+                                              top: 0,
+                                              child: Container(
+                                                // color: Colors.yellow,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Requested",
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            kFontWeight_M),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      : Center(
+                          child: Container(
+                            child: Text("No Jobs Available"),
+                          ),
+                        ),
                 ],
               ),
             ),

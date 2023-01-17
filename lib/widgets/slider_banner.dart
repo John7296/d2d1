@@ -29,7 +29,6 @@ class _SliderBannerHomeWidgetState
     // TODO: implement initState
     super.initState();
     getJobDetails();
-    
   }
 
   void getJobDetails() {
@@ -109,16 +108,35 @@ class _SliderBannerHomeWidgetState
                                         jobListThree[index].startDateTime ?? '',
                                         jobListThree[index].shiftName ?? '',
                                         jobListThree[index].isRequsted!,
+                                        jobListThree[index].jobNumber??'',
                                         context),
                                   ),
                                 );
                               },
                               child: Container(
+                                
                                 width: getWidthByPercentage(80),
                                 decoration: BoxDecoration(
+                                
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
                                   ),
+                                  border: Border.all(
+                                      color: (jobListThree[index].jobStatus ==
+                                              "Applied")
+                                          ? Colors.black12
+                                          : Colors.transparent,
+                                      width: 3),
+                                          //  boxShadow: [
+                                                // BoxShadow(
+                                                  // color: Colors.black ,
+                                                  // offset: Offset(0.0, 2.0), //(x,y)
+                                                  // blurRadius: 3.0,
+                                                // ),
+                                              // ],
+
+                                  // Color(0xff2DAC60)
+
                                   image: DecorationImage(
                                     image: (jobListThree[index].isRequsted == 1)
                                         ? AssetImage(
@@ -149,13 +167,7 @@ class _SliderBannerHomeWidgetState
                                                     "assets/images/care.png"),
                                                 fit: BoxFit.cover,
                                               ),
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.grey,
-                                              //     offset: Offset(0.0, 1.0), //(x,y)
-                                              //     blurRadius: 3.0,
-                                              //   ),
-                                              // ],
+                                         
                                             ),
                                           ),
                                           Expanded(
@@ -177,7 +189,8 @@ class _SliderBannerHomeWidgetState
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                jobListThree[index]
+                                                                jobListThree[
+                                                                            index]
                                                                         .jobCatName ??
                                                                     '',
                                                                 maxLines: 2,
@@ -192,7 +205,8 @@ class _SliderBannerHomeWidgetState
                                                                 ),
                                                               ),
                                                             ),
-                                                            if (jobListThree[index]
+                                                            if (jobListThree[
+                                                                        index]
                                                                     .jobStatus ==
                                                                 "Applied")
                                                               InkWell(
@@ -211,7 +225,8 @@ class _SliderBannerHomeWidgetState
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              jobListThree[index]
+                                                              jobListThree[
+                                                                          index]
                                                                       .clientName ??
                                                                   '',
                                                               maxLines: 1,
@@ -341,7 +356,8 @@ class _SliderBannerHomeWidgetState
                                           ),
                                           SizedBox(width: 2),
                                           Text(
-                                            jobListThree[index].startDateTime ?? "",
+                                            jobListThree[index].startDateTime ??
+                                                "",
                                             style: TextStyle(
                                               fontWeight: kFontWeight_M,
                                               fontSize: 13,

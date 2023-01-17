@@ -37,11 +37,14 @@ class JobDetails {
   @JsonKey(name: 'comments')
   String? comments;
 
-    @JsonKey(name: 'info')
+  @JsonKey(name: 'info')
   String? info;
-      @JsonKey(name: 'jobStatus')
+
+  @JsonKey(name: 'jobStatus')
   String? jobStatus;
 
+    @JsonKey(name: 'daysLeft')
+  int? daysLeft;
 
   JobDetails(
       {this.endDateTime,
@@ -56,8 +59,10 @@ class JobDetails {
       this.comments,
       this.jobDescription,
       this.info,
-      this.jobStatus});
+      this.jobStatus,
+      this.daysLeft});
 
-  factory JobDetails.fromJson(Map<String, dynamic> json) => _$JobDetailsFromJson(json);
+  factory JobDetails.fromJson(Map<String, dynamic> json) =>
+      _$JobDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$JobDetailsToJson(this);
 }
