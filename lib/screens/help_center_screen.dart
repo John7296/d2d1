@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
 import 'package:project_d2d/model/settings.dart';
@@ -115,23 +116,23 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                        Padding(
                          padding: const EdgeInsets.only(left:10, right:10),
                          child: 
-                          Text(help[index].stValue.toString(), maxLines: 10),
-                        //  Html(
-                        //             data:
-                        //                terms[index].stValue.toString() ,
-                        //             style: {
-                        //               "body": Style(
-                        //                 fontSize: FontSize(15.0),
-                        //                 fontFamily: "Poppins",
-                        //               ),
-                        //             },
+                          // Text(help[index].stValue.toString(), maxLines: 10),
+                         Html(
+                                    data:
+                                       help[index].stValue.toString() ,
+                                    // style: {
+                                    //   "body": Style(
+                                    //     fontSize: FontSize(15.0),
+                                    //     fontFamily: "Poppins",
+                                    //   ),
+                                    // },
                         //             // "Key Features",
                         //             // style: TextStyle(
                         //             //     color: Color(0xff6e706d),
                         //             //     fontSize: 13,
                         //             //     fontWeight: FontWeight.w300),
                         //             // maxLines: 10,
-                        //           ),
+                                   ),
                        ),
                      ],
                    )

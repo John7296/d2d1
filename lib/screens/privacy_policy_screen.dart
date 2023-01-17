@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:project_d2d/base/base_stateful_state.dart';
 import 'package:project_d2d/connection/network_manager.dart';
 import 'package:project_d2d/model/base_response.dart';
@@ -115,7 +116,12 @@ class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
                          if(policy[index].stKey=="privacy")
                        Padding(
                          padding: const EdgeInsets.only(left:10, right:10),
-                         child: Text(policy[index].stValue.toString(), maxLines: 10),
+                         child: 
+                        //  Text(policy[index].stValue.toString(), maxLines: 10),
+                          Html(
+                             data:
+                                    policy[index].stValue.toString() ,
+                          )
                        ),
                      ],
                    )
