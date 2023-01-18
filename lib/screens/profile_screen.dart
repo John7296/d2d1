@@ -892,145 +892,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             ),
                 
           ),
-      
         ),         
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 20, right: 20),
-                        //   child: Container(
-                        //     height: 200,
-                        //     child: Center(
-                        //         child: Text("No Training Status Found")),
-                        //   ),
-                        // ),
-        
-          // Container(
-          //   color: Colors.yellow,
-        
-          // child: Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Row(
-          //       children: [
-          //         Padding(
-          //           padding: const EdgeInsets.only(top: 20),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               // Row(
-          //               //   children: [
-        
-          //               // if(training.isEmpty)
-          //               //     Text("Manual Handling",
-          //               //         style: TextStyle(
-          //               //             fontSize: 16, color: Colors.black)),
-          //               //   ],
-          //               // ),
-          //               // SizedBox(height: 10),
-          //               Text(
-          //                   training.isNotEmpty
-          //                       ? training[0]
-          //                           .trainingName
-          //                           .toString()
-          //                       : "",
-          //                   // "Food Hygiene",
-          //                   style: TextStyle(
-          //                       fontSize: 15, color: Colors.black)),
-          //               SizedBox(height: 10),
-          //               // Text("Fire Awareness",
-          //               //     style:
-          //               //         TextStyle(fontSize: 15, color: Colors.black)),
-          //               // SizedBox(height: 10),
-          //               // Text("Health and Safety",
-          //               //     style:
-          //               //         TextStyle(fontSize: 15, color: Colors.black)),
-          //               // SizedBox(height: 10),
-          //               // Text("Infection Control",
-          //               //     style: TextStyle(
-          //               //         fontSize: 15,
-          //               //         fontWeight: FontWeight.w400,
-          //               //         color: Colors.black)),
-          //             ],
-          //           ),
-          //         ),
-          //         Spacer(),
-          //         Column(
-          //           children: [
-          //             // Padding(
-          //             //   padding: const EdgeInsets.only(left: 150),
-          //             //   child: Text("38%"),
-          //             // ),
-          //             // LinearPercentIndicator(
-          //             //   lineHeight: 12,
-          //             //   width: 200,
-          //             //   progressColor: kGreenprogressColor,
-          //             //   backgroundColor: Color(0xffD9D9D9),
-          //             //   percent: 0.38,
-          //             //   barRadius: Radius.circular(5),
-          //             // ),
-          //             Padding(
-          //               padding: const EdgeInsets.only(left: 150),
-          //               child: Text(
-          //                 training.isNotEmpty
-          //                     ? "${training[0].completionRate.toString()}%"
-          //                     : "",
-          //                 // "93%"
-          //                 //"${training.first.completionRate.toString()}%",
-          //               ),
-          //             ),
-          //             LinearPercentIndicator(
-          //               lineHeight: 12,
-          //               width: 200,
-          //               progressColor: kGreenprogressColor,
-          //               backgroundColor: Color(0xffD9D9D9),
-          //               percent: 0.30,
-          //               barRadius: Radius.circular(5),
-          //             ),
-          //             // Padding(
-          //             //   padding: const EdgeInsets.only(left: 150),
-          //             //   child: Text("68%"),
-          //             // ),
-          //             // LinearPercentIndicator(
-          //             //   lineHeight: 12,
-          //             //   width: 200,
-          //             //   progressColor: kGreenprogressColor,
-          //             //   backgroundColor: Color(0xffD9D9D9),
-          //             //   percent: 0.68,
-          //             //   barRadius: Radius.circular(5),
-          //             // ),
-          //             // Padding(
-          //             //   padding: const EdgeInsets.only(left: 150),
-          //             //   child: Text("24%"),
-          //             // ),
-          //             // LinearPercentIndicator(
-          //             //   lineHeight: 12,
-          //             //   width: 200,
-          //             //   progressColor: kGreenprogressColor,
-          //             //   backgroundColor: Color(0xffD9D9D9),
-          //             //   percent: 0.24,
-          //             //   barRadius: Radius.circular(5),
-          //             // ),
-          //             // Padding(
-          //             //   padding: const EdgeInsets.only(left: 150),
-          //             //   child: Text("89%"),
-          //             // ),
-          //             // LinearPercentIndicator(
-          //             //   lineHeight: 12,
-          //             //   width: 200,
-          //             //   progressColor: kGreenprogressColor,
-          //             //   backgroundColor: Color(0xffD9D9D9),
-          //             //   percent: 0.89,
-          //             //   barRadius: Radius.circular(5),
-          //             // ),
-          //           ],
-          //         )
-          //       ],
-          //     ),
-          //   ],
-          // ),
-          //   );
-          // }),
-          // ),
-      
          if (training.isEmpty)
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20, top:20),
@@ -1042,11 +904,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("No Training Status Found")),
                           ),
                         ),
-        
         ]),
       ),
     );
-    
   }
 
   @override

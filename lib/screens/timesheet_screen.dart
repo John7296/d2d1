@@ -27,6 +27,8 @@ class TimeSheetScreen extends StatefulWidget {
 }
 
 class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
+  final formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final SignatureController _controller = SignatureController(
     penStrokeWidth: 5,
     penColor: Colors.red,
@@ -40,6 +42,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
   // String? _chosenValue;
   Job? showSelectedJob;
   List<TimeSheetResponse> timesheetlist = [];
+  // List<TimeSheetResponse> dropDownList = [];
 
   @override
   void initState() {
@@ -48,7 +51,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-      // getTimeSheetDetails();
+      getDropdownDetails(0);
     });
   }
 
@@ -75,6 +78,29 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
   //   });
   // }
 
+  void getJob() {
+    showLoader();
+    NetworkManager.shared
+        .getJob(
+      NetworkManager.shared.userToken!,
+      "getJobsByStaffId",
+      NetworkManager.shared.staffId!,
+      "",
+      "Applied",
+    )
+        .then((BaseResponse<List<Job>> response) {
+      hideLoader();
+      setState(() {
+        jobList.clear();
+        jobList.addAll(response.data!);
+      });
+      // getTimeSheetDetails();
+    }).catchError((e) {
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
   void getDropdownDetails(int jobId) {
     showLoader();
     NetworkManager.shared
@@ -86,14 +112,18 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
       "multiple",
     )
         .then((BaseResponse<TimeSheetResponse> response) {
-      log("asdfg");
-      // print("response ${response.data!}");
+      dropDownList.clear();
+      dropDownList.addAll(response.data!.result2!);
+      // for (var element in response.data!.result2!) {
+      //   dropDownList.clear();
+      //   dropDownList.add(element);
+      //   log(dropDownList.toString());
+      // }
       hideLoader();
       setState(() {
-        timeSheetDetailsList.clear();
+        timesheetlist.clear();
         if (response.data!.result1!.isNotEmpty) {
-          timeSheetDetailsList.add(response.data!);
-          timesheetlist = timeSheetDetailsList;
+          timesheetlist.add(response.data!);
         }
       });
     }).catchError((e) {
@@ -126,33 +156,10 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
     });
   }
 
-  void getJob() {
-    showLoader();
-    NetworkManager.shared
-        .getJob(
-      NetworkManager.shared.userToken!,
-      "getJobsByStaffId",
-      NetworkManager.shared.staffId!,
-      "",
-      "Applied",
-    )
-        .then((BaseResponse<List<Job>> response) {
-      hideLoader();
-      setState(() {
-        jobList.clear();
-        jobList.addAll(response.data!);
-      });
-      // getTimeSheetDetails();
-    }).catchError((e) {
-      hideLoader();
-      print(e.toString());
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    log("result ${timeSheetDetailsList.length}");
-    log(timesheetlist.length.toString());
+    // log("result ${timeSheetDetailsList.length}");
+    // log(timesheetlist.length.toString());
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -236,9 +243,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                         ),
                         // SizedBox(height: 10),
                         Text(
-                          (timeSheetDetailsList.isNotEmpty)
-                              ? timeSheetDetailsList[0].result1![0].catName ??
-                                  ""
+                          (timesheetlist.isNotEmpty)
+                              ? timesheetlist[0].result1![0].catName ?? ""
                               : "No data found",
                           style: TextStyle(
                             fontSize: 20,
@@ -247,11 +253,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                           ),
                         ),
                         Text(
-                          (timeSheetDetailsList.isNotEmpty)
-                              ? timeSheetDetailsList[0]
-                                      .result1![0]
-                                      .clientName ??
-                                  ''
+                          (timesheetlist.isNotEmpty)
+                              ? timesheetlist[0].result1![0].clientName ?? ''
                               : '',
                           style: TextStyle(
                             color: Colors.white,
@@ -271,7 +274,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                     fontWeight: kFontWeight_SB,
                                     fontSize: kFontSize_14),
                               ),
-                              (timeSheetDetailsList.isNotEmpty)
+                              (timesheetlist.isNotEmpty)
                                   ? Row(
                                       children: [
                                         Icon(
@@ -281,7 +284,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                         ),
                                         SizedBox(width: 2),
                                         Text(
-                                          timeSheetDetailsList[0]
+                                          timesheetlist[0]
                                                   .result1![0]
                                                   .jobPostDate ??
                                               '',
@@ -299,7 +302,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                           fontWeight: kFontWeight_SB,
                                           fontSize: kFontSize_14),
                                     ),
-                              (timeSheetDetailsList.isNotEmpty)
+                              (timesheetlist.isNotEmpty)
                                   ? Row(
                                       children: [
                                         ImageIcon(
@@ -309,7 +312,7 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          timeSheetDetailsList[0]
+                                          timesheetlist[0]
                                                   .result1![0]
                                                   .jobLocation ??
                                               '',
@@ -432,460 +435,441 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                         ),
                       ],
                     ),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: timeSheetDetailsList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Row(
-                            children: [
-                              (timeSheetDetailsList[index]
-                                          .result2!
-                                          .isNotEmpty)
-                                  ? Expanded(
-                                      child: Container(
-                                        // color: Colors.pink.shade100,
-                                        height: 60,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            SizedBox(
-                                                width: 70,
-                                                child: Text(
-                                                    timeSheetDetailsList[index]
-                                                            .result2![index]
-                                                            .createdOn ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        fontSize: 12))),
-                                            SizedBox(
-                                                width: 60,
-                                                child: Text(
-                                                    timeSheetDetailsList[index]
-                                                            .result2![index]
-                                                            .starttime ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        fontSize: 12))),
-                                            SizedBox(
-                                                width: 60,
-                                                child: Text(
-                                                    timeSheetDetailsList[index]
-                                                            .result2![index]
-                                                            .endtime ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        fontSize: 12))),
-                                            SizedBox(
-                                                width: 60,
-                                                child: Text(
-                                                    timeSheetDetailsList[index]
-                                                            .result2![index]
-                                                            .breakTime ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        fontSize: 12))),
-                                            Container(
-                                                height: 30,
-                                                width: 70,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(15)),
-                                                  color: (timeSheetDetailsList[
-                                                                  index]
-                                                              .result2![index]
-                                                              .status!
-                                                              .length ==
-                                                          8)
-                                                      ? Colors.greenAccent
-                                                      : kButtonColorR,
-                                                ),
-                                                child: TextButton(
-                                                  onPressed: () {
-                                                    (timeSheetDetailsList[index]
-                                                                .result2![index]
-                                                                .status !=
-                                                            "Approved")
-                                                        ? showModalBottomSheet(
-                                                            shape: const RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.vertical(
-                                                                    top: Radius
+                    Column(
+                      children: [
+                        (dropDownList.isNotEmpty)
+                            ? SizedBox(
+                                height: getHeightByPercentage(50),
+                                child: ListView.separated(
+                                    shrinkWrap: true,
+                                    itemCount: dropDownList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Row(
+                                        children: [
+                                          (dropDownList.isNotEmpty)
+                                              ? Expanded(
+                                                  child: Container(
+                                                    // color: Colors.pink.shade100,
+                                                    height: 60,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        SizedBox(
+                                                            width: 70,
+                                                            child: Text(
+                                                                dropDownList[
+                                                                            index]
+                                                                        .createdOn ??
+                                                                    '',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12))),
+                                                        SizedBox(
+                                                            width: 60,
+                                                            child: Text(
+                                                                dropDownList[
+                                                                            index]
+                                                                        .starttime ??
+                                                                    '',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12))),
+                                                        SizedBox(
+                                                            width: 60,
+                                                            child: Text(
+                                                                dropDownList[
+                                                                            index]
+                                                                        .endtime ??
+                                                                    '',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12))),
+                                                        SizedBox(
+                                                            width: 60,
+                                                            child: Text(
+                                                                dropDownList[
+                                                                            index]
+                                                                        .breakTime ??
+                                                                    '',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12))),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 70,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
                                                                         .circular(
-                                                                            20))),
-                                                            isScrollControlled:
-                                                                true,
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    cntx) {
-                                                              return Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            20,
-                                                                        top:
-                                                                            10),
-                                                                child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Row(
-                                                                        children: [
-                                                                          Text(
-                                                                            "Time Sheet",
-                                                                            style:
-                                                                                TextStyle(fontSize: 12, fontWeight: kFontWeight_M),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Row(
-                                                                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                        children: [
-                                                                          Row(
-                                                                            children: [
-                                                                              ImageIcon(
-                                                                                AssetImage("assets/images/ic_briefcase.png"),
-                                                                                size: 15,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Text(
-                                                                                timeSheetDetailsList[index].result1![index].catName ?? '',
-                                                                                style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                10,
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              ImageIcon(
-                                                                                AssetImage("assets/images/ic_location.png"),
-                                                                                size: 15,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              SizedBox(width: 5),
-                                                                              Text(
-                                                                                timeSheetDetailsList[index].result1![index].clientName ?? '',
-                                                                                style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
-                                                                              ),
-                                                                            ],
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Row(
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.calendar_today,
-                                                                            size:
-                                                                                20,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                5,
-                                                                          ),
-                                                                          Text(
-                                                                            timeSheetDetailsList[index].result1![index].shiftName ??
-                                                                                '',
-                                                                            style:
-                                                                                TextStyle(fontSize: 9),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Row(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        // mainAxisAlignment:
-                                                                        //     MainAxisAlignment.spaceEvenly,
-                                                                        children: [
-                                                                          ImageIcon(
-                                                                            AssetImage("assets/images/ic_clock.png"),
-                                                                            size:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                5,
-                                                                          ),
-                                                                          Center(
-                                                                            child:
-                                                                                Text(
-                                                                              timeSheetDetailsList[index].result2![index].starttime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                10,
-                                                                          ),
-                                                                          ImageIcon(
-                                                                            AssetImage("assets/images/ic_clock.png"),
-                                                                            size:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                5,
-                                                                          ),
-                                                                          Center(
-                                                                            child:
-                                                                                Text(
-                                                                              timeSheetDetailsList[index].result2![index].endtime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                10,
-                                                                          ),
-                                                                          ImageIcon(
-                                                                            AssetImage("assets/images/ic_clock.png"),
-                                                                            size:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                5,
-                                                                          ),
-                                                                          Center(
-                                                                            child:
-                                                                                Text(
-                                                                              timeSheetDetailsList[index].result2![index].breakTime ?? '',
-                                                                              style: TextStyle(fontSize: 9),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Row(
-                                                                        children: [
-                                                                          ImageIcon(
-                                                                            AssetImage("assets/images/ic_edit.png"),
-                                                                            size:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          Text(
-                                                                            "Sign Here",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 9,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              10),
-                                                                      Row(
-                                                                        children: [
-                                                                          Container(
-                                                                            height:
-                                                                                150,
-                                                                            width:
-                                                                                300,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                                            ),
-                                                                            child:
-                                                                                Container(
-                                                                              height: 150,
-                                                                              width: 150,
-                                                                              color: Colors.green,
-                                                                              child: SfSignaturePad(
-                                                                                backgroundColor: Colors.grey[200],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Text(
-                                                                            "Signed By",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 9,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              10),
-                                                                      Row(
-                                                                        children: [
-                                                                          Container(
-                                                                            height:
-                                                                                50,
-                                                                            width:
-                                                                                300,
-                                                                            child:
-                                                                                TextField(
-                                                                              textAlign: TextAlign.left,
-                                                                              enabled: true,
-                                                                              maxLines: 5,
-                                                                              // controller: _instructionController,
-                                                                              decoration: InputDecoration(contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15), border: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: BorderSide(color: Colors.grey.shade50))),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Row(
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                                150,
-                                                                            height:
-                                                                                50,
-                                                                            child:
-                                                                                ElevatedButton(
-                                                                              onPressed: () {
-                                                                                SessionsManager.saveTimesheetId(timeSheetDetailsList[index].result2![index].timesheetId ?? 0);
-
-                                                                                NetworkManager.shared.timesheetId = timeSheetDetailsList[index].result2![index].timesheetId ?? 0;
-
-                                                                                NetworkManager.shared.refreshTokens();
-
-                                                                                onApproveButtonTapped();
-                                                                                showFlashMsg("Approved Successfully");
-
-                                                                                Navigator.pushReplacement(cntx, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
-                                                                                setState(() {});
-                                                                              },
-                                                                              child: Text(
-                                                                                'Approve',
-                                                                                style: TextStyle(
-                                                                                  fontSize: 16,
-                                                                                ),
-                                                                              ),
-                                                                              style: ButtonStyle(
-                                                                                backgroundColor: MaterialStateProperty.all(kButtonColorR),
-                                                                                shape: MaterialStateProperty.all(
-                                                                                  RoundedRectangleBorder(
-                                                                                    borderRadius: BorderRadius.circular(5),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              10),
-                                                                    ]),
-                                                              );
-                                                            }).then((value) {
-                                                            print("qwerty");
-                                                            log(timeSheetDetailsList
-                                                                .length
-                                                                .toString());
-                                                            log(timeSheetDetailsList[
-                                                                    0]
-                                                                .result2![0]
-                                                                .status
-                                                                .toString());
-                                                            // getJob();
-                                                            getDropdownDetails(
-                                                                NetworkManager
-                                                                    .shared
-                                                                    .jobId!);
-                                                            setState(() {});
-                                                          })
-                                                        : showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 20,
-                                                                      top: 10),
-                                                                  child: Text(
-                                                                      "TimeSheet Approved "));
-                                                            });
-                                                  },
-                                                  child: (timeSheetDetailsList[
-                                                                  index]
-                                                              .result2![index]
-                                                              .status!
-                                                              .length ==
-                                                          8)
-                                                      ? Text(
-                                                          'Approved',
-                                                          style: TextStyle(
-                                                            color: Colors.green,
-                                                            fontSize: 8,
+                                                                            15)),
+                                                            color: (dropDownList[
+                                                                            index]
+                                                                        .status!
+                                                                        .length ==
+                                                                    8)
+                                                                ? Colors
+                                                                    .greenAccent
+                                                                : kButtonColorR,
                                                           ),
-                                                        )
-                                                      : Text(
-                                                          'Pending',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 8,
+                                                          child: TextButton(
+                                                            onPressed: () {
+                                                              (dropDownList[
+                                                                              index]
+                                                                          .status !=
+                                                                      "Approved")
+                                                                  ? showModalBottomSheet(
+                                                                      enableDrag:
+                                                                          false,
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.vertical(
+                                                                          top: Radius.circular(
+                                                                              20),
+                                                                        ),
+                                                                      ),
+                                                                      isScrollControlled:
+                                                                          true,
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              cntx) {
+                                                                        return Padding(
+                                                                          padding: const EdgeInsets.only(
+                                                                              left: 20,
+                                                                              top: 10),
+                                                                          child: Column(
+                                                                              // mainAxisSize: MainAxisSize.min,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      "Time Sheet",
+                                                                                      style: TextStyle(fontSize: 12, fontWeight: kFontWeight_M),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                Row(
+                                                                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        ImageIcon(
+                                                                                          AssetImage("assets/images/ic_briefcase.png"),
+                                                                                          size: 15,
+                                                                                          color: Colors.grey,
+                                                                                        ),
+                                                                                        SizedBox(
+                                                                                          width: 5,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          timesheetlist[0].result1![0].catName ?? '',
+                                                                                          style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 10,
+                                                                                    ),
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        ImageIcon(
+                                                                                          AssetImage("assets/images/ic_location.png"),
+                                                                                          size: 15,
+                                                                                          color: Colors.grey,
+                                                                                        ),
+                                                                                        SizedBox(width: 5),
+                                                                                        Text(
+                                                                                          timesheetlist[0].result1![0].jobLocation ?? '',
+                                                                                          style: TextStyle(fontSize: 10, fontWeight: kFontWeight_M),
+                                                                                        ),
+                                                                                      ],
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Icon(
+                                                                                      Icons.calendar_today,
+                                                                                      size: 20,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 5,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      timesheetlist[0].result1![0].shiftName ?? '',
+                                                                                      style: TextStyle(fontSize: 9),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                Row(
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  // mainAxisAlignment:
+                                                                                  //     MainAxisAlignment.spaceEvenly,
+                                                                                  children: [
+                                                                                    ImageIcon(
+                                                                                      AssetImage("assets/images/ic_clock.png"),
+                                                                                      size: 15,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 5,
+                                                                                    ),
+                                                                                    Center(
+                                                                                      child: Text(
+                                                                                        dropDownList[index].starttime ?? '',
+                                                                                        style: TextStyle(fontSize: 9),
+                                                                                      ),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 10,
+                                                                                    ),
+                                                                                    ImageIcon(
+                                                                                      AssetImage("assets/images/ic_clock.png"),
+                                                                                      size: 15,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 5,
+                                                                                    ),
+                                                                                    Center(
+                                                                                      child: Text(
+                                                                                        dropDownList[index].breakTime ?? '',
+                                                                                        style: TextStyle(fontSize: 9),
+                                                                                      ),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 10,
+                                                                                    ),
+                                                                                    ImageIcon(
+                                                                                      AssetImage("assets/images/ic_clock.png"),
+                                                                                      size: 15,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 5,
+                                                                                    ),
+                                                                                    Center(
+                                                                                      child: Text(
+                                                                                        dropDownList[index].endtime ?? '',
+                                                                                        style: TextStyle(fontSize: 9),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    ImageIcon(
+                                                                                      AssetImage("assets/images/ic_edit.png"),
+                                                                                      size: 15,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "Sign Here",
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 9,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(height: 10),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      height: 150,
+                                                                                      width: 300,
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                                      ),
+                                                                                      child: Container(
+                                                                                        height: 150,
+                                                                                        width: 150,
+                                                                                        color: Colors.green,
+                                                                                        child: SfSignaturePad(
+                                                                                          backgroundColor: Colors.grey[200],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(height: 20),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      "Signed By",
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 9,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(height: 10),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Form(
+                                                                                      key: formKey,
+                                                                                      child: Container(
+                                                                                        height: 60,
+                                                                                        width: 300,
+                                                                                        child: TextFormField(
+                                                                                          // decoration: InputDecoration(
+                                                                                          //     border: OutlineInputBorder(),
+                                                                                          //     contentPadding: EdgeInsets.all(5)
+                                                                                          //     // labelText: 'Mobile'
+                                                                                          //     ),
+                                                                                          decoration: InputDecoration(
+                                                                                            // hintText: 'Enter Reason',
+                                                                                            contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+                                                                                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                          ),
+                                                                                          controller: _nameController,
+                                                                                          validator: (value) {
+                                                                                            if (value!.isEmpty) return "Enter Name";
+                                                                                            return null;
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: 150,
+                                                                                      height: 50,
+                                                                                      child: ElevatedButton(
+                                                                                        onPressed: () {
+                                                                                          if (formKey.currentState!.validate()) {
+                                                                                            SessionsManager.saveTimesheetId(dropDownList[index].timesheetId ?? 0);
+
+                                                                                            NetworkManager.shared.timesheetId = dropDownList[index].timesheetId ?? 0;
+
+                                                                                            NetworkManager.shared.refreshTokens();
+
+                                                                                            onApproveButtonTapped();
+                                                                                            showFlashMsg("Approved Successfully");
+
+                                                                                            Navigator.pushReplacement(cntx, MaterialPageRoute(builder: (context) => TimeSheetScreen()));
+                                                                                            setState(() {});
+                                                                                          }
+                                                                                        },
+                                                                                        child: Text(
+                                                                                          'Approve',
+                                                                                          style: TextStyle(
+                                                                                            fontSize: 16,
+                                                                                          ),
+                                                                                        ),
+                                                                                        style: ButtonStyle(
+                                                                                          backgroundColor: MaterialStateProperty.all(kButtonColorR),
+                                                                                          shape: MaterialStateProperty.all(
+                                                                                            RoundedRectangleBorder(
+                                                                                              borderRadius: BorderRadius.circular(5),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(height: 10),
+                                                                              ]),
+                                                                        );
+                                                                      }).then((value) {
+                                                                      getDropdownDetails(NetworkManager
+                                                                          .shared
+                                                                          .jobId!);
+                                                                      setState(
+                                                                          () {});
+                                                                    })
+                                                                  : showModalBottomSheet(
+                                                                      isScrollControlled: true,
+                                                                      context: context,
+                                                                      builder: (BuildContext context) {
+                                                                        return Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 20, top: 10),
+                                                                            child: Text("TimeSheet Approved "));
+                                                                      });
+                                                            },
+                                                            child: (dropDownList[
+                                                                            index]
+                                                                        .status!
+                                                                        .length ==
+                                                                    8)
+                                                                ? Text(
+                                                                    'Approved',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      fontSize:
+                                                                          8,
+                                                                    ),
+                                                                  )
+                                                                : Text(
+                                                                    'Pending',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          8,
+                                                                    ),
+                                                                  ),
                                                           ),
                                                         ),
-                                                )),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Text("No Jobs Available"),
-                                    ),
-                            ],
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Divider(
-                            height: 1,
-                            color: Colors.grey,
-                          );
-                        }),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              : Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  child:
+                                                      Text("No Jobs Available"),
+                                                ),
+                                        ],
+                                      );
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return Divider(
+                                        height: 1,
+                                        color: Colors.grey,
+                                      );
+                                    }),
+                              )
+                            : Column(
+                                children: [
+                                  Text("No TimeSheet available..."),
+                                  Text("Select a job to view TimeSheet"),
+                                ],
+                              )
+                      ],
+                    ),
                   ],
                 ),
               ),

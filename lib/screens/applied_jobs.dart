@@ -188,37 +188,39 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
 
                                         NetworkManager.shared.refreshTokens();
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    JobDetailsScreen(
-                                                        jobListApplied[
-                                                                    index]
-                                                                .jobCatName ??
-                                                            '',
-                                                        jobListApplied[
-                                                                    index]
-                                                                .hourlyRate ??
-                                                            0,
-                                                        jobListApplied[
-                                                                    index]
-                                                                .clientName ??
-                                                            '',
-                                                        jobListApplied[
-                                                                    index]
-                                                                .jobLocation ??
-                                                            '',
-                                                        jobListApplied[
-                                                                    index]
-                                                                .startDateTime ??
-                                                            '',
-                                                        jobListApplied[index]
-                                                                .shiftName ??
-                                                            '',
-                                                        jobListApplied[index]
-                                                            .isRequsted!,
-                                                            jobListApplied[index].jobNumber??'',
-                                                        context)));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => JobDetailsScreen(
+                                                jobListApplied[
+                                                            index]
+                                                        .jobCatName ??
+                                                    '',
+                                                jobListApplied[
+                                                            index]
+                                                        .hourlyRate ??
+                                                    0,
+                                                jobListApplied[
+                                                            index]
+                                                        .clientName ??
+                                                    '',
+                                                jobListApplied[
+                                                            index]
+                                                        .jobLocation ??
+                                                    '',
+                                                jobListApplied[
+                                                            index]
+                                                        .startDateTime ??
+                                                    '',
+                                                jobListApplied[index].shiftName ??
+                                                    '',
+                                                jobListApplied[index]
+                                                    .isRequsted!,
+                                                jobListApplied[index]
+                                                        .jobNumber ??
+                                                    '',
+                                                context),
+                                          ),
+                                        );
                                       },
                                       child: Container(
                                         width: getWidthByPercentage(92),
@@ -227,12 +229,13 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                             Radius.circular(15),
                                           ),
                                           image: DecorationImage(
-                                            image:
-                                                (jobListApplied[index].isRequsted ==1)
-                                                ?
-                                                AssetImage(
+                                            image: (jobListApplied[index]
+                                                        .isRequsted ==
+                                                    1)
+                                                ? AssetImage(
                                                     "assets/images/green_bg.png")
-                                            : AssetImage("assets/images/red_bg.png"),
+                                                : AssetImage(
+                                                    "assets/images/red_bg.png"),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -248,7 +251,6 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                     width: 50,
                                                     // color: Colors.white,
                                                     decoration: BoxDecoration(
-                                                      
                                                       borderRadius:
                                                           BorderRadius.all(
                                                         Radius.circular(10),
@@ -276,7 +278,7 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                       child: Row(
                                                         children: [
                                                           Expanded(
-                                                            child: Column(
+                                                            child: Column( 
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
                                                                       .start,
@@ -417,7 +419,8 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobListApplied[index]
+                                                              jobListApplied[
+                                                                          index]
                                                                       .shiftName ??
                                                                   "",
                                                               maxLines: 1,
@@ -467,7 +470,8 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                                           Container(
                                                             width: 60,
                                                             child: Text(
-                                                              jobListApplied[index]
+                                                              jobListApplied[
+                                                                          index]
                                                                       .jobLocation ??
                                                                   "",
                                                               overflow:
@@ -512,13 +516,13 @@ class _AppliedJobsState extends BaseStatefulState<AppliedJobs> {
                                         ),
                                       ),
                                     ),
-                                    if (jobListApplied[index].isRequsted==1)
+                                    if (jobListApplied[index].isRequsted == 1)
                                       Image(
                                           image: AssetImage(
                                               "assets/images/redlabel_tail.png")),
                                   ],
                                 ),
-                                if (jobListApplied[index].isRequsted==1)
+                                if (jobListApplied[index].isRequsted == 1)
                                   Positioned(
                                     top: 58,
                                     right: 3,

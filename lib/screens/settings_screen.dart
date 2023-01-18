@@ -8,7 +8,6 @@ import 'package:project_d2d/screens/change_password_screen.dart';
 import 'package:project_d2d/screens/help_center_screen.dart';
 import 'package:project_d2d/screens/home_screen.dart';
 import 'package:project_d2d/screens/login_screen.dart';
-import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/notification_screen.dart';
 import 'package:project_d2d/screens/privacy_policy_screen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
@@ -82,7 +81,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
     );
   }
 
-    showlogouttDialog(BuildContext context) {
+  showlogouttDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text("Cancel"),
@@ -93,13 +92,12 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
     Widget continueButton = TextButton(
       child: Text("Continue"),
       onPressed: () {
-         SessionsManager.clearSession();
-                                  Navigator.pushAndRemoveUntil(context,
-                                      MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return LoginScreen();
-                                    },
-                                  ), (route) => false);
+        SessionsManager.clearSession();
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+          builder: (BuildContext context) {
+            return LoginScreen();
+          },
+        ), (route) => false);
       },
     );
 
@@ -121,8 +119,6 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -161,12 +157,14 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left:20,),
+              padding: const EdgeInsets.only(
+                left: 20,
+              ),
               child: Column(children: [
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only( top: 20),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Text("Applications",
                           style: TextStyle(
                               fontSize: 17,
@@ -208,7 +206,8 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChangePasswordScreen()));
+                                  builder: (context) =>
+                                      ChangePasswordScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.password_outlined),
@@ -246,7 +245,8 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfileSummaryScreen()));
+                                  builder: (context) =>
+                                      ProfileSummaryScreen()));
                         },
                         child: ListTile(
                           leading: Icon(Icons.currency_pound_outlined),
@@ -299,7 +299,7 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only( top: 20),
+                            padding: const EdgeInsets.only(top: 20),
                             child: Text("About",
                                 style: TextStyle(
                                     fontSize: 17,
@@ -406,10 +406,8 @@ class _SettingsScreenState extends BaseStatefulState<SettingsScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {  
-
-                                showlogouttDialog(context);  
-                                
+                              onTap: () {
+                                showlogouttDialog(context);
                               },
                               child: ListTile(
                                 leading: ImageIcon(

@@ -8,7 +8,6 @@ import 'package:project_d2d/screens/job_applied_successful_screen.dart';
 import 'package:project_d2d/screens/job_cancel_screen.dart';
 import 'package:project_d2d/screens/job_cancelled_successful_screen.dart';
 import 'package:project_d2d/screens/job_details_screen.dart';
-import 'package:project_d2d/screens/logoutscreen.dart';
 import 'package:project_d2d/screens/profile_screen.dart';
 import 'package:project_d2d/screens/settings_screen.dart';
 import 'package:project_d2d/screens/timesheet_screen.dart';
