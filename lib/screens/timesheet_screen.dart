@@ -51,8 +51,9 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       getJob();
-      getDropdownDetails(0);
+      
     });
+    
   }
 
   // void getTimeSheetDetails() {
@@ -864,8 +865,8 @@ class _TimeSheetScreenState extends BaseStatefulState<TimeSheetScreen> {
                               )
                             : Column(
                                 children: [
-                                  Text("No TimeSheet available..."),
-                                  Text("Select a job to view TimeSheet"),
+                                  Text("No TimeSheet available right now..."),
+                                  Text("Please Select a job to view TimeSheet"),
                                 ],
                               )
                       ],
